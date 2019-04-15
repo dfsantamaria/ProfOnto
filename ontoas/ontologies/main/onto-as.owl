@@ -36,6 +36,9 @@
         <Class IRI="#DescriptionObject"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#hasConnection"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#TaskOperator"/>
     </Declaration>
     <Declaration>
@@ -111,7 +114,7 @@
         <Class IRI="#FailedStatus"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Belief"/>
+        <Class IRI="#Connection"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ConditionObject"/>
@@ -330,6 +333,9 @@
         <ObjectProperty IRI="#concerns"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#connectsTo"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#ObjectType"/>
     </Declaration>
     <Declaration>
@@ -352,9 +358,6 @@
     </Declaration>
     <Declaration>
         <Class IRI="#GoalEntrustment"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasBelief"/>
     </Declaration>
     <Declaration>
         <Class IRI="#FeasibilityFalse"/>
@@ -656,8 +659,8 @@
         <ObjectProperty IRI="#fallsWithin"/>
     </TransitiveObjectProperty>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#concerns"/>
-        <Class IRI="#Belief"/>
+        <ObjectProperty IRI="#connectsTo"/>
+        <Class IRI="#Agent"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#entrusts"/>
@@ -668,7 +671,7 @@
         <Class IRI="#Space"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasBelief"/>
+        <ObjectProperty IRI="#hasConnection"/>
         <Class IRI="#Agent"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
@@ -688,16 +691,16 @@
         <Class IRI="#Agent"/>
     </ObjectPropertyDomain>
     <ObjectPropertyRange>
+        <ObjectProperty IRI="#connectsTo"/>
+        <Class IRI="#Connection"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
         <ObjectProperty IRI="#entrusts"/>
         <Class IRI="#EntrustmentObject"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#fallsWithin"/>
         <Class IRI="#Space"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasBelief"/>
-        <Class IRI="#Belief"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasCondition"/>
@@ -726,6 +729,10 @@
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasConditionValue"/>
         <Class IRI="#Value"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasConnection"/>
+        <Class IRI="#Connection"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasFeasibility"/>
@@ -857,16 +864,6 @@
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Belief</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class models the belief knowledge of agents</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#Belief</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Belief</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Condition</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a single conditional</Literal>
     </AnnotationAssertion>
@@ -929,6 +926,16 @@
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#ConditionalPart</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Conditional part</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Connection</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a connection point of an Agent</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Connection</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Connection</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
