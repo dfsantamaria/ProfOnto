@@ -108,6 +108,41 @@ public class OntologyCore
       }
     
     
+    /**
+     * Deletes from the main ontology an  ontology represented by the given file
+     * @param removeFile the ontology to be removed
+     * @return true if the delete has been successifully done
+     */
+    public boolean removeAxioms(File removeFile)
+      {
+        OWLOntologyManager managerMerge=OWLManager.createOWLOntologyManager();         
+        try
+          {
+            OWLOntology removeOntology= managerMerge.loadOntologyFromOntologyDocument(removeFile);
+            return removeAxioms(removeOntology);
+          } 
+        catch (OWLOntologyCreationException ex)
+          {
+            Logger.getLogger(OntologyCore.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+          }
+        
+      }
+    
+    /**
+     * Removes from the main ontology a given  ontology
+     * @param removeOntology the ontology to be removed
+     * @return true if the delete has been successifully done
+     */
+    public boolean removeAxioms(OWLOntology removeOntology)
+      {
+          ChangeApplied changes=getMainOntology().remove(removeOntology.axioms());
+          return changes== ChangeApplied.SUCCESSFULLY;
+      }
+    
+    /*
+    * Private methods follow
+    */
     
     private static OWLNamedIndividual createIndividualInBase(String indIriBase, OWLClass owlclass, OWLOntology ontology, OWLDataFactory datafactory) {
         OWLNamedIndividual individual = datafactory.getOWLNamedIndividual(indIriBase);
