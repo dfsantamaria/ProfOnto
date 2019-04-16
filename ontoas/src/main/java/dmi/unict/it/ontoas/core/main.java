@@ -28,6 +28,6 @@ public class main
           {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
           }
-        System.out.println(ontocore.mainOntology.getAxiomCount());
+        System.out.println(ontocore.getMainOntology().getAxiomCount());
       }
   }
