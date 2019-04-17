@@ -63,6 +63,7 @@ public class OntologyCore
       {
         manager = OWLManager.createOWLOntologyManager(); //create the manager  
         datafactory = manager.getOWLDataFactory();
+        mainOntology=null;
       }
     
     /**
