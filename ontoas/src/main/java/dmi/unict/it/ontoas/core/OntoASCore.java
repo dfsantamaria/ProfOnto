@@ -87,14 +87,14 @@ public class OntoASCore extends OntologyCore
      * Inserts a new device
      * @param ontologyData the string representing the ontology data
      */
-    public void insertDevice(String ontologyData)
+    public void insertDevice(String ontologyData, String devID)
     {         
       String id= "dev"+ new Timestamp(new Date().getTime()).toString();      
       File file=new File(getDevicePath().toString()+id);  
         try
           {
             FileWriter fwrite=new FileWriter(file);            
-            fwrite.write(ontologyData);
+            fwrite.write(ontologyData.replace(devID, id));
             OWLOntology tmp=this.getMainManager().loadOntologyFromOntologyDocument(file);       
             this.getDevices().put(id, new Pair(tmp,file));  
           } 
