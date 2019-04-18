@@ -10,6 +10,8 @@ import java.util.Date;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
@@ -41,6 +43,11 @@ public class OntoASCore extends OntologyCore
          configuration=conf;
       }
     
+     public ArrayList getConfiguration()
+      {
+         return configuration;
+      }
+    
     /**
      * Sets the dataset ontology from file
      * @param inputFile the file serializing the ontology
@@ -69,18 +76,24 @@ public class OntoASCore extends OntologyCore
         return devices;
      }
     
+    
+    private Path getDevicePath()
+      {
+       String path=Paths.get("").toAbsolutePath().toString()+File.pathSeparator+getConfiguration().get(0)+File.pathSeparator+getConfiguration().get(1)+File.pathSeparator;
+       return Paths.get(path);
+      }
+    
     /**
      * Inserts a new device
      * @param ontologyData the string representing the ontology data
      */
     public void insertDevice(String ontologyData)
     {         
-      String id= "dev"+ new Timestamp(new Date().getTime()).toString();
-      File file=new File(id);      
+      String id= "dev"+ new Timestamp(new Date().getTime()).toString();      
+      File file=new File(getDevicePath().toString()+id);  
         try
           {
-            FileWriter fwrite=new FileWriter(file);
-            
+            FileWriter fwrite=new FileWriter(file);            
             fwrite.write(ontologyData);
             OWLOntology tmp=this.getMainManager().loadOntologyFromOntologyDocument(file);       
             this.getDevices().put(id, new Pair(tmp,file));  
