@@ -8,17 +8,28 @@ import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 import javafx.util.Pair;
+import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
  *
@@ -83,28 +94,42 @@ public class OntoASCore extends OntologyCore
        return Paths.get(path);
       }
     
+       
+    /**
+     * insert a new device given its ontology and configuration settings
+     * @param ontologyData the string representing the ontology data
+     * @param toconfigure the configurable parameters
+     * @param configuration the configured parameters
+     */
+    private void insertDevice(InputStream ontologyData, String[] toconfigure, String[]configuration) throws OWLOntologyCreationException
+    {          
+      OWLOntologyManager manager= OWLManager.createOWLOntologyManager();
+      OWLOntology localonto=manager.loadOntologyFromOntologyDocument(ontologyData);
+      //change here
+      String id= "dev"+ new Timestamp(new Date().getTime()).toString();
+        // stop change      
+      insertDevice(localonto.axioms(), id);
+    }
+    
+    
     /**
      * Inserts a new device
      * @param ontologyData the string representing the ontology data
-     * @param devID the id provided by the device
+     * @param devID the id locally defined
      */
-    public void insertDevice(String ontologyData, String devID)
-    {         
-      String id= "dev"+ new Timestamp(new Date().getTime()).toString();      
+    private void insertDevice(Stream<OWLAxiom> ontologyData, String id) 
+    {        
       File file=new File(getDevicePath().toString()+id);  
         try
-          {
-            FileWriter fwrite=new FileWriter(file);            
-            fwrite.write(ontologyData.replace(devID, id));
-            OWLOntology tmp=this.getMainManager().loadOntologyFromOntologyDocument(file);       
+          {                       
+            OWLOntology tmp=this.getMainManager().createOntology(ontologyData);
+            this.getMainManager().saveOntology(tmp, new OWLXMLDocumentFormat(), new FileOutputStream(file));
             this.getDevices().put(id, new Pair(tmp,file));  
           } 
-        catch (IOException | OWLOntologyCreationException ex)
+        catch (IOException | OWLOntologyCreationException | OWLOntologyStorageException ex)
           {
             Logger.getLogger(OntoASCore.class.getName()).log(Level.SEVERE, null, ex);
-          }
-      
-          
+          }          
     }
     
     /**
