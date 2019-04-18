@@ -7,6 +7,8 @@ package dmi.unict.it.ontoas.main;
 
 import dmi.unict.it.ontoas.core.OntoASCore;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -26,11 +28,15 @@ public class main
           {
             ontocore.setMainOntology(ontoFile);
             ontocore.setDatasetOntology(dataFile);
+            ontocore.setConfiguration(new ArrayList<>(Arrays.asList("config","devices")));
+            
+            
           } 
         catch (OWLOntologyCreationException ex)
           {
             Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
           }
         System.out.println(ontocore.getMainOntology().getAxiomCount());
+        
       }
   }
