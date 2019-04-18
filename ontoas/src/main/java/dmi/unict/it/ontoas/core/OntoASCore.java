@@ -86,6 +86,7 @@ public class OntoASCore extends OntologyCore
     /**
      * Inserts a new device
      * @param ontologyData the string representing the ontology data
+     * @param devID the id provided by the device
      */
     public void insertDevice(String ontologyData, String devID)
     {         
