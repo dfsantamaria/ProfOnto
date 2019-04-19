@@ -46,7 +46,7 @@ public class mainTest
                 input+=line;
             }            
             bufferedReader.close();
-            inputstream=new ByteArrayInputStream(Charset.forName("UTF-16").encode(input).array());
+            inputstream=new ByteArrayInputStream(input.getBytes());
         }
         catch (IOException ex) {
             Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
