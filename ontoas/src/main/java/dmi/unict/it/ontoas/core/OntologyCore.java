@@ -8,9 +8,7 @@ package dmi.unict.it.ontoas.core;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Stream;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
@@ -167,15 +165,4 @@ public class OntologyCore
                 datafactory.getOWLLiteral(value, datatype)));
     }
     
-    /**
-     * Puts in the given ontology the axioms provided by a stream
-     * @param ontology the ontology
-     * @param axioms the stream of axioms to insert in the ontology
-     * @return an ontology containing the given axioms
-     */
-    public OWLOntology insertAxiomsInOntology(OWLOntology ontology, Stream<OWLAxiom> axioms)
-    {
-      ontology.addAxioms(axioms);
-      return ontology;
-    }
-  }
+ }

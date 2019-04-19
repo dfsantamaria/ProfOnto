@@ -28,7 +28,7 @@ public class main
           {
             ontocore.setMainOntology(ontoFile);
             ontocore.setDatasetOntology(dataFile);
-            ontocore.setConfiguration(new ArrayList<>(Arrays.asList("config","devices")));
+            //ontocore.setConfiguration(new ArrayList<>(Arrays.asList("config","devices")));
             
             
           } 

@@ -4,15 +4,11 @@
  * and open the template in the editor.
  */
 package dmi.unict.it.ontoas.core;
-import java.sql.Timestamp;
-import java.util.Date;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -23,6 +19,7 @@ import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 
 /**
  *
@@ -32,25 +29,21 @@ public class OntoASCore extends OntologyCore
   {
     private HashMap<String, Pair<OWLOntology,File>> devices; 
     private OWLOntology dataset;
-    private ArrayList <String> configuration;
-    
+    private Configuration configuration;
     public OntoASCore()
        {
          super();
          devices=new HashMap<>();
-         dataset=null;
-         configuration=new ArrayList<>();        
+         int paths=3;
+         configuration=new Configuration(paths);         
+         dataset=null;                 
        }
-    
-    public void setConfiguration(ArrayList<String> conf)
-      {
-         configuration=conf;
-      }
-    
-     public ArrayList getConfiguration()
-      {
-         return configuration;
-      }
+  
+    private Configuration getConfiguration(){return configuration;}
+    public void setMainOntologiesPath(Path path){this.getConfiguration().getPaths()[0]=path;}
+    public Path getMainOntologiesPath(){return this.getConfiguration().getPaths()[0];}
+    public void setOntologiesDevicesPath(Path path){this.getConfiguration().getPaths()[1]=path;}
+    public Path getOntologiesDevicesPath(){return this.getConfiguration().getPaths()[1];}
     
     /**
      * Sets the dataset ontology from file
@@ -79,45 +72,42 @@ public class OntoASCore extends OntologyCore
      {
         return devices;
      }
-    
-    
-    private Path getDevicePath()
-      {
-       String path=Paths.get("").toAbsolutePath().toString()+File.pathSeparator+getConfiguration().get(0)+File.pathSeparator+getConfiguration().get(1)+File.pathSeparator;
-       return Paths.get(path);
-      }
-        
+       
      
-    private OWLOntology configureDevice(OWLOntology ontodevice)
-    {
-      Stream<OWLAxiom> axioms=Stream.empty();
-        //Edit here to get configuration data from user        //
-      ontodevice=insertAxiomsInOntology(ontodevice, axioms);
+    public OWLOntology configureDevice(OWLOntology ontodevice, Stream<OWLAxiom> axioms)
+    {      
+      //Edit here to get configuration data from user        //
+      ChangeApplied changes=ontodevice.addAxioms(axioms);      
+      try {            
+            this.getMainManager().saveOntology(ontodevice);
+        } catch (OWLOntologyStorageException ex) {
+            Logger.getLogger(OntoASCore.class.getName()).log(Level.SEVERE, null, ex);
+        }
       return ontodevice;
     }
     
        
     /**
      * insert a new device given its ontology data
-     * @param ontologyData the string representing the ontology data
+     * @param ontologyData the inputstream representing the ontology data
+     * @param id the name of the ontology file representing the device
+     * @return the created ontology
    */
-    public void insertDevice(InputStream ontologyData)
+    public OWLOntology addDevice(InputStream ontologyData, String id)
     { 
+        OWLOntology ontodevice=null;
         try
           {      
-      OWLOntology ontodevice=this.getMainManager().loadOntologyFromOntologyDocument(ontologyData);
-      //change here
-      String id= "dev"+ new Timestamp(new Date().getTime()).toString();
-        // stop change   
-      ontodevice=configureDevice(ontodevice);
-      File file=new File(getDevicePath().toString()+id);                
-      this.getMainManager().saveOntology(ontodevice, new OWLXMLDocumentFormat(), new FileOutputStream(file));
-      this.getDevices().put(id, new Pair(ontodevice,file));  
-      } 
+            ontodevice=this.getMainManager().loadOntologyFromOntologyDocument(ontologyData);
+            File file=new File(getOntologiesDevicesPath()+File.separator+id);                
+            this.getMainManager().saveOntology(ontodevice, new OWLXMLDocumentFormat(), new FileOutputStream(file));
+            this.getDevices().put(id, new Pair(ontodevice,file));  
+           } 
         catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
           {
             Logger.getLogger(OntoASCore.class.getName()).log(Level.SEVERE, null, ex);
-          }  
+          }
+        return ontodevice;
     }
     
     

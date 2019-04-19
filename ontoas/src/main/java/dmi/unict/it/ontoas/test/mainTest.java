@@ -14,10 +14,16 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 
 /**
@@ -58,15 +64,22 @@ public class mainTest
           {
             ontocore.setMainOntology(ontoFile);
             ontocore.setDatasetOntology(dataFile);
-            ontocore.setConfiguration(new ArrayList<>(Arrays.asList("config","devices")));
+            ontocore.setOntologiesDevicesPath(Paths.get("ontologies"+File.separator+"devices"));
+            ontocore.setMainOntologiesPath(Paths.get("ontologies"+File.separator+"main"));
             
-            
+            //ontocore.setConfiguration(new ArrayList<>(Arrays.asList("config")));            
           } 
         catch (OWLOntologyCreationException ex)
           {
             Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
           }
         System.out.println(ontocore.getMainOntology().getAxiomCount());
+        
+        //
+        String id= "dev"+ new Timestamp(new Date().getTime()).toString().replace(" ","").replace(":","").replace(".","");
+        Stream<OWLAxiom> axioms=Stream.empty();
+        InputStream ontologyData=readData("ontologies/test/lightagent.owl");
+        ontocore.addDevice(ontologyData, id);
         
       }
   }
