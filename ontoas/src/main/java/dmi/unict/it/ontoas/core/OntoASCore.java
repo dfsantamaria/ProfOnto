@@ -93,45 +93,42 @@ public class OntoASCore extends OntologyCore
        String path=Paths.get("").toAbsolutePath().toString()+File.pathSeparator+getConfiguration().get(0)+File.pathSeparator+getConfiguration().get(1)+File.pathSeparator;
        return Paths.get(path);
       }
+        
+     
+    private OWLOntology configureDevice(OWLOntology ontodevice)
+    {
+      Stream<OWLAxiom> axioms=Stream.empty();
+        //Edit here to get configuration data from user        //
+      ontodevice=insertAxiomsInOntology(ontodevice, axioms);
+      return ontodevice;
+    }
     
        
     /**
-     * insert a new device given its ontology and configuration settings
+     * insert a new device given its ontology data
      * @param ontologyData the string representing the ontology data
-     * @param toconfigure the configurable parameters
-     * @param configuration the configured parameters
-     */
-    private void insertDevice(InputStream ontologyData, String[] toconfigure, String[]configuration) throws OWLOntologyCreationException
-    {          
-      OWLOntologyManager manager= OWLManager.createOWLOntologyManager();
-      OWLOntology localonto=manager.loadOntologyFromOntologyDocument(ontologyData);
+   */
+    public void insertDevice(InputStream ontologyData)
+    { 
+        try
+          {      
+      OWLOntology ontodevice=this.getMainManager().loadOntologyFromOntologyDocument(ontologyData);
       //change here
       String id= "dev"+ new Timestamp(new Date().getTime()).toString();
-        // stop change      
-      insertDevice(localonto.axioms(), id);
-    }
-    
-    
-    /**
-     * Inserts a new device
-     * @param ontologyData the string representing the ontology data
-     * @param devID the id locally defined
-     */
-    private void insertDevice(Stream<OWLAxiom> ontologyData, String id) 
-    {        
-      File file=new File(getDevicePath().toString()+id);  
-        try
-          {                       
-            OWLOntology tmp=this.getMainManager().createOntology(ontologyData);
-            this.getMainManager().saveOntology(tmp, new OWLXMLDocumentFormat(), new FileOutputStream(file));
-            this.getDevices().put(id, new Pair(tmp,file));  
-          } 
-        catch (IOException | OWLOntologyCreationException | OWLOntologyStorageException ex)
+        // stop change   
+      ontodevice=configureDevice(ontodevice);
+      File file=new File(getDevicePath().toString()+id);                
+      this.getMainManager().saveOntology(ontodevice, new OWLXMLDocumentFormat(), new FileOutputStream(file));
+      this.getDevices().put(id, new Pair(ontodevice,file));  
+      } 
+        catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
           {
             Logger.getLogger(OntoASCore.class.getName()).log(Level.SEVERE, null, ex);
-          }          
+          }  
     }
     
+    
+   
     /**
      * Returns the ontology corresponding to the given device id
      * @param id the id of the device
@@ -152,5 +149,7 @@ public class OntoASCore extends OntologyCore
        this.getMainManager().removeOntology((OWLOntology)tmp.getKey());
        ((File)tmp.getValue()).delete();
     }
+
+    
             
   }

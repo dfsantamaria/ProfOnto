@@ -8,7 +8,9 @@ package dmi.unict.it.ontoas.core;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
@@ -141,31 +143,39 @@ public class OntologyCore
           return changes== ChangeApplied.SUCCESSFULLY;
       }
     
-    /*
-    * Private methods follow
-    */
-    
-    private static OWLNamedIndividual createIndividualInBase(String indIriBase, OWLClass owlclass, OWLOntology ontology, OWLDataFactory datafactory) {
+      
+    public OWLNamedIndividual createIndividualInBase(String indIriBase, OWLClass owlclass, OWLOntology ontology, OWLDataFactory datafactory) {
         OWLNamedIndividual individual = datafactory.getOWLNamedIndividual(indIriBase);
         ontology.addAxiom(datafactory.getOWLClassAssertionAxiom(owlclass, individual));
         return individual;
     }
 
-    private static OWLNamedIndividual createIndividualInBase(String indIriBase, String classIriBase, OWLOntology ontology, OWLDataFactory datafactory) {
+    public OWLNamedIndividual createIndividualInBase(String indIriBase, String classIriBase, OWLOntology ontology, OWLDataFactory datafactory) {
         OWLNamedIndividual individual = datafactory.getOWLNamedIndividual(indIriBase);
         ontology.addAxiom(datafactory.getOWLClassAssertionAxiom(datafactory.getOWLClass(classIriBase), individual));
         return individual;
     }
 
-    private static void createObjectPropertyAssertionAxiom(String property, OWLNamedIndividual subject, OWLNamedIndividual object, OWLOntology ontology, OWLDataFactory datafactory) {
+    public void createObjectPropertyAssertionAxiom(String property, OWLNamedIndividual subject, OWLNamedIndividual object, OWLOntology ontology, OWLDataFactory datafactory) {
         ontology.addAxiom(datafactory.getOWLObjectPropertyAssertionAxiom(
                 datafactory.getOWLObjectProperty(property), subject, object));
     }
 
-    private static void createDataPropertyAssertionAxiom(String property, OWLNamedIndividual individual, String value, OWL2Datatype datatype, OWLOntology ontology, OWLDataFactory datafactory) {
+    public void createDataPropertyAssertionAxiom(String property, OWLNamedIndividual individual, String value, OWL2Datatype datatype, OWLOntology ontology, OWLDataFactory datafactory) {
         ontology.addAxiom(datafactory.getOWLDataPropertyAssertionAxiom(
                 datafactory.getOWLDataProperty(property), individual,
                 datafactory.getOWLLiteral(value, datatype)));
     }
     
+    /**
+     * Puts in the given ontology the axioms provided by a stream
+     * @param ontology the ontology
+     * @param axioms the stream of axioms to insert in the ontology
+     * @return an ontology containing the given axioms
+     */
+    public OWLOntology insertAxiomsInOntology(OWLOntology ontology, Stream<OWLAxiom> axioms)
+    {
+      ontology.addAxioms(axioms);
+      return ontology;
+    }
   }
