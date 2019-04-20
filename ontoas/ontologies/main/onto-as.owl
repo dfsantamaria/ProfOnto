@@ -121,6 +121,9 @@ Ontology engineering by Simon J D Cox</Literal>
         <ObjectProperty IRI="http://www.w3.org/2006/time#intervalBefore"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#Agent_Configuration"/>
+    </Declaration>
+    <Declaration>
         <DataProperty IRI="http://www.w3.org/2006/time#seconds"/>
     </Declaration>
     <Declaration>
@@ -130,10 +133,10 @@ Ontology engineering by Simon J D Cox</Literal>
         <ObjectProperty IRI="#hasStatus"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#greatherEqual"/>
+        <ObjectProperty IRI="#fallsWithin"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#fallsWithin"/>
+        <NamedIndividual IRI="#greatherEqual"/>
     </Declaration>
     <Declaration>
         <Datatype IRI="http://www.w3.org/2006/time#generalYear"/>
@@ -151,10 +154,16 @@ Ontology engineering by Simon J D Cox</Literal>
         <ObjectProperty IRI="#hasSpaceType"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#EnviromentComponent"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#ConditionOperator"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="http://www.w3.org/2006/time#numericDuration"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Configuration"/>
     </Declaration>
     <Declaration>
         <Class IRI="#SoftwareAgent"/>
@@ -187,6 +196,9 @@ Ontology engineering by Simon J D Cox</Literal>
         <Class IRI="#Behavior"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#Component"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#DataOperator"/>
     </Declaration>
     <Declaration>
@@ -214,10 +226,13 @@ Ontology engineering by Simon J D Cox</Literal>
         <Class IRI="http://www.w3.org/2006/time#Instant"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#PlanEntrustment"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="http://www.w3.org/2006/time#TRS"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#PlanEntrustment"/>
+        <ObjectProperty IRI="#configurationProvidedBy"/>
     </Declaration>
     <Declaration>
         <Class IRI="#SpaceType"/>
@@ -283,10 +298,10 @@ Ontology engineering by Simon J D Cox</Literal>
         <DataProperty IRI="http://www.w3.org/2006/time#inXSDgYear"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="http://www.w3.org/2006/time#intervalAfter"/>
+        <NamedIndividual IRI="#exists"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#exists"/>
+        <ObjectProperty IRI="http://www.w3.org/2006/time#intervalAfter"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="http://www.w3.org/2006/time#hour"/>
@@ -298,10 +313,10 @@ Ontology engineering by Simon J D Cox</Literal>
         <ObjectProperty IRI="#hasFeasibility"/>
     </Declaration>
     <Declaration>
-        <Class IRI="http://www.w3.org/2006/time#MonthOfYear"/>
+        <ObjectProperty IRI="http://www.w3.org/2006/time#intervalMetBy"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="http://www.w3.org/2006/time#intervalMetBy"/>
+        <Class IRI="http://www.w3.org/2006/time#MonthOfYear"/>
     </Declaration>
     <Declaration>
         <Class IRI="#TemporaryStatus"/>
@@ -319,10 +334,10 @@ Ontology engineering by Simon J D Cox</Literal>
         <Class IRI="#Agent"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="http://www.w3.org/2006/time#numericPosition"/>
+        <Class IRI="#OpportunityValue"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#OpportunityValue"/>
+        <DataProperty IRI="http://www.w3.org/2006/time#numericPosition"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasTaskObject"/>
@@ -343,10 +358,10 @@ Ontology engineering by Simon J D Cox</Literal>
         <ObjectProperty IRI="http://www.w3.org/2006/time#hasTime"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Status"/>
+        <Class IRI="#ConditionSet"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ConditionSet"/>
+        <Class IRI="#Status"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#isDescribedBy"/>
@@ -394,10 +409,10 @@ Ontology engineering by Simon J D Cox</Literal>
         <DataProperty IRI="http://www.w3.org/2006/time#hours"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#requests"/>
+        <ObjectProperty IRI="#hasScheduling"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasScheduling"/>
+        <ObjectProperty IRI="#requests"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Type"/>
@@ -418,10 +433,10 @@ Ontology engineering by Simon J D Cox</Literal>
         <ObjectProperty IRI="http://www.w3.org/2006/time#inTemporalPosition"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ObjectType"/>
+        <ObjectProperty IRI="#connectsTo"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#connectsTo"/>
+        <Class IRI="#ObjectType"/>
     </Declaration>
     <Declaration>
         <Class IRI="http://www.w3.org/2006/time#DayOfWeek"/>
@@ -430,10 +445,10 @@ Ontology engineering by Simon J D Cox</Literal>
         <ObjectProperty IRI="http://www.w3.org/2006/time#intervalFinishedBy"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#FeasibilityTrue"/>
+        <ObjectProperty IRI="http://www.w3.org/2006/time#intervalEquals"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="http://www.w3.org/2006/time#intervalEquals"/>
+        <Class IRI="#FeasibilityTrue"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Sensor"/>
@@ -469,6 +484,9 @@ Ontology engineering by Simon J D Cox</Literal>
         <ObjectProperty IRI="#hasSubject"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#hasBehavior"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="http://www.w3.org/2006/time#Duration"/>
     </Declaration>
     <Declaration>
@@ -487,13 +505,16 @@ Ontology engineering by Simon J D Cox</Literal>
         <Datatype IRI="http://www.w3.org/2006/time#generalDay"/>
     </Declaration>
     <Declaration>
-        <Class IRI="http://www.w3.org/2006/time#DurationDescription"/>
+        <ObjectProperty IRI="#hasGoalDescription"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#HomeObjectType"/>
     </Declaration>
     <Declaration>
         <Class IRI="#SpaceOperator"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#HomeObjectType"/>
+        <Class IRI="http://www.w3.org/2006/time#DurationDescription"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Human"/>
@@ -502,16 +523,16 @@ Ontology engineering by Simon J D Cox</Literal>
         <Class IRI="#TaskExecution"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasImplementation"/>
-    </Declaration>
-    <Declaration>
         <ObjectProperty IRI="http://www.w3.org/2006/time#dayOfWeek"/>
     </Declaration>
     <Declaration>
-        <Class IRI="http://www.w3.org/2006/time#GeneralDateTimeDescription"/>
+        <ObjectProperty IRI="#hasImplementation"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#involves"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.w3.org/2006/time#GeneralDateTimeDescription"/>
     </Declaration>
     <Declaration>
         <Class IRI="http://www.w3.org/2006/time#TemporalPosition"/>
@@ -541,10 +562,10 @@ Ontology engineering by Simon J D Cox</Literal>
         <ObjectProperty IRI="#hasConditionObject"/>
     </Declaration>
     <Declaration>
-        <Class IRI="http://www.w3.org/2006/time#Year"/>
+        <NamedIndividual IRI="#timeSpan"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#timeSpan"/>
+        <Class IRI="http://www.w3.org/2006/time#Year"/>
     </Declaration>
     <Declaration>
         <Class IRI="#UrbanObjectType"/>
@@ -562,10 +583,10 @@ Ontology engineering by Simon J D Cox</Literal>
         <DataProperty IRI="http://www.w3.org/2006/time#week"/>
     </Declaration>
     <Declaration>
-        <Class IRI="http://www.w3.org/2006/time#DateTimeInterval"/>
+        <Class IRI="#TimeOperator"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#TimeOperator"/>
+        <Class IRI="http://www.w3.org/2006/time#DateTimeInterval"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.w3.org/2006/time#intervalOverlappedBy"/>
@@ -580,10 +601,10 @@ Ontology engineering by Simon J D Cox</Literal>
         <NamedIndividual IRI="#equal"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="http://www.w3.org/2006/time#day"/>
+        <Class IRI="http://www.w3.org/2006/time#TimeZone"/>
     </Declaration>
     <Declaration>
-        <Class IRI="http://www.w3.org/2006/time#TimeZone"/>
+        <DataProperty IRI="http://www.w3.org/2006/time#day"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.w3.org/2006/time#hasDurationDescription"/>
@@ -596,6 +617,12 @@ Ontology engineering by Simon J D Cox</Literal>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#lessEqual"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasType"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasConfiguration"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.w3.org/2006/time#intervalFinishes"/>
@@ -613,10 +640,10 @@ Ontology engineering by Simon J D Cox</Literal>
         <DataProperty IRI="http://www.w3.org/2006/time#second"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="http://www.w3.org/2006/time#monthOfYear"/>
+        <DataProperty IRI="http://www.w3.org/2006/time#minute"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="http://www.w3.org/2006/time#minute"/>
+        <ObjectProperty IRI="http://www.w3.org/2006/time#monthOfYear"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ExistentialOperator"/>
@@ -637,10 +664,10 @@ Ontology engineering by Simon J D Cox</Literal>
         <Class IRI="#GoalDescription"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasTaskExecution"/>
+        <Class IRI="#Task"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Task"/>
+        <ObjectProperty IRI="#hasTaskExecution"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Condition"/>
@@ -649,10 +676,10 @@ Ontology engineering by Simon J D Cox</Literal>
         <Class IRI="#ExecutionObject"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#concerns"/>
+        <DataProperty IRI="http://www.w3.org/2006/time#nominalPosition"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="http://www.w3.org/2006/time#nominalPosition"/>
+        <ObjectProperty IRI="#concerns"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="http://www.w3.org/2006/time#weeks"/>
@@ -667,10 +694,10 @@ Ontology engineering by Simon J D Cox</Literal>
         <Class IRI="#ConditionalPart"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="http://www.w3.org/2006/time#intervalMeets"/>
+        <Class IRI="http://www.w3.org/2006/time#DateTimeDescription"/>
     </Declaration>
     <Declaration>
-        <Class IRI="http://www.w3.org/2006/time#DateTimeDescription"/>
+        <ObjectProperty IRI="http://www.w3.org/2006/time#intervalMeets"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasSpaceSpan"/>
@@ -703,10 +730,10 @@ Ontology engineering by Simon J D Cox</Literal>
         <AnnotationProperty IRI="http://purl.org/dc/terms/isVersionOf"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="http://www.w3.org/2006/time#unitMonth"/>
+        <NamedIndividual IRI="http://www.w3.org/2006/time#Sunday"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="http://www.w3.org/2006/time#Sunday"/>
+        <NamedIndividual IRI="http://www.w3.org/2006/time#unitMonth"/>
     </Declaration>
     <Declaration>
         <Datatype abbreviatedIRI="xsd:date"/>
@@ -824,6 +851,10 @@ Ontology engineering by Simon J D Cox</Literal>
         <Class IRI="#ActivationStatus"/>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#Agent_Configuration"/>
+        <Class IRI="#Configuration"/>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#Condition"/>
         <Class IRI="#ConditionalPart"/>
     </SubClassOf>
@@ -862,6 +893,10 @@ Ontology engineering by Simon J D Cox</Literal>
     <SubClassOf>
         <Class IRI="#Device"/>
         <Class IRI="#Robot"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#EnviromentComponent"/>
+        <Class IRI="#Component"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#ExistentialOperator"/>
@@ -1899,6 +1934,10 @@ Ontology engineering by Simon J D Cox</Literal>
         <ObjectProperty IRI="http://www.w3.org/2006/time#before"/>
     </TransitiveObjectProperty>
     <ObjectPropertyDomain>
+        <ObjectProperty IRI="#configurationProvidedBy"/>
+        <Class IRI="#Configuration"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
         <ObjectProperty IRI="#connectsTo"/>
         <Class IRI="#Agent"/>
     </ObjectPropertyDomain>
@@ -1911,12 +1950,20 @@ Ontology engineering by Simon J D Cox</Literal>
         <Class IRI="#Space"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasConnection"/>
+        <ObjectProperty IRI="#hasBehavior"/>
         <Class IRI="#Agent"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasConnection"/>
+        <Class IRI="#Agent_Configuration"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasGeometricExtension"/>
         <Class IRI="#PhysicalSpace"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasGoalDescription"/>
+        <Class IRI="#Behavior"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasScheduling"/>
@@ -2057,6 +2104,10 @@ Ontology engineering by Simon J D Cox</Literal>
         </ObjectUnionOf>
     </ObjectPropertyDomain>
     <ObjectPropertyRange>
+        <ObjectProperty IRI="#configurationProvidedBy"/>
+        <Class IRI="#Agent"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
         <ObjectProperty IRI="#connectsTo"/>
         <Class IRI="#Connection"/>
     </ObjectPropertyRange>
@@ -2067,6 +2118,10 @@ Ontology engineering by Simon J D Cox</Literal>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#fallsWithin"/>
         <Class IRI="#Space"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasBehavior"/>
+        <Class IRI="#Behavior"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasCondition"/>
@@ -2097,6 +2152,10 @@ Ontology engineering by Simon J D Cox</Literal>
         <Class IRI="#Value"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasConfiguration"/>
+        <Class IRI="#Configuration"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
         <ObjectProperty IRI="#hasConnection"/>
         <Class IRI="#Connection"/>
     </ObjectPropertyRange>
@@ -2107,6 +2166,10 @@ Ontology engineering by Simon J D Cox</Literal>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasGeometricExtension"/>
         <Class IRI="#GeometricExtension"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasGoalDescription"/>
+        <Class IRI="#GoalDescription"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasImplementation"/>
@@ -2155,6 +2218,10 @@ Ontology engineering by Simon J D Cox</Literal>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasTimeSpan"/>
         <Class IRI="http://www.w3.org/2006/time#TemporalEntity"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasType"/>
+        <Class IRI="#Type"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#triggers"/>
@@ -2544,6 +2611,16 @@ Ontology engineering by Simon J D Cox</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Agent_Configuration</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes an agent configuration object</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Agent_Configuration</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Agent Configuration</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Behavior</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes an agent behavior</Literal>
     </AnnotationAssertion>
@@ -2551,6 +2628,16 @@ Ontology engineering by Simon J D Cox</Literal>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Behavior</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Behavior</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Component</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class descrives general component</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Component</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Component</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -2619,6 +2706,16 @@ Ontology engineering by Simon J D Cox</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#Configuration</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a configuration object</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#Configuration</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Configuration</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Connection</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a connection point of an Agent</Literal>
     </AnnotationAssertion>
@@ -2676,6 +2773,16 @@ Ontology engineering by Simon J D Cox</Literal>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#EntrustmentObject</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Entrustment object</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#EnviromentComponent</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes enviroment components</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#EnviromentComponent</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Enviroment component</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -5579,17 +5686,17 @@ The range of this property is not specified, so can be replaced by any specific 
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="xsd:pattern"/>
-        <AnonymousIndividual nodeID="_:genid72"/>
+        <AnonymousIndividual nodeID="_:genid528"/>
         <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">---(0[1-9]|[1-9][0-9])(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="xsd:pattern"/>
-        <AnonymousIndividual nodeID="_:genid73"/>
+        <AnonymousIndividual nodeID="_:genid529"/>
         <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">--(0[1-9]|1[0-9]|20)(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="xsd:pattern"/>
-        <AnonymousIndividual nodeID="_:genid74"/>
+        <AnonymousIndividual nodeID="_:genid530"/>
         <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">-?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?</Literal>
     </AnnotationAssertion>
     <AnnotationPropertyRange>

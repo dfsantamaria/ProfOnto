@@ -44,9 +44,11 @@ public class mainTest
             while((line = bufferedReader.readLine()) != null)
             {
                 input+=line;
-            }            
+            }       
+            fileReader.close();
             bufferedReader.close();
             inputstream=new ByteArrayInputStream(input.getBytes());
+            inputstream.close();
         }
         catch (IOException ex) {
             Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
@@ -80,6 +82,7 @@ public class mainTest
         Stream<OWLAxiom> axioms=Stream.empty();
         InputStream ontologyData=readData("ontologies/test/lightagent.owl");
         ontocore.addDevice(ontologyData, id);
+        ontocore.removePermanentDevice(id);
         
       }
   }

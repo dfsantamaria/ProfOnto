@@ -98,10 +98,12 @@ public class OntoASCore extends OntologyCore
         OWLOntology ontodevice=null;
         try
           {      
-            ontodevice=this.getMainManager().loadOntologyFromOntologyDocument(ontologyData);
-            File file=new File(getOntologiesDevicesPath()+File.separator+id);                
-            this.getMainManager().saveOntology(ontodevice, new OWLXMLDocumentFormat(), new FileOutputStream(file));
+            ontodevice=this.getMainManager().loadOntologyFromOntologyDocument(ontologyData);            
+            File file=new File(getOntologiesDevicesPath()+File.separator+id+".owl");        
+            FileOutputStream outStream=new FileOutputStream(file);
+            this.getMainManager().saveOntology(ontodevice, new OWLXMLDocumentFormat(), outStream);
             this.getDevices().put(id, new Pair(ontodevice,file));  
+            outStream.close();
            } 
         catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
           {
@@ -131,6 +133,7 @@ public class OntoASCore extends OntologyCore
        Pair tmp= (Pair<OWLOntology, File>)this.getDevices().remove(id);
        this.getMainManager().removeOntology((OWLOntology)tmp.getKey());
        ((File)tmp.getValue()).delete();
+       
     }
 
     

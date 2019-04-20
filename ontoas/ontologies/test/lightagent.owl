@@ -6,12 +6,145 @@
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      ontologyIRI="http://www.dmi.unict.it/lightagent.owl">
+    <Prefix name="" IRI="http://www.dmi.unict.it/lightagent.owl"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Import>http://www.dmi.unict.it/profeta.owl/0.0.1</Import>
+    <Declaration>
+        <NamedIndividual IRI="#turn_off"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#light-device-turnon-behavior"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#LA-turnoff-goaldescription"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#LA-turnon-taskdescription"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#LightObjectType"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#turn_on"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#LA-turnon-goaldescription"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#light-device-light1"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#LA-turnoff-taskdescription"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#light-device"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#light-device-turnoff-behavior"/>
+    </Declaration>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#GoalDescription"/>
+        <NamedIndividual IRI="#LA-turnoff-goaldescription"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#TaskDescription"/>
+        <NamedIndividual IRI="#LA-turnoff-taskdescription"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#GoalDescription"/>
+        <NamedIndividual IRI="#LA-turnon-goaldescription"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#TaskDescription"/>
+        <NamedIndividual IRI="#LA-turnon-taskdescription"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#HomeObjectType"/>
+        <NamedIndividual IRI="#LightObjectType"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#Device"/>
+        <NamedIndividual IRI="#light-device"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#EnviromentComponent"/>
+        <NamedIndividual IRI="#light-device-light1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#Behavior"/>
+        <NamedIndividual IRI="#light-device-turnoff-behavior"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#Behavior"/>
+        <NamedIndividual IRI="#light-device-turnon-behavior"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#TaskOperator"/>
+        <NamedIndividual IRI="#turn_off"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#TaskOperator"/>
+        <NamedIndividual IRI="#turn_on"/>
+    </ClassAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskDescription"/>
+        <NamedIndividual IRI="#LA-turnoff-goaldescription"/>
+        <NamedIndividual IRI="#LA-turnoff-taskdescription"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskOperator"/>
+        <NamedIndividual IRI="#LA-turnoff-taskdescription"/>
+        <NamedIndividual IRI="#turn_off"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskSubject"/>
+        <NamedIndividual IRI="#LA-turnoff-taskdescription"/>
+        <NamedIndividual IRI="#light-device-light1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskDescription"/>
+        <NamedIndividual IRI="#LA-turnon-goaldescription"/>
+        <NamedIndividual IRI="#LA-turnon-taskdescription"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskOperator"/>
+        <NamedIndividual IRI="#LA-turnon-taskdescription"/>
+        <NamedIndividual IRI="#turn_on"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskSubject"/>
+        <NamedIndividual IRI="#LA-turnon-taskdescription"/>
+        <NamedIndividual IRI="#light-device-light1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasBehavior"/>
+        <NamedIndividual IRI="#light-device"/>
+        <NamedIndividual IRI="#light-device-turnoff-behavior"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasBehavior"/>
+        <NamedIndividual IRI="#light-device"/>
+        <NamedIndividual IRI="#light-device-turnon-behavior"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasType"/>
+        <NamedIndividual IRI="#light-device-light1"/>
+        <NamedIndividual IRI="#LightObjectType"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasGoalDescription"/>
+        <NamedIndividual IRI="#light-device-turnoff-behavior"/>
+        <NamedIndividual IRI="#LA-turnoff-goaldescription"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasGoalDescription"/>
+        <NamedIndividual IRI="#light-device-turnon-behavior"/>
+        <NamedIndividual IRI="#LA-turnon-goaldescription"/>
+    </ObjectPropertyAssertion>
 </Ontology>
 
 
