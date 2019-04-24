@@ -8,6 +8,11 @@ package dmi.unict.it.ontoas.core;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QueryExecutionFactory;
+import org.apache.jena.query.QueryFactory;
+import org.apache.jena.query.ResultSet;
+import org.apache.jena.rdf.model.Model;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -17,6 +22,7 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
+import ru.avicomp.ontapi.OntologyModel;
 
 
 /**
@@ -28,6 +34,7 @@ public class OntologyCore
     private final OWLOntologyManager manager; 
     private final OWLDataFactory datafactory;
     private OWLOntology mainOntology;
+    private Model graphmodel;
     
     /**
      * Returns the main datafactory
@@ -57,6 +64,25 @@ public class OntologyCore
       }
     
     /**
+     * Sets the local grap hmodel 
+     * @param model the input model
+     */
+    public void setGraphModel(Model model)
+      {
+        graphmodel=model;
+      }
+    
+    /**
+     * Returns the local graph model.
+     * @return the local graph model
+     */
+    public Model getGraphModel()
+      {
+        return graphmodel;
+      }
+    
+    
+    /**
      *   Constructs an empty OntologyCore object with empty ontology
      */
     public OntologyCore ()
@@ -64,6 +90,7 @@ public class OntologyCore
         manager = OWLManager.createOWLOntologyManager(); //create the manager  
         datafactory = manager.getOWLDataFactory();
         mainOntology=null;
+        graphmodel=null;
       }
     
     /**
@@ -141,7 +168,44 @@ public class OntologyCore
           return changes== ChangeApplied.SUCCESSFULLY;
       }
     
-      
+     
+     /**
+     *  Creates a QueryExecution object from the given ontology and query as string
+     * @param ontology the ontology to be queried
+     * @param query  the string representing the query
+     * @return the QueryExecution object which performs the query
+     */
+    public QueryExecution createQuery(OWLOntology ontology, String query)
+      {
+         this.setGraphModel(((OntologyModel)ontology).asGraphModel());         
+         QueryExecution qexec = QueryExecutionFactory.create(QueryFactory.create(query), this.getGraphModel());
+         return qexec;
+      }
+    
+    /**
+     * Performs a Selet query over the given QueryExecution object
+     * @param qexec the QueryExecution object 
+     * @return the ResultSet object representing the query result
+     */
+    public ResultSet performSelectQuery(QueryExecution qexec)
+      {        
+        ResultSet res  = qexec.execSelect();    
+        return res;
+      }
+   
+    /**
+      * Performs a Construct query over the given QueryExecution object
+     * @param qexec the QueryExecution object 
+     * @return the ResultSet object representing the query result
+     */
+    public Model executeConstructQuery(QueryExecution qexec)
+      {        
+        Model res  = qexec.execConstruct();           
+        return res;        
+      }
+    
+    
+    
     public OWLNamedIndividual createIndividualInBase(String indIriBase, OWLClass owlclass, OWLOntology ontology, OWLDataFactory datafactory) {
         OWLNamedIndividual individual = datafactory.getOWLNamedIndividual(indIriBase);
         ontology.addAxiom(datafactory.getOWLClassAssertionAxiom(owlclass, individual));

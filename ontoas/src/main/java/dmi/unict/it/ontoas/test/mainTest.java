@@ -9,22 +9,18 @@ import dmi.unict.it.ontoas.core.OntoASCore;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.charset.Charset;
-import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
  *
@@ -60,29 +56,36 @@ public class mainTest
     public static void main(String[] args)
       {
         File ontoFile=new File("ontologies/main/onto-as.owl");
-        File dataFile=new File("ontologies/main/dataset.owl");
+       // File dataFile=new File("ontologies/main/dataset.owl");
         OntoASCore ontocore=new OntoASCore();
         try
           {
-            ontocore.setMainOntology(ontoFile);
-            ontocore.setDatasetOntology(dataFile);
             ontocore.setOntologiesDevicesPath(Paths.get("ontologies"+File.separator+"devices"));
             ontocore.setMainOntologiesPath(Paths.get("ontologies"+File.separator+"main"));
-            
-            //ontocore.setConfiguration(new ArrayList<>(Arrays.asList("config")));            
+            ontocore.setMainOntology(ontoFile);           
+            ontocore.setDatasetOntology("http://www.dmi.unict.it/profeta-dataset.owl","dataset.owl");            
+            ontocore.loadDevicesFromPath(true); //use this if the devices folder is not empty          
           } 
-        catch (OWLOntologyCreationException ex)
+        catch (OWLOntologyCreationException | OWLOntologyStorageException | IOException ex)
           {
             Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
           }
+        
         System.out.println(ontocore.getMainOntology().getAxiomCount());
         
         //
         String id= "dev"+ new Timestamp(new Date().getTime()).toString().replace(" ","").replace(":","").replace(".","");
         Stream<OWLAxiom> axioms=Stream.empty();
-        InputStream ontologyData=readData("ontologies/test/lightagent.owl");
-        ontocore.addDevice(ontologyData, id);
-        ontocore.removePermanentDevice(id);
+        InputStream ontologyData=readData("ontologies/test/lightagent.owl");        
+        try
+          {
+            ontocore.addDevice(ontologyData, id);
+            ontocore.removePermanentDevice(id);
+          } 
+        catch (OWLOntologyStorageException | OWLOntologyCreationException ex)
+          {
+            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
+          }
         
       }
   }
