@@ -182,7 +182,9 @@ public class OntologyCore
      */
     public QueryExecution createQuery(OWLOntology ontology, String query) throws OWLOntologyCreationException
       {
-       //  Model m=((OntologyModel)ontology).asGraphModel();         
+    //     OntologyModel ontologyModel=((OntologyModel)ontology);
+     //    Model m=ontologyModel.asGraphModel();      
+         
          OntologyManager ontManager = OntManagers.createONT();
          OntologyModel ontOntology;        
          ontOntology = ontManager.copyOntology(ontology, OntologyCopy.DEEP);          
