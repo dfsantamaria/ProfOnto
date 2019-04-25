@@ -133,20 +133,43 @@ public class OntoASCore extends OntologyCore
         return devices;
      }
      
-      
-     
-    public OWLOntology configureDevice(OWLOntology ontodevice, Stream<OWLAxiom> axioms)
-    {      
-      //Edit here to get configuration data from user        //
-      ChangeApplied changes=ontodevice.addAxioms(axioms);      
+    /**
+     * Adds to the given ontology a set of axioms
+     * @param ontology the ontology to be extended with the axioms
+     * @param axioms the axioms to be added
+     * @return the extended ontology
+     */
+    public OWLOntology addAxiomsToOntology(OWLOntology ontology, Stream<OWLAxiom> axioms) throws OWLOntologyCreationException
+    {
+      ChangeApplied changes=ontology.addAxioms(axioms);      
       try {            
-            this.getMainManager().saveOntology(ontodevice);
+            this.getMainManager().saveOntology(ontology);
+            this.getMainManager().loadOntologyFromOntologyDocument(ontology.getOntologyID().getOntologyIRI().get());
         } 
       catch (OWLOntologyStorageException ex) {
             Logger.getLogger(OntoASCore.class.getName()).log(Level.SEVERE, null, ex);
         }
-      return ontodevice;
+      return ontology;
     }
+    
+    
+    public void addDataToDataSetOntology(Stream<OWLAxiom> axioms) throws OWLOntologyCreationException
+      {
+          addAxiomsToOntology(this.getDatasetOntology(), axioms);      
+      }
+     
+//    public OWLOntology configureDevice(OWLOntology ontodevice, Stream<OWLAxiom> axioms)
+//    {      
+//      //Edit here to get configuration data from user        //
+//      ChangeApplied changes=ontodevice.addAxioms(axioms);      
+//      try {            
+//            this.getMainManager().saveOntology(ontodevice);
+//        } 
+//      catch (OWLOntologyStorageException ex) {
+//            Logger.getLogger(OntoASCore.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//      return ontodevice;
+//    }
     
        
     /**

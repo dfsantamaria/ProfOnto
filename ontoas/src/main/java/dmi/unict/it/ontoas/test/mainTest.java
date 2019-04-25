@@ -71,8 +71,7 @@ public class mainTest
             Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
           }
         
-        System.out.println(ontocore.getMainOntology().getAxiomCount());
-        
+       
         //
         String id= "dev"+ new Timestamp(new Date().getTime()).toString().replace(" ","").replace(":","").replace(".","");
         Stream<OWLAxiom> axioms=Stream.empty();
@@ -87,5 +86,7 @@ public class mainTest
             Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
           }
         
+        System.out.println("Main ontology axioms count: " +ontocore.getMainOntology().getAxiomCount());
+        System.out.println("Dataset ontology axioms count: " +ontocore.getDatasetOntology().getAxiomCount());
       }
   }
