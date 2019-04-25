@@ -29,6 +29,7 @@ import ru.avicomp.ontapi.OntologyModel;
 
 
 
+
 /**
  *
  * @author Daniele Francesco Santamaria
@@ -182,11 +183,11 @@ public class OntologyCore
      */
     public QueryExecution createQuery(OWLOntology ontology, String query) throws OWLOntologyCreationException
       {
-    //     OntologyModel ontologyModel=((OntologyModel)ontology);
-     //    Model m=ontologyModel.asGraphModel();      
+//         OntologyModel ontologyModel=((OntologyModel) ontology);
+//         Model m=ontologyModel.asGraphModel();      
          
          OntologyManager ontManager = OntManagers.createONT();
-         OntologyModel ontOntology;        
+         OntologyModel ontOntology;           
          ontOntology = ontManager.copyOntology(ontology, OntologyCopy.DEEP);          
          Model m = ontOntology.asGraphModel();
          this.setGraphModel(m);         

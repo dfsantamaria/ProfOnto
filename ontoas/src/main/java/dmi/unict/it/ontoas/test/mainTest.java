@@ -115,6 +115,7 @@ public class mainTest
             OWLOntology config=localM.loadOntologyFromOntologyDocument(new File("ontologies/test/lightagent-config.owl"));
             OWLOntology request=localM.loadOntologyFromOntologyDocument(new File("ontologies/test/user-request.owl"));
           // OWLOntology request=ontocore.getMainManager().loadOntologyFromOntologyDocument(new File("ontologies/test/user-request.owl"));
+            localM.clearOntologies();
             ontocore.addDataToDataSetOntology(config.axioms());
             ontocore.addDataToDataSetOntology(request.axioms());
            // ontocore.getMainManager().removeOntology(request);
