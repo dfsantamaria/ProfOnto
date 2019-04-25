@@ -81,8 +81,8 @@ public class OntoASCore extends OntologyCore
         OWLOntology dt=this.getMainManager().createOntology(IRI.create(iri));        
         File inputFile=new File(this.getMainOntologiesPath()+File.separator+name);   
         this.getMainManager().saveOntology(dt, new OWLXMLDocumentFormat(), IRI.create(inputFile));                    
-        setDatasetOntology(inputFile);            
-        addImportInDataset(this.getDatasetOntology().getOntologyID().getOntologyIRI().get());         
+        setDatasetOntology(inputFile);       
+        addImportInDataset(this.getMainOntology().getOntologyID().getOntologyIRI().get());         
       } 
     
     
@@ -144,7 +144,7 @@ public class OntoASCore extends OntologyCore
       ChangeApplied changes=ontology.addAxioms(axioms);      
       try {            
             this.getMainManager().saveOntology(ontology);
-            this.getMainManager().loadOntologyFromOntologyDocument(ontology.getOntologyID().getOntologyIRI().get());
+            this.getMainManager().loadOntology(ontology.getOntologyID().getOntologyIRI().get());
         } 
       catch (OWLOntologyStorageException ex) {
             Logger.getLogger(OntoASCore.class.getName()).log(Level.SEVERE, null, ex);

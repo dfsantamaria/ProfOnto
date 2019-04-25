@@ -21,8 +21,12 @@ import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
+import org.semanticweb.owlapi.model.parameters.OntologyCopy;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
+import ru.avicomp.ontapi.OntManagers;
+import ru.avicomp.ontapi.OntologyManager;
 import ru.avicomp.ontapi.OntologyModel;
+
 
 
 /**
@@ -174,10 +178,16 @@ public class OntologyCore
      * @param ontology the ontology to be queried
      * @param query  the string representing the query
      * @return the QueryExecution object which performs the query
+     * @throws org.semanticweb.owlapi.model.OWLOntologyCreationException
      */
-    public QueryExecution createQuery(OWLOntology ontology, String query)
+    public QueryExecution createQuery(OWLOntology ontology, String query) throws OWLOntologyCreationException
       {
-         this.setGraphModel(((OntologyModel)ontology).asGraphModel());         
+       //  Model m=((OntologyModel)ontology).asGraphModel();         
+         OntologyManager ontManager = OntManagers.createONT();
+         OntologyModel ontOntology;        
+         ontOntology = ontManager.copyOntology(ontology, OntologyCopy.DEEP);          
+         Model m = ontOntology.asGraphModel();
+         this.setGraphModel(m);         
          QueryExecution qexec = QueryExecutionFactory.create(QueryFactory.create(query), this.getGraphModel());
          return qexec;
       }
@@ -198,7 +208,7 @@ public class OntologyCore
      * @param qexec the QueryExecution object 
      * @return the ResultSet object representing the query result
      */
-    public Model executeConstructQuery(QueryExecution qexec)
+    public Model performConstructQuery(QueryExecution qexec)
       {        
         Model res  = qexec.execConstruct();           
         return res;        

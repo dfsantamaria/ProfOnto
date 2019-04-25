@@ -12,7 +12,276 @@
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
-    <Import>http://www.dmi.unict.it/profeta-dataset.owl</Import>
+    <Import>http://www.dmi.unict.it/profeta.owl</Import>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LA-turnoff-goaldescription"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LA-turnoff-taskdescription"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LA-turnon-goaldescription"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LA-turnon-taskdescription"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-light1"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-turnoff-behavior"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-turnon-behavior"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#main_kitchen_light"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#turn_off"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#turn_on"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#user-1-plan1"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#user-1-task1-1-1-kitchen"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#user1-light-dev1-config"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#user_kitchen"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owll#light_object_type"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#user-1"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#user-1-goal1-1"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#user-1-task1-1-1"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#user-1-task1-1-1-light"/>
+    </Declaration>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#GoalDescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LA-turnoff-goaldescription"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#TaskDescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LA-turnoff-taskdescription"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#GoalDescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LA-turnon-goaldescription"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#TaskDescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LA-turnon-taskdescription"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#Device"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#EnviromentComponent"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-light1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#TaskSubject"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-light1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#Behavior"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-turnoff-behavior"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#Behavior"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-turnon-behavior"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#EnviromentComponent"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#main_kitchen_light"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#TaskOperator"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#turn_off"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#TaskOperator"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#turn_on"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#Plan"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#user-1-plan1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#Space"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#user-1-task1-1-1-kitchen"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#Component_Configuration"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#user1-light-dev1-config"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#PhysicalSpace"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#user_kitchen"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#HomeObjectType"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owll#light_object_type"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#Human"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#user-1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#GoalDescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#user-1-goal1-1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#TaskDescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#user-1-task1-1-1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#TaskSubject"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#user-1-task1-1-1-light"/>
+    </ClassAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskDescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LA-turnoff-goaldescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LA-turnoff-taskdescription"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskOperator"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LA-turnoff-taskdescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#turn_off"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskSubject"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LA-turnoff-taskdescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-light1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskDescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LA-turnon-goaldescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LA-turnon-taskdescription"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskOperator"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LA-turnon-taskdescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#turn_on"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskSubject"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LA-turnon-taskdescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-light1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasBehavior"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-turnoff-behavior"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasBehavior"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-turnon-behavior"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasConfiguration"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-light1"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#user1-light-dev1-config"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasType"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-light1"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owll#light_object_type"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasGoalDescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-turnoff-behavior"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LA-turnoff-goaldescription"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasGoalDescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-turnon-behavior"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LA-turnon-goaldescription"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasSpaceSpan"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#main_kitchen_light"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#user_kitchen"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasType"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#main_kitchen_light"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owll#light_object_type"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#setUpFrom"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#main_kitchen_light"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-light1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#isDescribedBy"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#user-1-plan1"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#user-1-goal1-1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasType"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#user-1-task1-1-1-kitchen"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#kitchen"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#configurationProvidedBy"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#user1-light-dev1-config"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#user-1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#setsUp"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#user1-light-dev1-config"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#main_kitchen_light"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasType"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#user_kitchen"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#kitchen"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskDescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#user-1-goal1-1"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#user-1-task1-1-1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskOperator"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#user-1-task1-1-1"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#turn_off"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskSubject"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#user-1-task1-1-1"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#user-1-task1-1-1-light"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasSpaceSpan"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#user-1-task1-1-1-light"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#user-1-task1-1-1-kitchen"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasType"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#user-1-task1-1-1-light"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owll#light_object_type"/>
+    </ObjectPropertyAssertion>
 </Ontology>
 
 
