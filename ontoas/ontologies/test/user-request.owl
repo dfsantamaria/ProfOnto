@@ -72,14 +72,14 @@
         <NamedIndividual IRI="#user-1-task1-1-1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskObject"/>
+        <NamedIndividual IRI="#user-1-task1-1-1"/>
+        <NamedIndividual IRI="#user-1-task1-1-1-light"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskOperator"/>
         <NamedIndividual IRI="#user-1-task1-1-1"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#turn_off"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskSubject"/>
-        <NamedIndividual IRI="#user-1-task1-1-1"/>
-        <NamedIndividual IRI="#user-1-task1-1-1-light"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasSpaceSpan"/>

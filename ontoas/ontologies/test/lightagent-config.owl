@@ -24,10 +24,10 @@
         <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#user-1"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#LA-turnoff-taskdescription"/>
+        <NamedIndividual IRI="#light-device-light1"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#light-device-light1"/>
+        <NamedIndividual IRI="#LA-turnoff-taskdescription"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#turn_on"/>
@@ -58,6 +58,12 @@
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#light-device-turnoff-behavior"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#TaskSubject"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#kitchen"/>
     </Declaration>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/profeta.owl#GoalDescription"/>
@@ -129,14 +135,14 @@
         <NamedIndividual IRI="#LA-turnoff-taskdescription"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskObject"/>
+        <NamedIndividual IRI="#LA-turnoff-taskdescription"/>
+        <NamedIndividual IRI="#light-device-light1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskOperator"/>
         <NamedIndividual IRI="#LA-turnoff-taskdescription"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#turn_off"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskSubject"/>
-        <NamedIndividual IRI="#LA-turnoff-taskdescription"/>
-        <NamedIndividual IRI="#light-device-light1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskDescription"/>
@@ -144,14 +150,14 @@
         <NamedIndividual IRI="#LA-turnon-taskdescription"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskObject"/>
+        <NamedIndividual IRI="#LA-turnon-taskdescription"/>
+        <NamedIndividual IRI="#light-device-light1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskOperator"/>
         <NamedIndividual IRI="#LA-turnon-taskdescription"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#turn_on"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskSubject"/>
-        <NamedIndividual IRI="#LA-turnon-taskdescription"/>
-        <NamedIndividual IRI="#light-device-light1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasBehavior"/>

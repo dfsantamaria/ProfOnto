@@ -8,9 +8,9 @@ SELECT  ?selected_agent ?operation ?device_object ?user_object
  WHERE { 
                                 
                  <http://www.dmi.unict.it/user-request.owl#user-1-task1-1-1> prof:hasTaskOperator ?operation .
-                 <http://www.dmi.unict.it/user-request.owl#user-1-task1-1-1> prof:hasTaskSubject ?subject .
-                 ?subject prof:hasSpaceSpan ?space .
-                 ?subject prof:hasType ?obtype .
+                 <http://www.dmi.unict.it/user-request.owl#user-1-task1-1-1> prof:hasTaskObject ?object .
+                 ?object prof:hasSpaceSpan ?space .
+                 ?object prof:hasType ?obtype .
                  ?space prof:hasType  ?spacetype .
 
                  ?config rdf:type prof:Component_Configuration .
@@ -25,7 +25,7 @@ SELECT  ?selected_agent ?operation ?device_object ?user_object
                  ?behav prof:hasGoalDescription ?goal .
                  ?goal prof:hasTaskDescription ?task .
                  ?task prof:hasTaskOperator ?operation .
-                 ?task prof:hasTaskSubject ?agent_subject .
+                 ?task prof:hasTaskObject ?agent_subject .
                  ?agent_subject prof:hasType ?obtype .
 
               }
