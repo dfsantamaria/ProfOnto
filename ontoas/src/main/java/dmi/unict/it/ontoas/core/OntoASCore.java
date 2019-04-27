@@ -51,6 +51,7 @@ public class OntoASCore extends OntologyCore
   {
     private HashMap<String, String> devices; //IDdevice, IDOntology
     private HashMap<String, Pair<String,String>> devConfig; //IDconfig <IDdevice, File>
+    private HashMap<String, String> users; //IDdevice, IDOntology
     private OWLOntology dataset;
     private Configuration configuration;    
     
@@ -159,13 +160,23 @@ public class OntoASCore extends OntologyCore
      }
    
      /**
-     * Returns the set of connected devices
-     * @return the HashMap containing the connected devices
+     * Returns the set of devices configurations
+     * @return the HashMap containing the devices configuaration
      */
     public HashMap getDeviceConfigurations()
      {
         return devConfig;
      }
+    
+      /**
+     * Returns the set of users
+     * @return the HashMap containing the  users
+     */
+    public HashMap getUsers()
+     {
+        return users;
+     }
+    
     /**
      * Adds to the given ontology a set of axioms
      * @param ontology the ontology to be extended with the axioms
