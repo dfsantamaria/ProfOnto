@@ -49,8 +49,8 @@ import org.semanticweb.owlapi.util.InferredSubObjectPropertyAxiomGenerator;
  */
 public class OntoASCore extends OntologyCore
   {
-    private HashMap<String, Pair<String,String>> devices; 
-    private HashMap<String, Pair<String,String>> devConfig; 
+    private HashMap<String, String> devices; //IDdevice, IDOntology
+    private HashMap<String, Pair<String,String>> devConfig; //IDconfig <IDdevice, File>
     private OWLOntology dataset;
     private Configuration configuration;    
     
@@ -262,8 +262,7 @@ public class OntoASCore extends OntologyCore
             FileOutputStream outStream = new FileOutputStream(file);               
               
             this.getMainManager().saveOntology(ontodevice, new OWLXMLDocumentFormat(), outStream);
-            this.getDevices().put(id, new Pair(ontodevice.getOntologyID().getOntologyIRI().get().toString(),
-                                  file.getName()));
+            this.getDevices().put(id, ontodevice.getOntologyID().getOntologyIRI().get().toString());
             outStream.close();
             this.syncReasoner(ontodevice.getOntologyID().getOntologyIRI().get().toString(), file.getAbsolutePath());
             
@@ -275,7 +274,9 @@ public class OntoASCore extends OntologyCore
         return ontodevice;
     }
     
-       
+    
+    
+    
     /**
      * Returns the ontology corresponding to the given device id
      * @param id the id of the device
@@ -294,11 +295,11 @@ public class OntoASCore extends OntologyCore
      */
     public void removePermanentDevice(String id) throws OWLOntologyStorageException, OWLOntologyCreationException
     {
-       Pair tmp= (Pair<String, String>)this.getDevices().remove(id);
-       OWLOntology ontology=this.getMainManager().getOntology(IRI.create((String)tmp.getKey()));
+       String tmp= (String)this.getDevices().remove(id);
+       OWLOntology ontology=this.getMainManager().getOntology(IRI.create(tmp));
        this.getMainManager().removeOntology(ontology);
-       removeImportInDataset(IRI.create((String)tmp.getKey()));
-       ((new File(this.getOntologiesDevicesPath()+File.separator+(String)tmp.getValue()))).delete(); //always be sure to close all the open streams
+       removeImportInDataset(IRI.create(tmp));
+       (new File(this.getOntologiesDevicesPath()+File.separator+id+".owl")).delete(); //always be sure to close all the open streams
        
     }
 
