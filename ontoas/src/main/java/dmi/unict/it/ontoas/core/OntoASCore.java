@@ -74,7 +74,7 @@ public class OntoASCore extends OntologyCore
     public Path getOntologiesDeviceConfigurationPath(){return this.getConfiguration().getPaths()[2];}
     
     /**
-     * Creates the folder from the give path if it does not exist
+     * Creates the folder from the given path if it does not exist
      * @param path the path of the folder
      */
     public void createFolder(Path path)
