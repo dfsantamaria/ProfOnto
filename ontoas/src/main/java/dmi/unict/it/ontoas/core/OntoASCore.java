@@ -49,11 +49,11 @@ import org.semanticweb.owlapi.util.InferredSubObjectPropertyAxiomGenerator;
  */
 public class OntoASCore extends OntologyCore
   {
-    private HashMap<String, String> devices; //IDdevice, IDOntology
-    private HashMap<String, Pair<String,String>> devConfig; //IDconfig <IDdevice, File>
+    private final HashMap<String, String> devices; //IDdevice, IDOntology
+    private final HashMap<String, Pair<String,String>> devConfig; //IDconfig <IDdevice, File>
     private HashMap<String, String> users; //IDdevice, IDOntology
     private OWLOntology databelief;
-    private Configuration configuration;    
+    private final Configuration configuration;    
     
     public OntoASCore()
        {
