@@ -122,12 +122,13 @@ public class mainTest
             OWLOntology agent=localM.loadOntologyFromOntologyDocument(new File("ontologies/test/lightagent.owl"));
             OWLOntology config=localM.loadOntologyFromOntologyDocument(new File("ontologies/test/alan-config.owl"));
             OWLOntology request=localM.loadOntologyFromOntologyDocument(new File("ontologies/test/user-request.owl"));
-          // OWLOntology request=ontocore.getMainManager().loadOntologyFromOntologyDocument(new File("ontologies/test/user-request.owl"));
-            localM.clearOntologies();
+          
+
+            
             ontocore.addDataToDataSetOntology(agent.axioms());
             ontocore.addDataToDataSetOntology(config.axioms());
             ontocore.addDataToDataSetOntology(request.axioms());
-           // ontocore.getMainManager().removeOntology(request);
+            ontocore.getMainManager().removeOntology(request);
           } 
         catch (OWLOntologyCreationException ex)
           {

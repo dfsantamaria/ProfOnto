@@ -160,6 +160,16 @@ public class OntologyCore
         
       }
     
+    public Stream<OWLAxiom> getAllAxioms()
+      {
+            Stream<OWLAxiom> axs= Stream.empty();
+            this.getMainManager().ontologies().forEach( ont ->
+              {
+                Stream.concat(axs,ont.axioms());
+              });
+            return axs;
+      }
+    
     /**
      * Merges the main ontology with a given  ontology
      * @param mergeOntology the ontology to be merged
