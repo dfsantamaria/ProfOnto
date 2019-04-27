@@ -107,7 +107,7 @@ public class mainTest
         //
         String id= "dev"+ new Timestamp(new Date().getTime()).toString().replace(" ","").replace(":","").replace(".","");
         Stream<OWLAxiom> axioms=Stream.empty();
-        InputStream ontologyData=readData("ontologies/test/lightagent-config.owl");      
+        InputStream ontologyData=readData("ontologies/test/lightagent.owl");      
         
         ontocore.addDevice(ontologyData, id);
         
@@ -118,10 +118,12 @@ public class mainTest
           {
             OWLOntologyManager localM=OWLManager.createOWLOntologyManager();
             localM.loadOntologyFromOntologyDocument(new File("ontologies/main/onto-as.owl"));
-            OWLOntology config=localM.loadOntologyFromOntologyDocument(new File("ontologies/test/lightagent-config.owl"));
+            OWLOntology agent=localM.loadOntologyFromOntologyDocument(new File("ontologies/test/lightagent.owl"));
+            OWLOntology config=localM.loadOntologyFromOntologyDocument(new File("ontologies/test/alan-config.owl"));
             OWLOntology request=localM.loadOntologyFromOntologyDocument(new File("ontologies/test/user-request.owl"));
           // OWLOntology request=ontocore.getMainManager().loadOntologyFromOntologyDocument(new File("ontologies/test/user-request.owl"));
             localM.clearOntologies();
+            ontocore.addDataToDataSetOntology(agent.axioms());
             ontocore.addDataToDataSetOntology(config.axioms());
             ontocore.addDataToDataSetOntology(request.axioms());
            // ontocore.getMainManager().removeOntology(request);

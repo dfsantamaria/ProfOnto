@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <uri id="Imports Wizard Entry" name="http://www.dmi.unict.it/profeta.owl#" uri="file:/D:/Dati/Documents/NetBeansProjects/OntoAS/ontoas/ontoas/ontologies/main/onto-as.owl"/>
+    <uri id="Imports Wizard Entry" name="http://www.dmi.unict.it/lightagent.owl" uri="lightagent-config.owl"/>
+    <uri id="Imports Wizard Entry" name="http://www.dmi.unict.it/profeta.owl/0.0.1" uri="file:/D:/Dati/Documents/NetBeansProjects/OntoAS/ontoas/ontoas/ontologies/main/onto-as.owl"/>
+    <uri id="Imports Wizard Entry" name="http://www.dmi.unict.it/profeta.owl" uri="file:/C:/Users/danie/OneDrive/Documenti/NetBeansProjects/ontoas/ontoas/ontologies/main/onto-as.owl"/>
+    <uri id="User Entered Import Resolution" name="http://www.dmi.unict.it/profeta.owl/0.0.1" uri="file:/C:/Users/danie/OneDrive/Documenti/NetBeansProjects/ontoas/ontoas/ontologies/main/onto-as.owl"/>
+    <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
+        <uri id="Automatically generated entry, Timestamp=1556369812291" name="duplicate:http://www.dmi.unict.it/lightagent.owl" uri="lightagent%20-%20NoCLASS.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1556369812291" name="duplicate:http://www.dmi.unict.it/lightagent.owl" uri="lightagent-config-%20NOCLASS.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1556369812291" name="duplicate:http://www.dmi.unict.it/lightagent.owl" uri="lightagent-config.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1556369812291" name="http://www.dmi.unict.it/use-case.owl" uri="use-case.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1556369812291" name="http://www.dmi.unict.it/user-request.owl" uri="user-request-NOCLASS.owl"/>
+    </group>
+</catalog>

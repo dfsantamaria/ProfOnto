@@ -12,84 +12,77 @@
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Import>http://www.dmi.unict.it/alan-config.owl#</Import>
     <Import>http://www.dmi.unict.it/lightagent.owl</Import>
-    <Import>http://www.dmi.unict.it/profeta.owl/0.0.1</Import>
     <Declaration>
-        <NamedIndividual IRI="#user-1-task1-1-1"/>
+        <NamedIndividual IRI="#alan-task-1-1-1-kitchen"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#turn_off"/>
+        <NamedIndividual IRI="#alan-plan-1"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#user-1-goal1-1"/>
+        <NamedIndividual IRI="#alan-task-1-1-1-object"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#user-1-plan1"/>
+        <NamedIndividual IRI="#alan-goal-1-1"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#user-1-task1-1-1-kitchen"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#user-1-task1-1-1-light"/>
+        <NamedIndividual IRI="#alan-task-1-1-1"/>
     </Declaration>
     <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/profeta.owl#TaskOperator"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#turn_off"/>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#Goal"/>
+        <NamedIndividual IRI="#alan-goal-1-1"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/profeta.owl#Plan"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#user-1-plan1"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/profeta.owl#Space"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#user-1-task1-1-1-kitchen"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/profeta.owl#GoalDescription"/>
-        <NamedIndividual IRI="#user-1-goal1-1"/>
+        <NamedIndividual IRI="#alan-plan-1"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/profeta.owl#TaskDescription"/>
-        <NamedIndividual IRI="#user-1-task1-1-1"/>
+        <NamedIndividual IRI="#alan-task-1-1-1"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/profeta.owl#TaskSubject"/>
-        <NamedIndividual IRI="#user-1-task1-1-1-light"/>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#Space"/>
+        <NamedIndividual IRI="#alan-task-1-1-1-kitchen"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#TaskObject"/>
+        <NamedIndividual IRI="#alan-task-1-1-1-object"/>
     </ClassAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#isDescribedBy"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#user-1-plan1"/>
-        <NamedIndividual IRI="#user-1-goal1-1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasType"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#user-1-task1-1-1-kitchen"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#kitchen"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskDescription"/>
-        <NamedIndividual IRI="#user-1-goal1-1"/>
-        <NamedIndividual IRI="#user-1-task1-1-1"/>
+        <NamedIndividual IRI="#alan-goal-1-1"/>
+        <NamedIndividual IRI="#alan-task-1-1-1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#isDescribedBy"/>
+        <NamedIndividual IRI="#alan-plan-1"/>
+        <NamedIndividual IRI="#alan-goal-1-1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskObject"/>
-        <NamedIndividual IRI="#user-1-task1-1-1"/>
-        <NamedIndividual IRI="#user-1-task1-1-1-light"/>
+        <NamedIndividual IRI="#alan-task-1-1-1"/>
+        <NamedIndividual IRI="#alan-task-1-1-1-object"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskOperator"/>
-        <NamedIndividual IRI="#user-1-task1-1-1"/>
+        <NamedIndividual IRI="#alan-task-1-1-1"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#turn_off"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasType"/>
+        <NamedIndividual IRI="#alan-task-1-1-1-kitchen"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#kitchen"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasSpaceSpan"/>
-        <NamedIndividual IRI="#user-1-task1-1-1-light"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#user-1-task1-1-1-kitchen"/>
+        <NamedIndividual IRI="#alan-task-1-1-1-object"/>
+        <NamedIndividual IRI="#alan-task-1-1-1-kitchen"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasType"/>
-        <NamedIndividual IRI="#user-1-task1-1-1-light"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owll#light_object_type"/>
+        <NamedIndividual IRI="#alan-task-1-1-1-object"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#LightObjectType"/>
     </ObjectPropertyAssertion>
 </Ontology>
 
