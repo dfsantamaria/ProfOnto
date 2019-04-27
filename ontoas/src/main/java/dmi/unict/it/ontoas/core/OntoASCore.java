@@ -66,12 +66,23 @@ public class OntoASCore extends OntologyCore
        }
   
     private Configuration getConfiguration(){return configuration;}
-    public void setMainOntologiesPath(Path path){this.getConfiguration().getPaths()[0]=path;}
+    public void setMainOntologiesPath(Path path){this.getConfiguration().getPaths()[0]=path; createFolder(path);}
     public Path getMainOntologiesPath(){return this.getConfiguration().getPaths()[0];}
-    public void setOntologiesDevicesPath(Path path){this.getConfiguration().getPaths()[1]=path;}
+    public void setOntologiesDevicesPath(Path path){this.getConfiguration().getPaths()[1]=path; createFolder(path);}
     public Path getOntologiesDevicesPath(){return this.getConfiguration().getPaths()[1];}
-    public void setOntologiesDeviceConfigurationsPath(Path path){this.getConfiguration().getPaths()[2]=path;}
+    public void setOntologiesDeviceConfigurationsPath(Path path){this.getConfiguration().getPaths()[2]=path; createFolder(path);}
     public Path getOntologiesDeviceConfigurationPath(){return this.getConfiguration().getPaths()[2];}
+    
+    /**
+     * Create the folder from the give path if it does not exist
+     * @param path the path of the folder
+     */
+    public void createFolder(Path path)
+    {
+      File directory = path.toFile();
+      if (! directory.exists())
+        directory.mkdirs();
+    }
     
     public void startReasoner()
       {
