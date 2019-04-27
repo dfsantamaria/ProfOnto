@@ -91,6 +91,7 @@ public class mainTest
         OntoASCore ontocore=new OntoASCore();
         try
           {
+            ontocore.setOntologiesDeviceConfigurationsPath(Paths.get("ontologies"+File.separator+"devConfigs"));
             ontocore.setOntologiesDevicesPath(Paths.get("ontologies"+File.separator+"devices"));
             ontocore.setMainOntologiesPath(Paths.get("ontologies"+File.separator+"main"));
             ontocore.setMainOntology(ontoFile);           

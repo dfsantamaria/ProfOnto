@@ -49,7 +49,8 @@ import org.semanticweb.owlapi.util.InferredSubObjectPropertyAxiomGenerator;
  */
 public class OntoASCore extends OntologyCore
   {
-    private HashMap<String, Pair<OWLOntology,File>> devices; 
+    private HashMap<String, Pair<String,String>> devices; 
+    private HashMap<String, Pair<String,String>> devConfig; 
     private OWLOntology dataset;
     private Configuration configuration;    
     
@@ -57,6 +58,7 @@ public class OntoASCore extends OntologyCore
        {
          super();
          devices=new HashMap<>();
+         devConfig=new HashMap<>();
          int paths=3;
          configuration=new Configuration(paths);         
          dataset=null;           
@@ -67,7 +69,8 @@ public class OntoASCore extends OntologyCore
     public Path getMainOntologiesPath(){return this.getConfiguration().getPaths()[0];}
     public void setOntologiesDevicesPath(Path path){this.getConfiguration().getPaths()[1]=path;}
     public Path getOntologiesDevicesPath(){return this.getConfiguration().getPaths()[1];}
-    
+    public void setOntologiesDeviceConfigurationsPath(Path path){this.getConfiguration().getPaths()[2]=path;}
+    public Path getOntologiesDeviceConfigurationPath(){return this.getConfiguration().getPaths()[2];}
     
     public void startReasoner()
       {
@@ -154,7 +157,15 @@ public class OntoASCore extends OntologyCore
      {
         return devices;
      }
-     
+   
+     /**
+     * Returns the set of connected devices
+     * @return the HashMap containing the connected devices
+     */
+    public HashMap getDeviceConfigurations()
+     {
+        return devConfig;
+     }
     /**
      * Adds to the given ontology a set of axioms
      * @param ontology the ontology to be extended with the axioms
@@ -193,7 +204,7 @@ public class OntoASCore extends OntologyCore
 //      return ontodevice;
 //    }
     
-    public void syncReasoner(OWLOntology storeOntology, File file) throws OWLOntologyStorageException
+    public void syncReasoner(String storeOntology, String file) throws OWLOntologyStorageException
       {
         boolean consistencyCheck = getReasoner().isConsistent();
         if (consistencyCheck)
@@ -221,11 +232,12 @@ public class OntoASCore extends OntologyCore
         generators.add(new InferredDisjointClassesAxiomGenerator());
         InferredOntologyGenerator iog = new InferredOntologyGenerator( getReasoner(), generators);
         //OWLOntology inferredAxiomsOntology = manager.createOntology(IRI.create("http://www.dmi.unict.it/webreasoning/2017/exercise/1G1InfHermit"));
-        iog.fillOntology(this.getDataFactory(), storeOntology);        
+        iog.fillOntology(this.getDataFactory(), this.getMainManager().getOntology(IRI.create(storeOntology)));        
         //System.out.println("Axioms: "+ontology.getAxiomCount());     
        // System.out.println("Inferred Axioms: "+inferredAxiomsOntology.getAxiomCount());
        //File infFile=new File("ontologie/E1G1_infHermit.owl");
-        this.getMainManager().saveOntology(storeOntology, IRI.create(file));
+        this.getMainManager().saveOntology(this.getMainManager().getOntology(IRI.create(storeOntology)),
+                                           IRI.create(new File(file)));
           }
         else {System.out.println("Inconsistent Knowledge base");
          }
@@ -245,14 +257,15 @@ public class OntoASCore extends OntologyCore
           {      
             ontodevice=this.getMainManager().loadOntologyFromOntologyDocument(ontologyData);
             addImportInDataset(ontodevice.getOntologyID().getOntologyIRI().get());          
-            
-            File file=new File(getOntologiesDevicesPath()+File.separator+id+".owl");       
+            String filesource=getOntologiesDevicesPath()+File.separator+id+".owl";
+            File file=new File(filesource);       
             FileOutputStream outStream = new FileOutputStream(file);               
               
             this.getMainManager().saveOntology(ontodevice, new OWLXMLDocumentFormat(), outStream);
-            this.getDevices().put(id, new Pair(ontodevice,file));
+            this.getDevices().put(id, new Pair(ontodevice.getOntologyID().getOntologyIRI().get().toString(),
+                                  file.getName()));
             outStream.close();
-            this.syncReasoner(ontodevice, file);
+            this.syncReasoner(ontodevice.getOntologyID().getOntologyIRI().get().toString(), file.getAbsolutePath());
             
            } 
         catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
@@ -281,10 +294,11 @@ public class OntoASCore extends OntologyCore
      */
     public void removePermanentDevice(String id) throws OWLOntologyStorageException, OWLOntologyCreationException
     {
-       Pair tmp= (Pair<OWLOntology, File>)this.getDevices().remove(id);
-       this.getMainManager().removeOntology((OWLOntology)tmp.getKey());
-       removeImportInDataset(((OWLOntology)tmp.getKey()).getOntologyID().getOntologyIRI().get());
-       ((File)tmp.getValue()).delete(); //always be sure to close all the open streams
+       Pair tmp= (Pair<String, String>)this.getDevices().remove(id);
+       OWLOntology ontology=this.getMainManager().getOntology(IRI.create((String)tmp.getKey()));
+       this.getMainManager().removeOntology(ontology);
+       removeImportInDataset(IRI.create((String)tmp.getKey()));
+       ((new File(this.getOntologiesDevicesPath()+File.separator+(String)tmp.getValue()))).delete(); //always be sure to close all the open streams
        
     }
 
