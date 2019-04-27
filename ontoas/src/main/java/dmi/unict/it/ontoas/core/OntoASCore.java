@@ -52,7 +52,7 @@ public class OntoASCore extends OntologyCore
     private HashMap<String, String> devices; //IDdevice, IDOntology
     private HashMap<String, Pair<String,String>> devConfig; //IDconfig <IDdevice, File>
     private HashMap<String, String> users; //IDdevice, IDOntology
-    private OWLOntology dataset;
+    private OWLOntology databelief;
     private Configuration configuration;    
     
     public OntoASCore()
@@ -62,7 +62,7 @@ public class OntoASCore extends OntologyCore
          devConfig=new HashMap<>();
          int paths=3;
          configuration=new Configuration(paths);         
-         dataset=null;           
+         databelief=null;           
        }
   
     private Configuration getConfiguration(){return configuration;}
@@ -89,9 +89,9 @@ public class OntoASCore extends OntologyCore
      * @throws OWLOntologyCreationException
      * @throws org.semanticweb.owlapi.model.OWLOntologyStorageException
      */
-    public void setDatasetOntology(File inputFile) throws OWLOntologyCreationException, OWLOntologyStorageException 
+    public void setDataBeliefOntology(File inputFile) throws OWLOntologyCreationException, OWLOntologyStorageException 
       {        
-        dataset= this.getMainManager().loadOntologyFromOntologyDocument(inputFile);               
+        databelief= this.getMainManager().loadOntologyFromOntologyDocument(inputFile);               
       } 
     
      /**
@@ -102,12 +102,12 @@ public class OntoASCore extends OntologyCore
      * @throws org.semanticweb.owlapi.model.OWLOntologyStorageException
      * @throws java.io.IOException
      */
-    public void setDatasetOntology(String iri, String name) throws OWLOntologyCreationException, OWLOntologyStorageException, IOException 
+    public void setDataBeliefOntology(String iri, String name) throws OWLOntologyCreationException, OWLOntologyStorageException, IOException 
       {        
         OWLOntology dt=this.getMainManager().createOntology(IRI.create(iri));        
         File inputFile=new File(this.getMainOntologiesPath()+File.separator+name);   
         this.getMainManager().saveOntology(dt, new OWLXMLDocumentFormat(), IRI.create(inputFile));                    
-        setDatasetOntology(inputFile);       
+        setDataBeliefOntology(inputFile);       
         addImportInDataset(this.getMainOntology().getOntologyID().getOntologyIRI().get());         
       } 
     
@@ -147,7 +147,7 @@ public class OntoASCore extends OntologyCore
      */
     public OWLOntology getDatasetOntology()
       {
-         return this.dataset;
+         return this.databelief;
       }
     
     /**
