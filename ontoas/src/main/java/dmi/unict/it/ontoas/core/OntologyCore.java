@@ -5,15 +5,25 @@
  */
 package dmi.unict.it.ontoas.core;
 
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
+import org.apache.jena.graph.Graph;
+import org.apache.jena.ontology.OntModel;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.QueryFactory;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.Model;
 import org.semanticweb.owlapi.apibinding.OWLManager;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
@@ -22,10 +32,13 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import org.semanticweb.owlapi.model.parameters.OntologyCopy;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import ru.avicomp.ontapi.OntManagers;
 import ru.avicomp.ontapi.OntologyManager;
 import ru.avicomp.ontapi.OntologyModel;
+import ru.avicomp.ontapi.jena.OntModelFactory;
+import ru.avicomp.ontapi.jena.model.OntGraphModel;
 
 
 
@@ -40,6 +53,7 @@ public class OntologyCore
     private final OWLDataFactory datafactory;
     private OWLOntology mainOntology;
     private Model graphmodel;
+    private OWLReasoner reasoner;
     
     /**
      * Returns the main datafactory
@@ -86,6 +100,23 @@ public class OntologyCore
         return graphmodel;
       }
     
+    /**
+     * Returns the owl reasoner
+     * @return the owl reasoner
+     */
+    public OWLReasoner getReasoner()
+      {
+         return reasoner;
+      }
+    
+    /**
+     * Sets the owl reasoner with the given one
+     * @param owlreasoner the owl reasoner
+     */
+    public void setReasoner(OWLReasoner owlreasoner)
+      {
+        reasoner=owlreasoner;
+      }
     
     /**
      *   Constructs an empty OntologyCore object with empty ontology
@@ -210,13 +241,20 @@ public class OntologyCore
       * Performs a Construct query over the given QueryExecution object
      * @param qexec the QueryExecution object 
      * @return the ResultSet object representing the query result
+     * @throws java.io.IOException
+     * @throws org.semanticweb.owlapi.model.OWLOntologyCreationException
      */
-    public Model performConstructQuery(QueryExecution qexec)
+    public Stream<OWLAxiom> performConstructQuery(QueryExecution qexec) throws IOException, OWLOntologyCreationException
       {        
-        Model res  = qexec.execConstruct();           
-        return res;        
+        Model res  =  qexec.execConstruct();        
+        ByteArrayOutputStream out=new ByteArrayOutputStream();        
+        res.write(out,"ttl");
+        OntologyManager omanager = OntManagers.createONT();
+        OntologyModel ontology = omanager.loadOntologyFromOntologyDocument(new ByteArrayInputStream(out.toByteArray()));
+        return ontology.axioms();              
       }
     
+  
     
     
     public OWLNamedIndividual createIndividualInBase(String indIriBase, OWLClass owlclass, OWLOntology ontology, OWLDataFactory datafactory) {

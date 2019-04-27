@@ -33,13 +33,16 @@
         <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#turn_on"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#kitchen"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#user1-light-dev1-config"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#light-device-turnon-behavior"/>
+        <NamedIndividual IRI="#LA-turnoff-goaldescription"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#LA-turnoff-goaldescription"/>
+        <NamedIndividual IRI="#light-device-turnon-behavior"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#LA-turnon-goaldescription"/>
@@ -60,37 +63,32 @@
         <NamedIndividual IRI="#light-device-turnoff-behavior"/>
     </Declaration>
     <Declaration>
-        <Class IRI="http://www.dmi.unict.it/profeta.owl#TaskSubject"/>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#Behavior"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#kitchen"/>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#Device"/>
     </Declaration>
-    <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/profeta.owl#GoalDescription"/>
-        <NamedIndividual IRI="#LA-turnoff-goaldescription"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/profeta.owl#TaskDescription"/>
-        <NamedIndividual IRI="#LA-turnoff-taskdescription"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/profeta.owl#GoalDescription"/>
-        <NamedIndividual IRI="#LA-turnon-goaldescription"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/profeta.owl#TaskDescription"/>
-        <NamedIndividual IRI="#LA-turnon-taskdescription"/>
-    </ClassAssertion>
+    <Declaration>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#Human"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#HomeObjectType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#Component_Configuration"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#PhysicalSpace"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#EnviromentComponent"/>
+    </Declaration>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/profeta.owl#Device"/>
         <NamedIndividual IRI="#light-device"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/profeta.owl#EnviromentComponent"/>
-        <NamedIndividual IRI="#light-device-light1"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/profeta.owl#TaskSubject"/>
         <NamedIndividual IRI="#light-device-light1"/>
     </ClassAssertion>
     <ClassAssertion>
@@ -104,14 +102,6 @@
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/profeta.owl#EnviromentComponent"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#main_kitchen_light"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/profeta.owl#TaskOperator"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#turn_off"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/profeta.owl#TaskOperator"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#turn_on"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/profeta.owl#Component_Configuration"/>

@@ -36,6 +36,30 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 public class mainTest
   {
     
+    public static String readQuery(String path)
+      {
+        String query="";
+         try
+          {
+            BufferedReader queryReader=new  BufferedReader(new FileReader(path));
+            String currentLine="";
+            while ((currentLine = queryReader.readLine()) != null)
+              {
+                  query+=currentLine;
+              }
+          } 
+        catch (FileNotFoundException ex)
+          {
+            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        catch (IOException ex)
+          {
+            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
+          }
+      
+        return query;
+      }
+    
     public static InputStream readData(String file)
     {
         InputStream inputstream=null;
@@ -71,7 +95,8 @@ public class mainTest
             ontocore.setMainOntologiesPath(Paths.get("ontologies"+File.separator+"main"));
             ontocore.setMainOntology(ontoFile);           
             ontocore.setDatasetOntology("http://www.dmi.unict.it/profeta-dataset.owl","dataset.owl");            
-            ontocore.loadDevicesFromPath(true); //use this if the devices folder is not empty          
+            ontocore.loadDevicesFromPath(true); //use this if the devices folder is not empty 
+            ontocore.startReasoner();
           } 
         catch (OWLOntologyCreationException | OWLOntologyStorageException | IOException ex)
           {
@@ -86,27 +111,8 @@ public class mainTest
         
         ontocore.addDevice(ontologyData, id);
         
-        String query="";
-        try
-          {
-            BufferedReader queryReader=new  BufferedReader(new FileReader("ontologies/test/query.sparql"));
-            String currentLine="";
-            while ((currentLine = queryReader.readLine()) != null)
-              {
-                  query+=currentLine;
-              }
-          } 
-        catch (FileNotFoundException ex)
-          {
-            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
-          }
-        catch (IOException ex)
-          {
-            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
-          }
-                
-         
-        
+  
+                  
         
         try
           {
@@ -129,7 +135,9 @@ public class mainTest
          System.out.println("Main ontology axioms count: " +ontocore.getMainOntology().getAxiomCount());
          System.out.println("Dataset ontology axioms count: " +ontocore.getDatasetOntology().getAxiomCount());
         
-                  
+         //Testing a select query
+        String query=readQuery("ontologies/test/query.sparql");
+            
         try
           {
             QueryExecution execQ = ontocore.createQuery(ontocore.getDatasetOntology(), query);
@@ -139,11 +147,26 @@ public class mainTest
           {
             Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
           }
-         
+
+        //Testing a construct query
+        query=readQuery("ontologies/test/querycon.sparql");
         
-         try
+          try
           {
             
+            QueryExecution execQ = ontocore.createQuery(ontocore.getDatasetOntology(), query);
+            System.out.println("Output:");
+            //ontocore.performConstructQuery(execQ).forEach(System.out::println);            
+            ontocore.addDataToDataSetOntology(ontocore.performConstructQuery(execQ));
+           
+            
+          } catch (OWLOntologyCreationException | IOException ex)
+          {
+            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        
+         try
+          {            
             ontocore.removePermanentDevice(id);
           } 
         catch (OWLOntologyStorageException | OWLOntologyCreationException ex)

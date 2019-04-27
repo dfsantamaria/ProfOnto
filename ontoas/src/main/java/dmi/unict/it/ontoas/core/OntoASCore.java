@@ -9,7 +9,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
@@ -24,7 +26,23 @@ import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
-
+import org.semanticweb.HermiT.ReasonerFactory;
+import org.semanticweb.owlapi.model.OWLIndividualAxiom;
+import org.semanticweb.owlapi.reasoner.InferenceType;
+import org.semanticweb.owlapi.util.InferredAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredClassAssertionAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredDataPropertyCharacteristicAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredDisjointClassesAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredEquivalentClassAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredEquivalentDataPropertiesAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredEquivalentObjectPropertyAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredIndividualAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredInverseObjectPropertiesAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredObjectPropertyCharacteristicAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredOntologyGenerator;
+import org.semanticweb.owlapi.util.InferredSubClassAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredSubDataPropertyAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredSubObjectPropertyAxiomGenerator;
 /**
  *
  * @author Daniele Francesco Santamaria
@@ -41,7 +59,7 @@ public class OntoASCore extends OntologyCore
          devices=new HashMap<>();
          int paths=3;
          configuration=new Configuration(paths);         
-         dataset=null;         
+         dataset=null;           
        }
   
     private Configuration getConfiguration(){return configuration;}
@@ -51,7 +69,13 @@ public class OntoASCore extends OntologyCore
     public Path getOntologiesDevicesPath(){return this.getConfiguration().getPaths()[1];}
     
     
-    
+    public void startReasoner()
+      {
+        ReasonerFactory rf=new ReasonerFactory();
+        org.semanticweb.HermiT.Configuration config= new org.semanticweb.HermiT.Configuration();
+        config.ignoreUnsupportedDatatypes = true;
+        setReasoner(rf.createReasoner(getDatasetOntology(),config));
+      }
     
     
     
@@ -169,6 +193,44 @@ public class OntoASCore extends OntologyCore
 //      return ontodevice;
 //    }
     
+    public void syncReasoner(OWLOntology storeOntology, File file) throws OWLOntologyStorageException
+      {
+        boolean consistencyCheck = getReasoner().isConsistent();
+        if (consistencyCheck)
+          {
+            getReasoner().precomputeInferences(InferenceType.CLASS_HIERARCHY, InferenceType.CLASS_ASSERTIONS, 
+                                               InferenceType.OBJECT_PROPERTY_HIERARCHY, InferenceType.DATA_PROPERTY_HIERARCHY, 
+                                               InferenceType.OBJECT_PROPERTY_ASSERTIONS);
+        List<InferredAxiomGenerator<? extends OWLAxiom>> generators = new ArrayList<>();
+        generators.add(new InferredSubClassAxiomGenerator());
+        generators.add(new InferredClassAssertionAxiomGenerator());
+        generators.add(new InferredDataPropertyCharacteristicAxiomGenerator());
+        generators.add(new InferredEquivalentClassAxiomGenerator());
+        generators.add(new InferredEquivalentDataPropertiesAxiomGenerator());
+        generators.add(new InferredEquivalentObjectPropertyAxiomGenerator());
+        generators.add(new InferredInverseObjectPropertiesAxiomGenerator());
+        generators.add(new InferredObjectPropertyCharacteristicAxiomGenerator());
+        // NOTE: InferredPropertyAssertionGenerator significantly slows down
+        // inference computation
+        generators.add(new org.semanticweb.owlapi.util.InferredPropertyAssertionGenerator());
+        generators.add(new InferredSubClassAxiomGenerator());
+        generators.add(new InferredSubDataPropertyAxiomGenerator());
+        generators.add(new InferredSubObjectPropertyAxiomGenerator());
+        List<InferredIndividualAxiomGenerator<? extends OWLIndividualAxiom>> individualAxioms = new ArrayList<>();
+        generators.addAll(individualAxioms);
+        generators.add(new InferredDisjointClassesAxiomGenerator());
+        InferredOntologyGenerator iog = new InferredOntologyGenerator( getReasoner(), generators);
+        //OWLOntology inferredAxiomsOntology = manager.createOntology(IRI.create("http://www.dmi.unict.it/webreasoning/2017/exercise/1G1InfHermit"));
+        iog.fillOntology(this.getDataFactory(), storeOntology);        
+        //System.out.println("Axioms: "+ontology.getAxiomCount());     
+       // System.out.println("Inferred Axioms: "+inferredAxiomsOntology.getAxiomCount());
+       //File infFile=new File("ontologie/E1G1_infHermit.owl");
+        this.getMainManager().saveOntology(storeOntology, IRI.create(file));
+          }
+        else {System.out.println("Inconsistent Knowledge base");
+         }
+      }
+    
        
     /**
      * insert a new device given its ontology data
@@ -190,6 +252,7 @@ public class OntoASCore extends OntologyCore
             this.getMainManager().saveOntology(ontodevice, new OWLXMLDocumentFormat(), outStream);
             this.getDevices().put(id, new Pair(ontodevice,file));
             outStream.close();
+            this.syncReasoner(ontodevice, file);
             
            } 
         catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
