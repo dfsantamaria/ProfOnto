@@ -18,10 +18,11 @@ CONSTRUCT
     prof:hasTaskOperator rdf:type owl:ObjectProperty.
     prof:hasTaskObject rdf:type owl:ObjectProperty.
 
-	?selected_agent prof:performs  <http://www.dmi.unict.it/user-request.owl#alan-goal-1-1-1>.
-	<http://www.dmi.unict.it/user-request.owl#alan-goal-1-1-1> prof:hasTaskExecution <http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1-exec>.
-	<http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1-exec> prof:hasTaskOperator ?operation .
-	<http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1-exec> prof:hasTaskObject ?deviceobject .
+    ?selected_agent prof:performs  <http://www.dmi.unict.it/user-request.owl#alan-goal-1-1-1>.
+    <http://www.dmi.unict.it/user-request.owl#alan-goal-1-1-1> prof:hasTaskExecution <http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1-exec>.
+    <http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1-exec> prof:hasTaskOperator ?operation .
+    <http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1-exec> prof:hasTaskObject ?user_object .
+            ?user_object prof:setUpFrom ?device_object .
 
 } 
  WHERE { 
@@ -33,7 +34,7 @@ CONSTRUCT
                  ?space prof:hasType  ?spacetype .
 
                  ?config rdf:type prof:Component_Configuration .
-                 ?config prof:configurationProvidedBy  <http://www.dmi.unict.it/alan-config.owl#alan> .
+                 ?config prof:configurationProvidedBy  ?user .
                  ?config prof:setsUp ?user_object .                 
                  ?user_object prof:hasType ?obtype .
                  ?user_object prof:hasSpaceSpan ?space_user .
