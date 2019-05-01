@@ -29,6 +29,9 @@
         <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#performs"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#setUpFrom"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#alan"/>
     </Declaration>
     <Declaration>
@@ -96,6 +99,9 @@
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1-object"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.dmi.unict.it/profeta.owl#Component_Configuration"/>
     </Declaration>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/profeta.owl#Human"/>
@@ -299,6 +305,11 @@
         <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskOperator"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#turn_off"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskObject"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1-exec"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#main_kitchen_light"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskOperator"/>
