@@ -105,15 +105,15 @@ public class mainTest
           }
         
        
-        //
+        //Device
         String id= "dev"+ new Timestamp(new Date().getTime()).toString().replace(" ","").replace(":","").replace(".","");
         Stream<OWLAxiom> axioms=Stream.empty();
-        InputStream ontologyData=readData("ontologies/test/lightagent.owl");      
-        
+        InputStream ontologyData=readData("ontologies/test/lightagent.owl");        
         ontocore.addDevice(ontologyData, id);
         
-  
-                  
+        InputStream deviceConfig=readData("ontologies/test/alan-config.owl");
+        ontocore.addDeviceConfiguration(deviceConfig, id, id+"Conf-1");          
+        
         
         try
           {
@@ -123,8 +123,6 @@ public class mainTest
             OWLOntology config=localM.loadOntologyFromOntologyDocument(new File("ontologies/test/alan-config.owl"));
             OWLOntology request=localM.loadOntologyFromOntologyDocument(new File("ontologies/test/user-request.owl"));
           
-
-            
             ontocore.addDataToDataSetOntology(agent.axioms());
             ontocore.addDataToDataSetOntology(config.axioms());
             ontocore.addDataToDataSetOntology(request.axioms());
@@ -147,7 +145,8 @@ public class mainTest
             QueryExecution execQ = ontocore.createQuery(ontocore.getDatasetOntology(), query);
             ResultSet res=ontocore.performSelectQuery(execQ);
             System.out.println(ResultSetFormatter.asText(res));
-          } catch (OWLOntologyCreationException ex)
+          } 
+        catch (OWLOntologyCreationException ex)
           {
             Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
           }
@@ -170,7 +169,8 @@ public class mainTest
           }
         
          try
-          {            
+          {   
+            
             ontocore.removePermanentDevice(id);
           } 
         catch (OWLOntologyStorageException | OWLOntologyCreationException ex)
