@@ -12,63 +12,14 @@
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Import>http://www.dmi.unict.it/lightagent.owl</Import>
     <Import>http://www.dmi.unict.it/profeta.owl</Import>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#alan_kitchen"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#alan"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnon-goaldescription"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasTaskSubject"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnoff-taskdescription"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnoff-behavior"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#kitchen"/>
-    </Declaration>
+    <Import>http://www.dmi.unict.it/alan-config.owl#</Import>
     <Declaration>
         <Class IRI="http://www.w3.org/2006/time#generalYear"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#alan-device-light1-config"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#turn_on"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnon-taskdescription"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#LightObjectType"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#turn_off"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#main_kitchen_light"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnon-behavior"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnoff-goaldescription"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="http://www.dmi.unict.it/profeta.owl#Component_Configuration"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-light1"/>
     </Declaration>
     <SubClassOf>
         <Class IRI="http://www.dmi.unict.it/profeta.owl#Action"/>
