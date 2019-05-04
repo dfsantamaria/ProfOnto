@@ -83,16 +83,16 @@ public class OntoASCore extends OntologyCore
         generators.add(new InferredObjectPropertyCharacteristicAxiomGenerator());
         // NOTE: InferredPropertyAssertionGenerator significantly slows down
         // inference computation
-        generators.add(new org.semanticweb.owlapi.util.InferredPropertyAssertionGenerator());
+      //  generators.add(new org.semanticweb.owlapi.util.InferredPropertyAssertionGenerator());
         generators.add(new InferredSubClassAxiomGenerator());
-       // generators.add(new InferredSubDataPropertyAxiomGenerator());
+        generators.add(new InferredSubDataPropertyAxiomGenerator());
         generators.add(new InferredSubObjectPropertyAxiomGenerator());
+        
         List<InferredIndividualAxiomGenerator<? extends OWLIndividualAxiom>> individualAxioms = new ArrayList<>();
         generators.addAll(individualAxioms);
         generators.add(new InferredDisjointClassesAxiomGenerator());      
       }
-   
-   
+     
    
     private Configuration getConfiguration(){return configuration;}      
     public void setMainOntologiesPath(Path path){this.getConfiguration().getPaths()[0]=path; createFolder(path);}
