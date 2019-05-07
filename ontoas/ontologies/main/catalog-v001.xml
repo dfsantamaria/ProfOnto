@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
     <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1556968624774" name="http://www.dmi.unict.it/profeta-dataset.owl" uri="dataset.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1556968624774" name="http://www.dmi.unict.it/profeta-heavy.owl" uri="onto-as-heavy.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1556968624774" name="http://www.dmi.unict.it/profeta.owl" uri="onto-as.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1557213436214" name="http://www.dmi.unict.it/ontoas.owl" uri="onto-as.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1557213436214" name="http://www.dmi.unict.it/profeta-dataset.owl" uri="dataset.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1557213436214" name="http://www.dmi.unict.it/profeta-heavy.owl" uri="onto-as-heavy.owl"/>
     </group>
 </catalog>

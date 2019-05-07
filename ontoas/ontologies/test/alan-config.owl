@@ -26,53 +26,53 @@
         <NamedIndividual IRI="main_kitchen_light"/>
     </Declaration>
     <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/profeta.owl#Human"/>
+        <Class IRI="http://www.dmi.unict.it/ontoas.owl#Human"/>
         <NamedIndividual IRI="alan"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/profeta.owl#Component_Configuration"/>
+        <Class IRI="http://www.dmi.unict.it/ontoas.owl#Component_Configuration"/>
         <NamedIndividual IRI="alan-device-light1-config"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/profeta.owl#PhysicalSpace"/>
+        <Class IRI="http://www.dmi.unict.it/ontoas.owl#PhysicalSpace"/>
         <NamedIndividual IRI="alan_kitchen"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/profeta.owl#EnviromentComponent"/>
+        <Class IRI="http://www.dmi.unict.it/ontoas.owl#EnviromentComponent"/>
         <NamedIndividual IRI="main_kitchen_light"/>
     </ClassAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#configurationProvidedBy"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/ontoas.owl#configurationProvidedBy"/>
         <NamedIndividual IRI="alan-device-light1-config"/>
         <NamedIndividual IRI="alan"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#setsUp"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/ontoas.owl#setsUp"/>
         <NamedIndividual IRI="alan-device-light1-config"/>
         <NamedIndividual IRI="main_kitchen_light"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasType"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/ontoas.owl#hasType"/>
         <NamedIndividual IRI="alan_kitchen"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#kitchen"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/ontoas.owl#kitchen"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasSpaceSpan"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/ontoas.owl#hasSpaceSpan"/>
         <NamedIndividual IRI="main_kitchen_light"/>
         <NamedIndividual IRI="alan_kitchen"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasType"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/ontoas.owl#hasType"/>
         <NamedIndividual IRI="main_kitchen_light"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/profeta.owl#LightObjectType"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/ontoas.owl#LightObjectType"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#setUpFrom"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/ontoas.owl#setUpFrom"/>
         <NamedIndividual IRI="main_kitchen_light"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-light1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/profeta.owl#hasConfiguration"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/ontoas.owl#hasConfiguration"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-light1"/>
         <NamedIndividual IRI="alan-device-light1-config"/>
     </ObjectPropertyAssertion>

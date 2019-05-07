@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
 <Ontology xmlns="http://www.w3.org/2002/07/owl#"
-     xml:base="http://www.dmi.unict.it/profeta.owl"
+     xml:base="http://www.dmi.unict.it/ontoas.owl"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     ontologyIRI="http://www.dmi.unict.it/profeta.owl"
-     versionIRI="http://www.dmi.unict.it/profeta.owl/0.0.1">
-    <Prefix name="" IRI="http://www.dmi.unict.it/profeta.owl"/>
+     ontologyIRI="http://www.dmi.unict.it/ontoas.owl"
+     versionIRI="http://www.dmi.unict.it/ontoas.owl/0.0.1">
+    <Prefix name="" IRI="http://www.dmi.unict.it/ontoas.owl"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
@@ -97,97 +97,85 @@ Ontology engineering by Simon J D Cox</Literal>
         <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">2017-04-06 - hasTime, hasXSDDuration added; Number removed; all duration elements changed to xsd:decimal</Literal>
     </Annotation>
     <Declaration>
-        <Class IRI="#Event"/>
+        <Class IRI=".owl#FeasibilityTrue"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI=".owl#ObjectType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI=".owl#Feasibility"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="http://www.w3.org/2006/time#month"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasPlanExecution"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#GoalExecution"/>
+        <Class IRI=".owl#Operator"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.w3.org/2006/time#hasDuration"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI=".owl#hasSubject"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI=".owl#GoalDescription"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="http://www.w3.org/2006/time#intervalIn"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#SuccededStatus"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#DescriptionObject"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.w3.org/2006/time#intervalBefore"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasTaskParameter"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Agent_Configuration"/>
+        <ObjectProperty IRI=".owl#consistsOfExecution"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="http://www.w3.org/2006/time#seconds"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#TaskOperator"/>
+        <ObjectProperty IRI=".owl#hasConditionalDescriptor"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasStatus"/>
+        <Class IRI=".owl#PhysicalSpace"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#fallsWithin"/>
+        <Class IRI=".owl#FeasibilityFalse"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#greatherEqual"/>
+        <Class IRI=".owl#HomeObjectType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI=".owl#ConditionalSubject"/>
     </Declaration>
     <Declaration>
         <Datatype IRI="http://www.w3.org/2006/time#generalYear"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#triggers"/>
+        <ObjectProperty IRI="http://www.w3.org/2006/time#hasBeginning"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="http://www.w3.org/2006/time#hasBeginning"/>
+        <ObjectProperty IRI=".owl#hasConnection"/>
     </Declaration>
     <Declaration>
         <Class IRI="http://www.w3.org/2006/time#TimePosition"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasSpaceType"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#EnviromentComponent"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ConditionOperator"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#setsUp"/>
-    </Declaration>
-    <Declaration>
         <DataProperty IRI="http://www.w3.org/2006/time#numericDuration"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Configuration"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#SoftwareAgent"/>
+        <Class IRI=".owl#ConditionalOperator"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.w3.org/2006/time#inside"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#GeometricExtension"/>
+        <Class IRI=".owl#TaskDescription"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Action"/>
+        <ObjectProperty IRI=".owl#exploits"/>
     </Declaration>
     <Declaration>
-        <AnnotationProperty IRI="#isInTheBeliefOf"/>
+        <ObjectProperty IRI=".owl#assigns"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.w3.org/2006/time#intervalOverlaps"/>
@@ -196,22 +184,25 @@ Ontology engineering by Simon J D Cox</Literal>
         <ObjectProperty IRI="http://www.w3.org/2006/time#intervalStartedBy"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasObject"/>
+        <Class IRI=".owl#ComponentConfiguration"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.w3.org/2006/time#timeZone"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Behavior"/>
+        <NamedIndividual IRI=".owl#timeSpan"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Component"/>
+        <ObjectProperty IRI=".owl#hasConditionalOperator"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#User"/>
+        <ObjectProperty IRI=".owl#setUpFrom"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#DataOperator"/>
+        <Class IRI=".owl#Implementation"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI=".owl#ExecutionActivity"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.w3.org/2006/time#intervalDuring"/>
@@ -220,88 +211,73 @@ Ontology engineering by Simon J D Cox</Literal>
         <ObjectProperty IRI="http://www.w3.org/2006/time#intervalDisjoint"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Connection"/>
+        <NamedIndividual IRI=".owl#exists"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI=".owl#involves"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.w3.org/2006/time#hasEnd"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#TaskObject"/>
+        <Class IRI=".owl#Activity"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI=".owl#hasExecutionObject"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI=".owl#hasTaskObject"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="http://www.w3.org/2006/time#hasXSDDuration"/>
     </Declaration>
     <Declaration>
+        <Class IRI=".owl#Human"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI=".owl#SpaceOperator"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="http://www.w3.org/2006/time#Instant"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasValue"/>
+        <Class IRI=".owl#VirtualSpace"/>
     </Declaration>
     <Declaration>
         <Class IRI="http://www.w3.org/2006/time#TRS"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#PlanEntrustment"/>
+        <Class IRI=".owl#TaskExecution"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#configurationProvidedBy"/>
+        <Class IRI=".owl#ActivationStatus"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasTaskOperator"/>
+        <Class IRI=".owl#TimeOperator"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#SpaceType"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Robot"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#greatherThan"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#PlanDescription"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#lessThan"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#TaskPart"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#performs"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Value"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#entrusts"/>
+        <Class IRI=".owl#Robot"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="http://www.w3.org/2006/time#days"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasOperator"/>
+        <Class IRI=".owl#FailedStatus"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI=".owl#connectsTo"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="http://www.w3.org/2006/time#years"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#assignsTo"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#entrustedTo"/>
+        <Class IRI=".owl#OpportunityValue"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="http://www.w3.org/2006/time#inXSDDateTimeStamp"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#consistsOf"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Scheduling"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasConditionSet"/>
+        <Class IRI=".owl#PlanPart"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="http://www.w3.org/2006/time#inXSDgYear"/>
@@ -310,19 +286,19 @@ Ontology engineering by Simon J D Cox</Literal>
         <ObjectProperty IRI="http://www.w3.org/2006/time#intervalAfter"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#exists"/>
-    </Declaration>
-    <Declaration>
         <DataProperty IRI="http://www.w3.org/2006/time#hour"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#EntrustmentObject"/>
+        <ObjectProperty IRI=".owl#hasOpportunityValue"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasFeasibility"/>
+        <ObjectProperty IRI=".owl#hasGeometricExtension"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#PlanExecution"/>
+        <DataProperty IRI=".owl#hasScheduleRepetition"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI=".owl#hasScheduling"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.w3.org/2006/time#intervalMetBy"/>
@@ -331,127 +307,97 @@ Ontology engineering by Simon J D Cox</Literal>
         <Class IRI="http://www.w3.org/2006/time#MonthOfYear"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#TemporaryStatus"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#VirtualSpace"/>
+        <Class IRI=".owl#BehaviorPart"/>
     </Declaration>
     <Declaration>
         <Datatype IRI="http://www.w3.org/2006/time#generalMonth"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#TaskEntrustment"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Agent"/>
-    </Declaration>
-    <Declaration>
         <DataProperty IRI="http://www.w3.org/2006/time#numericPosition"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#OpportunityValue"/>
+        <Class IRI=".owl#Behavior"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasTaskObject"/>
+        <Class IRI=".owl#User"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#TemperatureValue"/>
+        <ObjectProperty IRI=".owl#hasGoalExecution"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#exploits"/>
+        <Class IRI=".owl#ActionStatus"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasConditionOperator"/>
+        <Class IRI=".owl#Component"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#DeactiveStatus"/>
+        <Class IRI=".owl#ConditionalSet"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.w3.org/2006/time#hasTime"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ConditionSet"/>
+        <ObjectProperty IRI=".owl#requests"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Status"/>
+        <ObjectProperty IRI=".owl#assignsTo"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#isDescribedBy"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#hasConditionDataValue"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#hasScheduleRepetition"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasGeometricExtension"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasGoalExecution"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ActionStatus"/>
+        <Class IRI=".owl#Connection"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.w3.org/2006/time#unitType"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Device"/>
+        <Class IRI=".owl#Agent"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#TaskDescription"/>
+        <Class IRI=".owl#TaskEntrustment"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI=".owl#TemporaryStatus"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.w3.org/2006/time#hasTRS"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasConditionRestriction"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasTimeSpan"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ActiveStatus"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#PermanentStatus"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasCondition"/>
+        <ObjectProperty IRI=".owl#hasStatus"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="http://www.w3.org/2006/time#hours"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#requests"/>
+        <ObjectProperty IRI=".owl#isDescribedBy"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasScheduling"/>
+        <DataProperty IRI=".owl#hasConditionDataValue"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Type"/>
+        <ObjectProperty IRI=".owl#hasFeasibility"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI=".owl#DeactiveStatus"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI=".owl#hasTimeSpan"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="http://www.w3.org/2006/time#inXSDDate"/>
     </Declaration>
     <Declaration>
+        <Class IRI=".owl#GoalExecution"/>
+    </Declaration>
+    <Declaration>
         <DataProperty IRI="http://www.w3.org/2006/time#dayOfYear"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="http://www.w3.org/2006/time#inTemporalPosition"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://www.w3.org/2006/time#TemporalUnit"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="http://www.w3.org/2006/time#minutes"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#connectsTo"/>
+        <Class IRI="http://www.w3.org/2006/time#TemporalUnit"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ObjectType"/>
+        <ObjectProperty IRI="http://www.w3.org/2006/time#inTemporalPosition"/>
     </Declaration>
     <Declaration>
         <Class IRI="http://www.w3.org/2006/time#DayOfWeek"/>
@@ -460,61 +406,97 @@ Ontology engineering by Simon J D Cox</Literal>
         <ObjectProperty IRI="http://www.w3.org/2006/time#intervalFinishedBy"/>
     </Declaration>
     <Declaration>
+        <Class IRI=".owl#Type"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="http://www.w3.org/2006/time#intervalEquals"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#FeasibilityTrue"/>
+        <Class IRI=".owl#Sensor"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Sensor"/>
+        <Class IRI=".owl#Agent_Configuration"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasOpportunityValue"/>
+        <Class IRI=".owl#ConditionalObject"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ConditionRestriction"/>
+        <Class IRI=".owl#Scheduling"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#assigns"/>
+        <Class IRI=".owl#PermanentStatus"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#PhysicalSpace"/>
+        <Class IRI=".owl#GoalPart"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI=".owl#fallsWithin"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI=".owl#TaskObject"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI=".owl#hasTaskOperator"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI=".owl#greatherEqual"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI=".owl#hasValue"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI=".owl#hasOperator"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.w3.org/2006/time#inTimePosition"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasConnection"/>
+        <AnnotationProperty IRI=".owl#isInTheBeliefOf"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasConditionValue"/>
+        <ObjectProperty IRI="#hasAppellation"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#setUpFrom"/>
+        <Class IRI=".owl#SoftwareAgent"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Plan"/>
+        <Class IRI=".owl#Device"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasExecutionObject"/>
+        <ObjectProperty IRI=".owl#hasTaskExecution"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI=".owl#DescriptionObject"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI=".owl#ActiveStatus"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI=".owl#GeometricExtension"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.w3.org/2006/time#before"/>
     </Declaration>
     <Declaration>
+        <Class IRI=".owl#EnviromentComponent"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI=".owl#Configuration"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI=".owl#Conditional"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="http://www.w3.org/2006/time#Duration"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasBehavior"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasSubject"/>
+        <ObjectProperty IRI=".owl#requestsActivity"/>
     </Declaration>
     <Declaration>
         <Class IRI="http://www.w3.org/2006/time#ProperInterval"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Implementation"/>
+        <Class IRI=".owl#TaskParameter"/>
     </Declaration>
     <Declaration>
         <Class IRI="http://www.w3.org/2006/time#GeneralDurationDescription"/>
@@ -526,34 +508,34 @@ Ontology engineering by Simon J D Cox</Literal>
         <Datatype IRI="http://www.w3.org/2006/time#generalDay"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasGoalDescription"/>
+        <ObjectProperty IRI=".owl#triggers"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#SpaceOperator"/>
+        <Class IRI=".owl#SpaceType"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#HomeObjectType"/>
+        <Class IRI=".owl#ConditionalRestriction"/>
     </Declaration>
     <Declaration>
         <Class IRI="http://www.w3.org/2006/time#DurationDescription"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Human"/>
+        <Class IRI=".owl#TaskOperator"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#TaskExecution"/>
+        <ObjectProperty IRI=".owl#hasTaskParameter"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasImplementation"/>
+        <Class IRI=".owl#TemperatureValue"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.w3.org/2006/time#dayOfWeek"/>
     </Declaration>
     <Declaration>
-        <Class IRI="http://www.w3.org/2006/time#GeneralDateTimeDescription"/>
+        <Class IRI=".owl#TaskPart"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#involves"/>
+        <Class IRI="http://www.w3.org/2006/time#GeneralDateTimeDescription"/>
     </Declaration>
     <Declaration>
         <Class IRI="http://www.w3.org/2006/time#TemporalPosition"/>
@@ -562,34 +544,37 @@ Ontology engineering by Simon J D Cox</Literal>
         <DataProperty IRI="http://www.w3.org/2006/time#inXSDgYearMonth"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#FailedStatus"/>
+        <Class IRI=".owl#Value"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ConditionObject"/>
+        <ObjectProperty IRI=".owl#consistsOfGoalEntrustment"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Operator"/>
+        <ObjectProperty IRI=".owl#entrusts"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Goal"/>
+        <ObjectProperty IRI=".owl#performs"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasTaskDescription"/>
+        <ObjectProperty IRI=".owl#entrustedTo"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI=".owl#Status"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI=".owl#DataOperator"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.w3.org/2006/time#hasDateTimeDescription"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasConditionObject"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#timeSpan"/>
+        <ObjectProperty IRI=".owl#hasObject"/>
     </Declaration>
     <Declaration>
         <Class IRI="http://www.w3.org/2006/time#Year"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#UrbanObjectType"/>
+        <ObjectProperty IRI=".owl#consistsOf"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.w3.org/2006/time#intervalStarts"/>
@@ -598,13 +583,19 @@ Ontology engineering by Simon J D Cox</Literal>
         <ObjectProperty IRI="http://www.w3.org/2006/time#after"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ActivationStatus"/>
+        <ObjectProperty IRI=".owl#cosistsOfTaskExecution"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI=".owl#consistsOfTaskEntrustment"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI=".owl#consistsOfGoalDescription"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI=".owl#lessThan"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="http://www.w3.org/2006/time#week"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#TimeOperator"/>
     </Declaration>
     <Declaration>
         <Class IRI="http://www.w3.org/2006/time#DateTimeInterval"/>
@@ -613,10 +604,37 @@ Ontology engineering by Simon J D Cox</Literal>
         <ObjectProperty IRI="http://www.w3.org/2006/time#intervalOverlappedBy"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI=".owl#consistsOfTaskDescription"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI=".owl#hasConditionalValue"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI=".owl#UrbanObjectType"/>
+    </Declaration>
+    <Declaration>
         <DataProperty IRI="http://www.w3.org/2006/time#year"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ComponentConfiguration"/>
+        <Class IRI=".owl#PlanExecution"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI=".owl#PlanDescription"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI=".owl#PlanEntrustment"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI=".owl#Event"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI=".owl#SuccededStatus"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI=".owl#hasConditionalObject"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI=".owl#configurationProvidedBy"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.w3.org/2006/time#intervalContains"/>
@@ -625,127 +643,145 @@ Ontology engineering by Simon J D Cox</Literal>
         <Class IRI="http://www.w3.org/2006/time#TimeZone"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#equal"/>
-    </Declaration>
-    <Declaration>
         <DataProperty IRI="http://www.w3.org/2006/time#day"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.w3.org/2006/time#hasDurationDescription"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Space"/>
+        <Class IRI=".owl#ConditionalPart"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="http://www.w3.org/2006/time#months"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#lessEqual"/>
+        <ObjectProperty IRI=".owl#hasConditionalSubject"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasType"/>
+        <Class IRI=".owl#TaskDescriptor"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasConfiguration"/>
+        <ObjectProperty IRI=".owl#hasImplementation"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI=".owl#dependsOn"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI=".owl#greatherThan"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.w3.org/2006/time#intervalFinishes"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#performedBy"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#TaskParameter"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#dependsOn"/>
+        <ObjectProperty IRI=".owl#hasBehavior"/>
     </Declaration>
     <Declaration>
         <Class IRI="http://www.w3.org/2006/time#TemporalEntity"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="http://www.w3.org/2006/time#second"/>
+        <ObjectProperty IRI=".owl#setsUp"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="http://www.w3.org/2006/time#monthOfYear"/>
+        <DataProperty IRI="http://www.w3.org/2006/time#second"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="http://www.w3.org/2006/time#minute"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ExistentialOperator"/>
+        <ObjectProperty IRI="http://www.w3.org/2006/time#monthOfYear"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI=".owl#hasConditional"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI=".owl#ConditionalDescriptor"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI=".owl#hasSpaceSpan"/>
     </Declaration>
     <Declaration>
         <Class IRI="http://www.w3.org/2006/time#January"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI=".owl#hasConditionalRestriction"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="http://www.w3.org/2006/time#TemporalDuration"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ConditionSubject"/>
+        <NamedIndividual IRI=".owl#spaceSpan"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI=".owl#concerns"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.w3.org/2006/time#hasTemporalDuration"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#GoalDescription"/>
+        <Class IRI="#Appellation"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasTaskExecution"/>
+        <Class IRI=".owl#GoalEntrustment"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Task"/>
+        <ObjectProperty IRI=".owl#performedBy"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Condition"/>
+        <ObjectProperty IRI=".owl#hasSpaceType"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ExecutionObject"/>
+        <NamedIndividual IRI=".owl#lessEqual"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI=".owl#consistsOfGoalExecution"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI=".owl#Space"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="http://www.w3.org/2006/time#nominalPosition"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#concerns"/>
+        <DataProperty IRI="http://www.w3.org/2006/time#weeks"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="http://www.w3.org/2006/time#weeks"/>
+        <Class IRI=".owl#ExistentialOperator"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.w3.org/2006/time#inDateTime"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#spaceSpan"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ConditionalPart"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="http://www.w3.org/2006/time#intervalMeets"/>
+        <ObjectProperty IRI=".owl#hasConfiguration"/>
     </Declaration>
     <Declaration>
         <Class IRI="http://www.w3.org/2006/time#DateTimeDescription"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasSpaceSpan"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasConditionSubject"/>
+        <ObjectProperty IRI="http://www.w3.org/2006/time#intervalMeets"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="http://www.w3.org/2006/time#xsdDateTime"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Feasibility"/>
+        <NamedIndividual IRI=".owl#equal"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#GoalEntrustment"/>
+        <Class IRI=".owl#EntrustmentActivity"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#FeasibilityFalse"/>
+        <ObjectProperty IRI=".owl#hasType"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="http://www.w3.org/2006/time#inXSDDateTime"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI=".owl#consistsOfDescription"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI=".owl#hasConditionalSet"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI=".owl#consistsOfEntrustment"/>
     </Declaration>
     <Declaration>
         <AnnotationProperty IRI="http://purl.org/dc/terms/creator"/>
@@ -866,248 +902,256 @@ Ontology engineering by Simon J D Cox</Literal>
         </ObjectUnionOf>
     </EquivalentClasses>
     <SubClassOf>
-        <Class IRI="#ActionStatus"/>
-        <Class IRI="#Status"/>
+        <Class IRI=".owl#ActionStatus"/>
+        <Class IRI=".owl#Status"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#ActivationStatus"/>
-        <Class IRI="#Status"/>
+        <Class IRI=".owl#ActivationStatus"/>
+        <Class IRI=".owl#Status"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#ActiveStatus"/>
-        <Class IRI="#ActivationStatus"/>
+        <Class IRI=".owl#ActiveStatus"/>
+        <Class IRI=".owl#ActivationStatus"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Agent_Configuration"/>
-        <Class IRI="#Configuration"/>
+        <Class IRI=".owl#Activity"/>
+        <Class IRI=".owl#Event"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#ComponentConfiguration"/>
-        <Class IRI="#Configuration"/>
+        <Class IRI=".owl#Agent_Configuration"/>
+        <Class IRI=".owl#Configuration"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Condition"/>
-        <Class IRI="#ConditionalPart"/>
+        <Class IRI=".owl#Behavior"/>
+        <Class IRI=".owl#BehaviorPart"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#ConditionObject"/>
-        <Class IRI="#ConditionalPart"/>
+        <Class IRI=".owl#Behavior"/>
+        <Class IRI=".owl#DescriptionObject"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#ConditionOperator"/>
-        <Class IRI="#ConditionalPart"/>
+        <Class IRI=".owl#ComponentConfiguration"/>
+        <Class IRI=".owl#Configuration"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#ConditionOperator"/>
-        <Class IRI="#Operator"/>
+        <Class IRI=".owl#Conditional"/>
+        <Class IRI=".owl#ConditionalPart"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#ConditionRestriction"/>
-        <Class IRI="#ConditionalPart"/>
+        <Class IRI=".owl#ConditionalObject"/>
+        <Class IRI=".owl#ConditionalDescriptor"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#ConditionSet"/>
-        <Class IRI="#ConditionalPart"/>
+        <Class IRI=".owl#ConditionalOperator"/>
+        <Class IRI=".owl#ConditionalDescriptor"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#ConditionSubject"/>
-        <Class IRI="#ConditionalPart"/>
+        <Class IRI=".owl#ConditionalOperator"/>
+        <Class IRI=".owl#Operator"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#DataOperator"/>
-        <Class IRI="#ConditionOperator"/>
+        <Class IRI=".owl#ConditionalRestriction"/>
+        <Class IRI=".owl#ConditionalPart"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#DeactiveStatus"/>
-        <Class IRI="#ActivationStatus"/>
+        <Class IRI=".owl#ConditionalSet"/>
+        <Class IRI=".owl#ConditionalPart"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Device"/>
-        <Class IRI="#Robot"/>
+        <Class IRI=".owl#ConditionalSubject"/>
+        <Class IRI=".owl#ConditionalDescriptor"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#EnviromentComponent"/>
-        <Class IRI="#Component"/>
+        <Class IRI=".owl#DataOperator"/>
+        <Class IRI=".owl#ConditionalOperator"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#ExistentialOperator"/>
-        <Class IRI="#ConditionOperator"/>
+        <Class IRI=".owl#DeactiveStatus"/>
+        <Class IRI=".owl#ActivationStatus"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#FailedStatus"/>
-        <Class IRI="#ActionStatus"/>
+        <Class IRI=".owl#Device"/>
+        <Class IRI=".owl#Robot"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#FeasibilityFalse"/>
-        <Class IRI="#Feasibility"/>
+        <Class IRI=".owl#EntrustmentActivity"/>
+        <Class IRI=".owl#Activity"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#FeasibilityTrue"/>
-        <Class IRI="#Feasibility"/>
+        <Class IRI=".owl#EnviromentComponent"/>
+        <Class IRI=".owl#Component"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#GeometricExtension"/>
-        <Class IRI="#Value"/>
+        <Class IRI=".owl#ExecutionActivity"/>
+        <Class IRI=".owl#Activity"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Goal"/>
-        <Class IRI="#Action"/>
+        <Class IRI=".owl#ExistentialOperator"/>
+        <Class IRI=".owl#ConditionalOperator"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#GoalDescription"/>
-        <Class IRI="#DescriptionObject"/>
+        <Class IRI=".owl#FailedStatus"/>
+        <Class IRI=".owl#ActionStatus"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#GoalDescription"/>
-        <Class IRI="#Goal"/>
+        <Class IRI=".owl#FeasibilityFalse"/>
+        <Class IRI=".owl#Feasibility"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#GoalEntrustment"/>
-        <Class IRI="#EntrustmentObject"/>
+        <Class IRI=".owl#FeasibilityTrue"/>
+        <Class IRI=".owl#Feasibility"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#GoalExecution"/>
-        <Class IRI="#ExecutionObject"/>
+        <Class IRI=".owl#GeometricExtension"/>
+        <Class IRI=".owl#Value"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#GoalExecution"/>
-        <Class IRI="#Goal"/>
+        <Class IRI=".owl#GoalDescription"/>
+        <Class IRI=".owl#DescriptionObject"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#HomeObjectType"/>
-        <Class IRI="#ObjectType"/>
+        <Class IRI=".owl#GoalDescription"/>
+        <Class IRI=".owl#GoalPart"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Human"/>
-        <Class IRI="#Agent"/>
+        <Class IRI=".owl#GoalEntrustment"/>
+        <Class IRI=".owl#EntrustmentActivity"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#ObjectType"/>
-        <Class IRI="#Type"/>
+        <Class IRI=".owl#GoalExecution"/>
+        <Class IRI=".owl#ExecutionActivity"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#OpportunityValue"/>
-        <Class IRI="#Value"/>
+        <Class IRI=".owl#GoalExecution"/>
+        <Class IRI=".owl#GoalPart"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#PermanentStatus"/>
-        <Class IRI="#Status"/>
+        <Class IRI=".owl#HomeObjectType"/>
+        <Class IRI=".owl#ObjectType"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#PhysicalSpace"/>
-        <Class IRI="#Space"/>
+        <Class IRI=".owl#Human"/>
+        <Class IRI=".owl#Agent"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Plan"/>
-        <Class IRI="#Action"/>
+        <Class IRI=".owl#ObjectType"/>
+        <Class IRI=".owl#Type"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#PlanDescription"/>
-        <Class IRI="#DescriptionObject"/>
+        <Class IRI=".owl#OpportunityValue"/>
+        <Class IRI=".owl#Value"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#PlanDescription"/>
-        <Class IRI="#Plan"/>
+        <Class IRI=".owl#PermanentStatus"/>
+        <Class IRI=".owl#Status"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#PlanEntrustment"/>
-        <Class IRI="#EntrustmentObject"/>
+        <Class IRI=".owl#PhysicalSpace"/>
+        <Class IRI=".owl#Space"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#PlanExecution"/>
-        <Class IRI="#ExecutionObject"/>
+        <Class IRI=".owl#PlanDescription"/>
+        <Class IRI=".owl#DescriptionObject"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#PlanExecution"/>
-        <Class IRI="#Plan"/>
+        <Class IRI=".owl#PlanDescription"/>
+        <Class IRI=".owl#PlanPart"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Robot"/>
-        <Class IRI="#Agent"/>
+        <Class IRI=".owl#PlanEntrustment"/>
+        <Class IRI=".owl#EntrustmentActivity"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Sensor"/>
-        <Class IRI="#Device"/>
+        <Class IRI=".owl#PlanExecution"/>
+        <Class IRI=".owl#ExecutionActivity"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#SoftwareAgent"/>
-        <Class IRI="#Robot"/>
+        <Class IRI=".owl#PlanExecution"/>
+        <Class IRI=".owl#PlanPart"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#SpaceOperator"/>
-        <Class IRI="#ConditionOperator"/>
+        <Class IRI=".owl#Robot"/>
+        <Class IRI=".owl#Agent"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#SpaceType"/>
-        <Class IRI="#Type"/>
+        <Class IRI=".owl#Sensor"/>
+        <Class IRI=".owl#Device"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#SuccededStatus"/>
-        <Class IRI="#ActionStatus"/>
+        <Class IRI=".owl#SoftwareAgent"/>
+        <Class IRI=".owl#Robot"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#Task"/>
-        <Class IRI="#Action"/>
+        <Class IRI=".owl#SpaceOperator"/>
+        <Class IRI=".owl#ConditionalOperator"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#TaskDescription"/>
-        <Class IRI="#DescriptionObject"/>
+        <Class IRI=".owl#SpaceType"/>
+        <Class IRI=".owl#Type"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#TaskDescription"/>
-        <Class IRI="#Task"/>
+        <Class IRI=".owl#SuccededStatus"/>
+        <Class IRI=".owl#ActionStatus"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#TaskEntrustment"/>
-        <Class IRI="#EntrustmentObject"/>
+        <Class IRI=".owl#TaskDescription"/>
+        <Class IRI=".owl#DescriptionObject"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#TaskExecution"/>
-        <Class IRI="#ExecutionObject"/>
+        <Class IRI=".owl#TaskDescription"/>
+        <Class IRI=".owl#TaskPart"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#TaskExecution"/>
-        <Class IRI="#Task"/>
+        <Class IRI=".owl#TaskEntrustment"/>
+        <Class IRI=".owl#EntrustmentActivity"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#TaskObject"/>
-        <Class IRI="#TaskPart"/>
+        <Class IRI=".owl#TaskExecution"/>
+        <Class IRI=".owl#ExecutionActivity"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#TaskOperator"/>
-        <Class IRI="#Operator"/>
+        <Class IRI=".owl#TaskExecution"/>
+        <Class IRI=".owl#TaskPart"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#TaskOperator"/>
-        <Class IRI="#TaskPart"/>
+        <Class IRI=".owl#TaskObject"/>
+        <Class IRI=".owl#TaskDescriptor"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#TaskParameter"/>
-        <Class IRI="#TaskPart"/>
+        <Class IRI=".owl#TaskOperator"/>
+        <Class IRI=".owl#Operator"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#TemperatureValue"/>
-        <Class IRI="#Value"/>
+        <Class IRI=".owl#TaskOperator"/>
+        <Class IRI=".owl#TaskDescriptor"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#TemporaryStatus"/>
-        <Class IRI="#Status"/>
+        <Class IRI=".owl#TaskParameter"/>
+        <Class IRI=".owl#TaskDescriptor"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#TimeOperator"/>
-        <Class IRI="#ConditionOperator"/>
+        <Class IRI=".owl#TemperatureValue"/>
+        <Class IRI=".owl#Value"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#UrbanObjectType"/>
-        <Class IRI="#ObjectType"/>
+        <Class IRI=".owl#TemporaryStatus"/>
+        <Class IRI=".owl#Status"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#User"/>
-        <Class IRI="#Human"/>
+        <Class IRI=".owl#TimeOperator"/>
+        <Class IRI=".owl#ConditionalOperator"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#VirtualSpace"/>
-        <Class IRI="#Space"/>
+        <Class IRI=".owl#UrbanObjectType"/>
+        <Class IRI=".owl#ObjectType"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI=".owl#User"/>
+        <Class IRI=".owl#Human"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI=".owl#VirtualSpace"/>
+        <Class IRI=".owl#Space"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="http://www.w3.org/2006/time#DateTimeDescription"/>
@@ -1520,36 +1564,36 @@ Ontology engineering by Simon J D Cox</Literal>
         <Class IRI="http://www.w3.org/2006/time#ProperInterval"/>
     </DisjointClasses>
     <ClassAssertion>
-        <Class IRI="#DataOperator"/>
-        <NamedIndividual IRI="#equal"/>
+        <Class IRI=".owl#DataOperator"/>
+        <NamedIndividual IRI=".owl#equal"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#ExistentialOperator"/>
-        <NamedIndividual IRI="#exists"/>
+        <Class IRI=".owl#ExistentialOperator"/>
+        <NamedIndividual IRI=".owl#exists"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#DataOperator"/>
-        <NamedIndividual IRI="#greatherEqual"/>
+        <Class IRI=".owl#DataOperator"/>
+        <NamedIndividual IRI=".owl#greatherEqual"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#DataOperator"/>
-        <NamedIndividual IRI="#greatherThan"/>
+        <Class IRI=".owl#DataOperator"/>
+        <NamedIndividual IRI=".owl#greatherThan"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#DataOperator"/>
-        <NamedIndividual IRI="#lessEqual"/>
+        <Class IRI=".owl#DataOperator"/>
+        <NamedIndividual IRI=".owl#lessEqual"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#DataOperator"/>
-        <NamedIndividual IRI="#lessThan"/>
+        <Class IRI=".owl#DataOperator"/>
+        <NamedIndividual IRI=".owl#lessThan"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#SpaceOperator"/>
-        <NamedIndividual IRI="#spaceSpan"/>
+        <Class IRI=".owl#SpaceOperator"/>
+        <NamedIndividual IRI=".owl#spaceSpan"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="#TimeOperator"/>
-        <NamedIndividual IRI="#timeSpan"/>
+        <Class IRI=".owl#TimeOperator"/>
+        <NamedIndividual IRI=".owl#timeSpan"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://www.w3.org/2006/time#DayOfWeek"/>
@@ -1853,56 +1897,96 @@ Ontology engineering by Simon J D Cox</Literal>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#decimal">1</Literal>
     </DataPropertyAssertion>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasBehavior"/>
-        <ObjectProperty IRI="#isDescribedBy"/>
+        <ObjectProperty IRI=".owl#consistsOfDescription"/>
+        <ObjectProperty IRI=".owl#consistsOf"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasConditionObject"/>
-        <ObjectProperty IRI="#hasObject"/>
+        <ObjectProperty IRI=".owl#consistsOfEntrustment"/>
+        <ObjectProperty IRI=".owl#consistsOf"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasConditionOperator"/>
-        <ObjectProperty IRI="#hasOperator"/>
+        <ObjectProperty IRI=".owl#consistsOfExecution"/>
+        <ObjectProperty IRI=".owl#consistsOf"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasConditionSubject"/>
-        <ObjectProperty IRI="#hasSubject"/>
+        <ObjectProperty IRI=".owl#consistsOfGoalDescription"/>
+        <ObjectProperty IRI=".owl#consistsOfDescription"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasConditionValue"/>
-        <ObjectProperty IRI="#hasValue"/>
+        <ObjectProperty IRI=".owl#consistsOfGoalEntrustment"/>
+        <ObjectProperty IRI=".owl#consistsOfEntrustment"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasGeometricExtension"/>
-        <ObjectProperty IRI="#hasValue"/>
+        <ObjectProperty IRI=".owl#consistsOfGoalExecution"/>
+        <ObjectProperty IRI=".owl#consistsOfExecution"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasGoalDescription"/>
-        <ObjectProperty IRI="#isDescribedBy"/>
+        <ObjectProperty IRI=".owl#consistsOfTaskDescription"/>
+        <ObjectProperty IRI=".owl#consistsOfDescription"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasGoalExecution"/>
-        <ObjectProperty IRI="#hasExecutionObject"/>
+        <ObjectProperty IRI=".owl#consistsOfTaskEntrustment"/>
+        <ObjectProperty IRI=".owl#consistsOfEntrustment"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasPlanExecution"/>
-        <ObjectProperty IRI="#hasExecutionObject"/>
+        <ObjectProperty IRI=".owl#cosistsOfTaskExecution"/>
+        <ObjectProperty IRI=".owl#consistsOfExecution"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasTaskDescription"/>
-        <ObjectProperty IRI="#isDescribedBy"/>
+        <ObjectProperty IRI=".owl#hasBehavior"/>
+        <ObjectProperty IRI=".owl#isDescribedBy"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasTaskExecution"/>
-        <ObjectProperty IRI="#hasExecutionObject"/>
+        <ObjectProperty IRI=".owl#hasConditionalObject"/>
+        <ObjectProperty IRI=".owl#hasConditionalDescriptor"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasTaskObject"/>
-        <ObjectProperty IRI="#hasObject"/>
+        <ObjectProperty IRI=".owl#hasConditionalObject"/>
+        <ObjectProperty IRI=".owl#hasObject"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasTaskOperator"/>
-        <ObjectProperty IRI="#hasOperator"/>
+        <ObjectProperty IRI=".owl#hasConditionalOperator"/>
+        <ObjectProperty IRI=".owl#hasConditionalDescriptor"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI=".owl#hasConditionalOperator"/>
+        <ObjectProperty IRI=".owl#hasOperator"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI=".owl#hasConditionalSubject"/>
+        <ObjectProperty IRI=".owl#hasConditionalDescriptor"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI=".owl#hasConditionalSubject"/>
+        <ObjectProperty IRI=".owl#hasSubject"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI=".owl#hasConditionalValue"/>
+        <ObjectProperty IRI=".owl#hasValue"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI=".owl#hasGeometricExtension"/>
+        <ObjectProperty IRI=".owl#hasValue"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI=".owl#hasGoalExecution"/>
+        <ObjectProperty IRI=".owl#hasExecutionObject"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI=".owl#hasTaskExecution"/>
+        <ObjectProperty IRI=".owl#hasExecutionObject"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI=".owl#hasTaskObject"/>
+        <ObjectProperty IRI=".owl#hasObject"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI=".owl#hasTaskOperator"/>
+        <ObjectProperty IRI=".owl#hasOperator"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI=".owl#requestsActivity"/>
+        <ObjectProperty IRI=".owl#requests"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="http://www.w3.org/2006/time#hasBeginning"/>
@@ -1957,8 +2041,8 @@ Ontology engineering by Simon J D Cox</Literal>
         <ObjectProperty IRI="http://www.w3.org/2006/time#intervalIn"/>
     </SubObjectPropertyOf>
     <InverseObjectProperties>
-        <ObjectProperty IRI="#performedBy"/>
-        <ObjectProperty IRI="#performs"/>
+        <ObjectProperty IRI=".owl#performedBy"/>
+        <ObjectProperty IRI=".owl#performs"/>
     </InverseObjectProperties>
     <InverseObjectProperties>
         <ObjectProperty IRI="http://www.w3.org/2006/time#after"/>
@@ -1992,77 +2076,97 @@ Ontology engineering by Simon J D Cox</Literal>
         <ObjectProperty IRI="http://www.w3.org/2006/time#hasTRS"/>
     </FunctionalObjectProperty>
     <TransitiveObjectProperty>
-        <ObjectProperty IRI="#consistsOf"/>
+        <ObjectProperty IRI=".owl#consistsOf"/>
     </TransitiveObjectProperty>
     <TransitiveObjectProperty>
-        <ObjectProperty IRI="#fallsWithin"/>
+        <ObjectProperty IRI=".owl#fallsWithin"/>
     </TransitiveObjectProperty>
     <TransitiveObjectProperty>
         <ObjectProperty IRI="http://www.w3.org/2006/time#before"/>
     </TransitiveObjectProperty>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#configurationProvidedBy"/>
-        <Class IRI="#Configuration"/>
+        <ObjectProperty IRI=".owl#configurationProvidedBy"/>
+        <Class IRI=".owl#Configuration"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#connectsTo"/>
-        <Class IRI="#Connection"/>
+        <ObjectProperty IRI=".owl#connectsTo"/>
+        <Class IRI=".owl#Connection"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#entrusts"/>
-        <Class IRI="#Agent"/>
+        <ObjectProperty IRI=".owl#consistsOfEntrustment"/>
+        <Class IRI=".owl#EntrustmentActivity"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#fallsWithin"/>
-        <Class IRI="#Space"/>
+        <ObjectProperty IRI=".owl#consistsOfGoalDescription"/>
+        <Class IRI=".owl#Behavior"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasBehavior"/>
-        <Class IRI="#Agent"/>
+        <ObjectProperty IRI=".owl#consistsOfGoalEntrustment"/>
+        <Class IRI=".owl#PlanEntrustment"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasConnection"/>
-        <Class IRI="#Agent_Configuration"/>
+        <ObjectProperty IRI=".owl#consistsOfGoalExecution"/>
+        <Class IRI=".owl#PlanExecution"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasExecutionObject"/>
-        <Class IRI="#DescriptionObject"/>
+        <ObjectProperty IRI=".owl#consistsOfTaskEntrustment"/>
+        <Class IRI=".owl#GoalEntrustment"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasGeometricExtension"/>
-        <Class IRI="#PhysicalSpace"/>
+        <ObjectProperty IRI=".owl#cosistsOfTaskExecution"/>
+        <Class IRI=".owl#GoalExecution"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasGoalDescription"/>
-        <Class IRI="#Behavior"/>
+        <ObjectProperty IRI=".owl#entrusts"/>
+        <Class IRI=".owl#Agent"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasGoalExecution"/>
-        <Class IRI="#GoalDescription"/>
+        <ObjectProperty IRI=".owl#fallsWithin"/>
+        <Class IRI=".owl#Space"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasPlanExecution"/>
-        <Class IRI="#PlanDescription"/>
+        <ObjectProperty IRI=".owl#hasBehavior"/>
+        <Class IRI=".owl#Agent"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasScheduling"/>
-        <Class IRI="#Action"/>
+        <ObjectProperty IRI=".owl#hasConnection"/>
+        <Class IRI=".owl#Agent_Configuration"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasSpaceType"/>
-        <Class IRI="#Space"/>
+        <ObjectProperty IRI=".owl#hasExecutionObject"/>
+        <Class IRI=".owl#DescriptionObject"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasTaskExecution"/>
-        <Class IRI="#TaskDescription"/>
+        <ObjectProperty IRI=".owl#hasGeometricExtension"/>
+        <Class IRI=".owl#PhysicalSpace"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#setsUp"/>
-        <Class IRI="#ComponentConfiguration"/>
+        <ObjectProperty IRI=".owl#hasGoalExecution"/>
+        <Class IRI=".owl#GoalDescription"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#triggers"/>
-        <Class IRI="#Agent"/>
+        <ObjectProperty IRI=".owl#hasScheduling"/>
+        <Class IRI=".owl#DescriptionObject"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI=".owl#hasSpaceType"/>
+        <Class IRI=".owl#Space"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI=".owl#hasTaskExecution"/>
+        <Class IRI=".owl#TaskDescription"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI=".owl#requestsActivity"/>
+        <Class IRI=".owl#Agent"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI=".owl#setsUp"/>
+        <Class IRI=".owl#ComponentConfiguration"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI=".owl#triggers"/>
+        <Class IRI=".owl#Agent"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="http://www.w3.org/2006/time#after"/>
@@ -2191,140 +2295,164 @@ Ontology engineering by Simon J D Cox</Literal>
         </ObjectUnionOf>
     </ObjectPropertyDomain>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#configurationProvidedBy"/>
-        <Class IRI="#Agent"/>
+        <ObjectProperty IRI="#hasAppellation"/>
+        <Class IRI="#Appellation"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#connectsTo"/>
-        <Class IRI="#Connection"/>
+        <ObjectProperty IRI=".owl#configurationProvidedBy"/>
+        <Class IRI=".owl#Agent"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#entrusts"/>
-        <Class IRI="#EntrustmentObject"/>
+        <ObjectProperty IRI=".owl#connectsTo"/>
+        <Class IRI=".owl#Connection"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#fallsWithin"/>
-        <Class IRI="#Space"/>
+        <ObjectProperty IRI=".owl#consistsOfEntrustment"/>
+        <Class IRI=".owl#EntrustmentActivity"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasBehavior"/>
-        <Class IRI="#Behavior"/>
+        <ObjectProperty IRI=".owl#consistsOfGoalDescription"/>
+        <Class IRI=".owl#GoalDescription"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasCondition"/>
-        <Class IRI="#Condition"/>
+        <ObjectProperty IRI=".owl#consistsOfGoalEntrustment"/>
+        <Class IRI=".owl#GoalEntrustment"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasConditionObject"/>
-        <Class IRI="#ConditionObject"/>
+        <ObjectProperty IRI=".owl#consistsOfGoalExecution"/>
+        <Class IRI=".owl#GoalExecution"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasConditionOperator"/>
-        <Class IRI="#Operator"/>
+        <ObjectProperty IRI=".owl#consistsOfTaskDescription"/>
+        <Class IRI=".owl#TaskDescription"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasConditionRestriction"/>
-        <Class IRI="#ConditionRestriction"/>
+        <ObjectProperty IRI=".owl#consistsOfTaskEntrustment"/>
+        <Class IRI=".owl#TaskEntrustment"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasConditionSet"/>
-        <Class IRI="#ConditionSet"/>
+        <ObjectProperty IRI=".owl#cosistsOfTaskExecution"/>
+        <Class IRI=".owl#GoalExecution"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasConditionSubject"/>
-        <Class IRI="#ConditionSubject"/>
+        <ObjectProperty IRI=".owl#entrusts"/>
+        <Class IRI=".owl#EntrustmentActivity"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasConditionValue"/>
-        <Class IRI="#Value"/>
+        <ObjectProperty IRI=".owl#fallsWithin"/>
+        <Class IRI=".owl#Space"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasConfiguration"/>
-        <Class IRI="#Configuration"/>
+        <ObjectProperty IRI=".owl#hasBehavior"/>
+        <Class IRI=".owl#Behavior"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasConnection"/>
-        <Class IRI="#Connection"/>
+        <ObjectProperty IRI=".owl#hasConditional"/>
+        <Class IRI=".owl#Conditional"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasExecutionObject"/>
-        <Class IRI="#ExecutionObject"/>
+        <ObjectProperty IRI=".owl#hasConditionalObject"/>
+        <Class IRI=".owl#ConditionalObject"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasFeasibility"/>
-        <Class IRI="#Feasibility"/>
+        <ObjectProperty IRI=".owl#hasConditionalOperator"/>
+        <Class IRI=".owl#Operator"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasGeometricExtension"/>
-        <Class IRI="#GeometricExtension"/>
+        <ObjectProperty IRI=".owl#hasConditionalRestriction"/>
+        <Class IRI=".owl#ConditionalRestriction"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasGoalDescription"/>
-        <Class IRI="#GoalDescription"/>
+        <ObjectProperty IRI=".owl#hasConditionalSet"/>
+        <Class IRI=".owl#ConditionalSet"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasGoalExecution"/>
-        <Class IRI="#GoalExecution"/>
+        <ObjectProperty IRI=".owl#hasConditionalSubject"/>
+        <Class IRI=".owl#ConditionalSubject"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasImplementation"/>
-        <Class IRI="#Implementation"/>
+        <ObjectProperty IRI=".owl#hasConditionalValue"/>
+        <Class IRI=".owl#Value"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasOpportunityValue"/>
-        <Class IRI="#OpportunityValue"/>
+        <ObjectProperty IRI=".owl#hasConfiguration"/>
+        <Class IRI=".owl#Configuration"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasPlanExecution"/>
-        <Class IRI="#PlanExecution"/>
+        <ObjectProperty IRI=".owl#hasConnection"/>
+        <Class IRI=".owl#Connection"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasScheduling"/>
-        <Class IRI="#Scheduling"/>
+        <ObjectProperty IRI=".owl#hasExecutionObject"/>
+        <Class IRI=".owl#ExecutionActivity"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasSpaceSpan"/>
-        <Class IRI="#Space"/>
+        <ObjectProperty IRI=".owl#hasFeasibility"/>
+        <Class IRI=".owl#Feasibility"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasSpaceType"/>
-        <Class IRI="#SpaceType"/>
+        <ObjectProperty IRI=".owl#hasGeometricExtension"/>
+        <Class IRI=".owl#GeometricExtension"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasStatus"/>
-        <Class IRI="#Status"/>
+        <ObjectProperty IRI=".owl#hasGoalExecution"/>
+        <Class IRI=".owl#GoalExecution"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasTaskDescription"/>
-        <Class IRI="#TaskDescription"/>
+        <ObjectProperty IRI=".owl#hasImplementation"/>
+        <Class IRI=".owl#Implementation"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasTaskExecution"/>
-        <Class IRI="#TaskExecution"/>
+        <ObjectProperty IRI=".owl#hasOpportunityValue"/>
+        <Class IRI=".owl#OpportunityValue"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasTaskObject"/>
-        <Class IRI="#TaskObject"/>
+        <ObjectProperty IRI=".owl#hasScheduling"/>
+        <Class IRI=".owl#Scheduling"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasTaskOperator"/>
-        <Class IRI="#TaskOperator"/>
+        <ObjectProperty IRI=".owl#hasSpaceSpan"/>
+        <Class IRI=".owl#Space"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasTaskParameter"/>
-        <Class IRI="#TaskParameter"/>
+        <ObjectProperty IRI=".owl#hasSpaceType"/>
+        <Class IRI=".owl#SpaceType"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasTimeSpan"/>
+        <ObjectProperty IRI=".owl#hasStatus"/>
+        <Class IRI=".owl#Status"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI=".owl#hasTaskExecution"/>
+        <Class IRI=".owl#TaskExecution"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI=".owl#hasTaskObject"/>
+        <Class IRI=".owl#TaskObject"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI=".owl#hasTaskOperator"/>
+        <Class IRI=".owl#TaskOperator"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI=".owl#hasTaskParameter"/>
+        <Class IRI=".owl#TaskParameter"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI=".owl#hasTimeSpan"/>
         <Class IRI="http://www.w3.org/2006/time#TemporalEntity"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasType"/>
-        <Class IRI="#Type"/>
+        <ObjectProperty IRI=".owl#hasType"/>
+        <Class IRI=".owl#Type"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#triggers"/>
-        <Class IRI="#Event"/>
+        <ObjectProperty IRI=".owl#requestsActivity"/>
+        <Class IRI=".owl#DescriptionObject"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI=".owl#triggers"/>
+        <Class IRI=".owl#Event"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="http://www.w3.org/2006/time#after"/>
@@ -2463,8 +2591,8 @@ Ontology engineering by Simon J D Cox</Literal>
         <ObjectProperty IRI="http://www.w3.org/2006/time#intervalIn"/>
     </DisjointObjectProperties>
     <DataPropertyDomain>
-        <DataProperty IRI="#hasScheduleRepetition"/>
-        <Class IRI="#Scheduling"/>
+        <DataProperty IRI=".owl#hasScheduleRepetition"/>
+        <Class IRI=".owl#Scheduling"/>
     </DataPropertyDomain>
     <DataPropertyDomain>
         <DataProperty IRI="http://www.w3.org/2006/time#day"/>
@@ -2567,7 +2695,7 @@ Ontology engineering by Simon J D Cox</Literal>
         <Class IRI="http://www.w3.org/2006/time#GeneralDurationDescription"/>
     </DataPropertyDomain>
     <DataPropertyRange>
-        <DataProperty IRI="#hasScheduleRepetition"/>
+        <DataProperty IRI=".owl#hasScheduleRepetition"/>
         <Datatype abbreviatedIRI="xsd:integer"/>
     </DataPropertyRange>
     <DataPropertyRange>
@@ -2660,772 +2788,787 @@ Ontology engineering by Simon J D Cox</Literal>
     </DataPropertyRange>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Action</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general action.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#Action</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Action</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#ActionStatus</IRI>
+        <IRI>.owl#ActionStatus</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the status of an execution object.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#ActionStatus</IRI>
+        <IRI>.owl#ActionStatus</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Action status</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#ActivationStatus</IRI>
+        <IRI>.owl#ActivationStatus</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the status of activable objects such as believes or scheduling activities.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#ActivationStatus</IRI>
+        <IRI>.owl#ActivationStatus</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Activation status</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#ActiveStatus</IRI>
+        <IRI>.owl#ActiveStatus</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the active status of  activable objects such as believes or scheduling activities.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#ActiveStatus</IRI>
+        <IRI>.owl#ActiveStatus</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Active status</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Agent</IRI>
+        <IRI>.owl#Activity</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general activity.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>.owl#Activity</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Activity</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>.owl#Agent</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general Agent</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#Agent</IRI>
+        <IRI>.owl#Agent</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Agent</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Agent_Configuration</IRI>
+        <IRI>.owl#Agent_Configuration</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes an agent configuration object</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#Agent_Configuration</IRI>
+        <IRI>.owl#Agent_Configuration</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Agent Configuration</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Behavior</IRI>
+        <IRI>.owl#Behavior</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes an agent behavior</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#Behavior</IRI>
+        <IRI>.owl#Behavior</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Behavior</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Component</IRI>
+        <IRI>.owl#BehaviorPart</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a part of a Behavior</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>.owl#BehaviorPart</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Behavior part</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>.owl#Component</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class descrives general component</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#Component</IRI>
+        <IRI>.owl#Component</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Component</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Condition</IRI>
+        <IRI>.owl#Conditional</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a single conditional</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#Condition</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Condition</Literal>
+        <IRI>.owl#Conditional</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Conditional</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#ConditionObject</IRI>
+        <IRI>.owl#ConditionalDescriptor</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a conditional descriptor</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>.owl#ConditionalDescriptor</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Conditional descriptor</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>.owl#ConditionalObject</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the object of a conditional</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#ConditionObject</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Condition object</Literal>
+        <IRI>.owl#ConditionalObject</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Conditional object</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#ConditionOperator</IRI>
+        <IRI>.owl#ConditionalOperator</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes operators used in conditionals.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#ConditionOperator</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Condition operator</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#ConditionRestriction</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the restriction of a conditional</Literal>
+        <IRI>.owl#ConditionalOperator</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Conditional operator</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#ConditionRestriction</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Condition restriction</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#ConditionSet</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a set of conditionals. All the conditionals  binded to a single set must holds.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#ConditionSet</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Condition set</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#ConditionSubject</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the subject of a conditional</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#ConditionSubject</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Condition subject</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#ConditionalPart</IRI>
+        <IRI>.owl#ConditionalPart</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Conditional part</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Configuration</IRI>
+        <IRI>.owl#ConditionalRestriction</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the restriction of a conditional</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>.owl#ConditionalRestriction</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Conditional restriction</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>.owl#ConditionalSet</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a set of conditionals. All the conditionals  binded to a single set must holds.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>.owl#ConditionalSet</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Conditional set</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>.owl#ConditionalSubject</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the subject of a conditional</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>.owl#ConditionalSubject</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Conditional subject</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>.owl#Configuration</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a configuration object</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#Configuration</IRI>
+        <IRI>.owl#Configuration</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Configuration</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Connection</IRI>
+        <IRI>.owl#Connection</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a connection point of an Agent</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#Connection</IRI>
+        <IRI>.owl#Connection</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Connection</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#DataOperator</IRI>
+        <IRI>.owl#DataOperator</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes data operators used in conditionals.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#DataOperator</IRI>
+        <IRI>.owl#DataOperator</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Data operator</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#DeactiveStatus</IRI>
+        <IRI>.owl#DeactiveStatus</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the deactive status of  activable objects such as believes or scheduling activities.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#DeactiveStatus</IRI>
+        <IRI>.owl#DeactiveStatus</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Deactive status</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#DescriptionObject</IRI>
+        <IRI>.owl#DescriptionObject</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes an object providing a description of something</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#DescriptionObject</IRI>
+        <IRI>.owl#DescriptionObject</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Description object</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Device</IRI>
+        <IRI>.owl#Device</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general Device</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#Device</IRI>
+        <IRI>.owl#Device</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Device</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#EntrustmentObject</IRI>
+        <IRI>.owl#EntrustmentActivity</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes an object providing an entrustment of something to someone.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#EntrustmentObject</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Entrustment object</Literal>
+        <IRI>.owl#EntrustmentActivity</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Entrustment activity</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#EnviromentComponent</IRI>
+        <IRI>.owl#EnviromentComponent</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes enviroment components</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#EnviromentComponent</IRI>
+        <IRI>.owl#EnviromentComponent</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Enviroment component</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Event</IRI>
+        <IRI>.owl#Event</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general event</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#Event</IRI>
+        <IRI>.owl#Event</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Event</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#ExecutionObject</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes an object than can be executed.</Literal>
+        <IRI>.owl#ExecutionActivity</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes an actiivy than can be executed.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#ExecutionObject</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Execution object</Literal>
+        <IRI>.owl#ExecutionActivity</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Execution activity</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#ExistentialOperator</IRI>
+        <IRI>.owl#ExistentialOperator</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes existential operators used in conditionals.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#ExistentialOperator</IRI>
+        <IRI>.owl#ExistentialOperator</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Existential operator</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#FailedStatus</IRI>
+        <IRI>.owl#FailedStatus</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the failed status of something.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#FailedStatus</IRI>
+        <IRI>.owl#FailedStatus</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Failed status</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Feasibility</IRI>
+        <IRI>.owl#Feasibility</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the feasibility of a task.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#Feasibility</IRI>
+        <IRI>.owl#Feasibility</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Feasibility</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#FeasibilityFalse</IRI>
+        <IRI>.owl#FeasibilityFalse</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the false feasibility of a task.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#FeasibilityFalse</IRI>
+        <IRI>.owl#FeasibilityFalse</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Feasibility false</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#FeasibilityTrue</IRI>
+        <IRI>.owl#FeasibilityTrue</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the true feasibility of a task.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#FeasibilityTrue</IRI>
+        <IRI>.owl#FeasibilityTrue</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Feasibility true</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#GeometricExtension</IRI>
+        <IRI>.owl#GeometricExtension</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Geometric extension</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#GeometricExtension</IRI>
+        <IRI>.owl#GeometricExtension</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a set of spatial coordinates.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Goal</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general goal</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#Goal</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Goal</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#GoalDescription</IRI>
+        <IRI>.owl#GoalDescription</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes an the description of  a goal.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#GoalDescription</IRI>
+        <IRI>.owl#GoalDescription</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Goal description</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#GoalEntrustment</IRI>
+        <IRI>.owl#GoalEntrustment</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes entrustment of a goal to someone.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#GoalEntrustment</IRI>
+        <IRI>.owl#GoalEntrustment</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Goal entrustment</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#GoalExecution</IRI>
+        <IRI>.owl#GoalExecution</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the execution of a goal.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#GoalExecution</IRI>
+        <IRI>.owl#GoalExecution</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Goal execution</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#HomeObjectType</IRI>
+        <IRI>.owl#GoalPart</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a part of a goal</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>.owl#GoalPart</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Goal part</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>.owl#HomeObjectType</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Domestic obect</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#HomeObjectType</IRI>
+        <IRI>.owl#HomeObjectType</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Home object type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#HomeObjectType</IRI>
+        <IRI>.owl#HomeObjectType</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the type of domestic object.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Human</IRI>
+        <IRI>.owl#Human</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general Human Agent</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#Human</IRI>
+        <IRI>.owl#Human</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Human agent</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Implementation</IRI>
+        <IRI>.owl#Implementation</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the implementation of an action.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#Implementation</IRI>
+        <IRI>.owl#Implementation</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Implementation</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#ObjectType</IRI>
+        <IRI>.owl#ObjectType</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Object type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#ObjectType</IRI>
+        <IRI>.owl#ObjectType</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the type of object.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Operator</IRI>
+        <IRI>.owl#Operator</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general operator</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#Operator</IRI>
+        <IRI>.owl#Operator</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Operator</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#OpportunityValue</IRI>
+        <IRI>.owl#OpportunityValue</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Opportunity value</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#OpportunityValue</IRI>
+        <IRI>.owl#OpportunityValue</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the opportunity value of a goal.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#PermanentStatus</IRI>
+        <IRI>.owl#PermanentStatus</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes permanent status</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#PermanentStatus</IRI>
+        <IRI>.owl#PermanentStatus</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Permanent status</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#PhysicalSpace</IRI>
+        <IRI>.owl#PhysicalSpace</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Physical space</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Plan</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes an the description of a plan.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#Plan</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Plan</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#PlanDescription</IRI>
+        <IRI>.owl#PlanDescription</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the description of  a plan.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#PlanDescription</IRI>
+        <IRI>.owl#PlanDescription</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Plan description</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#PlanEntrustment</IRI>
+        <IRI>.owl#PlanEntrustment</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes entrustment of a plan to someone.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#PlanEntrustment</IRI>
+        <IRI>.owl#PlanEntrustment</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Plan entrustment</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#PlanExecution</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the execution of  a plan.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#PlanExecution</IRI>
+        <IRI>.owl#PlanExecution</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Plan execution</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Robot</IRI>
+        <IRI>.owl#PlanPart</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes  the part of a plan.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>.owl#PlanPart</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Plan part</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>.owl#Robot</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general Autonomous System</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#Robot</IRI>
+        <IRI>.owl#Robot</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Robot agent</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Scheduling</IRI>
+        <IRI>.owl#Scheduling</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Scheduling</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Scheduling</IRI>
+        <IRI>.owl#Scheduling</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the scheduling of an action</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Sensor</IRI>
+        <IRI>.owl#Sensor</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general Sensor</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#Sensor</IRI>
+        <IRI>.owl#Sensor</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Sensor</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#SoftwareAgent</IRI>
+        <IRI>.owl#SoftwareAgent</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general software Agent</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#SoftwareAgent</IRI>
+        <IRI>.owl#SoftwareAgent</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Software agent</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Space</IRI>
+        <IRI>.owl#Space</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general space.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#Space</IRI>
+        <IRI>.owl#Space</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Space</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#SpaceOperator</IRI>
+        <IRI>.owl#SpaceOperator</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes space operators used in conditionals.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#SpaceOperator</IRI>
+        <IRI>.owl#SpaceOperator</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Space operator</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#SpaceType</IRI>
+        <IRI>.owl#SpaceType</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Space type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#SpaceType</IRI>
+        <IRI>.owl#SpaceType</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the type of space.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Status</IRI>
+        <IRI>.owl#Status</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general status of something.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#Status</IRI>
+        <IRI>.owl#Status</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Status</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#SuccededStatus</IRI>
+        <IRI>.owl#SuccededStatus</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a succeded status</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#SuccededStatus</IRI>
+        <IRI>.owl#SuccededStatus</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Succeded status</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Task</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes  a general task.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#Task</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Task</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#TaskDescription</IRI>
+        <IRI>.owl#TaskDescription</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the description of a task.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#TaskDescription</IRI>
+        <IRI>.owl#TaskDescription</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Task description</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#TaskEntrustment</IRI>
+        <IRI>.owl#TaskDescriptor</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class represents the descriptors of a task</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>.owl#TaskDescriptor</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Task descriptor</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>.owl#TaskEntrustment</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes entrustment of a task to someone.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#TaskEntrustment</IRI>
+        <IRI>.owl#TaskEntrustment</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Task entrustment</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#TaskExecution</IRI>
+        <IRI>.owl#TaskExecution</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the execution of a task.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#TaskExecution</IRI>
+        <IRI>.owl#TaskExecution</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Task execution</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#TaskObject</IRI>
+        <IRI>.owl#TaskObject</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Task object</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#TaskObject</IRI>
+        <IRI>.owl#TaskObject</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the object of a task</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#TaskOperator</IRI>
+        <IRI>.owl#TaskOperator</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes task operators.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#TaskOperator</IRI>
+        <IRI>.owl#TaskOperator</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Task operator</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#TaskParameter</IRI>
+        <IRI>.owl#TaskParameter</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Task parameter</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#TaskParameter</IRI>
+        <IRI>.owl#TaskParameter</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the parameter of the object of a task.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#TaskPart</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the parts of a task</Literal>
+        <IRI>.owl#TaskPart</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes  a part of a task.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#TaskPart</IRI>
+        <IRI>.owl#TaskPart</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Task part</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#TemperatureValue</IRI>
+        <IRI>.owl#TemperatureValue</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describe values of temperature</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#TemperatureValue</IRI>
+        <IRI>.owl#TemperatureValue</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Temperature value</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#TemporaryStatus</IRI>
+        <IRI>.owl#TemporaryStatus</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a temporary status</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#TemporaryStatus</IRI>
+        <IRI>.owl#TemporaryStatus</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Temporary status</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#TimeOperator</IRI>
+        <IRI>.owl#TimeOperator</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes time operators used in conditionals.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#TimeOperator</IRI>
+        <IRI>.owl#TimeOperator</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Time operator</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Type</IRI>
+        <IRI>.owl#Type</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general type.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Type</IRI>
+        <IRI>.owl#Type</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#UrbanObjectType</IRI>
+        <IRI>.owl#UrbanObjectType</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the type of urban object.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#UrbanObjectType</IRI>
+        <IRI>.owl#UrbanObjectType</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Urban object type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Value</IRI>
+        <IRI>.owl#Value</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general complex value</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Value</IRI>
+        <IRI>.owl#Value</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Value</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#VirtualSpace</IRI>
+        <IRI>.owl#VirtualSpace</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Virtual space</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#assigns</IRI>
+        <IRI>.owl#assigns</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property describes the action of assigning something to someone. The range of the property is the object of the assignment.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#assignsTo</IRI>
+        <IRI>.owl#assignsTo</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property describes the action of assigning something to someone. The range of the property is the receiver of the assignment.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#equal</IRI>
+        <IRI>.owl#equal</IRI>
         <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">==</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#exists</IRI>
+        <IRI>.owl#exists</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">exists</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#greatherEqual</IRI>
+        <IRI>.owl#greatherEqual</IRI>
         <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">&gt;=</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#greatherEqual</IRI>
+        <IRI>.owl#greatherEqual</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">greather equal</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#greatherThan</IRI>
+        <IRI>.owl#greatherThan</IRI>
         <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">&gt;</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#greatherThan</IRI>
+        <IRI>.owl#greatherThan</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">greather</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#lessEqual</IRI>
+        <IRI>.owl#lessEqual</IRI>
         <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">&lt;=</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#lessEqual</IRI>
+        <IRI>.owl#lessEqual</IRI>
         <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">less equal</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#lessThan</IRI>
+        <IRI>.owl#lessThan</IRI>
         <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">&lt;</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#lessThan</IRI>
+        <IRI>.owl#lessThan</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">less</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#spaceSpan</IRI>
+        <IRI>.owl#spaceSpan</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">space span</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#timeSpan</IRI>
+        <IRI>.owl#timeSpan</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">time span</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
@@ -5819,8 +5962,8 @@ The range of this property is not specified, so can be replaced by any specific 
         <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">-?([1-9][0-9]{3,}|0[0-9]{3})(Z|(\+|-)((0[0-9]|1[0-3]):[0-5][0-9]|14:00))?</Literal>
     </AnnotationAssertion>
     <AnnotationPropertyRange>
-        <AnnotationProperty IRI="#isInTheBeliefOf"/>
-        <IRI>#Belief</IRI>
+        <AnnotationProperty IRI=".owl#isInTheBeliefOf"/>
+        <IRI>http://www.dmi.unict.it/profeta.owl#Belief</IRI>
     </AnnotationPropertyRange>
 </Ontology>
 

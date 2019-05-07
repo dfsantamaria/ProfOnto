@@ -22,8 +22,8 @@ SELECT  ?selected_device ?operation ?device_object ?user_object
                  ?user_object prof:setUpFrom ?device_object .
 
                  ?selected_device prof:hasBehavior ?behav .
-                  ?behav prof:hasGoalDescription ?goal .
-                 ?goal prof:hasTaskDescription ?task .
+                  ?behav prof:consistsOfGoalDescription ?goal .
+                 ?goal prof:consistsOfTaskDescription ?task .
                  ?task prof:hasTaskOperator ?operation .
                  ?task prof:hasTaskObject ?device_object .
                  ?device_object prof:hasType ?obtype .

@@ -12,33 +12,14 @@
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
+    <Import>http://www.dmi.unict.it/lightagent.owl</Import>
     <Import>http://www.dmi.unict.it/ontoas.owl</Import>
+    <Import>http://www.dmi.unict.it/alan-config.owl#</Import>
     <Declaration>
         <ObjectProperty IRI="http://www.dmi.unict.it/ontoas.owl#configurationProvidedBy"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#alan_kitchen"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#alan"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnon-goaldescription"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="http://www.dmi.unict.it/ontoas.owl#hasTaskSubject"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="http://www.dmi.unict.it/ontoas.owl#EnviromentComponent"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnoff-taskdescription"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnoff-behavior"/>
     </Declaration>
     <Declaration>
         <Class IRI="http://www.dmi.unict.it/ontoas.owl#Component_Configuration"/>
@@ -53,16 +34,7 @@
         <Class IRI="http://www.dmi.unict.it/ontoas.owl#Human"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#alan-device-light1-config"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/ontoas.owl#turn_off"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="http://www.dmi.unict.it/ontoas.owl#PhysicalSpace"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/ontoas.owl#LightObjectType"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.dmi.unict.it/ontoas.owl#hasConfiguration"/>
@@ -74,22 +46,10 @@
         <Class IRI="http://www.dmi.unict.it/ontoas.owl#Behavior"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnon-taskdescription"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="http://www.dmi.unict.it/ontoas.owl#Device"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.dmi.unict.it/ontoas.owl#consistsOfGoalDescription"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/ontoas.owl#turn_on"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#main_kitchen_light"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnon-behavior"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.dmi.unict.it/ontoas.owl#setsUp"/>
@@ -99,9 +59,6 @@
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.dmi.unict.it/ontoas.owl#hasTaskOperator"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnoff-goaldescription"/>
     </Declaration>
     <Declaration>
         <Class IRI="http://www.dmi.unict.it/ontoas.owl#HomeObjectType"/>
@@ -119,13 +76,7 @@
         <Class IRI="http://www.dmi.unict.it/ontoas.owl#TaskOperator"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/ontoas.owl#kitchen"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="http://www.dmi.unict.it/ontoas.owl#TaskObject"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-light1"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.dmi.unict.it/ontoas.owl#hasTaskObject"/>
