@@ -26,7 +26,7 @@ public class main
         try
           {
             ontocore.setMainOntology(ontoFile);
-            ontocore.setDataBeliefOntology(dataFile);
+            ontocore.setDataBehaviorOntology(dataFile);
             //ontocore.setConfiguration(new ArrayList<>(Arrays.asList("config","devices")));
             
             

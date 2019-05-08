@@ -57,7 +57,7 @@ public class OntoASCore extends OntologyCore
     private final HashMap<String, String> devices; //IDdevice, IDOntology
     private final HashMap<String, Pair<String,String>> devConfig; //IDconfig <IDdevice, IDOntology>
     private HashMap<String, String> users; //IDdevice, IDOntology
-    private Pair<String, OWLOntology> databelief;
+    private Pair<String, OWLOntology> databehavior;
     private final Configuration configuration;  
     private List<InferredAxiomGenerator<? extends OWLAxiom>> generators;
     
@@ -68,7 +68,7 @@ public class OntoASCore extends OntologyCore
          devConfig=new HashMap<>();
          int paths=3;
          configuration=new Configuration(paths);         
-         databelief=null;  
+         databehavior=null;  
          generators = new ArrayList<>();
          setDefaultReasonerGenerators(generators);       
        }
@@ -143,9 +143,9 @@ public class OntoASCore extends OntologyCore
      * @throws OWLOntologyCreationException
      * @throws org.semanticweb.owlapi.model.OWLOntologyStorageException
      */
-    public void setDataBeliefOntology(File inputFile) throws OWLOntologyCreationException, OWLOntologyStorageException 
+    public void setDataBehaviorOntology(File inputFile) throws OWLOntologyCreationException, OWLOntologyStorageException 
       {        
-        databelief= new Pair(this.getMainOntologiesPath()+File.separator+inputFile.getName(), this.getMainManager().loadOntologyFromOntologyDocument(inputFile));               
+        databehavior= new Pair(this.getMainOntologiesPath()+File.separator+inputFile.getName(), this.getMainManager().loadOntologyFromOntologyDocument(inputFile));               
       } 
     
      /**
@@ -156,12 +156,12 @@ public class OntoASCore extends OntologyCore
      * @throws org.semanticweb.owlapi.model.OWLOntologyStorageException
      * @throws java.io.IOException
      */
-    public void setDataBeliefOntology(String iri, String name) throws OWLOntologyCreationException, OWLOntologyStorageException, IOException 
+    public void setDataBehaviorOntology(String iri, String name) throws OWLOntologyCreationException, OWLOntologyStorageException, IOException 
       {        
         OWLOntology dt=this.getMainManager().createOntology(IRI.create(iri));        
         File inputFile=new File(this.getMainOntologiesPath()+File.separator+name);   
         this.getMainManager().saveOntology(dt, new OWLXMLDocumentFormat(), IRI.create(inputFile));                    
-        setDataBeliefOntology(inputFile);       
+        setDataBehaviorOntology(inputFile);       
         addImportInDataset(this.getMainOntology().getOntologyID().getOntologyIRI().get());         
       } 
     
@@ -175,9 +175,9 @@ public class OntoASCore extends OntologyCore
     public void addImportInDataset(IRI iri) throws OWLOntologyStorageException, OWLOntologyCreationException
       {
         OWLImportsDeclaration importDeclaration=this.getDataFactory().getOWLImportsDeclaration(iri);
-        this.getMainManager().applyChange(new AddImport(getDataBeliefOntology(), importDeclaration));       
-        this.getMainManager().saveOntology(this.getDataBeliefOntology());
-        this.getMainManager().loadOntology(this.getDataBeliefOntology().getOntologyID().getOntologyIRI().get());            
+        this.getMainManager().applyChange(new AddImport(getDataBehaviorOntology(), importDeclaration));       
+        this.getMainManager().saveOntology(this.getDataBehaviorOntology());
+        this.getMainManager().loadOntology(this.getDataBehaviorOntology().getOntologyID().getOntologyIRI().get());            
       }
     
      /**
@@ -189,9 +189,9 @@ public class OntoASCore extends OntologyCore
      public void removeImportInDataset(IRI iri) throws OWLOntologyStorageException, OWLOntologyCreationException
       {
         OWLImportsDeclaration importDeclaration=this.getMainManager().getOWLDataFactory().getOWLImportsDeclaration(iri);
-        this.getMainManager().applyChange(new RemoveImport(this.getDataBeliefOntology(), importDeclaration));
-        this.getMainManager().saveOntology(this.getDataBeliefOntology());
-        this.getMainManager().loadOntology(this.getDataBeliefOntology().getOntologyID().getOntologyIRI().get());    
+        this.getMainManager().applyChange(new RemoveImport(this.getDataBehaviorOntology(), importDeclaration));
+        this.getMainManager().saveOntology(this.getDataBehaviorOntology());
+        this.getMainManager().loadOntology(this.getDataBehaviorOntology().getOntologyID().getOntologyIRI().get());    
       }
     
     
@@ -199,18 +199,18 @@ public class OntoASCore extends OntologyCore
      * Returns the dataset ontology
      * @return the dataset ontology
      */
-    public Pair<String, OWLOntology> getDataBeliefInfo()
+    public Pair<String, OWLOntology> getDataBehaviorInfo()
       {
-         return this.databelief;
+         return this.databehavior;
       }
     
       /**
      * Returns the dataset ontology
      * @return the dataset ontology
      */
-    public OWLOntology getDataBeliefOntology()
+    public OWLOntology getDataBehaviorOntology()
       {
-         return getDataBeliefInfo().getValue();
+         return getDataBehaviorInfo().getValue();
       }
     
     
@@ -264,7 +264,7 @@ public class OntoASCore extends OntologyCore
     
     public void addDataToDataSetOntology(Stream<OWLAxiom> axioms) throws OWLOntologyCreationException
       {
-          addAxiomsToOntology(this.getDataBeliefOntology(), axioms);      
+          addAxiomsToOntology(this.getDataBehaviorOntology(), axioms);      
       }
      
 //    public OWLOntology configureDevice(OWLOntology ontodevice, Stream<OWLAxiom> axioms)
@@ -306,10 +306,10 @@ public class OntoASCore extends OntologyCore
         else {System.out.println("Inconsistent Knowledge base");} 
       }
     
-     private void syncReasonerDataBelief() throws OWLOntologyStorageException
+     private void syncReasonerDataBehavior() throws OWLOntologyStorageException
       {
-        this.syncReasoner(this.getDataBeliefOntology().getOntologyID().getOntologyIRI().get().toString(),
-                this.getDataBeliefInfo().getKey());
+        this.syncReasoner(this.getDataBehaviorOntology().getOntologyID().getOntologyIRI().get().toString(),
+                this.getDataBehaviorInfo().getKey());
       }
     
        
@@ -338,7 +338,7 @@ public class OntoASCore extends OntologyCore
             this.getMainManager().saveOntology(ontodevice, new OWLXMLDocumentFormat(), outStream);
             this.getDevices().put(id, ontodevice.getOntologyID().getOntologyIRI().get().toString());
             outStream.close();
-            syncReasonerDataBelief();
+            syncReasonerDataBehavior();
             
            } 
         catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
@@ -465,7 +465,7 @@ public class OntoASCore extends OntologyCore
             this.getMainManager().saveOntology(ontodevConf, new OWLXMLDocumentFormat(), outStream);
             this.getDeviceConfigurations().put(idConfig, new Pair(idDevice, ontodevConf.getOntologyID().getOntologyIRI().get().toString()));
             outStream.close();            
-            this.syncReasonerDataBelief();
+            this.syncReasonerDataBehavior();
             
            } 
         catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
