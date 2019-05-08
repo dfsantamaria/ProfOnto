@@ -41,6 +41,8 @@
     <artifactId>org.semanticweb.hermit</artifactId>
     <version>1.4.3.517</version>    
          <type>jar</type>
-      </dependency>   
+      </dependency> 
+      
+       
     </dependencies>
 </project>

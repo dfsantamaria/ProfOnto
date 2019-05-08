@@ -53,9 +53,9 @@ public class main
             OWLOntology config=localM.loadOntologyFromOntologyDocument(new File("ontologies/test/alan-config.owl"));
             OWLOntology request=localM.loadOntologyFromOntologyDocument(new File("ontologies/test/user-request.owl"));
           
-            ontocore.addDataToDataSetOntology(agent.axioms());
-            ontocore.addDataToDataSetOntology(config.axioms());
-            ontocore.addDataToDataSetOntology(request.axioms());
+            ontocore.addDataToDataBehavior(agent.axioms());
+            ontocore.addDataToDataBehavior(config.axioms());
+            ontocore.addDataToDataBehavior(request.axioms());
             ontocore.getMainManager().removeOntology(request);
           } 
         catch (OWLOntologyCreationException ex)
@@ -90,7 +90,7 @@ public class main
             QueryExecution execQ = ontocore.createQuery(ontocore.getDataBeliefOntology(), query);
             System.out.println("Output:");
             //ontocore.performConstructQuery(execQ).forEach(System.out::println);            
-            ontocore.addDataToDataSetOntology(ontocore.performConstructQuery(execQ));
+            ontocore.addDataToDataBehavior(ontocore.performConstructQuery(execQ));
            
             
           } catch (OWLOntologyCreationException | IOException ex)

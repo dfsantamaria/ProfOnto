@@ -19,14 +19,8 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
-import org.apache.jena.query.QueryExecution;
-import org.apache.jena.query.ResultSet;
-import org.apache.jena.query.ResultSetFormatter;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
 /**
@@ -94,6 +88,8 @@ public class mainTest
             ontocore.setOntologiesDeviceConfigurationsPath(Paths.get("ontologies"+File.separator+"devConfigs"));
             ontocore.setOntologiesDevicesPath(Paths.get("ontologies"+File.separator+"devices"));
             ontocore.setMainOntologiesPath(Paths.get("ontologies"+File.separator+"main"));
+            ontocore.setOntologiesUsersPath(Paths.get("ontologies"+File.separator+"users"));
+            
             ontocore.setMainOntology(ontoFile);           
             ontocore.setDataBehaviorOntology("http://www.dmi.unict.it/prof-onto-behavior.owl","behavior.owl");  
             ontocore.setDataBeliefOntology("http://www.dmi.unict.it/prof-onto-belief.owl","belief.owl");
@@ -113,17 +109,40 @@ public class mainTest
         ontocore.addDevice(ontologyData, id);
         
         InputStream deviceConfig=readData("ontologies/test/alan-config.owl");
-        ontocore.addDeviceConfiguration(deviceConfig, id, id+"Conf-1");          
+        ontocore.addDeviceConfiguration(deviceConfig, id, id+"Conf-1","ALAN");          
+  
+// remove an user and the related configurations        
+//        try
+//          {
+//            ontocore.removePermanentConfigurationsFromUser("ALAN");
+//          } catch (OWLOntologyStorageException | OWLOntologyCreationException ex)
+//          {
+//            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
+//          }
         
-            
         try
-          {              
+          {
             ontocore.removePermanentDevice(id);
-          } 
+
+          }
         catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex)
           {
             Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
           }
+          
+            
+            
+            
+//        try
+//          {              
+//            ontocore.removePermanentDevice(id);
+//
+//          } 
+//        catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex)
+//          {
+//            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
+//          }
+          
         
         
       }

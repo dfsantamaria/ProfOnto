@@ -18,6 +18,8 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 import javafx.util.Pair;
+import org.apache.commons.lang3.tuple.Triple;
+import org.apache.jena.atlas.lib.tuple.Tuple;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
@@ -29,7 +31,6 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import org.semanticweb.HermiT.ReasonerFactory;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLIndividualAxiom;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
@@ -55,8 +56,8 @@ import org.semanticweb.owlapi.util.SimpleIRIMapper;
 public class OntoASCore extends OntologyCore
   {
     private final HashMap<String, String> devices; //IDdevice, IDOntology
-    private final HashMap<String, Pair<String,String>> devConfig; //IDconfig <IDdevice, IDOntology>
-    private HashMap<String, String> users; //IDdevice, IDOntology
+    private final HashMap<String, Pair<String,Pair<String,String>>> devConfig; //IDconfig <IDdevice-  IDOntology- IDuser
+    private final HashMap<String, String> users; //IDconfig <IDdevice, IDOntology> //IDdevice, IDOntology
     private Pair<String, OWLOntology> databehavior;
     private Pair<String, OWLOntology> databelief;
     private final Configuration configuration;  
@@ -67,7 +68,8 @@ public class OntoASCore extends OntologyCore
          super();
          devices=new HashMap<>();
          devConfig=new HashMap<>();
-         int paths=3;
+         users=new HashMap<>();
+         int paths=4;
          configuration=new Configuration(paths);         
          databehavior=null; 
          databelief=null;
@@ -105,9 +107,9 @@ public class OntoASCore extends OntologyCore
     public void setOntologiesDevicesPath(Path path){this.getConfiguration().getPaths()[1]=path; createFolder(path);}
     public Path getOntologiesDevicesPath(){return this.getConfiguration().getPaths()[1];}
     public void setOntologiesDeviceConfigurationsPath(Path path){this.getConfiguration().getPaths()[2]=path; createFolder(path);}
-    public Path getOntologiesDeviceConfigurationPath(){return this.getConfiguration().getPaths()[2];}
-    
-    
+    public Path getOntologiesDeviceConfigurationPath(){return this.getConfiguration().getPaths()[2];}    
+    public void setOntologiesUsersPath(Path path){this.getConfiguration().getPaths()[3]=path; createFolder(path);}
+    public Path getOntologiesUsersPath(){return this.getConfiguration().getPaths()[3];}
 
     
     
@@ -318,7 +320,7 @@ public class OntoASCore extends OntologyCore
     }
     
     
-    public void addDataToDataSetOntology(Stream<OWLAxiom> axioms) throws OWLOntologyCreationException
+    public void addDataToDataBehavior(Stream<OWLAxiom> axioms) throws OWLOntologyCreationException
       {
           addAxiomsToOntology(this.getDataBehaviorOntology(), axioms);      
       }
@@ -368,7 +370,42 @@ public class OntoASCore extends OntologyCore
                 this.getDataBehaviorInfo().getKey());
       }
     
-       
+     
+     
+   /**
+     * insert a new user given its ontology data
+     * @param ontologyData the inputstream representing the ontology data
+     * @param id the name of the ontology file representing the device
+     * @return the created ontology
+   */
+    public OWLOntology addUser(InputStream ontologyData, String id)
+    { 
+        OWLOntology ontouser=null;
+        try
+          {      
+            ontouser=this.getMainManager().loadOntologyFromOntologyDocument(ontologyData);
+            addImportToOntology(this.getDataBehaviorOntology(), ontouser.getOntologyID().getOntologyIRI().get());
+            addImportToOntology(this.getDataBeliefOntology(), ontouser.getOntologyID().getOntologyIRI().get());          
+            String filesource=this.getOntologiesUsersPath()+File.separator+id+".owl";
+            File file=new File(filesource);  
+             
+            this.getMainManager().addIRIMapper(new SimpleIRIMapper(ontouser.getOntologyID().getOntologyIRI().get(), 
+                                                                   IRI.create(file.getCanonicalFile())));  
+                      
+            FileOutputStream outStream = new FileOutputStream(file);               
+              
+            this.getMainManager().saveOntology(ontouser, new OWLXMLDocumentFormat(), outStream);
+            this.getUsers().put(id, ontouser.getOntologyID().getOntologyIRI().get().toString());
+            outStream.close();
+            syncReasonerDataBehavior();            
+           } 
+        catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
+          {
+            Logger.getLogger(OntoASCore.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        return ontouser;
+    } 
+     
     /**
      * insert a new device given its ontology data
      * @param ontologyData the inputstream representing the ontology data
@@ -405,6 +442,18 @@ public class OntoASCore extends OntologyCore
     }
     
     
+    
+     /**
+     * Returns the ontology corresponding to the given user  id
+     * @param id the id of the device 
+     * @return the ontology representing the user
+     */
+    public OWLOntology getUser(String id)
+    {
+      String tmp= (String)this.getUsers().get(id);
+      return this.getMainManager().getOntology(IRI.create(tmp));
+    }
+    
      /**
      * Returns the ontology corresponding to the given device  id
      * @param id the id of the device 
@@ -422,9 +471,9 @@ public class OntoASCore extends OntologyCore
      * @param id the id of the device configuration
      * @return the ontology representing the device configuration
      */
-    public Pair<String,String> getDeviceConfiguration(String id)
+    public Pair<String,Pair<String,String>> getDeviceConfiguration(String id)
     {       
-      return  (Pair<String,String>) this.getDeviceConfigurations().get(id);
+      return  (Pair<String,Pair<String,String>>) this.getDeviceConfigurations().get(id);
     }
     
       
@@ -446,7 +495,7 @@ public class OntoASCore extends OntologyCore
                                                                    IRI.create(f.getCanonicalFile())));
                
        f.delete(); //always be sure to close all the open streams
-       removePermanentConfigurations(id);
+       removePermanentConfigurationsFromDevice(id);
        
     }
 
@@ -478,7 +527,8 @@ public class OntoASCore extends OntologyCore
                       for (int j=0; j<confs.length;j++)
                          {
                             ontology= this.getMainManager().loadOntologyFromOntologyDocument(confs[j]);//IDconfig <IDdevice, IDOntology> 
-                            this.getDeviceConfigurations().put(confs[j].getName(), new Pair( name, ontology.getOntologyID().getOntologyIRI().get().toString()));  
+            /*attention here - need to be modified since the user is not got from the ontology*/
+            this.getDeviceConfigurations().put(confs[j].getName(), new Pair( name, new Pair(ontology.getOntologyID().getOntologyIRI().get().toString(),"iduser")));  
                             if(toimport)
                               {
                                 this.addImportToOntology(this.getDataBehaviorOntology(),ontology.getOntologyID().getOntologyIRI().get());
@@ -499,7 +549,7 @@ public class OntoASCore extends OntologyCore
      * @param idConfig ID of the configuration
      * @return the ontology representing the configuration
      */
-    public OWLOntology addDeviceConfiguration(InputStream deviceConfig, String idDevice, String idConfig)
+    public OWLOntology addDeviceConfiguration(InputStream deviceConfig, String idDevice, String idConfig, String iduser)
       {
         File directory = new File(this.getOntologiesDeviceConfigurationPath()+File.separator+idDevice);
         if (! directory.exists())
@@ -519,7 +569,7 @@ public class OntoASCore extends OntologyCore
             
                   
             this.getMainManager().saveOntology(ontodevConf, new OWLXMLDocumentFormat(), outStream);
-            this.getDeviceConfigurations().put(idConfig, new Pair(idDevice, ontodevConf.getOntologyID().getOntologyIRI().get().toString()));
+            this.getDeviceConfigurations().put(idConfig, new Pair(idDevice, new Pair(ontodevConf.getOntologyID().getOntologyIRI().get().toString(), iduser)));
             outStream.close();            
             this.syncReasonerDataBehavior();
             
@@ -538,10 +588,11 @@ public class OntoASCore extends OntologyCore
      * @throws org.semanticweb.owlapi.model.OWLOntologyStorageException
      * @throws org.semanticweb.owlapi.model.OWLOntologyCreationException
      */
-    public void removePermanentConfiguration(String id) throws OWLOntologyStorageException, OWLOntologyCreationException, IOException
+    //IDconfig <IDdevice-  IDOntology- IDuser
+    public void removePermanentConfigurationFromDevice(String id) throws OWLOntologyStorageException, OWLOntologyCreationException, IOException
     {       
-       Pair<String, String> device = (Pair<String, String>) this.getDeviceConfigurations().remove(id);
-       OWLOntology ontology= this.getMainManager().getOntology(IRI.create((String)device.getValue()));             
+       Pair<String, Pair<String,String>> device = (Pair<String,Pair<String,String>>) this.getDeviceConfigurations().remove(id);
+       OWLOntology ontology= this.getMainManager().getOntology(IRI.create((String)device.getValue().getKey()));             
        this.getMainManager().removeOntology(ontology);
        removeImportFromOntology(this.getDataBehaviorOntology(),IRI.create(ontology.getOntologyID().getOntologyIRI().get().toString()));
        String file= this.getOntologiesDeviceConfigurationPath()+File.separator+(String)device.getKey()+File.separator+id+".owl";  
@@ -557,25 +608,68 @@ public class OntoASCore extends OntologyCore
      * @throws OWLOntologyStorageException
      * @throws OWLOntologyCreationException
      */
-    public void removePermanentConfigurations(String idDevice) throws OWLOntologyStorageException, OWLOntologyCreationException
+    public void removePermanentConfigurationsFromDevice(String idDevice) throws OWLOntologyStorageException, OWLOntologyCreationException
       {
-        Iterator it = getDeviceConfigurations().entrySet().iterator(); //IDconfig <IDdevice, IDOntology>        
+        Iterator it = getDeviceConfigurations().entrySet().iterator(); //IDconfig <IDdevice, IDOntology IDuser> 
+        ArrayList<String> toremove=new ArrayList();
          while (it.hasNext())
           {
             Map.Entry entry = (Map.Entry)it.next();
-            Pair<String,String> pair = (Pair<String,String>) entry.getValue();
+            Pair<String,Pair<String,String>> pair = (Pair<String,Pair<String,String>>) entry.getValue();
             if(((String)pair.getKey()).equals(idDevice))
              {
-               OWLOntology ontology= this.getMainManager().getOntology(IRI.create((String)pair.getValue()));             
+               OWLOntology ontology= this.getMainManager().getOntology(IRI.create((String)pair.getValue().getKey()));             
                this.getMainManager().removeOntology(ontology);
                removeImportFromOntology(this.getDataBehaviorOntology(), IRI.create(ontology.getOntologyID().getOntologyIRI().get().toString()));
                String file= this.getOntologiesDeviceConfigurationPath()+File.separator+(String)pair.getKey()+File.separator+
                              (String)entry.getKey()+".owl";       
-               (new File(file)).delete();                       
+               (new File(file)).delete();       
+               toremove.add((String)entry.getKey());
              }
           }
          String folder=this.getOntologiesDeviceConfigurationPath()+File.separator+idDevice;         
-         (new File(folder)).delete();             
+         (new File(folder)).delete(); 
+         for(String s : toremove)
+             getDeviceConfigurations().remove(s);
+      }
+    
+    
+        /**
+     * Removes all the configurations of a user
+     * @param idDevice the device id
+     * @throws OWLOntologyStorageException
+     * @throws OWLOntologyCreationException
+     */
+    public void removePermanentConfigurationsFromUser(String idUser) throws OWLOntologyStorageException, OWLOntologyCreationException
+      {
+        Iterator it = getDeviceConfigurations().entrySet().iterator(); //IDconfig Pair <IDdevice, <IDOntology IDuser> >
+        ArrayList<String> toremove=new ArrayList();
+         while (it.hasNext())
+          {
+            Map.Entry entry = (Map.Entry)it.next();
+            Pair<String,Pair<String,String>> pair = (Pair<String,Pair<String,String>>) entry.getValue();
+            String idDevice= (String)pair.getKey();
+            String userMatch=(String) pair.getValue().getValue();
+            if(userMatch.equals(idUser))
+             {
+               OWLOntology ontology= this.getMainManager().getOntology(IRI.create((String)pair.getValue().getKey()));             
+               this.getMainManager().removeOntology(ontology);
+               removeImportFromOntology(this.getDataBehaviorOntology(), IRI.create(ontology.getOntologyID().getOntologyIRI().get().toString()));
+               String file= this.getOntologiesDeviceConfigurationPath()+File.separator+idDevice+File.separator+
+                             (String)entry.getKey()+".owl";       
+               (new File(file)).delete();       
+               toremove.add((String)entry.getKey());
+               String folder=this.getOntologiesDeviceConfigurationPath()+File.separator+idDevice;          
+               File f= new File(folder);
+               String[] files = f.list();
+               if (files.length == 0)                  
+                   f.delete(); 
+                 
+             }
+          }
+         
+         for(String s : toremove)
+             getDeviceConfigurations().remove(s);
       }
     
   }
