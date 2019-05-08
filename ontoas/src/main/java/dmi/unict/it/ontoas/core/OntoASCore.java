@@ -58,6 +58,7 @@ public class OntoASCore extends OntologyCore
     private final HashMap<String, Pair<String,String>> devConfig; //IDconfig <IDdevice, IDOntology>
     private HashMap<String, String> users; //IDdevice, IDOntology
     private Pair<String, OWLOntology> databehavior;
+    private Pair<String, OWLOntology> databelief;
     private final Configuration configuration;  
     private List<InferredAxiomGenerator<? extends OWLAxiom>> generators;
     
@@ -68,7 +69,8 @@ public class OntoASCore extends OntologyCore
          devConfig=new HashMap<>();
          int paths=3;
          configuration=new Configuration(paths);         
-         databehavior=null;  
+         databehavior=null; 
+         databelief=null;
          generators = new ArrayList<>();
          setDefaultReasonerGenerators(generators);       
        }
@@ -137,8 +139,20 @@ public class OntoASCore extends OntologyCore
     
     
     
+     /**
+     * Sets the data-belief ontology from file
+     * @param inputFile the file serializing the ontology
+     * @throws OWLOntologyCreationException
+     * @throws org.semanticweb.owlapi.model.OWLOntologyStorageException
+     */
+    public void setDataBeliefOntology(File inputFile) throws OWLOntologyCreationException, OWLOntologyStorageException 
+      {        
+        databelief= new Pair(this.getMainOntologiesPath()+File.separator+inputFile.getName(), this.getMainManager().loadOntologyFromOntologyDocument(inputFile));               
+      } 
+    
+    
     /**
-     * Sets the dataset ontology from file
+     * Sets the data-behavior ontology from file
      * @param inputFile the file serializing the ontology
      * @throws OWLOntologyCreationException
      * @throws org.semanticweb.owlapi.model.OWLOntologyStorageException
@@ -148,8 +162,27 @@ public class OntoASCore extends OntologyCore
         databehavior= new Pair(this.getMainOntologiesPath()+File.separator+inputFile.getName(), this.getMainManager().loadOntologyFromOntologyDocument(inputFile));               
       } 
     
+    
+      /**
+     * Sets the data-belief ontology from file name
+     * @param iri The IRI of the ontology
+     * @param name the name of the file  serializing the ontology
+     * @throws OWLOntologyCreationException
+     * @throws org.semanticweb.owlapi.model.OWLOntologyStorageException
+     * @throws java.io.IOException
+     */
+    public void setDataBeliefOntology(String iri, String name) throws OWLOntologyCreationException, OWLOntologyStorageException, IOException 
+      {        
+        OWLOntology dt=this.getMainManager().createOntology(IRI.create(iri));        
+        File inputFile=new File(this.getMainOntologiesPath()+File.separator+name);   
+        this.getMainManager().saveOntology(dt, new OWLXMLDocumentFormat(), IRI.create(inputFile));                    
+        setDataBeliefOntology(inputFile); 
+        addImportToOntology(this.getDataBehaviorOntology(),this.getMainOntology().getOntologyID().getOntologyIRI().get()); 
+        addImportToOntology(this.getDataBeliefOntology(), this.getDataBehaviorOntology().getOntologyID().getOntologyIRI().get());         
+      } 
+    
      /**
-     * Sets the dataset ontology from file name
+     * Sets the data-belief ontology from file name
      * @param iri The IRI of the ontology
      * @param name the name of the file  serializing the ontology
      * @throws OWLOntologyCreationException
@@ -162,42 +195,47 @@ public class OntoASCore extends OntologyCore
         File inputFile=new File(this.getMainOntologiesPath()+File.separator+name);   
         this.getMainManager().saveOntology(dt, new OWLXMLDocumentFormat(), IRI.create(inputFile));                    
         setDataBehaviorOntology(inputFile);       
-        addImportInDataset(this.getMainOntology().getOntologyID().getOntologyIRI().get());         
+        addImportToOntology(this.getDataBehaviorOntology(), this.getMainOntology().getOntologyID().getOntologyIRI().get());         
       } 
     
     
     /**
-     * Imports an ontology into the dataset ontology
+     * Imports an ontology into the given ontology
+     * @param ontology The ontology to which add the import axiom
      * @param iri The iri to import into the dataset ontology
      * @throws OWLOntologyStorageException
      * @throws OWLOntologyCreationException
      */
-    public void addImportInDataset(IRI iri) throws OWLOntologyStorageException, OWLOntologyCreationException
+    public void addImportToOntology(OWLOntology ontology, IRI iri) throws OWLOntologyStorageException, OWLOntologyCreationException
       {
         OWLImportsDeclaration importDeclaration=this.getDataFactory().getOWLImportsDeclaration(iri);
-        this.getMainManager().applyChange(new AddImport(getDataBehaviorOntology(), importDeclaration));       
-        this.getMainManager().saveOntology(this.getDataBehaviorOntology());
-        this.getMainManager().loadOntology(this.getDataBehaviorOntology().getOntologyID().getOntologyIRI().get());            
+        this.getMainManager().applyChange(new AddImport(ontology, importDeclaration));       
+        this.getMainManager().saveOntology(ontology);
+        this.getMainManager().loadOntology(ontology.getOntologyID().getOntologyIRI().get());            
       }
     
      /**
-     * Removes the import of an ontology into the dataset ontology
+     * Removes the import of an ontology from the given ontology
+     * @param ontology The ontology the import axiom has to be removed from. 
      * @param iri The iri to remove from the dataset ontology
      * @throws OWLOntologyStorageException
      * @throws OWLOntologyCreationException
      */
-     public void removeImportInDataset(IRI iri) throws OWLOntologyStorageException, OWLOntologyCreationException
+     public void removeImportFromOntology(OWLOntology ontology, IRI iri) throws OWLOntologyStorageException, OWLOntologyCreationException
       {
         OWLImportsDeclaration importDeclaration=this.getMainManager().getOWLDataFactory().getOWLImportsDeclaration(iri);
-        this.getMainManager().applyChange(new RemoveImport(this.getDataBehaviorOntology(), importDeclaration));
-        this.getMainManager().saveOntology(this.getDataBehaviorOntology());
-        this.getMainManager().loadOntology(this.getDataBehaviorOntology().getOntologyID().getOntologyIRI().get());    
+        this.getMainManager().applyChange(new RemoveImport(ontology, importDeclaration));
+        this.getMainManager().saveOntology(ontology);
+        this.getMainManager().loadOntology(ontology.getOntologyID().getOntologyIRI().get());    
       }
     
     
-     /**
-     * Returns the dataset ontology
-     * @return the dataset ontology
+     
+     
+     
+        /**
+     * Returns the data-behavior ontology
+     * @return the data-behavior ontology
      */
     public Pair<String, OWLOntology> getDataBehaviorInfo()
       {
@@ -205,8 +243,26 @@ public class OntoASCore extends OntologyCore
       }
     
       /**
-     * Returns the dataset ontology
-     * @return the dataset ontology
+     * Returns the data-belief ontology
+     * @return the data-belief ontology
+     */
+    public OWLOntology getDataBeliefOntology()
+      {
+         return getDataBeliefInfo().getValue();
+      }
+     
+     /**
+     * Returns the data-belief ontology
+     * @return the data-belief ontology
+     */
+    public Pair<String, OWLOntology> getDataBeliefInfo()
+      {
+         return this.databelief;
+      }
+    
+      /**
+     * Returns the data-behavior ontology
+     * @return the data-behavior ontology
      */
     public OWLOntology getDataBehaviorOntology()
       {
@@ -326,7 +382,7 @@ public class OntoASCore extends OntologyCore
           {      
             ontodevice=this.getMainManager().loadOntologyFromOntologyDocument(ontologyData);
            
-            addImportInDataset(ontodevice.getOntologyID().getOntologyIRI().get());          
+            addImportToOntology(this.getDataBehaviorOntology(), ontodevice.getOntologyID().getOntologyIRI().get());          
             String filesource=this.getOntologiesDevicesPath()+File.separator+id+".owl";
             File file=new File(filesource);  
              
@@ -384,7 +440,7 @@ public class OntoASCore extends OntologyCore
        OWLOntology ontology=this.getDevice(id);
        String tmp= (String)this.getDevices().remove(id); //this.getMainManager().getOntology(IRI.create(tmp));             
        this.getMainManager().removeOntology(ontology);
-       removeImportInDataset(IRI.create(tmp));
+       removeImportFromOntology(this.getDataBehaviorOntology(), IRI.create(tmp));
        File f=new File(this.getOntologiesDevicesPath()+File.separator+id+".owl");
        this.getMainManager().getIRIMappers().remove(new SimpleIRIMapper(ontology.getOntologyID().getOntologyIRI().get(), 
                                                                    IRI.create(f.getCanonicalFile())));
@@ -408,7 +464,7 @@ public class OntoASCore extends OntologyCore
                   this.getDevices().put(name, new Pair(ontology.getOntologyID().getOntologyIRI().get().toString(), files[i]));    
                   if(toimport)
                     {
-                      this.addImportInDataset(ontology.getOntologyID().getOntologyIRI().get());
+                      this.addImportToOntology(this.getDataBehaviorOntology(),ontology.getOntologyID().getOntologyIRI().get());
                       this.getMainManager().addIRIMapper(new SimpleIRIMapper(ontology.getOntologyID().getOntologyIRI().get(), 
                                                                    IRI.create(files[i].getCanonicalFile()))); 
                     }
@@ -425,7 +481,7 @@ public class OntoASCore extends OntologyCore
                             this.getDeviceConfigurations().put(confs[j].getName(), new Pair( name, ontology.getOntologyID().getOntologyIRI().get().toString()));  
                             if(toimport)
                               {
-                                this.addImportInDataset(ontology.getOntologyID().getOntologyIRI().get());
+                                this.addImportToOntology(this.getDataBehaviorOntology(),ontology.getOntologyID().getOntologyIRI().get());
                                 this.getMainManager().addIRIMapper(new SimpleIRIMapper(ontology.getOntologyID().getOntologyIRI().get(), 
                                                                    IRI.create(confs[j].getCanonicalFile())));
                               }
@@ -453,7 +509,7 @@ public class OntoASCore extends OntologyCore
         try
           {      
             ontodevConf=this.getMainManager().loadOntologyFromOntologyDocument(deviceConfig);
-            addImportInDataset(ontodevConf.getOntologyID().getOntologyIRI().get());          
+            addImportToOntology(this.getDataBehaviorOntology(), ontodevConf.getOntologyID().getOntologyIRI().get());          
             String filesource=directory.getAbsolutePath()+File.separator+idConfig+".owl";
             File file=new File(filesource);       
             FileOutputStream outStream = new FileOutputStream(file);              
@@ -487,7 +543,7 @@ public class OntoASCore extends OntologyCore
        Pair<String, String> device = (Pair<String, String>) this.getDeviceConfigurations().remove(id);
        OWLOntology ontology= this.getMainManager().getOntology(IRI.create((String)device.getValue()));             
        this.getMainManager().removeOntology(ontology);
-       removeImportInDataset(IRI.create(ontology.getOntologyID().getOntologyIRI().get().toString()));
+       removeImportFromOntology(this.getDataBehaviorOntology(),IRI.create(ontology.getOntologyID().getOntologyIRI().get().toString()));
        String file= this.getOntologiesDeviceConfigurationPath()+File.separator+(String)device.getKey()+File.separator+id+".owl";  
        File f=new File(file);
        this.getMainManager().getIRIMappers().remove(new SimpleIRIMapper(ontology.getOntologyID().getOntologyIRI().get(), 
@@ -512,7 +568,7 @@ public class OntoASCore extends OntologyCore
              {
                OWLOntology ontology= this.getMainManager().getOntology(IRI.create((String)pair.getValue()));             
                this.getMainManager().removeOntology(ontology);
-               removeImportInDataset(IRI.create(ontology.getOntologyID().getOntologyIRI().get().toString()));
+               removeImportFromOntology(this.getDataBehaviorOntology(), IRI.create(ontology.getOntologyID().getOntologyIRI().get().toString()));
                String file= this.getOntologiesDeviceConfigurationPath()+File.separator+(String)pair.getKey()+File.separator+
                              (String)entry.getKey()+".owl";       
                (new File(file)).delete();                       

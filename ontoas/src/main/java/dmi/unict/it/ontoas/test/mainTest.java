@@ -95,7 +95,8 @@ public class mainTest
             ontocore.setOntologiesDevicesPath(Paths.get("ontologies"+File.separator+"devices"));
             ontocore.setMainOntologiesPath(Paths.get("ontologies"+File.separator+"main"));
             ontocore.setMainOntology(ontoFile);           
-            ontocore.setDataBehaviorOntology("http://www.dmi.unict.it/profeta-dataset.owl","dataset.owl");            
+            ontocore.setDataBehaviorOntology("http://www.dmi.unict.it/prof-onto-behavior.owl","behavior.owl");  
+            ontocore.setDataBeliefOntology("http://www.dmi.unict.it/prof-onto-belief.owl","belief.owl");
             ontocore.loadDevicesFromPath(true); //use this if the devices folder is not empty 
            // ontocore.startReasoner();
           } 
