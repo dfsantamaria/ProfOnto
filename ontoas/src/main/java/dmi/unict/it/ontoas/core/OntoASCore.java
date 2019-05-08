@@ -29,8 +29,10 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import org.semanticweb.HermiT.ReasonerFactory;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.OWLIndividualAxiom;
 import org.semanticweb.owlapi.reasoner.InferenceType;
+import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.util.InferredAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredClassAssertionAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredDataPropertyCharacteristicAxiomGenerator;
@@ -45,6 +47,7 @@ import org.semanticweb.owlapi.util.InferredOntologyGenerator;
 import org.semanticweb.owlapi.util.InferredSubClassAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredSubDataPropertyAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredSubObjectPropertyAxiomGenerator;
+import org.semanticweb.owlapi.util.SimpleIRIMapper;
 /**
  *
  * @author Daniele Francesco Santamaria
@@ -119,18 +122,18 @@ public class OntoASCore extends OntologyCore
         directory.mkdirs();
     }
     
-    public void startReasoner()
-      {
-        ReasonerFactory rf=new ReasonerFactory();
-        org.semanticweb.HermiT.Configuration config= new org.semanticweb.HermiT.Configuration();
-        config.ignoreUnsupportedDatatypes = true;        
-        setReasoner(rf.createReasoner(this.getDataBeliefOntology(),config));
-        this.getReasoner().precomputeInferences(InferenceType.CLASS_HIERARCHY, 
-                                                 InferenceType.CLASS_ASSERTIONS, 
-                                                 InferenceType.OBJECT_PROPERTY_HIERARCHY, 
-                                                 InferenceType.DATA_PROPERTY_HIERARCHY, 
-                                                 InferenceType.OBJECT_PROPERTY_ASSERTIONS);
-      }
+//    public void startReasoner()
+//      {
+//        ReasonerFactory rf=new ReasonerFactory();
+//        org.semanticweb.HermiT.Configuration config= new org.semanticweb.HermiT.Configuration();
+//        config.ignoreUnsupportedDatatypes = true;        
+//        setReasoner(rf.createReasoner(this.getDataBeliefOntology(),config));
+//        this.getReasoner().precomputeInferences(InferenceType.CLASS_HIERARCHY, 
+//                                                 InferenceType.CLASS_ASSERTIONS, 
+//                                                 InferenceType.OBJECT_PROPERTY_HIERARCHY, 
+//                                                 InferenceType.DATA_PROPERTY_HIERARCHY, 
+//                                                 InferenceType.OBJECT_PROPERTY_ASSERTIONS);
+//      }
     
     
     
@@ -279,18 +282,28 @@ public class OntoASCore extends OntologyCore
     
     public void syncReasoner(String storeOntology, String file) throws OWLOntologyStorageException
       {  
-        boolean consistencyCheck = this.getReasoner().isConsistent();
+        OWLOntology m=this.getMainManager().getOntology(IRI.create(storeOntology));
+        m.imports().forEach(ont ->ont.axioms().forEach(a-> m.addAxiom(a)));     
+        ReasonerFactory rf=new ReasonerFactory();
+        org.semanticweb.HermiT.Configuration config= new org.semanticweb.HermiT.Configuration();
+        config.ignoreUnsupportedDatatypes = true;        
+        OWLReasoner reasoner=rf.createReasoner(m,config);
+        reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY, 
+                                                 InferenceType.CLASS_ASSERTIONS, 
+                                                 InferenceType.OBJECT_PROPERTY_HIERARCHY, 
+                                                 InferenceType.DATA_PROPERTY_HIERARCHY, 
+                                                 InferenceType.OBJECT_PROPERTY_ASSERTIONS);
+        
+        boolean consistencyCheck = reasoner.isConsistent();
         if (consistencyCheck)
           {             
-        InferredOntologyGenerator iog = new InferredOntologyGenerator( this.getReasoner(), generators);        
-        iog.fillOntology(this.getMainManager().getOWLDataFactory(), this.getMainManager().getOntology(IRI.create(storeOntology)));        
-        
-       getReasoner().flush();
-       this.getMainManager().saveOntology(this.getMainManager().getOntology(IRI.create(storeOntology)),
+            InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner, generators);              
+            iog.fillOntology(this.getMainManager().getOWLDataFactory(), m);         
+            reasoner.flush();
+            this.getMainManager().saveOntology(m,
                                            IRI.create(new File(file)));
-          }
-        else {System.out.println("Inconsistent Knowledge base");
-         }
+           }
+        else {System.out.println("Inconsistent Knowledge base");} 
       }
     
      private void syncReasonerDataBelief() throws OWLOntologyStorageException
@@ -312,9 +325,14 @@ public class OntoASCore extends OntologyCore
         try
           {      
             ontodevice=this.getMainManager().loadOntologyFromOntologyDocument(ontologyData);
+           
             addImportInDataset(ontodevice.getOntologyID().getOntologyIRI().get());          
-            String filesource=getOntologiesDevicesPath()+File.separator+id+".owl";
-            File file=new File(filesource);       
+            String filesource=this.getOntologiesDevicesPath()+File.separator+id+".owl";
+            File file=new File(filesource);  
+             
+            this.getMainManager().addIRIMapper(new SimpleIRIMapper(ontodevice.getOntologyID().getOntologyIRI().get(), 
+                                                                   IRI.create(file.getCanonicalFile())));  
+                      
             FileOutputStream outStream = new FileOutputStream(file);               
               
             this.getMainManager().saveOntology(ontodevice, new OWLXMLDocumentFormat(), outStream);
@@ -359,19 +377,24 @@ public class OntoASCore extends OntologyCore
      * @param id the id of the device to be removed
      * @throws org.semanticweb.owlapi.model.OWLOntologyStorageException
      * @throws org.semanticweb.owlapi.model.OWLOntologyCreationException
+     * @throws java.io.IOException
      */
-    public void removePermanentDevice(String id) throws OWLOntologyStorageException, OWLOntologyCreationException
+    public void removePermanentDevice(String id) throws OWLOntologyStorageException, OWLOntologyCreationException, IOException
     {
        OWLOntology ontology=this.getDevice(id);
        String tmp= (String)this.getDevices().remove(id); //this.getMainManager().getOntology(IRI.create(tmp));             
        this.getMainManager().removeOntology(ontology);
        removeImportInDataset(IRI.create(tmp));
-       (new File(this.getOntologiesDevicesPath()+File.separator+id+".owl")).delete(); //always be sure to close all the open streams
+       File f=new File(this.getOntologiesDevicesPath()+File.separator+id+".owl");
+       this.getMainManager().getIRIMappers().remove(new SimpleIRIMapper(ontology.getOntologyID().getOntologyIRI().get(), 
+                                                                   IRI.create(f.getCanonicalFile())));
+               
+       f.delete(); //always be sure to close all the open streams
        removePermanentConfigurations(id);
        
     }
 
-    public void loadDevicesFromPath(boolean toimport) throws OWLOntologyCreationException, OWLOntologyStorageException
+    public void loadDevicesFromPath(boolean toimport) throws OWLOntologyCreationException, OWLOntologyStorageException, IOException
       {
          Path path=this.getOntologiesDevicesPath();
           //HashMap<String, Pair<OWLOntology,File>>
@@ -384,7 +407,11 @@ public class OntoASCore extends OntologyCore
                   OWLOntology ontology= this.getMainManager().loadOntologyFromOntologyDocument(files[i]);
                   this.getDevices().put(name, new Pair(ontology.getOntologyID().getOntologyIRI().get().toString(), files[i]));    
                   if(toimport)
-                    this.addImportInDataset(ontology.getOntologyID().getOntologyIRI().get());
+                    {
+                      this.addImportInDataset(ontology.getOntologyID().getOntologyIRI().get());
+                      this.getMainManager().addIRIMapper(new SimpleIRIMapper(ontology.getOntologyID().getOntologyIRI().get(), 
+                                                                   IRI.create(files[i].getCanonicalFile()))); 
+                    }
                   
                   //Getting configurations from the current device
                   
@@ -397,7 +424,11 @@ public class OntoASCore extends OntologyCore
                             ontology= this.getMainManager().loadOntologyFromOntologyDocument(confs[j]);//IDconfig <IDdevice, IDOntology> 
                             this.getDeviceConfigurations().put(confs[j].getName(), new Pair( name, ontology.getOntologyID().getOntologyIRI().get().toString()));  
                             if(toimport)
-                               this.addImportInDataset(ontology.getOntologyID().getOntologyIRI().get());
+                              {
+                                this.addImportInDataset(ontology.getOntologyID().getOntologyIRI().get());
+                                this.getMainManager().addIRIMapper(new SimpleIRIMapper(ontology.getOntologyID().getOntologyIRI().get(), 
+                                                                   IRI.create(confs[j].getCanonicalFile())));
+                              }
                          }
                     }
                 }
@@ -427,6 +458,10 @@ public class OntoASCore extends OntologyCore
             File file=new File(filesource);       
             FileOutputStream outStream = new FileOutputStream(file);              
               
+            this.getMainManager().addIRIMapper(new SimpleIRIMapper(ontodevConf.getOntologyID().getOntologyIRI().get(), 
+                                                                   IRI.create(file.getCanonicalFile())));  
+            
+                  
             this.getMainManager().saveOntology(ontodevConf, new OWLXMLDocumentFormat(), outStream);
             this.getDeviceConfigurations().put(idConfig, new Pair(idDevice, ontodevConf.getOntologyID().getOntologyIRI().get().toString()));
             outStream.close();            
@@ -447,14 +482,17 @@ public class OntoASCore extends OntologyCore
      * @throws org.semanticweb.owlapi.model.OWLOntologyStorageException
      * @throws org.semanticweb.owlapi.model.OWLOntologyCreationException
      */
-    public void removePermanentConfiguration(String id) throws OWLOntologyStorageException, OWLOntologyCreationException
+    public void removePermanentConfiguration(String id) throws OWLOntologyStorageException, OWLOntologyCreationException, IOException
     {       
        Pair<String, String> device = (Pair<String, String>) this.getDeviceConfigurations().remove(id);
        OWLOntology ontology= this.getMainManager().getOntology(IRI.create((String)device.getValue()));             
        this.getMainManager().removeOntology(ontology);
        removeImportInDataset(IRI.create(ontology.getOntologyID().getOntologyIRI().get().toString()));
-       String file= this.getOntologiesDeviceConfigurationPath()+File.separator+(String)device.getKey()+File.separator+id+".owl";       
-       (new File(file)).delete(); //always be sure to close all the open streams       
+       String file= this.getOntologiesDeviceConfigurationPath()+File.separator+(String)device.getKey()+File.separator+id+".owl";  
+       File f=new File(file);
+       this.getMainManager().getIRIMappers().remove(new SimpleIRIMapper(ontology.getOntologyID().getOntologyIRI().get(), 
+                                                                   IRI.create(f.getCanonicalFile())));
+       f.delete(); //always be sure to close all the open streams       
     }
     
     /**

@@ -97,7 +97,7 @@ public class mainTest
             ontocore.setMainOntology(ontoFile);           
             ontocore.setDataBeliefOntology("http://www.dmi.unict.it/profeta-dataset.owl","dataset.owl");            
             ontocore.loadDevicesFromPath(true); //use this if the devices folder is not empty 
-            ontocore.startReasoner();
+           // ontocore.startReasoner();
           } 
         catch (OWLOntologyCreationException | OWLOntologyStorageException | IOException ex)
           {
@@ -119,7 +119,7 @@ public class mainTest
           {              
             ontocore.removePermanentDevice(id);
           } 
-        catch (OWLOntologyStorageException | OWLOntologyCreationException ex)
+        catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex)
           {
             Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
           }
