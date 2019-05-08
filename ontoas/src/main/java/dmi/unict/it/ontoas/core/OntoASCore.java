@@ -142,7 +142,7 @@ public class OntoASCore extends OntologyCore
      */
     public void setDataBeliefOntology(File inputFile) throws OWLOntologyCreationException, OWLOntologyStorageException 
       {        
-        databelief= new Pair(inputFile.getName(), this.getMainManager().loadOntologyFromOntologyDocument(inputFile));               
+        databelief= new Pair(this.getMainOntologiesPath()+File.separator+inputFile.getName(), this.getMainManager().loadOntologyFromOntologyDocument(inputFile));               
       } 
     
      /**
@@ -278,7 +278,7 @@ public class OntoASCore extends OntologyCore
 //    }
     
     public void syncReasoner(String storeOntology, String file) throws OWLOntologyStorageException
-      {
+      {  
         boolean consistencyCheck = this.getReasoner().isConsistent();
         if (consistencyCheck)
           {             
