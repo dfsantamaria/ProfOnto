@@ -610,19 +610,20 @@ public class OntoASCore extends OntologyCore
      */
     public void removePermanentConfigurationsFromDevice(String idDevice) throws OWLOntologyStorageException, OWLOntologyCreationException
       {
-        Iterator it = getDeviceConfigurations().entrySet().iterator(); //IDconfig <IDdevice, IDOntology IDuser> 
+        Iterator it = getDeviceConfigurations().entrySet().iterator(); //IDconfig <IDdevice, IDOntology, IDuser> 
         ArrayList<String> toremove=new ArrayList();
          while (it.hasNext())
           {
             Map.Entry entry = (Map.Entry)it.next();
             String[] pair = (String[]) entry.getValue();
-            if(((String)pair[1]).equals(idDevice))
+            if(((String)pair[0]).equals(idDevice))
              {
                OWLOntology ontology= this.getMainManager().getOntology(IRI.create((String)pair[1]));             
                this.getMainManager().removeOntology(ontology);
                removeImportFromOntology(this.getDataBehaviorOntology(), IRI.create(ontology.getOntologyID().getOntologyIRI().get().toString()));
-               String file= this.getOntologiesDeviceConfigurationPath()+File.separator+pair[1]+File.separator+
-                             (String)entry.getKey()+".owl";       
+               String file= this.getOntologiesDeviceConfigurationPath()+File.separator+pair[0]+File.separator+
+                             (String)entry.getKey()+".owl";     
+               
                (new File(file)).delete();       
                toremove.add((String)entry.getKey());
              }

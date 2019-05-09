@@ -123,7 +123,6 @@ public class mainTest
         try
           {
             ontocore.removePermanentDevice(id);
-
           }
         catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex)
           {
