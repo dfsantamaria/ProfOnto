@@ -56,7 +56,7 @@ import org.semanticweb.owlapi.util.SimpleIRIMapper;
 public class OntoASCore extends OntologyCore
   {
     private final HashMap<String, String> devices; //IDdevice, IDOntology
-    private final HashMap<String, Pair<String,Pair<String,String>>> devConfig; //IDconfig <IDdevice-  IDOntology- IDuser
+    private final HashMap<String, String[]> devConfig; //IDconfig <IDdevice-  IDOntology- IDuser
     private final HashMap<String, String> users; //IDconfig <IDdevice, IDOntology> //IDdevice, IDOntology
     private Pair<String, OWLOntology> databehavior;
     private Pair<String, OWLOntology> databelief;
@@ -471,9 +471,9 @@ public class OntoASCore extends OntologyCore
      * @param id the id of the device configuration
      * @return the ontology representing the device configuration
      */
-    public Pair<String,Pair<String,String>> getDeviceConfiguration(String id)
+    public String[] getDeviceConfiguration(String id)
     {       
-      return  (Pair<String,Pair<String,String>>) this.getDeviceConfigurations().get(id);
+      return  (String[]) this.getDeviceConfigurations().get(id);
     }
     
       
@@ -528,7 +528,7 @@ public class OntoASCore extends OntologyCore
                          {
                             ontology= this.getMainManager().loadOntologyFromOntologyDocument(confs[j]);//IDconfig <IDdevice, IDOntology> 
             /*attention here - need to be modified since the user is not got from the ontology*/
-            this.getDeviceConfigurations().put(confs[j].getName(), new Pair( name, new Pair(ontology.getOntologyID().getOntologyIRI().get().toString(),"iduser")));  
+            this.getDeviceConfigurations().put(confs[j].getName(), new String[]{name, ontology.getOntologyID().getOntologyIRI().get().toString(),"iduser"});  
                             if(toimport)
                               {
                                 this.addImportToOntology(this.getDataBehaviorOntology(),ontology.getOntologyID().getOntologyIRI().get());
@@ -569,7 +569,7 @@ public class OntoASCore extends OntologyCore
             
                   
             this.getMainManager().saveOntology(ontodevConf, new OWLXMLDocumentFormat(), outStream);
-            this.getDeviceConfigurations().put(idConfig, new Pair(idDevice, new Pair(ontodevConf.getOntologyID().getOntologyIRI().get().toString(), iduser)));
+            this.getDeviceConfigurations().put(idConfig, new String[]{idDevice, ontodevConf.getOntologyID().getOntologyIRI().get().toString(), iduser});
             outStream.close();            
             this.syncReasonerDataBehavior();
             
@@ -591,11 +591,11 @@ public class OntoASCore extends OntologyCore
     //IDconfig <IDdevice-  IDOntology- IDuser
     public void removePermanentConfigurationFromDevice(String id) throws OWLOntologyStorageException, OWLOntologyCreationException, IOException
     {       
-       Pair<String, Pair<String,String>> device = (Pair<String,Pair<String,String>>) this.getDeviceConfigurations().remove(id);
-       OWLOntology ontology= this.getMainManager().getOntology(IRI.create((String)device.getValue().getKey()));             
+       String[] device = (String[]) this.getDeviceConfigurations().remove(id);
+       OWLOntology ontology= this.getMainManager().getOntology(IRI.create((String)device[1]));             
        this.getMainManager().removeOntology(ontology);
        removeImportFromOntology(this.getDataBehaviorOntology(),IRI.create(ontology.getOntologyID().getOntologyIRI().get().toString()));
-       String file= this.getOntologiesDeviceConfigurationPath()+File.separator+(String)device.getKey()+File.separator+id+".owl";  
+       String file= this.getOntologiesDeviceConfigurationPath()+File.separator+(String)device[1]+File.separator+id+".owl";  
        File f=new File(file);
        this.getMainManager().getIRIMappers().remove(new SimpleIRIMapper(ontology.getOntologyID().getOntologyIRI().get(), 
                                                                    IRI.create(f.getCanonicalFile())));
@@ -615,13 +615,13 @@ public class OntoASCore extends OntologyCore
          while (it.hasNext())
           {
             Map.Entry entry = (Map.Entry)it.next();
-            Pair<String,Pair<String,String>> pair = (Pair<String,Pair<String,String>>) entry.getValue();
-            if(((String)pair.getKey()).equals(idDevice))
+            String[] pair = (String[]) entry.getValue();
+            if(((String)pair[1]).equals(idDevice))
              {
-               OWLOntology ontology= this.getMainManager().getOntology(IRI.create((String)pair.getValue().getKey()));             
+               OWLOntology ontology= this.getMainManager().getOntology(IRI.create((String)pair[1]));             
                this.getMainManager().removeOntology(ontology);
                removeImportFromOntology(this.getDataBehaviorOntology(), IRI.create(ontology.getOntologyID().getOntologyIRI().get().toString()));
-               String file= this.getOntologiesDeviceConfigurationPath()+File.separator+(String)pair.getKey()+File.separator+
+               String file= this.getOntologiesDeviceConfigurationPath()+File.separator+pair[1]+File.separator+
                              (String)entry.getKey()+".owl";       
                (new File(file)).delete();       
                toremove.add((String)entry.getKey());
@@ -647,12 +647,12 @@ public class OntoASCore extends OntologyCore
          while (it.hasNext())
           {
             Map.Entry entry = (Map.Entry)it.next();
-            Pair<String,Pair<String,String>> pair = (Pair<String,Pair<String,String>>) entry.getValue();
-            String idDevice= (String)pair.getKey();
-            String userMatch=(String) pair.getValue().getValue();
+            String[] pair = (String[]) entry.getValue();
+            String idDevice= pair[0];
+            String userMatch= pair[2];
             if(userMatch.equals(idUser))
              {
-               OWLOntology ontology= this.getMainManager().getOntology(IRI.create((String)pair.getValue().getKey()));             
+               OWLOntology ontology= this.getMainManager().getOntology(IRI.create(pair[1]));             
                this.getMainManager().removeOntology(ontology);
                removeImportFromOntology(this.getDataBehaviorOntology(), IRI.create(ontology.getOntologyID().getOntologyIRI().get().toString()));
                String file= this.getOntologiesDeviceConfigurationPath()+File.separator+idDevice+File.separator+
