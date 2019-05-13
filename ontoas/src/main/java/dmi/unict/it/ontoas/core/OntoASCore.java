@@ -338,10 +338,10 @@ public class OntoASCore extends OntologyCore
 //      return ontodevice;
 //    }
     
-    public void syncReasoner(String storeOntology, String file) throws OWLOntologyStorageException
+    private void syncReasoner(String storeOntology, String file) throws OWLOntologyStorageException
       {  
         OWLOntology m=this.getMainManager().getOntology(IRI.create(storeOntology));
-        m.imports().forEach(ont ->ont.axioms().forEach(a-> m.addAxiom(a)));     
+     //   m.imports().forEach(ont ->ont.axioms().forEach(a-> m.addAxiom(a)));     
         ReasonerFactory rf=new ReasonerFactory();
         org.semanticweb.HermiT.Configuration config= new org.semanticweb.HermiT.Configuration();
         config.ignoreUnsupportedDatatypes = true;        
@@ -364,13 +364,35 @@ public class OntoASCore extends OntologyCore
         else {System.out.println("Inconsistent Knowledge base");} 
       }
     
-     private void syncReasonerDataBehavior() throws OWLOntologyStorageException
+    /**
+     * Runs the reasoner on the behavior data
+     * @throws OWLOntologyStorageException
+     */
+    public void syncReasonerDataBehavior() throws OWLOntologyStorageException
       {
         this.syncReasoner(this.getDataBehaviorOntology().getOntologyID().getOntologyIRI().get().toString(),
                 this.getDataBehaviorInfo().getKey());
       }
     
      
+    private void refreshOntology(OWLOntology ontology) throws OWLOntologyStorageException, OWLOntologyCreationException
+      {
+        Stream<OWLImportsDeclaration> imports=ontology.importsDeclarations();
+        ontology.removeAxioms(ontology.axioms());
+        imports.forEach(dec -> this.getMainManager().applyChange(new AddImport(ontology, dec)));              
+        this.getMainManager().saveOntology(ontology);
+        this.getMainManager().loadOntology(ontology.getOntologyID().getOntologyIRI().get());       
+      }
+    
+    /**
+     * refreshes the behavior dataset
+     * @throws OWLOntologyStorageException
+     * @throws OWLOntologyCreationException
+     */
+    public void refreshDataBehavior() throws OWLOntologyStorageException, OWLOntologyCreationException
+      {
+          refreshOntology(this.getDataBehaviorOntology());
+      }
      
    /**
      * insert a new user given its ontology data
@@ -384,8 +406,7 @@ public class OntoASCore extends OntologyCore
         try
           {      
             ontouser=this.getMainManager().loadOntologyFromOntologyDocument(ontologyData);
-            addImportToOntology(this.getDataBehaviorOntology(), ontouser.getOntologyID().getOntologyIRI().get());
-            addImportToOntology(this.getDataBeliefOntology(), ontouser.getOntologyID().getOntologyIRI().get());          
+            addImportToOntology(this.getDataBehaviorOntology(), ontouser.getOntologyID().getOntologyIRI().get());                      
             String filesource=this.getOntologiesUsersPath()+File.separator+id+".owl";
             File file=new File(filesource);  
              
@@ -397,7 +418,7 @@ public class OntoASCore extends OntologyCore
             this.getMainManager().saveOntology(ontouser, new OWLXMLDocumentFormat(), outStream);
             this.getUsers().put(id, ontouser.getOntologyID().getOntologyIRI().get().toString());
             outStream.close();
-            syncReasonerDataBehavior();            
+         //   syncReasonerDataBehavior();            
            } 
         catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
           {
@@ -417,8 +438,7 @@ public class OntoASCore extends OntologyCore
         OWLOntology ontodevice=null;
         try
           {      
-            ontodevice=this.getMainManager().loadOntologyFromOntologyDocument(ontologyData);
-           
+            ontodevice=this.getMainManager().loadOntologyFromOntologyDocument(ontologyData);           
             addImportToOntology(this.getDataBehaviorOntology(), ontodevice.getOntologyID().getOntologyIRI().get());          
             String filesource=this.getOntologiesDevicesPath()+File.separator+id+".owl";
             File file=new File(filesource);  
@@ -431,7 +451,7 @@ public class OntoASCore extends OntologyCore
             this.getMainManager().saveOntology(ontodevice, new OWLXMLDocumentFormat(), outStream);
             this.getDevices().put(id, ontodevice.getOntologyID().getOntologyIRI().get().toString());
             outStream.close();
-            syncReasonerDataBehavior();
+          //  syncReasonerDataBehavior();
             
            } 
         catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
@@ -476,7 +496,28 @@ public class OntoASCore extends OntologyCore
       return  (String[]) this.getDeviceConfigurations().get(id);
     }
     
-      
+     
+    /**
+     * Removes a given user
+     * @param id the id of the user to be removed
+     * @throws org.semanticweb.owlapi.model.OWLOntologyStorageException
+     * @throws org.semanticweb.owlapi.model.OWLOntologyCreationException
+     * @throws java.io.IOException
+     */
+    public void removePermanentUser(String id) throws OWLOntologyStorageException, OWLOntologyCreationException, IOException
+    {
+       OWLOntology ontology=this.getUser(id);
+       String tmp= (String)this.getUsers().remove(id); //this.getMainManager().getOntology(IRI.create(tmp));             
+       this.getMainManager().removeOntology(ontology);
+       removeImportFromOntology(this.getDataBehaviorOntology(), IRI.create(tmp));       
+       File f=new File(this.getOntologiesUsersPath()+File.separator+id+".owl");
+       this.getMainManager().getIRIMappers().remove(new SimpleIRIMapper(ontology.getOntologyID().getOntologyIRI().get(), 
+                                                                   IRI.create(f.getCanonicalFile())));              
+       f.delete(); //always be sure to close all the open streams
+       removePermanentConfigurationsFromUser(id);       
+    }
+    
+    
     /**
      * Removes a given device
      * @param id the id of the device to be removed
@@ -571,7 +612,7 @@ public class OntoASCore extends OntologyCore
             this.getMainManager().saveOntology(ontodevConf, new OWLXMLDocumentFormat(), outStream);
             this.getDeviceConfigurations().put(idConfig, new String[]{idDevice, ontodevConf.getOntologyID().getOntologyIRI().get().toString(), iduser});
             outStream.close();            
-            this.syncReasonerDataBehavior();
+        //    this.syncReasonerDataBehavior();
             
            } 
         catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)

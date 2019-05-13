@@ -104,12 +104,25 @@ public class mainTest
          
         //Device
         String id= "dev"+ new Timestamp(new Date().getTime()).toString().replace(" ","").replace(":","").replace(".","");
-        Stream<OWLAxiom> axioms=Stream.empty();
+        //Stream<OWLAxiom> axioms=Stream.empty();
+        String userId="ALAN";
+        
+        InputStream userData=readData("ontologies/test/alan.owl"); 
+        ontocore.addUser(userData, userId);
+        
         InputStream ontologyData=readData("ontologies/test/lightagent.owl");        
         ontocore.addDevice(ontologyData, id);
         
         InputStream deviceConfig=readData("ontologies/test/alan-config.owl");
-        ontocore.addDeviceConfiguration(deviceConfig, id, id+"Conf-1","ALAN");          
+        ontocore.addDeviceConfiguration(deviceConfig, id, id+"Conf-1","ALAN");        
+        try
+          {
+            ontocore.syncReasonerDataBehavior();
+          } 
+        catch (OWLOntologyStorageException ex)
+          {
+            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
+          }
   
 // remove an user and the related configurations        
 //        try
@@ -121,8 +134,10 @@ public class mainTest
 //          }
         
         try
-          {
+          {            
+            ontocore.removePermanentUser(userId);
             ontocore.removePermanentDevice(id);
+            ontocore.refreshDataBehavior();            
           }
         catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex)
           {

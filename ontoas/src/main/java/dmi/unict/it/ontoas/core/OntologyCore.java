@@ -5,18 +5,13 @@
  */
 package dmi.unict.it.ontoas.core;
 
-import java.io.BufferedOutputStream;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.OutputStream;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
-import org.apache.jena.graph.Graph;
-import org.apache.jena.ontology.OntModel;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
 import org.apache.jena.query.QueryFactory;
@@ -37,8 +32,6 @@ import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import ru.avicomp.ontapi.OntManagers;
 import ru.avicomp.ontapi.OntologyManager;
 import ru.avicomp.ontapi.OntologyModel;
-import ru.avicomp.ontapi.jena.OntModelFactory;
-import ru.avicomp.ontapi.jena.model.OntGraphModel;
 
 
 
