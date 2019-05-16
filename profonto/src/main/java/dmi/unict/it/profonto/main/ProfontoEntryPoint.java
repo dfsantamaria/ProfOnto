@@ -7,8 +7,12 @@ package dmi.unict.it.profonto.main;
 
 import dmi.unict.it.profonto.core.Profonto;
 import dmi.unict.it.profonto.test.mainTest;
+import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
+import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
 import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,7 +25,15 @@ import py4j.GatewayServer;
  * @author Daniele Francesco Santamaria
  */
 public class ProfontoEntryPoint
-  {
+  {    
+   public static void main(String[] args)
+     {
+      GatewayServer gatewayServer = new GatewayServer(new ProfontoEntryPoint());
+      gatewayServer.start();
+      System.out.println("Gateway Server Started");
+     }
+    
+    
     Profonto ontocore;
     public ProfontoEntryPoint()
       {
@@ -47,86 +59,27 @@ public class ProfontoEntryPoint
           }      
       }
     
-    
-    
-    public static void main(String[] args)
-     {
-      GatewayServer gatewayServer = new GatewayServer(new ProfontoEntryPoint());
-      gatewayServer.start();
-      System.out.println("Gateway Server Started");
-     }
+    public static InputStream readData(String file)
+    {
+        InputStream inputstream=null;
+        String input="";
+        try {
+            FileReader fileReader =  new FileReader(file);
+            BufferedReader bufferedReader =  new BufferedReader(fileReader);
+            String line;
+            while((line = bufferedReader.readLine()) != null)
+            {
+                input+=line;
+            }       
+            fileReader.close();
+            bufferedReader.close();
+            inputstream=new ByteArrayInputStream(input.getBytes());
+            inputstream.close();
+        }
+        catch (IOException ex) {
+            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);            
+        } 
+        return inputstream;
+    }   
+  
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-  try
-          {
-            OWLOntologyManager localM=OWLManager.createOWLOntologyManager();
-            localM.loadOntologyFromOntologyDocument(new File("ontologies/main/onto-as.owl"));
-            OWLOntology agent=localM.loadOntologyFromOntologyDocument(new File("ontologies/test/lightagent.owl"));
-            OWLOntology config=localM.loadOntologyFromOntologyDocument(new File("ontologies/test/alan-config.owl"));
-            OWLOntology request=localM.loadOntologyFromOntologyDocument(new File("ontologies/test/user-request.owl"));
-          
-            ontocore.addDataToDataBehavior(agent.axioms());
-            ontocore.addDataToDataBehavior(config.axioms());
-            ontocore.addDataToDataBehavior(request.axioms());
-            ontocore.getMainManager().removeOntology(request);
-          } 
-        catch (OWLOntologyCreationException ex)
-          {
-            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
-          }
-                
-        
-         System.out.println("Main ontology axioms count: " +ontocore.getMainOntology().getAxiomCount());
-         System.out.println("Dataset ontology axioms count: " +ontocore.getDataBeliefOntology().getAxiomCount());
-        
-         //Testing a select query
-        String query=readQuery("ontologies/test/query.sparql");
-            
-        try
-          {
-            QueryExecution execQ = ontocore.createQuery(ontocore.getDataBeliefOntology(), query);
-            ResultSet res=ontocore.performSelectQuery(execQ);
-            System.out.println(ResultSetFormatter.asText(res));
-          } 
-        catch (OWLOntologyCreationException ex)
-          {
-            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
-          }
-
-        //Testing a construct query
-        query=readQuery("ontologies/test/querycon.sparql");
-        
-          try
-          {
-            
-            QueryExecution execQ = ontocore.createQuery(ontocore.getDataBeliefOntology(), query);
-            System.out.println("Output:");
-            //ontocore.performConstructQuery(execQ).forEach(System.out::println);            
-            ontocore.addDataToDataBehavior(ontocore.performConstructQuery(execQ));
-           
-            
-          } catch (OWLOntologyCreationException | IOException ex)
-          {
-            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
-          }
-
-*/
