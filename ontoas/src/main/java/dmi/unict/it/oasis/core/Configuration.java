@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dmi.unict.it.ontoas.core;
+package dmi.unict.it.oasis.core;
 
 import java.nio.file.Path;
 import java.util.ArrayList;

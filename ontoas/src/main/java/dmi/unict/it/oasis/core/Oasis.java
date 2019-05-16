@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dmi.unict.it.ontoas.core;
+package dmi.unict.it.oasis.core;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -53,7 +53,7 @@ import org.semanticweb.owlapi.util.SimpleIRIMapper;
  *
  * @author Daniele Francesco Santamaria
  */
-public class OntoASCore extends OntologyCore
+public class Oasis extends OntologyCore
   {
     private final HashMap<String, String> devices; //IDdevice, IDOntology
     private final HashMap<String, String[]> devConfig; //IDconfig <IDdevice-  IDOntology- IDuser
@@ -63,7 +63,7 @@ public class OntoASCore extends OntologyCore
     private final Configuration configuration;  
     private List<InferredAxiomGenerator<? extends OWLAxiom>> generators;
     
-    public OntoASCore()
+    public Oasis()
        {
          super();
          devices=new HashMap<>();
@@ -314,7 +314,7 @@ public class OntoASCore extends OntologyCore
             this.getMainManager().loadOntology(ontology.getOntologyID().getOntologyIRI().get());
         } 
       catch (OWLOntologyStorageException ex) {
-            Logger.getLogger(OntoASCore.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Oasis.class.getName()).log(Level.SEVERE, null, ex);
         }
       return ontology;
     }
@@ -333,7 +333,7 @@ public class OntoASCore extends OntologyCore
 //            this.getMainManager().saveOntology(ontodevice);
 //        } 
 //      catch (OWLOntologyStorageException ex) {
-//            Logger.getLogger(OntoASCore.class.getName()).log(Level.SEVERE, null, ex);
+//            Logger.getLogger(Oasis.class.getName()).log(Level.SEVERE, null, ex);
 //        }
 //      return ontodevice;
 //    }
@@ -422,7 +422,7 @@ public class OntoASCore extends OntologyCore
            } 
         catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
           {
-            Logger.getLogger(OntoASCore.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Oasis.class.getName()).log(Level.SEVERE, null, ex);
           }
         return ontouser;
     } 
@@ -456,7 +456,7 @@ public class OntoASCore extends OntologyCore
            } 
         catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
           {
-            Logger.getLogger(OntoASCore.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Oasis.class.getName()).log(Level.SEVERE, null, ex);
           }
         return ontodevice;
     }
@@ -617,7 +617,7 @@ public class OntoASCore extends OntologyCore
            } 
         catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
           {
-            Logger.getLogger(OntoASCore.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Oasis.class.getName()).log(Level.SEVERE, null, ex);
           }
         return ontodevConf;        
       }

@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dmi.unict.it.ontoas.test;
+package dmi.unict.it.oasis.test;
 
-import dmi.unict.it.ontoas.core.OntoASCore;
+import dmi.unict.it.oasis.core.Oasis;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -82,7 +82,7 @@ public class mainTest
       {
         File ontoFile=new File("ontologies/main/onto-as.owl");
        // File dataFile=new File("ontologies/main/dataset.owl");
-        OntoASCore ontocore=new OntoASCore();
+        Oasis ontocore=new Oasis();
         try
           {
             ontocore.setOntologiesDeviceConfigurationsPath(Paths.get("ontologies"+File.separator+"devConfigs"));

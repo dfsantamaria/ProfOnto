@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dmi.unict.it.ontoas.main;
+package dmi.unict.it.oasis.main;
 
-import dmi.unict.it.ontoas.core.OntoASCore;
+import dmi.unict.it.oasis.core.Oasis;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +22,7 @@ public class main
       {
         File ontoFile=new File("ontologies/main/onto-as.owl");
         File dataFile=new File("ontologies/main/dataset.owl");
-        OntoASCore ontocore=new OntoASCore();
+        Oasis ontocore=new Oasis();
         try
           {
             ontocore.setMainOntology(ontoFile);
