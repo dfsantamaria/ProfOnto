@@ -6,39 +6,70 @@
 package dmi.unict.it.profonto.main;
 
 import dmi.unict.it.profonto.core.Profonto;
+import dmi.unict.it.profonto.test.mainTest;
 import java.io.File;
+import java.io.IOException;
+import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
+import py4j.GatewayServer;
 
 /**
  *
  * @author Daniele Francesco Santamaria
  */
-public class main
+public class ProfontoEntryPoint
   {
-    public static void main(String[] args)
+    Profonto ontocore;
+    public ProfontoEntryPoint()
       {
-        File ontoFile=new File("ontologies/main/onto-as.owl");
-        File dataFile=new File("ontologies/main/dataset.owl");
-        Profonto ontocore=new Profonto();
+        File ontoFile=new File("ontologies/main/oasis.owl");
+       // File dataFile=new File("ontologies/main/dataset.owl");
+        ontocore=new Profonto();
         try
           {
-            ontocore.setMainOntology(ontoFile);
-            ontocore.setDataBehaviorOntology(dataFile);
-            //ontocore.setConfiguration(new ArrayList<>(Arrays.asList("config","devices")));
+            ontocore.setOntologiesDeviceConfigurationsPath(Paths.get("ontologies"+File.separator+"devConfigs"));
+            ontocore.setOntologiesDevicesPath(Paths.get("ontologies"+File.separator+"devices"));
+            ontocore.setMainOntologiesPath(Paths.get("ontologies"+File.separator+"main"));
+            ontocore.setOntologiesUsersPath(Paths.get("ontologies"+File.separator+"users"));
             
-            
+            ontocore.setMainOntology(ontoFile);           
+            ontocore.setDataBehaviorOntology("http://www.dmi.unict.it/prof-onto-behavior.owl","behavior.owl");  
+            ontocore.setDataBeliefOntology("http://www.dmi.unict.it/prof-onto-belief.owl","belief.owl");
+            ontocore.loadDevicesFromPath(true); //use this if the devices folder is not empty 
+           // ontocore.startReasoner();
           } 
-        catch (OWLOntologyCreationException | OWLOntologyStorageException ex)
+        catch (OWLOntologyCreationException | OWLOntologyStorageException | IOException ex)
           {
-            Logger.getLogger(main.class.getName()).log(Level.SEVERE, null, ex);
-          }
-        System.out.println(ontocore.getMainOntology().getAxiomCount());
-        
+            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
+          }      
       }
+    
+    
+    
+    public static void main(String[] args)
+     {
+      GatewayServer gatewayServer = new GatewayServer(new ProfontoEntryPoint());
+      gatewayServer.start();
+      System.out.println("Gateway Server Started");
+     }
   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
