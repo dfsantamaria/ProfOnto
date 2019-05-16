@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
+        <uri id="Automatically generated entry, Timestamp=1557731251881" name="http://www.dmi.unict.it/alan-config.owl#" uri="alan-config.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1557731251881" name="http://www.dmi.unict.it/lightagent.owl" uri="lightagent.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1557731251881" name="http://www.dmi.unict.it/ontoas/alan.owl" uri="alan.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1557731251881" name="http://www.dmi.unict.it/use-case.owl" uri="woa/use-case.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1557731251881" name="http://www.dmi.unict.it/user-request.owl" uri="user-request.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1557731251881" name="shadowed:http://www.dmi.unict.it/lightagent.owl" uri="woa/lightagent%20-%20NoCLASS.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1557731251881" name="shadowed:http://www.dmi.unict.it/lightagent.owl" uri="woa/lightagent-config-%20NOCLASS.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1557731251881" name="shadowed:http://www.dmi.unict.it/lightagent.owl" uri="woa/lightagent-config.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1557731251881" name="shadowed:http://www.dmi.unict.it/user-request.owl" uri="woa/user-request-NOCLASS.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1557731251881" name="shadowed:http://www.dmi.unict.it/user-request.owl" uri="woa/user-request.owl"/>
+    </group>
+</catalog>
