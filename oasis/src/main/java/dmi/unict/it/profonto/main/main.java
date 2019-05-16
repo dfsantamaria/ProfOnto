@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dmi.unict.it.oasis.main;
+package dmi.unict.it.profonto.main;
 
-import dmi.unict.it.oasis.core.Oasis;
+import dmi.unict.it.profonto.core.Profonto;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +22,7 @@ public class main
       {
         File ontoFile=new File("ontologies/main/onto-as.owl");
         File dataFile=new File("ontologies/main/dataset.owl");
-        Oasis ontocore=new Oasis();
+        Profonto ontocore=new Profonto();
         try
           {
             ontocore.setMainOntology(ontoFile);

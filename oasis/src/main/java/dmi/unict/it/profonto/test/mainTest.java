@@ -3,9 +3,9 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dmi.unict.it.oasis.test;
+package dmi.unict.it.profonto.test;
 
-import dmi.unict.it.oasis.core.Oasis;
+import dmi.unict.it.profonto.core.Profonto;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
@@ -82,7 +82,7 @@ public class mainTest
       {
         File ontoFile=new File("ontologies/main/onto-as.owl");
        // File dataFile=new File("ontologies/main/dataset.owl");
-        Oasis ontocore=new Oasis();
+        Profonto ontocore=new Profonto();
         try
           {
             ontocore.setOntologiesDeviceConfigurationsPath(Paths.get("ontologies"+File.separator+"devConfigs"));

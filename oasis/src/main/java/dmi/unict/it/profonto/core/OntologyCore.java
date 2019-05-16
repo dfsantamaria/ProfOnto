@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package dmi.unict.it.oasis.core;
+package dmi.unict.it.profonto.core;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
