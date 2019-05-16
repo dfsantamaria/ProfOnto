@@ -80,7 +80,7 @@ public class mainTest
     
     public static void main(String[] args)
       {
-        File ontoFile=new File("ontologies/main/onto-as.owl");
+        File ontoFile=new File("ontologies/main/oasis.owl");
        // File dataFile=new File("ontologies/main/dataset.owl");
         Profonto ontocore=new Profonto();
         try
