@@ -30,7 +30,7 @@ public class ProfontoEntryPoint
      {
       GatewayServer gatewayServer = new GatewayServer(new ProfontoEntryPoint());
       gatewayServer.start();
-      System.out.println("Gateway Server Started");
+      System.out.println("Prof-Onto's core has been started. Welcome!");
      }
     
     
@@ -70,8 +70,7 @@ public class ProfontoEntryPoint
               return -1;
             }
        ontocore.addDevice(inputstream, id);
-       return 0;
-        
+       return 0;        
     }   
   
   }

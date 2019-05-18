@@ -1,11 +1,17 @@
 from py4j.java_gateway import JavaGateway
 
-
-gateway = JavaGateway()                   # connect to the JVM
-profonto = gateway.entry_point
-
-f=open("../../../ontologies/test/lightagent.owl", "r")   #read the device
+def readOntoFile(file):
+ f=open(file,"r")
+ return f.read()
 
 
-value = profonto.addDevice(f.read(),"device")
-print(value)
+profontoGateWay = JavaGateway()                   # connect to the JVM
+profonto = profontoGateWay .entry_point
+
+device=readOntoFile("../../../ontologies/test/lightagent.owl")
+value = profonto.addDevice(device, "device")  #read the device
+print("Device added with exit code:", value)
+
+
+
+profontoGateWay .shutdown() #Shutdown the gateway
