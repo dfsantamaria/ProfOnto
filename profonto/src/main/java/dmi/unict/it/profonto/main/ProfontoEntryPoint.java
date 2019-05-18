@@ -34,7 +34,7 @@ public class ProfontoEntryPoint
      }
     
     
-    Profonto ontocore;
+    static Profonto ontocore;
     public ProfontoEntryPoint()
       {
         File ontoFile=new File("ontologies/main/oasis.owl");
@@ -59,27 +59,19 @@ public class ProfontoEntryPoint
           }      
       }
     
-    public static InputStream readData(String file)
+    public static int addDevice(String description, String id)
     {
-        InputStream inputstream=null;
-        String input="";
-        try {
-            FileReader fileReader =  new FileReader(file);
-            BufferedReader bufferedReader =  new BufferedReader(fileReader);
-            String line;
-            while((line = bufferedReader.readLine()) != null)
+     InputStream inputstream=null;
+     inputstream=new ByteArrayInputStream(description.getBytes());
+       try {
+           inputstream.close();
+             } catch (IOException ex)
             {
-                input+=line;
-            }       
-            fileReader.close();
-            bufferedReader.close();
-            inputstream=new ByteArrayInputStream(input.getBytes());
-            inputstream.close();
-        }
-        catch (IOException ex) {
-            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);            
-        } 
-        return inputstream;
+              return -1;
+            }
+       ontocore.addDevice(inputstream, id);
+       return 0;
+        
     }   
   
   }
