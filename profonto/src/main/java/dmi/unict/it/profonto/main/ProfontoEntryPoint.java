@@ -59,7 +59,8 @@ public class ProfontoEntryPoint
           }      
       }
     
-    public static int addDevice(String description, String id)
+    
+    public static InputStream getInputStream(String description)
     {
      InputStream inputstream=null;
      inputstream=new ByteArrayInputStream(description.getBytes());
@@ -67,10 +68,49 @@ public class ProfontoEntryPoint
            inputstream.close();
              } catch (IOException ex)
             {
-              return -1;
+              Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
             }
-       ontocore.addDevice(inputstream, id);
+       return inputstream;
+    }
+    
+    public static int addDevice(String description, String id)
+    {     
+       ontocore.addDevice(getInputStream(description), id);
        return 0;        
-    }   
+    } 
+    
+    public static int addUser(String description, String id)
+    {     
+       ontocore.addUser(getInputStream(description), id);
+       return 0;        
+    } 
+    
+     public static int addConfiguration(String description, String iddevice, String idconfig, String iduser)
+    {     
+       ontocore.addDeviceConfiguration(getInputStream(description), iddevice, idconfig, iduser);
+       return 0;        
+    } 
+    
+    public static int removeUser(String id)
+    {     
+       try {
+           ontocore.removePermanentUser(id);
+       } catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex) {
+           Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
+           return -1;
+       }
+       return 0;        
+    } 
   
+      public static int removeDevice(String id)
+    {     
+       try {
+           ontocore.removePermanentDevice(id);
+       } catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex) {
+           Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
+           return -1;
+       }
+       return 0;        
+    } 
+    
   }
