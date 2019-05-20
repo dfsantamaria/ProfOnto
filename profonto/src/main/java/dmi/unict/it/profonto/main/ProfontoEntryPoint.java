@@ -47,7 +47,8 @@ public class ProfontoEntryPoint
             ontocore.setOntologiesDevicesPath(Paths.get("ontologies" + File.separator + "devices"));
             ontocore.setMainOntologiesPath(Paths.get("ontologies" + File.separator + "main"));
             ontocore.setOntologiesUsersPath(Paths.get("ontologies" + File.separator + "users"));
-
+            ontocore.setQueryPath(Paths.get("ontologies"+File.separator+"queries"));
+            
             ontocore.setMainOntology(ontoFile);
             ontocore.setDataBehaviorOntology("http://www.dmi.unict.it/prof-onto-behavior.owl", "behavior.owl");
             ontocore.setDataBeliefOntology("http://www.dmi.unict.it/prof-onto-belief.owl", "belief.owl");
@@ -130,13 +131,12 @@ public class ProfontoEntryPoint
         return 0;
     }
 
-    public static int acceptUserRequest(String request, String IDUser)
+    public static int acceptUserRequest(String request, String IRItask, String IRIUser, String IRIExec, String IRIgoalexec)
     {
-
         /*
             to complete
          */
-        ontocore.acceptUserRequest(getInputStream(request), IDUser);
+        ontocore.acceptUserRequest(getInputStream(request), IRItask, IRIUser, IRIExec, IRIgoalexec);
         return 0;
     }
 

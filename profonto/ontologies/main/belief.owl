@@ -13,6 +13,56 @@
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Import>http://www.dmi.unict.it/prof-onto-behavior.owl</Import>
+    <Declaration>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskExecution"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskOperator"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#performs"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#setUpFrom"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#main_kitchen_light"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-light1"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_off"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#alan-goal-1-1-1"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1-exec"/>
+    </Declaration>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#setUpFrom"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#main_kitchen_light"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-light1"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskExecution"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#alan-goal-1-1-1"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1-exec"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1-exec"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#main_kitchen_light"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskOperator"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1-exec"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_off"/>
+    </ObjectPropertyAssertion>
 </Ontology>
 
 

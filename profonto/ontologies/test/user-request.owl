@@ -12,8 +12,7 @@
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
-    <Import>http://www.dmi.unict.it/alan-config.owl#</Import>
-    <Import>http://www.dmi.unict.it/lightagent.owl</Import>
+    
     <Declaration>
         <NamedIndividual IRI="#alan-task-1-1-1-kitchen"/>
     </Declaration>

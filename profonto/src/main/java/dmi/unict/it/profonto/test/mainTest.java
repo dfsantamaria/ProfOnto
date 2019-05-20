@@ -89,6 +89,7 @@ public class mainTest
             ontocore.setOntologiesDevicesPath(Paths.get("ontologies"+File.separator+"devices"));
             ontocore.setMainOntologiesPath(Paths.get("ontologies"+File.separator+"main"));
             ontocore.setOntologiesUsersPath(Paths.get("ontologies"+File.separator+"users"));
+            ontocore.setQueryPath(Paths.get("ontologies"+File.separator+"queries"));
             
             ontocore.setMainOntology(ontoFile);           
             ontocore.setDataBehaviorOntology("http://www.dmi.unict.it/prof-onto-behavior.owl","behavior.owl");  
@@ -124,6 +125,12 @@ public class mainTest
             Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
           }
   
+         InputStream request=readData("ontologies/test/user-request.owl");
+         Stream<OWLAxiom> res= ontocore.acceptUserRequest(request, "http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1", 
+                                    "http://www.dmi.unict.it/ontoas/alan.owl#Alan",
+                                    "http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1-exec",
+                                    "http://www.dmi.unict.it/user-request.owl#alan-goal-1-1-1");
+         res.forEach(System.out::println);
 // remove an user and the related configurations        
 //        try
 //          {

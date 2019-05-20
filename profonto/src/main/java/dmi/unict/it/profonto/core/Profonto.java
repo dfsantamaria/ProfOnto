@@ -5,8 +5,12 @@
  */
 package dmi.unict.it.profonto.core;
 
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
@@ -21,6 +25,9 @@ import java.util.stream.Stream;
 import javafx.util.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 import org.apache.jena.atlas.lib.tuple.Tuple;
+import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.ResultSet;
+import org.apache.jena.query.ResultSetFormatter;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
@@ -33,6 +40,7 @@ import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import org.semanticweb.HermiT.ReasonerFactory;
 import org.semanticweb.owlapi.model.OWLIndividualAxiom;
+import org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParser;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.util.InferredAxiomGenerator;
@@ -50,6 +58,7 @@ import org.semanticweb.owlapi.util.InferredSubClassAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredSubDataPropertyAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredSubObjectPropertyAxiomGenerator;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
+import ru.avicomp.ontapi.OntologyModel;
 
 /**
  *
@@ -72,7 +81,7 @@ public class Profonto extends OntologyCore
         devices = new HashMap<>();
         devConfig = new HashMap<>();
         users = new HashMap<>();
-        int paths = 4;
+        int paths = 5;
         configuration = new Configuration(paths);
         databehavior = null;
         databelief = null;
@@ -146,6 +155,16 @@ public class Profonto extends OntologyCore
         createFolder(path);
     }
 
+    public void setQueryPath(Path path)
+    {
+       this.getConfiguration().getPaths()[4]=path;       
+    }
+    
+    public Path getQueryPath()
+    {
+      return this.getConfiguration().getPaths()[4];
+    }
+    
     public Path getOntologiesUsersPath()
     {
         return this.getConfiguration().getPaths()[3];
@@ -365,6 +384,11 @@ public class Profonto extends OntologyCore
     public void addDataToDataBehavior(Stream<OWLAxiom> axioms) throws OWLOntologyCreationException
     {
         addAxiomsToOntology(this.getDataBehaviorOntology(), axioms);
+    }
+    
+     public void addDataToDataBelief(Stream<OWLAxiom> axioms) throws OWLOntologyCreationException
+    {
+        addAxiomsToOntology(this.getDataBeliefOntology(), axioms);
     }
 
 //    public OWLOntology configureDevice(OWLOntology ontodevice, Stream<OWLAxiom> axioms)
@@ -771,22 +795,76 @@ public class Profonto extends OntologyCore
         }
     }
 
-    public void acceptUserRequest(InputStream request, String IDUser)
-    {/*
-            to complete
-         */
+    
+     public static String readQuery(String path)
+      {
+        String query="";
+         try
+          {
+            BufferedReader queryReader=new  BufferedReader(new FileReader(path));
+            String currentLine="";
+            while ((currentLine = queryReader.readLine()) != null)
+              {
+                  query+=currentLine+"\n";
+              }
+          } 
+        catch (FileNotFoundException ex)
+          {
+            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+          }
+        catch (IOException ex)
+          {
+            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+          }
+      
+        return query;
+      }
+    
+    /**
+     *
+     * @param request The InputStream object representing the request
+     * @param IRItask The IRI of the OASIS Task instance from the request
+     * @param IRIuser The IRI of the OASIS USER instance of the user
+     * @param IRIexec The IRI of the OASIS TaskExcecution instance to create
+     * @param IRIGoalExec The IRI of the OASIS GoalExecution instance to create
+     * @return The OWLAxiom Stream containing the result of the query
+     */
+    public Stream<OWLAxiom> acceptUserRequest(InputStream request, String IRItask, String IRIuser, String IRIexec, String IRIGoalExec)
+    {
+        OntologyModel res=null;
         OWLOntology ontology;
         try
         {
             ontology = this.getMainManager().loadOntologyFromOntologyDocument(request);
-            //Merge and query here
+            //Merge and query here         
+            String query=readQuery(this.getQueryPath()+File.separator+"prefix01.sparql");            
+            query+="PREFIX prof: <"+this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#>\n";
+            query+="CONSTRUCT {\n";
+            query+=(readQuery(this.getQueryPath()+File.separator+"construct01a.sparql").replaceAll("//exec//","<"+IRIexec+">").replaceAll("//goal//","<"+IRIGoalExec+">"));
+            query+="}";
+            query+="WHERE { \n";
+            query+=(readQuery(this.getQueryPath()+File.separator+"body01a.sparql").replaceAll("//task//", "<"+IRItask+">"));
+            query+=(readQuery(this.getQueryPath()+File.separator+"body01b.sparql").replaceAll("//user//", "<"+IRIuser+">"));
+            query+=readQuery(this.getQueryPath()+File.separator+"body01c.sparql");
+            query+="}";
+          //  System.out.println(query);
+            
+            this.getMainManager().ontologies().forEach(x->ontology.addAxioms(x.axioms()));
+            QueryExecution execQ = this.createQuery(ontology, query);
+            res=this.performConstructQuery(execQ);
+            this.addDataToDataBelief(res.axioms());
             this.getMainManager().removeOntology(ontology);
-
-        } catch (OWLOntologyCreationException ex)
+            
+            //res.axioms().forEach(System.out::println);
+        } 
+        catch (OWLOntologyCreationException | IOException ex)
         {
             Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
         }
-
+        if(res==null) 
+            return null;
+        return res.axioms();
+        
     }
 
 }

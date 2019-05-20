@@ -247,14 +247,14 @@ public class OntologyCore
      * @throws java.io.IOException
      * @throws org.semanticweb.owlapi.model.OWLOntologyCreationException
      */
-    public Stream<OWLAxiom> performConstructQuery(QueryExecution qexec) throws IOException, OWLOntologyCreationException
+    public OntologyModel performConstructQuery(QueryExecution qexec) throws IOException, OWLOntologyCreationException
       {        
         Model res  =  qexec.execConstruct();        
         ByteArrayOutputStream out=new ByteArrayOutputStream();        
         res.write(out,"ttl");
         OntologyManager omanager = OntManagers.createONT();
         OntologyModel ontology = omanager.loadOntologyFromOntologyDocument(new ByteArrayInputStream(out.toByteArray()));
-        return ontology.axioms();              
+        return ontology;              
       }
     
   

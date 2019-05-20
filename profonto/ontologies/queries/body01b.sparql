@@ -1,0 +1,9 @@
+?config rdf:type prof:Component_Configuration .
+?config prof:configurationProvidedBy  //user// .
+?config prof:setsUp ?user_object .                 
+?user_object prof:hasType ?obtype .
+?user_object prof:hasSpaceSpan ?space_user .
+?space_user prof:hasType ?spacetype .
+?user_object prof:setUpFrom ?device_object .
+
+            
