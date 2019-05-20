@@ -25,92 +25,119 @@ import py4j.GatewayServer;
  * @author Daniele Francesco Santamaria
  */
 public class ProfontoEntryPoint
-  {    
-   public static void main(String[] args)
-     {
-      GatewayServer gatewayServer = new GatewayServer(new ProfontoEntryPoint());
-      gatewayServer.start();
-      System.out.println("Prof-Onto's core has been started. Welcome!");
-     }
-    
-    
+{
+
+    public static void main(String[] args)
+    {
+        GatewayServer gatewayServer = new GatewayServer(new ProfontoEntryPoint());
+        gatewayServer.start();
+        System.out.println("Prof-Onto's core has been started. Welcome!");
+    }
+
     static Profonto ontocore;
+
     public ProfontoEntryPoint()
-      {
-        File ontoFile=new File("ontologies/main/oasis.owl");
-       // File dataFile=new File("ontologies/main/dataset.owl");
-        ontocore=new Profonto();
+    {
+        File ontoFile = new File("ontologies/main/oasis.owl");
+        // File dataFile=new File("ontologies/main/dataset.owl");
+        ontocore = new Profonto();
         try
-          {
-            ontocore.setOntologiesDeviceConfigurationsPath(Paths.get("ontologies"+File.separator+"devConfigs"));
-            ontocore.setOntologiesDevicesPath(Paths.get("ontologies"+File.separator+"devices"));
-            ontocore.setMainOntologiesPath(Paths.get("ontologies"+File.separator+"main"));
-            ontocore.setOntologiesUsersPath(Paths.get("ontologies"+File.separator+"users"));
-            
-            ontocore.setMainOntology(ontoFile);           
-            ontocore.setDataBehaviorOntology("http://www.dmi.unict.it/prof-onto-behavior.owl","behavior.owl");  
-            ontocore.setDataBeliefOntology("http://www.dmi.unict.it/prof-onto-belief.owl","belief.owl");
+        {
+            ontocore.setOntologiesDeviceConfigurationsPath(Paths.get("ontologies" + File.separator + "devConfigs"));
+            ontocore.setOntologiesDevicesPath(Paths.get("ontologies" + File.separator + "devices"));
+            ontocore.setMainOntologiesPath(Paths.get("ontologies" + File.separator + "main"));
+            ontocore.setOntologiesUsersPath(Paths.get("ontologies" + File.separator + "users"));
+
+            ontocore.setMainOntology(ontoFile);
+            ontocore.setDataBehaviorOntology("http://www.dmi.unict.it/prof-onto-behavior.owl", "behavior.owl");
+            ontocore.setDataBeliefOntology("http://www.dmi.unict.it/prof-onto-belief.owl", "belief.owl");
             ontocore.loadDevicesFromPath(true); //use this if the devices folder is not empty 
-           // ontocore.startReasoner();
-          } 
-        catch (OWLOntologyCreationException | OWLOntologyStorageException | IOException ex)
-          {
+            // ontocore.startReasoner();
+        } catch (OWLOntologyCreationException | OWLOntologyStorageException | IOException ex)
+        {
             Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
-          }      
-      }
-    
-    
+        }
+    }
+
     public static InputStream getInputStream(String description)
     {
-     InputStream inputstream=null;
-     inputstream=new ByteArrayInputStream(description.getBytes());
-       try {
-           inputstream.close();
-             } catch (IOException ex)
-            {
-              Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
-            }
-       return inputstream;
+        InputStream inputstream = null;
+        inputstream = new ByteArrayInputStream(description.getBytes());
+        try
+        {
+            inputstream.close();
+        } catch (IOException ex)
+        {
+            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return inputstream;
     }
-    
+
     public static int addDevice(String description, String id)
-    {     
-       ontocore.addDevice(getInputStream(description), id);
-       return 0;        
-    } 
-    
+    {
+        ontocore.addDevice(getInputStream(description), id);
+        return 0;
+    }
+
     public static int addUser(String description, String id)
-    {     
-       ontocore.addUser(getInputStream(description), id);
-       return 0;        
-    } 
-    
-     public static int addConfiguration(String description, String iddevice, String idconfig, String iduser)
-    {     
-       ontocore.addDeviceConfiguration(getInputStream(description), iddevice, idconfig, iduser);
-       return 0;        
-    } 
-    
+    {
+        ontocore.addUser(getInputStream(description), id);
+        return 0;
+    }
+
+    public static int addConfiguration(String description, String iddevice, String idconfig, String iduser)
+    {
+        ontocore.addDeviceConfiguration(getInputStream(description), iddevice, idconfig, iduser);
+        return 0;
+    }
+
     public static int removeUser(String id)
-    {     
-       try {
-           ontocore.removePermanentUser(id);
-       } catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex) {
-           Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
-           return -1;
-       }
-       return 0;        
-    } 
-  
-      public static int removeDevice(String id)
-    {     
-       try {
-           ontocore.removePermanentDevice(id);
-       } catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex) {
-           Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
-           return -1;
-       }
-       return 0;        
-    } 
-    
-  }
+    {
+        try
+        {
+            ontocore.removePermanentUser(id);
+        } catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex)
+        {
+            Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
+        }
+        return 0;
+    }
+
+    public static int removeDevice(String id)
+    {
+        try
+        {
+            ontocore.removePermanentDevice(id);
+        } catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex)
+        {
+            Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
+        }
+        return 0;
+    }
+
+    public static int syncReasonerDataBehavior()
+    {
+        try
+        {
+            ontocore.syncReasonerDataBehavior();
+        } catch (OWLOntologyStorageException ex)
+        {
+            Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
+        }
+        return 0;
+    }
+
+    public static int acceptUserRequest(String request, String IDUser)
+    {
+
+        /*
+            to complete
+         */
+        ontocore.acceptUserRequest(getInputStream(request), IDUser);
+        return 0;
+    }
+
+}

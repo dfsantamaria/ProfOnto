@@ -23,10 +23,15 @@ config=readOntoFile("../../../ontologies/test/alan-config.owl")
 value = profonto.addConfiguration(config, "device", "device-Conf1", "alan")  #read the device configuration data
 print("Configuration added with exit code:", value)
 
+value=profonto.syncReasonerDataBehavior(); # sync the reasoner
+print("Data Behavior synchronized with exit code:", value)
+
+
+#request here
 
 value=profonto.removeUser("alan")  #remove user
 print("User removed with exit code:", value)
 value=profonto.removeDevice("device") #remove data
 print("Device removed with exit code:", value)
 
-profontoGateWay .shutdown() #Shutdown the gateway
+profontoGateWay.shutdown() #Shutdown the gateway
