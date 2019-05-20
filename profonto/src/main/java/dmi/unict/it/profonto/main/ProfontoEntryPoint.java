@@ -16,6 +16,8 @@ import java.io.InputStream;
 import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import py4j.GatewayServer;
@@ -131,13 +133,13 @@ public class ProfontoEntryPoint
         return 0;
     }
 
-    public static int acceptUserRequest(String request, String IRItask, String IRIUser, String IRIExec, String IRIgoalexec)
+    public static String acceptUserRequest(String request, String IRItask, String IRIUser, String IRIExec, String IRIgoalexec)
     {
-        /*
-            to complete
-         */
-        ontocore.acceptUserRequest(getInputStream(request), IRItask, IRIUser, IRIExec, IRIgoalexec);
-        return 0;
+       Stream<OWLAxiom> res= ontocore.acceptUserRequest(getInputStream(request), IRItask, IRIUser, IRIExec, IRIgoalexec);
+       StringBuilder out=new StringBuilder();
+      // res.forEach(x->System.out.println(x.));
+       res.forEach(x->out.append(x.toString()).append("\n"));
+       return out.toString();
     }
 
 }

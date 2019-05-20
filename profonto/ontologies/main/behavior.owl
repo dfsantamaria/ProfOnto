@@ -13,6 +13,1180 @@
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Import>http://www.dmi.unict.it/oasis.owl</Import>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#alan_kitchen"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#Alan"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskSubject"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnon-goaldescription"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnon-taskdescription"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_on"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Component_Configuration"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnoff-taskdescription"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnoff-behavior"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#main_kitchen_light"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnon-behavior"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#kitchen"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnoff-goaldescription"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_off"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#LightObjectType"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-light1"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#alan-device-light1-config"/>
+    </Declaration>
+    <SubClassOf>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ActionPart"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#BehaviorPart"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Component_Configuration"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConditionalPart"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConfigurationPart"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#DescriptionObject"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Descriptor"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Event"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Feature"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ServicePart"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Space"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#System"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Type"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Value"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="http://www.w3.org/2006/time#TemporalEntity"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </SubClassOf>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Action"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ActionPart"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ActionStatus"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ActivationStatus"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ActiveStatus"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Activity"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Actor"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Actuator"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Agent"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#AgentBehaviorTemplate"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Agent_Configuration"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Appellation"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Behavior"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#BehaviorPart"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#BehaviorTemplate"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Component"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ComponentConfiguration"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ComponentTemplate"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Component_Configuration"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Conditional"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConditionalDescriptor"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConditionalObject"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConditionalPart"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConditionalRestriction"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConditionalRestrictionDescriptor"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConditionalRestrictionOperator"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConditionalRestrictionParameter"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConditionalSet"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConditionalSubject"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Configuration"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConfigurationPart"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConfiguredThing"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Connection"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConnectionEntry"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConnectionEntryType"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConnectionPart"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#DataOperator"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#DeactiveStatus"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#DescriptionObject"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Descriptor"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Device"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#DeviceBehaviorTemplate"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#EntrustmentActivity"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#EnviromentComponent"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Event"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ExecutionActivity"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ExistentialOperator"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#FailedStatus"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Feasibility"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#FeasibilityFalse"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#FeasibilityTrue"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Feature"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#GeometricExtension"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#GoalDescription"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#GoalEntrustment"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#GoalExecution"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#GoalPart"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#HomeObjectType"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Human"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#HumanAgentBehaviorTemplate"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Implementation"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ObjectType"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Operator"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#OpportunityValue"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#PermanentStatus"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#PhysicalSpace"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#PlanDescription"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#PlanEntrustment"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#PlanExecution"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#PlanPart"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#RequestDescriptionObject"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Robot"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#RobotAgentBehaviorTemplate"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Scheduling"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Sensor"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Service"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ServiceDescriptor"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ServiceObject"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ServiceOperator"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ServiceParameter"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ServicePart"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ServiceRequest"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#SmartContract"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#SmartContractEntry"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#SmartContractEntryType"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#SmartContractPart"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#SmartContractType"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#SoftwareAgent"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#SoftwareAgentBehaviorTemplate"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Space"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#SpaceOperator"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#SpaceType"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Status"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#SuccededStatus"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#System"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#SystemType"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskDescription"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskDescriptor"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskEntrustment"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskExecution"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskObject"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskParameter"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskPart"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TemperatureValue"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Template"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TemporaryStatus"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TimeOperator"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Type"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#UrbanObjectType"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#User"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Value"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#VirtualSpace"/>
+        <Class abbreviatedIRI="owl:Nothing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class abbreviatedIRI="owl:Nothing"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </DisjointClasses>
+    <DisjointClasses>
+        <Class abbreviatedIRI="owl:Nothing"/>
+        <Class IRI="http://www.w3.org/2006/time#TemporalEntity"/>
+    </DisjointClasses>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Configuration"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#alan-device-light1-config"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConfigurationPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#alan-device-light1-config"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#alan-device-light1-config"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Space"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#alan_kitchen"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#alan_kitchen"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ActionPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#main_kitchen_light"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Actor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#main_kitchen_light"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Component"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#main_kitchen_light"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConfigurationPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#main_kitchen_light"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConfiguredThing"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#main_kitchen_light"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#main_kitchen_light"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#BehaviorPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnoff-behavior"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#DescriptionObject"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnoff-behavior"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnoff-behavior"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#BehaviorPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnoff-goaldescription"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#DescriptionObject"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnoff-goaldescription"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#GoalPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnoff-goaldescription"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#RequestDescriptionObject"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnoff-goaldescription"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnoff-goaldescription"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#BehaviorPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnoff-taskdescription"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#DescriptionObject"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnoff-taskdescription"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#RequestDescriptionObject"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnoff-taskdescription"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnoff-taskdescription"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnoff-taskdescription"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#BehaviorPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnon-behavior"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#DescriptionObject"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnon-behavior"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnon-behavior"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#BehaviorPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnon-goaldescription"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#DescriptionObject"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnon-goaldescription"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#GoalPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnon-goaldescription"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#RequestDescriptionObject"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnon-goaldescription"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnon-goaldescription"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#BehaviorPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnon-taskdescription"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#DescriptionObject"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnon-taskdescription"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#RequestDescriptionObject"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnon-taskdescription"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnon-taskdescription"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#LD-turnon-taskdescription"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ActionPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Actor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Agent"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Robot"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ActionPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-light1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Actor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-light1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Component"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-light1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Descriptor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-light1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskDescriptor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-light1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-light1"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ObjectType"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#LightObjectType"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Type"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#LightObjectType"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#LightObjectType"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Action"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#equal"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ActionPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#equal"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConditionalRestrictionDescriptor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#equal"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConditionalRestrictionOperator"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#equal"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Descriptor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#equal"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Operator"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#equal"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#equal"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Action"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#exists"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ActionPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#exists"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConditionalRestrictionDescriptor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#exists"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConditionalRestrictionOperator"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#exists"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Descriptor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#exists"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Operator"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#exists"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#exists"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Action"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#greatherEqual"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ActionPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#greatherEqual"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConditionalRestrictionDescriptor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#greatherEqual"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConditionalRestrictionOperator"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#greatherEqual"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Descriptor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#greatherEqual"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Operator"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#greatherEqual"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#greatherEqual"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Action"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#greatherThan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ActionPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#greatherThan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConditionalRestrictionDescriptor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#greatherThan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConditionalRestrictionOperator"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#greatherThan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Descriptor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#greatherThan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Operator"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#greatherThan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#greatherThan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ObjectType"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#kitchen"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Type"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#kitchen"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#kitchen"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Action"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#lessEqual"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ActionPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#lessEqual"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConditionalRestrictionDescriptor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#lessEqual"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConditionalRestrictionOperator"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#lessEqual"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Descriptor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#lessEqual"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Operator"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#lessEqual"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#lessEqual"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Action"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#lessThan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ActionPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#lessThan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConditionalRestrictionDescriptor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#lessThan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConditionalRestrictionOperator"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#lessThan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Descriptor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#lessThan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Operator"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#lessThan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#lessThan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Action"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#spaceSpan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ActionPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#spaceSpan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConditionalRestrictionDescriptor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#spaceSpan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConditionalRestrictionOperator"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#spaceSpan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Descriptor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#spaceSpan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Operator"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#spaceSpan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#spaceSpan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Action"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#timeSpan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ActionPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#timeSpan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConditionalRestrictionDescriptor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#timeSpan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConditionalRestrictionOperator"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#timeSpan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Descriptor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#timeSpan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Operator"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#timeSpan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#timeSpan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Action"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_off"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ActionPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_off"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Descriptor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_off"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Operator"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_off"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskDescriptor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_off"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_off"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Action"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_on"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ActionPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_on"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Descriptor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_on"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Operator"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_on"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskDescriptor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_on"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_on"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ActionPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#Alan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Actor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#Alan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Agent"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#Alan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Human"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#Alan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#Alan"/>
+    </ClassAssertion>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#adoptsTemplate"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#consistsOf"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#defines"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasConditionalPart"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasDescriptor"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasExecutionObject"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasFeature"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasObject"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasOperator"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasParameter"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasSubject"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskSubject"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasType"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasValue"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#isDescribedBy"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#isInvolvedInConfigurationSetUpWith"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#isInvolvedInEntrustmentWith"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#isInvolvedInSchedulingWith"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#isRelatedWith"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#provides"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#requests"/>
+        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
+    </SubObjectPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="http://www.dmi.unict.it/oasis.owl#hasConditionDataValue"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="http://www.dmi.unict.it/oasis.owl#hasScheduleRepetition"/>
+        <DataProperty abbreviatedIRI="owl:topDataProperty"/>
+    </SubDataPropertyOf>
 </Ontology>
 
 

@@ -26,8 +26,13 @@ print("Configuration added with exit code:", value)
 value=profonto.syncReasonerDataBehavior(); # sync the reasoner
 print("Data Behavior synchronized with exit code:", value)
 
+request=readOntoFile("../../../ontologies/test/user-request.owl")
+value=profonto.acceptUserRequest(request, "http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1",
+                                                                                "http://www.dmi.unict.it/ontoas/alan.owl#Alan",
+                                                               "http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1-exec",
+                                                                    "http://www.dmi.unict.it/user-request.owl#alan-goal-1-1-1");
 
-#request here
+print("Request output:", value)
 
 value=profonto.removeUser("alan")  #remove user
 print("User removed with exit code:", value)
