@@ -1,7 +1,7 @@
 from py4j.java_gateway import JavaGateway
 import subprocess
 import os
-import sys
+import time
 from pathlib import Path
 
 def readOntoFile(file):
@@ -12,12 +12,12 @@ def readOntoFile(file):
 p = Path(__file__).parents[3]
 os.chdir(p)
 
-#jar="java -jar target\Prof-Onto-1.0-SNAPSHOT.jar"
-#process = subprocess.Popen(jar, shell=True, stdout = subprocess.PIPE)
+jar="java -jar target\Prof-Onto-1.0-SNAPSHOT.jar"
+process = subprocess.Popen(jar, shell=True, stdout = subprocess.PIPE)
 #stdout, stderr = process.communicate()
 #print(stdout)
 
-
+time.sleep(10)
 
 profontoGateWay = JavaGateway()                   # connect to the JVM
 profonto = profontoGateWay .entry_point

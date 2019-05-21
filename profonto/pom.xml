@@ -30,7 +30,23 @@
         </execution>
     </executions>
 </plugin> -->
-            <plugin>
+    <plugin> 
+    <artifactId>maven-dependency-plugin</artifactId> 
+    <executions> 
+      <execution> 
+        <phase>install</phase> 
+          <goals> 
+            <goal>copy-dependencies</goal> 
+          </goals> 
+          <configuration> 
+             <outputDirectory>${project.build.directory}/lib</outputDirectory> 
+          </configuration> 
+        </execution> 
+      </executions> 
+    </plugin> 
+    
+          
+      <plugin>
             <groupId>org.apache.maven.plugins</groupId>
             <artifactId>maven-jar-plugin</artifactId>
             <version>3.1.2</version>
@@ -38,6 +54,7 @@
              <archive>
                 <manifest>
                   <addClasspath>true</addClasspath>
+                  <classpathPrefix>lib/</classpathPrefix>
                   <mainClass>dmi.unict.it.profonto.main.ProfontoEntryPoint</mainClass>
                 </manifest>
           </archive>
