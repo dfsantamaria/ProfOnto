@@ -8,4 +8,4 @@ install('telegram')
 install('spacy')
 install('pyreadline')
 
-subprocess.call([sys.executable, "-m","maven", "clean", "install"])
+subprocess.call(["mvn", "clean", "install"])
