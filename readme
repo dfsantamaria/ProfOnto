@@ -6,6 +6,9 @@ Prof-Onto
 
 Prof-Onto is a domotic system based on the ontology OASIS - an Ontology for Agent Systems and Integration of Services.
 
+Version 1.0. In the current version, Prof-Onto is a domotic simulation enviroment, i.e, no physical devices can be actually connected but
+communications are emulated via OWL serialized files.
+
 
 Disclaimer:
 
@@ -30,3 +33,14 @@ the use of this software.
 The use of the software downloaded through this repository is done at your own discretion and risk and with agreement that you will be 
 solely responsible for any damage to your computer system or loss of data that results from such activities. No advice or information, 
 whether oral or written, obtained by you from the BGS or from the BGS web site shall create any warranty for the software.
+
+
+Instructions:
+
+1) Download. Use git clone or download the source code from GitHub.
+
+2) Setup. Locate and run the setup.py file in main folder.
+
+3) Running. Locate and run the file main.py in target/python folder.
+
+
