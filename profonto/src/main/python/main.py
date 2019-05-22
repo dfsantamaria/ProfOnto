@@ -9,10 +9,10 @@ def readOntoFile(file):
  return f.read()
 
 
-p = Path(__file__).parents[3]
+p = Path(__file__).parents[1]
 os.chdir(p)
 
-jar="java -jar target\Prof-Onto-1.0-SNAPSHOT.jar"
+jar="java -jar Prof-Onto-1.0-SNAPSHOT.jar"
 process = subprocess.Popen(jar, shell=True, stdout = subprocess.PIPE)
 #stdout, stderr = process.communicate()
 #print(stdout)
