@@ -13,6 +13,7 @@ print("Installing required python packages, please wait...")
 install('telegram')
 install('spacy')
 install('pyreadline')
+install('py4j')
 
 print("Running maven, please wait...")
 
