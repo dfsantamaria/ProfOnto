@@ -105,6 +105,9 @@
         <NamedIndividual IRI="#exists"/>
     </Declaration>
     <Declaration>
+        <DataProperty IRI="#descriptionProvidedByURL"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#ConnectionEntry"/>
     </Declaration>
     <Declaration>
@@ -204,6 +207,9 @@
         <Class IRI="#SpaceOperator"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#OntologyDescriptionObject"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#Value"/>
     </Declaration>
     <Declaration>
@@ -294,6 +300,9 @@
         <Class IRI="#BeliefPart"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#descriptionProvidedByEntity"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#ConditionalSubject"/>
     </Declaration>
     <Declaration>
@@ -352,6 +361,9 @@
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#activatedByScheduling"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#descriptionProvidedByIRI"/>
     </Declaration>
     <Declaration>
         <Class IRI="#GoalExecution"/>
@@ -424,6 +436,9 @@
     </Declaration>
     <Declaration>
         <Class IRI="#HumanAgentBehaviorTemplate"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#descriptionProvidedByEntityIRI"/>
     </Declaration>
     <Declaration>
         <Class IRI="#System"/>
@@ -552,6 +567,9 @@
         <Class IRI="#DeviceBehaviorTemplate"/>
     </Declaration>
     <Declaration>
+        <DataProperty IRI="#descriptionProvidedByLiteral"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#TaskExecution"/>
     </Declaration>
     <Declaration>
@@ -609,10 +627,10 @@
         <ObjectProperty IRI="#hasSpaceSpan"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#spaceSpan"/>
+        <ObjectProperty IRI="#consistsOfConnectionEntry"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#consistsOfConnectionEntry"/>
+        <NamedIndividual IRI="#spaceSpan"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#signsSmartContract"/>
@@ -1010,6 +1028,10 @@
         <Class IRI="#Type"/>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#OntologyDescriptionObject"/>
+        <Class IRI="#DescriptionObject"/>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#Operator"/>
         <Class IRI="#Action"/>
     </SubClassOf>
@@ -1270,6 +1292,10 @@
         <ObjectProperty IRI="#adoptsTemplate"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
+        <ObjectProperty IRI="#adoptsTemplate"/>
+        <ObjectProperty IRI="#isDescribedBy"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
         <ObjectProperty IRI="#configurationProvidedBy"/>
         <ObjectProperty IRI="#isInvolvedInConfigurationSetUpWith"/>
     </SubObjectPropertyOf>
@@ -1331,6 +1357,10 @@
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#dependsOn"/>
+        <ObjectProperty IRI="#isRelatedWith"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#descriptionProvidedByEntity"/>
         <ObjectProperty IRI="#isRelatedWith"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
@@ -1704,6 +1734,10 @@
         <Class IRI="#Connection"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
+        <ObjectProperty IRI="#descriptionProvidedByEntity"/>
+        <Class IRI="#OntologyDescriptionObject"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
         <ObjectProperty IRI="#entrustedFrom"/>
         <Class IRI="#EntrustmentActivity"/>
     </ObjectPropertyDomain>
@@ -1961,6 +1995,10 @@
         <Class IRI="#Message"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
+        <ObjectProperty IRI="#descriptionProvidedByEntity"/>
+        <Class abbreviatedIRI="owl:Thing"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
         <ObjectProperty IRI="#entrustedFrom"/>
         <Class IRI="#RequestDescriptionObject"/>
     </ObjectPropertyRange>
@@ -2211,6 +2249,34 @@
         <ObjectProperty IRI="#triggers"/>
         <Class IRI="#Event"/>
     </ObjectPropertyRange>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#descriptionProvidedByEntityIRI"/>
+        <DataProperty IRI="#descriptionProvidedByIRI"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#descriptionProvidedByIRI"/>
+        <DataProperty IRI="#descriptionProvidedByLiteral"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#descriptionProvidedByURL"/>
+        <DataProperty IRI="#descriptionProvidedByIRI"/>
+    </SubDataPropertyOf>
+    <DataPropertyDomain>
+        <DataProperty IRI="#descriptionProvidedByEntityIRI"/>
+        <Class IRI="#OntologyDescriptionObject"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#descriptionProvidedByIRI"/>
+        <Class IRI="#OntologyDescriptionObject"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#descriptionProvidedByLiteral"/>
+        <Class IRI="#OntologyDescriptionObject"/>
+    </DataPropertyDomain>
+    <DataPropertyDomain>
+        <DataProperty IRI="#descriptionProvidedByURL"/>
+        <Class IRI="#OntologyDescriptionObject"/>
+    </DataPropertyDomain>
     <DataPropertyDomain>
         <DataProperty IRI="#hasScheduleRepetition"/>
         <Class IRI="#Scheduling"/>
@@ -2848,6 +2914,16 @@
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#ObjectType</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Object type</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#OntologyDescriptionObject</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes ontology description objects</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#OntologyDescriptionObject</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Ontology description object</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
