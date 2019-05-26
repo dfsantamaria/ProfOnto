@@ -1,5 +1,10 @@
 Copyright 2019 Department of Mathematics and Computer Science, University of Catania, Italy.
-Domenico Cantone, Carmelo Fabio Longo, Marianna Nicolosi Asmundo, Daniele Francesco Santamaria, Corrado Santoro
+
+Domenico Cantone - domenico.cantone@unict.it, 
+Carmelo Fabio Longo - fabio.longo@unict.it, 
+Marianna Nicolosi Asmundo - nicolosi@dmi.unict.it, 
+Daniele Francesco Santamaria - santamaria@dmi.unict.it, 
+Corrado Santoro - santoro@dmi.unict.it
 
 
 Prof-Onto
@@ -37,10 +42,15 @@ whether oral or written, obtained by you from the BGS or from the BGS web site s
 
 Instructions:
 
-1) Download. Use git clone or download the source code from GitHub.
+1) Download. 
+   1.1)Use git clone or download the source code from GitHub.
 
-2) Setup. Locate and run the setup.py file in main folder.
+2) Setup. 
+   2.1) Make sure that Python, Maven, and Java are in your systema path.
+   2.2) Locate and run the setup.py file in main folder.
+   2.3) You can now delete the src folder.
 
-3) Running. Locate and run the file main.py in target/python folder.
+3) Running. 
+   3.1) Locate and run the file main.py in target/python folder.
 
 
