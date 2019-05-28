@@ -14,4 +14,3 @@ prof:hasTaskObject rdf:type owl:ObjectProperty.
 //goal// prof:hasTaskExecution //exec//.
 //exec// prof:hasTaskOperator ?operation .
 //exec// prof:hasTaskObject ?user_object .
-?user_object prof:setUpFrom ?device_object .

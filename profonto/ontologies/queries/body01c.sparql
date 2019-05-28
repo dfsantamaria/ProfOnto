@@ -1,6 +1,9 @@
-?selected_device prof:hasBehavior ?behav .
-?behav prof:consistsOfGoalDescription ?goal .
-?goal prof:consistsOfTaskDescription ?task .
-?task prof:hasTaskOperator ?operation .
-?task prof:hasTaskObject ?device_object .
-?device_object prof:hasType ?obtype .
+?config rdf:type prof:Component_Configuration .
+?config prof:configurationProvidedBy  //user// .
+?config prof:setsUp ?user_object .                 
+?user_object prof:hasType ?obtype .
+?user_object prof:hasSpaceSpan ?space_user .
+?space_user prof:hasType ?spacetype .
+?user_object prof:setUpFrom ?device_object .
+
+            

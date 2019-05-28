@@ -845,11 +845,13 @@ public class Profonto extends OntologyCore
             query+="PREFIX prof: <"+this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#>\n";
             query+="CONSTRUCT {\n";
             query+=(readQuery(this.getQueryPath()+File.separator+"construct01a.sparql").replaceAll("//exec//","<"+IRIexec+">").replaceAll("//goal//","<"+IRIGoalExec+">"));
+            query+=(readQuery(this.getQueryPath()+File.separator+"construct01b.sparql"));
             query+="}";
             query+="WHERE { \n";
             query+=(readQuery(this.getQueryPath()+File.separator+"body01a.sparql").replaceAll("//task//", "<"+IRItask+">"));
-            query+=(readQuery(this.getQueryPath()+File.separator+"body01b.sparql").replaceAll("//user//", "<"+IRIuser+">"));
-            query+=readQuery(this.getQueryPath()+File.separator+"body01c.sparql");
+            query+=(readQuery(this.getQueryPath()+File.separator+"body01b.sparql"));
+            query+=(readQuery(this.getQueryPath()+File.separator+"body01c.sparql").replaceAll("//user//", "<"+IRIuser+">"));
+            query+=readQuery(this.getQueryPath()+File.separator+"body01d.sparql");
             query+="}";
           
             //System.out.println(query);   

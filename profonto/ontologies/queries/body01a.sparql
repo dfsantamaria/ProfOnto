@@ -1,8 +1,6 @@
 //task// prof:hasTaskOperator ?operation .
 //task// prof:hasTaskObject ?object .
-?object prof:hasSpaceSpan ?space .
-?object prof:hasType ?obtype .
-?space prof:hasType  ?spacetype .
+
 
                  
 
