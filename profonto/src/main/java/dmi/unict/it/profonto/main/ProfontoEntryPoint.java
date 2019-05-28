@@ -153,7 +153,7 @@ public class ProfontoEntryPoint
         return out.toString();
       }
 
-    public static String retrieveAssertion(String individual)
+    public static String retrieveAssertions(String individual)
       {
         Stream<OWLAxiom> res=ontocore.retrieveAssertions(individual);
         StringBuilder out=new StringBuilder();      

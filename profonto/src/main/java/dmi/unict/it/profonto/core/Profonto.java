@@ -75,6 +75,7 @@ public class Profonto extends OntologyCore
     private final HashMap<String, String> devices; //IDdevice, IDOntology
     private final HashMap<String, String[]> devConfig; //IDconfig <IDdevice-  IDOntology- IDuser
     private final HashMap<String, String> users; //IDconfig <IDdevice, IDOntology> //IDdevice, IDOntology
+    private final HashMap<String, String> queries; //FileName, content
     private Pair<String, OWLOntology> databehavior;
     private Pair<String, OWLOntology> databelief;
     private final Configuration configuration;
@@ -86,11 +87,12 @@ public class Profonto extends OntologyCore
         devices = new HashMap<>();
         devConfig = new HashMap<>();
         users = new HashMap<>();
+        queries=new HashMap<>();
         int paths = 5;
         configuration = new Configuration(paths);
         databehavior = null;
         databelief = null;
-        mainAbox=null;
+        mainAbox=null;        
         generators = new ArrayList<>();
         setDefaultReasonerGenerators(generators);
     }
@@ -177,8 +179,26 @@ public class Profonto extends OntologyCore
   
     public void setQueryPath(Path path)
     {
-       this.getConfiguration().getPaths()[4]=path;       
+       this.getConfiguration().getPaths()[4]=path; 
+       for(File f : path.toFile().listFiles())
+         {
+           try
+             {
+               String name=f.getName();
+               String content=readQuery(f.getCanonicalPath());                
+               getQueries().put(name, content);
+             } 
+           catch (IOException ex)
+             {
+               Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+             }
+         }    
     }
+    
+    public HashMap<String,String> getQueries()
+      {
+        return this.queries;
+      }
     
     public Path getQueryPath()
     {
@@ -816,18 +836,21 @@ public class Profonto extends OntologyCore
      public static String readQuery(String path)
       {
         String query="";
+        BufferedReader queryReader=null;
          try
           {
-            BufferedReader queryReader=new  BufferedReader(new FileReader(path));
+            queryReader=new  BufferedReader(new FileReader(path));
             String currentLine="";
             while ((currentLine = queryReader.readLine()) != null)
               {
                   query+=currentLine+"\n";
               }
+            queryReader.close();
           } 
         catch (FileNotFoundException ex)
           {
             Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            
           }
         catch (IOException ex)
           {
@@ -856,17 +879,17 @@ public class Profonto extends OntologyCore
             ontology = this.getMainManager().loadOntologyFromOntologyDocument(request);
           
             //Merge and query here         
-            String query=readQuery(this.getQueryPath()+File.separator+"prefix01.sparql");            
+            String query=this.getQueries().get("prefix01.sparql");            
             query+="PREFIX prof: <"+this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#>\n";
             query+="CONSTRUCT {\n";
-            query+=(readQuery(this.getQueryPath()+File.separator+"construct01a.sparql").replaceAll("//exec//","<"+IRIexec+">").replaceAll("//goal//","<"+IRIGoalExec+">"));
-            query+=(readQuery(this.getQueryPath()+File.separator+"construct01b.sparql"));
+            query+=(this.getQueries().get("construct01a.sparql").replaceAll("//exec//","<"+IRIexec+">").replaceAll("//goal//","<"+IRIGoalExec+">"));
+            query+=(this.getQueries().get("construct01b.sparql"));
             query+="}";
             query+="WHERE { \n";
-            query+=(readQuery(this.getQueryPath()+File.separator+"body01a.sparql").replaceAll("//task//", "<"+IRItask+">"));
-            query+=(readQuery(this.getQueryPath()+File.separator+"body01b.sparql"));
-            query+=(readQuery(this.getQueryPath()+File.separator+"body01c.sparql").replaceAll("//user//", "<"+IRIuser+">"));
-            query+=readQuery(this.getQueryPath()+File.separator+"body01d.sparql");
+            query+=(this.getQueries().get("body01a.sparql").replaceAll("//task//", "<"+IRItask+">"));
+            query+=(this.getQueries().get("body01b.sparql"));
+            query+=(this.getQueries().get("body01c.sparql").replaceAll("//user//", "<"+IRIuser+">"));
+            query+=this.getQueries().get("body01d.sparql");
             query+="}";
           
             //System.out.println(query);   
@@ -916,13 +939,13 @@ public class Profonto extends OntologyCore
             ontology = this.getMainManager().loadOntologyFromOntologyDocument(request); 
             this.getDataBeliefOntology().addAxioms(ontology.axioms());
             String IRIrequest=ontology.getOntologyID().getOntologyIRI().get().toString();
-            String prefix=readQuery(this.getQueryPath()+File.separator+"prefix01.sparql");
+            String prefix=this.getQueries().get("prefix01.sparql");
             prefix+="PREFIX prof: <"+this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#>\n";
             prefix+="PREFIX abox: <"+this.getMainAbox().getOntologyID().getOntologyIRI().get().toString()+"#>\n";
             prefix+="PREFIX base: <"+IRIrequest+">\n";
             String query=prefix;
             //Subquery over request
-            String subquery=prefix+readQuery(this.getQueryPath()+File.separator+"body02a.sparql");             
+            String subquery=prefix+this.getQueries().get("body02a.sparql");             
             QueryExecution execQ = this.createQuery(ontology, subquery);
             ResultSet setIRI=execQ.execSelect();                        
             QuerySolution qs=setIRI.next();
@@ -955,7 +978,7 @@ public class Profonto extends OntologyCore
             
             query+="}\n";
             query+="WHERE { \n";         
-            query+=readQuery(this.getQueryPath()+File.separator+"body02b.sparql").replaceAll("//operation//", "<"+subqueryParam[2]+">")
+            query+=this.getQueries().get("body02b.sparql").replaceAll("//operation//", "<"+subqueryParam[2]+">")
                     .replaceAll("//obtype//", "<"+subqueryParam[4]+">"); 
             query+="}";
                         
