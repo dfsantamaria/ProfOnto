@@ -116,106 +116,16 @@ public class mainAutoinstall
           {
             InputStream assistantData=readData("ontologies/test/homeassistant.owl"); 
             ontocore.addDevice(assistantData, "ProfHomeAssistant");
-          }
-        
-        
+          }        
   
          InputStream request=readData("ontologies/test/light-installation-request.owl");
-         Stream<OWLAxiom> res= ontocore.parseRequest(request, "http://www.dmi.unict.it/light-installation-request.owl");
-//         Stream<OWLAxiom> res= ontocore.acceptUserRequest(request, "http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1", 
-//                                    "http://www.dmi.unict.it/ontoas/alan.owl#Alan",
-//                                    "http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1-exec",
-//                                    "http://www.dmi.unict.it/user-request.owl#alan-goal-1-1-1");
+         Stream<OWLAxiom> res= ontocore.parseRequest(request);
+         res.forEach(System.out::println);        
+        
+         System.out.println();
+         
+         res=ontocore.retrieveAssertions("http://www.dmi.unict.it/light-installation-request.owl#light-installation-req-ontology");
+                                         
          res.forEach(System.out::println);
-
-        
-      
-          
-            
-            
-            
-//        try
-//          {              
-//            ontocore.removePermanentDevice(id);
-//
-//          } 
-//        catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex)
-//          {
-//            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
-//          }
-          
-        
-        
       }
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-/*
-
-  try
-          {
-            OWLOntologyManager localM=OWLManager.createOWLOntologyManager();
-            localM.loadOntologyFromOntologyDocument(new File("ontologies/main/onto-as.owl"));
-            OWLOntology agent=localM.loadOntologyFromOntologyDocument(new File("ontologies/test/lightagent.owl"));
-            OWLOntology config=localM.loadOntologyFromOntologyDocument(new File("ontologies/test/alan-config.owl"));
-            OWLOntology request=localM.loadOntologyFromOntologyDocument(new File("ontologies/test/user-request.owl"));
-          
-            ontocore.addDataToDataBehavior(agent.axioms());
-            ontocore.addDataToDataBehavior(config.axioms());
-            ontocore.addDataToDataBehavior(request.axioms());
-            ontocore.getMainManager().removeOntology(request);
-          } 
-        catch (OWLOntologyCreationException ex)
-          {
-            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
-          }
-                
-        
-         System.out.println("Main ontology axioms count: " +ontocore.getMainOntology().getAxiomCount());
-         System.out.println("Dataset ontology axioms count: " +ontocore.getDataBeliefOntology().getAxiomCount());
-        
-         //Testing a select query
-        String query=readQuery("ontologies/test/query.sparql");
-            
-        try
-          {
-            QueryExecution execQ = ontocore.createQuery(ontocore.getDataBeliefOntology(), query);
-            ResultSet res=ontocore.performSelectQuery(execQ);
-            System.out.println(ResultSetFormatter.asText(res));
-          } 
-        catch (OWLOntologyCreationException ex)
-          {
-            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
-          }
-
-        //Testing a construct query
-        query=readQuery("ontologies/test/querycon.sparql");
-        
-          try
-          {
-            
-            QueryExecution execQ = ontocore.createQuery(ontocore.getDataBeliefOntology(), query);
-            System.out.println("Output:");
-            //ontocore.performConstructQuery(execQ).forEach(System.out::println);            
-            ontocore.addDataToDataBehavior(ontocore.performConstructQuery(execQ));
-           
-            
-          } catch (OWLOntologyCreationException | IOException ex)
-          {
-            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
-          }
-
-*/

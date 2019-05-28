@@ -1,4 +1,4 @@
-SELECT ?selected_device ?operation ?device_object ?obtype ?parameter
+SELECT ?selected_device ?task ?operation ?device_object ?obtype ?parameter
 WHERE { 
 ?selected_device prof:requests ?plan .
 ?plan prof:consistsOfGoalDescription ?goal .

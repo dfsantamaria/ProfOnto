@@ -55,7 +55,18 @@ value=profonto.removeUser("alan")  #remove user
 print("User removed with exit code:", value)
 value=profonto.removeDevice("device") #remove data
 print("Device removed with exit code:", value)
-value=profonto.removeDevice("ProfHomeAssistant") #remove data
+
+
+
+request=readOntoFile("ontologies/test/light-installation-request.owl")
+value=profonto.parseRequest(request)
+print ("Request:", value)
+
+value=profonto.retrieveAssertions("http://www.dmi.unict.it/light-installation-request.owl#light-installation-req-ontology");
+print ("Graph:", value)
+
+
+value=profonto.removeDevice("ProfHomeAssistant") #remove assistant
 print("Home assistant removed with exit code:", value)
 
 

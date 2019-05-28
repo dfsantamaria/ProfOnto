@@ -41,7 +41,10 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import org.semanticweb.HermiT.ReasonerFactory;
+import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParser;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
@@ -898,55 +901,64 @@ public class Profonto extends OntologyCore
         return res;
       }
     
-    public Stream<OWLAxiom> parseRequest(InputStream request, String IRIrequest)
+    /**
+     * Returns the set of axioms concerning the execution of the given request
+     * @param request The ontology of the request     
+     * @return the set of axioms representing the execution of the given request
+     */
+    public Stream<OWLAxiom> parseRequest(InputStream request)
     {
         OntologyModel res=null;
+        Stream<OWLAxiom> axioms;
         OWLOntology ontology;        
         try
           {
-            ontology = this.getMainManager().loadOntologyFromOntologyDocument(request);
-            
-            
-            
-            //Merge and query here         
-            String query=readQuery(this.getQueryPath()+File.separator+"prefix01.sparql");            
-            query+="PREFIX prof: <"+this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#>\n";
-            query+="PREFIX abox: <"+this.getMainAbox().getOntologyID().getOntologyIRI().get().toString()+"#>\n";
-            query+="PREFIX base: <"+IRIrequest+">\n";
-            
-            String subquery=query+readQuery(this.getQueryPath()+File.separator+"body02a.sparql"); 
-                                 
-            
+            ontology = this.getMainManager().loadOntologyFromOntologyDocument(request); 
+            this.getDataBeliefOntology().addAxioms(ontology.axioms());
+            String IRIrequest=ontology.getOntologyID().getOntologyIRI().get().toString();
+            String prefix=readQuery(this.getQueryPath()+File.separator+"prefix01.sparql");
+            prefix+="PREFIX prof: <"+this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#>\n";
+            prefix+="PREFIX abox: <"+this.getMainAbox().getOntologyID().getOntologyIRI().get().toString()+"#>\n";
+            prefix+="PREFIX base: <"+IRIrequest+">\n";
+            String query=prefix;
+            //Subquery over request
+            String subquery=prefix+readQuery(this.getQueryPath()+File.separator+"body02a.sparql");             
             QueryExecution execQ = this.createQuery(ontology, subquery);
             ResultSet setIRI=execQ.execSelect();                        
             QuerySolution qs=setIRI.next();
-            String utaskop=qs.getResource("operation").getURI();
-            String utaskob=qs.getResource("device_object").getURI();
-            String utaskdev=qs.getResource("selected_device").getURI();
-            String utasktype=qs.getResource("obtype").getURI(); 
-            String utaskparam=null;
+            
+            String[] subqueryParam={qs.getResource("selected_device").getURI(),
+                                   qs.getResource("task").getURI(),
+                                   qs.getResource("operation").getURI(),
+                                   qs.getResource("device_object").getURI(),            
+                                   qs.getResource("obtype").getURI(), 
+                                   null};            
             Resource r=qs.getResource("parameter");
-            if(r!=null)
-              utaskparam=r.getURI();
+            if(r!=null)             
+                subqueryParam[5]=r.getURI();           
+            query+="CONSTRUCT {\n";        
+            for(String s : subqueryParam)
+              query+="<"+s+"> "+"rdf:type owl:NamedIndividual.";         
             
-            
-            query+="CONSTRUCT {\n";            
-            query+="?selected_device" + " <"+utaskop+">" + " <"+utasktype+"> ." ;
-            if(utaskparam!=null)
+            String taskExec="<"+subqueryParam[1]+"_execution>";
+            if(subqueryParam[5]!=null)
               {
-                query+="<"+utaskdev+">" + " <"+utaskop+">" + " <"+utaskparam+"> ." ;
+                query+=taskExec + "prof:hasTaskParameter "+ " <"+subqueryParam[5]+"> ." ;
               }
-                              
+            //query+="?selected_device" + " <"+subqueryParam[2]+">" + " <"+subqueryParam[4]+"> ." ; 
+            
+            query+="?selected_device rdf:type owl:NamedIndividual.";
+            query+="?selected_device prof:performs "+ taskExec+" .";
+            query+=taskExec+" rdf:type prof:TaskExecution .";
+            query+=taskExec+" prof:hasTaskObject "+ "<"+subqueryParam[0]+">"+" .";
+            query+=taskExec+" prof:hasTaskOperator "+ "<"+subqueryParam[2]+">"+" .";
+            
             query+="}\n";
-            query+="WHERE { \n";
-            
-            
-            
-            query+=readQuery(this.getQueryPath()+File.separator+"body02b.sparql").replaceAll("//operation//", "<"+utaskop+">")
-                    .replaceAll("//obtype//", "<"+utasktype+">"); 
+            query+="WHERE { \n";         
+            query+=readQuery(this.getQueryPath()+File.separator+"body02b.sparql").replaceAll("//operation//", "<"+subqueryParam[2]+">")
+                    .replaceAll("//obtype//", "<"+subqueryParam[4]+">"); 
             query+="}";
-          
-            System.out.println(query);   
+                        
             res=performQuery(ontology, query);
             //res.axioms().forEach(System.out::println);         
           }
@@ -960,5 +972,16 @@ public class Profonto extends OntologyCore
         
     }
     
+    public Stream<OWLAxiom> retrieveAssertions(String iriInd)
+      {         
+         
+         OWLOntology onto=this.getDataBeliefOntology();
+         OWLNamedIndividual individual=this.getMainManager().getOWLDataFactory().getOWLNamedIndividual(iriInd);
+         
+         Stream<OWLAxiom> axioms=onto.axioms().filter(x->x.isLogicalAxiom())
+                                              .filter(x->x.isOfType(AxiomType.OBJECT_PROPERTY_ASSERTION) || x.isOfType(AxiomType.DATA_PROPERTY_ASSERTION))
+                                              .filter(x->x.containsEntityInSignature(individual));
+         return axioms;        
+      }
     
 }

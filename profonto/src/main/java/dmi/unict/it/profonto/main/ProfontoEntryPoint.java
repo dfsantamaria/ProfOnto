@@ -144,5 +144,20 @@ public class ProfontoEntryPoint
        res.forEach(x->out.append(x.toString()).append("\n"));
        return out.toString();
     }
+    
+    public static String parseRequest(String request)
+      {
+        Stream<OWLAxiom> res= ontocore.parseRequest(getInputStream(request));
+        StringBuilder out=new StringBuilder();      
+        res.forEach(x->out.append(x.toString()).append("\n"));
+        return out.toString();
+      }
 
+    public static String retrieveAssertion(String individual)
+      {
+        Stream<OWLAxiom> res=ontocore.retrieveAssertions(individual);
+        StringBuilder out=new StringBuilder();      
+        res.forEach(x->out.append(x.toString()).append("\n"));
+        return out.toString();
+      }
 }
