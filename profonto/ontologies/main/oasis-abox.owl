@@ -17,6 +17,9 @@
         <NamedIndividual IRI="#install"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="#ontology_description_object_type"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="#home_device"/>
     </Declaration>
     <ClassAssertion>
@@ -26,6 +29,10 @@
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
         <NamedIndividual IRI="#install"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#OntologyDescriptionObjectType"/>
+        <NamedIndividual IRI="#ontology_description_object_type"/>
     </ClassAssertion>
 </Ontology>
 

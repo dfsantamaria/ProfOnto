@@ -26,6 +26,7 @@ import javafx.util.Pair;
 import org.apache.commons.lang3.tuple.Triple;
 import org.apache.jena.atlas.lib.tuple.Tuple;
 import org.apache.jena.query.QueryExecution;
+import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.query.ResultSetFormatter;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
@@ -895,5 +896,65 @@ public class Profonto extends OntologyCore
         }
         return res;
       }
+    
+    public Stream<OWLAxiom> parseRequest(InputStream request, String IRIrequest)
+    {
+        OntologyModel res=null;
+        OWLOntology ontology;        
+        try
+          {
+            ontology = this.getMainManager().loadOntologyFromOntologyDocument(request);
+            
+            
+            
+            //Merge and query here         
+            String query=readQuery(this.getQueryPath()+File.separator+"prefix01.sparql");            
+            query+="PREFIX prof: <"+this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#>\n";
+            query+="PREFIX abox: <"+this.getMainAbox().getOntologyID().getOntologyIRI().get().toString()+"#>\n";
+            query+="PREFIX base: <"+IRIrequest+">\n";
+            
+            String subquery=query+readQuery(this.getQueryPath()+File.separator+"body02a.sparql"); 
+                                 
+            
+            QueryExecution execQ = this.createQuery(ontology, subquery);
+            ResultSet setIRI=execQ.execSelect();                        
+            QuerySolution qs=setIRI.next();
+            String utaskop=qs.getResource("operation").getURI();
+            String utaskob=qs.getResource("device_object").getURI();
+            String utaskdev=qs.getResource("selected_device").getURI();
+            String utasktype=qs.getResource("obtype").getURI(); 
+            String utaskparam=qs.getResource("parameter").getURI();
+            
+            
+            query+="CONSTRUCT {\n";            
+            query+="?selected_device" + " <"+utaskop+">" + " <"+utasktype+"> ." ;
+            if(utaskparam!=null)
+              {
+                query+="<"+utaskdev+">" + " <"+utaskop+">" + " <"+utaskparam+"> ." ;
+              }
+                              
+            query+="}\n";
+            query+="WHERE { \n";
+            
+            
+            
+            query+=readQuery(this.getQueryPath()+File.separator+"body02b.sparql").replaceAll("//operation//", "<"+utaskop+">")
+                    .replaceAll("//obtype//", "<"+utasktype+">"); 
+            query+="}";
+          
+            System.out.println(query);   
+            res=performQuery(ontology, query);
+            //res.axioms().forEach(System.out::println);         
+          }
+        catch (OWLOntologyCreationException ex)
+          {
+            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+          }   
+        if(res==null) 
+            return null;
+        return res.axioms();
+        
+    }
+    
     
 }

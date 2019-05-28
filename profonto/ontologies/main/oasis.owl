@@ -42,10 +42,10 @@
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Corrado Santoro</Literal>
     </Annotation>
     <Declaration>
-        <Class IRI="#SmartContractPart"/>
+        <Class IRI="#GoalEntrustment"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#GoalEntrustment"/>
+        <Class IRI="#SmartContractPart"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasConnectionEntry"/>
@@ -168,6 +168,9 @@
         <Class IRI="#Behavior"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#OntologyDescriptionObjectType"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="#provides"/>
     </Declaration>
     <Declaration>
@@ -204,10 +207,10 @@
         <ObjectProperty IRI="#hasConditionalRestrictionOperator"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#SpaceOperator"/>
+        <Class IRI="#OntologyDescriptionObject"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#OntologyDescriptionObject"/>
+        <Class IRI="#SpaceOperator"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Value"/>
@@ -534,6 +537,9 @@
         <Class IRI="#ConditionalSet"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#InformationObject"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="#hasTaskOperator"/>
     </Declaration>
     <Declaration>
@@ -697,6 +703,9 @@
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasBehavior"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#InformationObjectType"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#definesSmartContractEntryType"/>
@@ -1020,6 +1029,14 @@
         <Class IRI="#Feature"/>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#InformationObject"/>
+        <Class IRI="#DescriptionObject"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#InformationObjectType"/>
+        <Class IRI="#Type"/>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#Message"/>
         <Class IRI="#DescriptionObject"/>
     </SubClassOf>
@@ -1029,7 +1046,11 @@
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#OntologyDescriptionObject"/>
-        <Class IRI="#DescriptionObject"/>
+        <Class IRI="#InformationObject"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#OntologyDescriptionObjectType"/>
+        <Class IRI="#InformationObjectType"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Operator"/>
@@ -3553,7 +3574,7 @@
     <AnnotationAssertion>
         <AnnotationProperty IRI="#isFoundInEntity"/>
         <IRI>#hasBeliefOperator</IRI>
-        <AnonymousIndividual nodeID="_:genid1"/>
+        <AnonymousIndividual nodeID="_:genid4"/>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>

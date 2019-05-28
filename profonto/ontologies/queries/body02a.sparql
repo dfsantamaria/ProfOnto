@@ -1,0 +1,10 @@
+SELECT ?selected_device ?operation ?device_object ?obtype ?parameter
+WHERE { 
+?selected_device prof:requests ?plan .
+?plan prof:consistsOfGoalDescription ?goal .
+?goal prof:consistsOfTaskDescription ?task .
+?task prof:hasTaskOperator ?operation .
+?task prof:hasTaskObject ?device_object .
+?device_object prof:hasType ?obtype .
+OPTIONAL{ ?task prof:hasTaskParameter ?parameter . }
+}
