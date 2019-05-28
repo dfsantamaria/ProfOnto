@@ -14,6 +14,7 @@ install('telegram')
 install('spacy')
 install('pyreadline')
 install('py4j')
+install('rdflib')
 
 print("Running maven, please wait...")
 

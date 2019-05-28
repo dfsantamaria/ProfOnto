@@ -154,7 +154,12 @@ public class Profonto extends OntologyCore
         this.getConfiguration().getPaths()[3] = path;
         createFolder(path);
     }
-
+    
+  public Path getOntologiesUsersPath()
+    {
+        return this.getConfiguration().getPaths()[3];
+    }
+  
     public void setQueryPath(Path path)
     {
        this.getConfiguration().getPaths()[4]=path;       
@@ -165,10 +170,7 @@ public class Profonto extends OntologyCore
       return this.getConfiguration().getPaths()[4];
     }
     
-    public Path getOntologiesUsersPath()
-    {
-        return this.getConfiguration().getPaths()[3];
-    }
+   
 
     /**
      * Creates the folder from the given path if it does not exist
@@ -833,9 +835,11 @@ public class Profonto extends OntologyCore
     {
         OntologyModel res=null;
         OWLOntology ontology;
+        
         try
-        {
+          {
             ontology = this.getMainManager().loadOntologyFromOntologyDocument(request);
+          
             //Merge and query here         
             String query=readQuery(this.getQueryPath()+File.separator+"prefix01.sparql");            
             query+="PREFIX prof: <"+this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#>\n";
@@ -847,24 +851,37 @@ public class Profonto extends OntologyCore
             query+=(readQuery(this.getQueryPath()+File.separator+"body01b.sparql").replaceAll("//user//", "<"+IRIuser+">"));
             query+=readQuery(this.getQueryPath()+File.separator+"body01c.sparql");
             query+="}";
-          //  System.out.println(query);
-            
-            this.getMainManager().ontologies().forEach(x->ontology.addAxioms(x.axioms()));
-            QueryExecution execQ = this.createQuery(ontology, query);
-            res=this.performConstructQuery(execQ);
-            this.addDataToDataBelief(res.axioms());
-            this.getMainManager().removeOntology(ontology);
-            
-            //res.axioms().forEach(System.out::println);
-        } 
-        catch (OWLOntologyCreationException | IOException ex)
-        {
+          
+            //System.out.println(query);   
+            res=performQuery(ontology, query);
+            //res.axioms().forEach(System.out::println); 
+          }
+        catch (OWLOntologyCreationException ex)
+          {
             Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
-        }
+          }   
         if(res==null) 
             return null;
         return res.axioms();
         
     }
 
+    public OntologyModel performQuery(OWLOntology ontology, String query)
+      {
+        OntologyModel res=null;
+          try
+            {        
+        this.getMainManager().ontologies().forEach(x->ontology.addAxioms(x.axioms()));
+        QueryExecution execQ = this.createQuery(ontology, query);
+        res=this.performConstructQuery(execQ);
+        this.addDataToDataBelief(res.axioms());
+        this.getMainManager().removeOntology(ontology);
+       } 
+        catch (OWLOntologyCreationException | IOException ex)
+        {
+            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return res;
+      }
+    
 }
