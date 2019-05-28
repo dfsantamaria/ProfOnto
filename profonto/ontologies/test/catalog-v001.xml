@@ -5,11 +5,11 @@
     <uri id="User Entered Import Resolution" name="http://www.dmi.unict.it/oasis.owl" uri="file:/C:/Users/danie/OneDrive/Documenti/NetBeansProjects/profonto/profonto/ontologies/main/oasis.owl"/>
     <uri id="Imports Wizard Entry" name="http://www.dmi.unict.it/oasis.owl/0.0.1" uri="file:/C:/Users/danie/OneDrive/Documenti/NetBeansProjects/profonto/profonto/ontologies/main/oasis.owl"/>
     <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1559040348202" name="http://www.dmi.unict.it/alan-config.owl#" uri="alan-config.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1559040348202" name="http://www.dmi.unict.it/light-installation-request.owl" uri="light-installation-request.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1559040348202" name="http://www.dmi.unict.it/lightagent.owl" uri="lightagent.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1559040348202" name="http://www.dmi.unict.it/ontoas/alan.owl" uri="alan.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1559040348202" name="http://www.dmi.unict.it/profonto-home.owl" uri="homeassistant.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1559040348202" name="http://www.dmi.unict.it/user-request.owl" uri="user-request.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1559041469138" name="http://www.dmi.unict.it/alan-config.owl#" uri="alan-config.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1559041469138" name="http://www.dmi.unict.it/light-installation-request.owl" uri="light-installation-request.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1559041469138" name="http://www.dmi.unict.it/lightagent.owl" uri="lightagent.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1559041469138" name="http://www.dmi.unict.it/ontoas/alan.owl" uri="alan.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1559041469138" name="http://www.dmi.unict.it/profonto-home.owl" uri="homeassistant.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1559041469138" name="http://www.dmi.unict.it/user-request.owl" uri="user-request.owl"/>
     </group>
 </catalog>

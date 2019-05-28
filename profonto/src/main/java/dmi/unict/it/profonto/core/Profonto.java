@@ -29,6 +29,7 @@ import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.query.ResultSetFormatter;
+import org.apache.jena.rdf.model.Resource;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
@@ -923,7 +924,10 @@ public class Profonto extends OntologyCore
             String utaskob=qs.getResource("device_object").getURI();
             String utaskdev=qs.getResource("selected_device").getURI();
             String utasktype=qs.getResource("obtype").getURI(); 
-            String utaskparam=qs.getResource("parameter").getURI();
+            String utaskparam=null;
+            Resource r=qs.getResource("parameter");
+            if(r!=null)
+              utaskparam=r.getURI();
             
             
             query+="CONSTRUCT {\n";            
