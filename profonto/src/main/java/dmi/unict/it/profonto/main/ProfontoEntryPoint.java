@@ -41,6 +41,7 @@ public class ProfontoEntryPoint
     public ProfontoEntryPoint()
     {
         File ontoFile = new File("ontologies/main/oasis.owl");
+        File aboxFile=new File("ontologies/main/oasis-abox.owl");
         // File dataFile=new File("ontologies/main/dataset.owl");
         ontocore = new Profonto();
         try
@@ -52,6 +53,8 @@ public class ProfontoEntryPoint
             ontocore.setQueryPath(Paths.get("ontologies"+File.separator+"queries"));
             
             ontocore.setMainOntology(ontoFile);
+            ontocore.setMainAbox(aboxFile);
+              
             ontocore.setDataBehaviorOntology("http://www.dmi.unict.it/prof-onto-behavior.owl", "behavior.owl");
             ontocore.setDataBeliefOntology("http://www.dmi.unict.it/prof-onto-belief.owl", "belief.owl");
             ontocore.loadDevicesFromPath(true); //use this if the devices folder is not empty 

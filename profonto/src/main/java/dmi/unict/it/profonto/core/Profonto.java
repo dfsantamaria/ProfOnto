@@ -66,7 +66,7 @@ import ru.avicomp.ontapi.OntologyModel;
  */
 public class Profonto extends OntologyCore
 {
-
+    private OWLOntology mainAbox;
     private final HashMap<String, String> devices; //IDdevice, IDOntology
     private final HashMap<String, String[]> devConfig; //IDconfig <IDdevice-  IDOntology- IDuser
     private final HashMap<String, String> users; //IDconfig <IDdevice, IDOntology> //IDdevice, IDOntology
@@ -85,10 +85,20 @@ public class Profonto extends OntologyCore
         configuration = new Configuration(paths);
         databehavior = null;
         databelief = null;
+        mainAbox=null;
         generators = new ArrayList<>();
         setDefaultReasonerGenerators(generators);
     }
 
+    public void setMainAbox(File inputFile) throws OWLOntologyCreationException 
+      {        
+        mainAbox= this.getMainManager().loadOntologyFromOntologyDocument(inputFile);
+      } 
+    
+     public OWLOntology getMainAbox() 
+      {        
+        return mainAbox;
+      } 
     private void setDefaultReasonerGenerators(List<InferredAxiomGenerator<? extends OWLAxiom>> generators)
     {
         generators.add(new InferredSubClassAxiomGenerator());

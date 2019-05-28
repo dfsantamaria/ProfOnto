@@ -81,6 +81,7 @@ public class mainTest
     public static void main(String[] args)
       {
         File ontoFile=new File("ontologies/main/oasis.owl");
+        File aboxFile=new File("ontologies/main/oasis-abox.owl");
        // File dataFile=new File("ontologies/main/dataset.owl");
         Profonto ontocore=new Profonto();
         try
@@ -91,7 +92,9 @@ public class mainTest
             ontocore.setOntologiesUsersPath(Paths.get("ontologies"+File.separator+"users"));
             ontocore.setQueryPath(Paths.get("ontologies"+File.separator+"queries"));
             
-            ontocore.setMainOntology(ontoFile);           
+            ontocore.setMainOntology(ontoFile); 
+            ontocore.setMainAbox(aboxFile);
+            
             ontocore.setDataBehaviorOntology("http://www.dmi.unict.it/prof-onto-behavior.owl","behavior.owl");  
             ontocore.setDataBeliefOntology("http://www.dmi.unict.it/prof-onto-belief.owl","belief.owl");
             ontocore.loadDevicesFromPath(true); //use this if the devices folder is not empty 
@@ -113,6 +116,12 @@ public class mainTest
         
         InputStream ontologyData=readData("ontologies/test/lightagent.owl");        
         ontocore.addDevice(ontologyData, id);
+        
+        if(!(new File("ontologies/devices/ProfHomeAssistant.owl").exists()))
+          {
+            InputStream assistantData=readData("ontologies/test/homeassistant.owl"); 
+            ontocore.addDevice(assistantData, "ProfHomeAssistant");
+          }
         
         InputStream deviceConfig=readData("ontologies/test/alan-config.owl");
         ontocore.addDeviceConfiguration(deviceConfig, id, id+"Conf-1","ALAN");        
@@ -144,7 +153,8 @@ public class mainTest
           {            
             ontocore.removePermanentUser(userId);
             ontocore.removePermanentDevice(id);
-            ontocore.refreshDataBehavior();            
+            ontocore.refreshDataBehavior();     
+           
           }
         catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex)
           {
