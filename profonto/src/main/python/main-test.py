@@ -27,6 +27,9 @@ user=readOntoFile("ontologies/test/alan.owl")
 value = profonto.addUser(user, "alan")  #read the user data
 print("User added with exit code:", value)
 
+home=readOntoFile("ontologies/test/homeassistant.owl")
+value = profonto.addDevice(home, "ProfHomeAssistant")  #read the device data
+print("Home assistant added with exit code:", value)
 
 device=readOntoFile("ontologies/test/lightagent.owl")
 value = profonto.addDevice(device, "device")  #read the device data
@@ -52,5 +55,8 @@ value=profonto.removeUser("alan")  #remove user
 print("User removed with exit code:", value)
 value=profonto.removeDevice("device") #remove data
 print("Device removed with exit code:", value)
+value=profonto.removeDevice("ProfHomeAssistant") #remove data
+print("Home assistant removed with exit code:", value)
+
 
 profontoGateWay.shutdown() #Shutdown the gateway
