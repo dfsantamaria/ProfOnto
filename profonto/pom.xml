@@ -56,7 +56,7 @@
 <dependency>
     <groupId>org.apache.jena</groupId>
     <artifactId>jena-arq</artifactId>
-    <version>3.9.0</version>
+    <version>3.11.0</version>
 </dependency>
        <!-- https://mvnrepository.com/artifact/net.sourceforge.owlapi/owlapi-api -->
 <dependency>
