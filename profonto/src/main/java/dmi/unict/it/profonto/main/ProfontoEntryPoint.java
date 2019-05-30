@@ -6,11 +6,8 @@
 package dmi.unict.it.profonto.main;
 
 import dmi.unict.it.profonto.core.Profonto;
-import dmi.unict.it.profonto.test.mainTest;
-import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Paths;
@@ -61,7 +58,7 @@ public class ProfontoEntryPoint
             // ontocore.startReasoner();
         } catch (OWLOntologyCreationException | OWLOntologyStorageException | IOException ex)
         {
-            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -74,7 +71,7 @@ public class ProfontoEntryPoint
             inputstream.close();
         } catch (IOException ex)
         {
-            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
         }
         return inputstream;
     }
