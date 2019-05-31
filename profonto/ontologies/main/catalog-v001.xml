@@ -3,9 +3,9 @@
     <uri id="User Entered Import Resolution" name="http://www.dmi.unict.it/oasis.owl/0.0.1" uri="oasis.owl"/>
     <uri id="User Entered Import Resolution" name="http://www.dmi.unict.it/profonto-home.owl" uri="file:/D:/Dati/Documents/NetBeansProjects/ProfOnto/profonto/profonto/ontologies/devices/ProfHomeAssistant.owl"/>
     <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1559330677250" name="http://www.dmi.unict.it/oasis-abox.owl" uri="oasis-abox.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1559330677250" name="http://www.dmi.unict.it/oasis.owl" uri="oasis.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1559330677250" name="http://www.dmi.unict.it/prof-onto-behavior.owl" uri="behavior.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1559330677250" name="http://www.dmi.unict.it/prof-onto-belief.owl" uri="belief.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1559311839468" name="http://www.dmi.unict.it/oasis-abox.owl" uri="oasis-abox.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1559311839468" name="http://www.dmi.unict.it/oasis.owl" uri="oasis.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1559311839468" name="http://www.dmi.unict.it/prof-onto-behavior.owl" uri="behavior.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1559311839468" name="http://www.dmi.unict.it/prof-onto-belief.owl" uri="belief.owl"/>
     </group>
 </catalog>

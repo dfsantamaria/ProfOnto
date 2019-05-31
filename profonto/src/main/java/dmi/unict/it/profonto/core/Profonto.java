@@ -6,7 +6,6 @@
 package dmi.unict.it.profonto.core;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -23,12 +22,9 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 import javafx.util.Pair;
-import org.apache.commons.lang3.tuple.Triple;
-import org.apache.jena.atlas.lib.tuple.Tuple;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
-import org.apache.jena.query.ResultSetFormatter;
 import org.apache.jena.rdf.model.Resource;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.model.AddImport;
@@ -44,8 +40,6 @@ import org.semanticweb.HermiT.ReasonerFactory;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
-import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.rdf.turtle.parser.TurtleOntologyParser;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.util.InferredAxiomGenerator;
@@ -945,7 +939,7 @@ public class Profonto extends OntologyCore
             prefix+="PREFIX base: <"+IRIrequest+">\n"; 
             String query=prefix;
             //Subquery over request
-            String subquery=prefix+this.getQueries().get("body02a.sparql");             
+            String subquery=prefix+this.getQueries().get("body02a.sparql");            
             QueryExecution execQ = this.createQuery(ontology, subquery);
             ResultSet setIRI=execQ.execSelect();                        
             QuerySolution qs=setIRI.next();
@@ -989,7 +983,7 @@ public class Profonto extends OntologyCore
             query+=this.getQueries().get("body02c.sparql").replaceAll("//operation//", "<"+subqueryParam[2]+">")
                     .replaceAll("//obtype//", "<"+subqueryParam[4]+">"); 
             query+="}";
-                     
+            System.out.println(query);
             res=performQuery(ontology, query);
             //res.axioms().forEach(System.out::println);         
           }
@@ -997,7 +991,7 @@ public class Profonto extends OntologyCore
           {
             Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
           }   
-        if(res==null) 
+        if(res.axioms().count()==0) 
             return null;
         axioms=Stream.concat(res.axioms(), axioms);
         return axioms;
