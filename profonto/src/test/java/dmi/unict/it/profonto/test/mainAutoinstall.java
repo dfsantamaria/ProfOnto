@@ -128,7 +128,7 @@ public class mainAutoinstall
         
          System.out.println();
          
-         res=ontocore.retrieveAssertions("http://www.dmi.unict.it/light-installation-request.owl#light-installation-request");
+         res=ontocore.retrieveAssertions("http://www.dmi.unict.it/light-installation-request.owl#light-installation-req-task");
                                          
          res.forEach(System.out::println);
       }
