@@ -119,13 +119,12 @@ public class mainAutoinstall
        
          
        InputStream assistantData=readData("ontologies/test/homeassistant.owl"); 
-       ontocore.addDevice(assistantData, "ProfHomeAssistant");
-                  
-  
-         InputStream request=readData("ontologies/test/light-uninstallation-request.owl");
-         Stream<OWLAxiom> res= ontocore.parseRequest(request);
-         System.out.println("Request:");
-         if(res!=null)
+       ontocore.addDevice(assistantData, "ProfHomeAssistant");            
+       
+       InputStream request=readData("ontologies/test/light-uninstallation-request.owl");
+       Stream<OWLAxiom> res= ontocore.parseRequest(request);
+       System.out.println("Request:");
+       if(res!=null)
            {
          res.forEach(System.out::println);        
         
@@ -136,5 +135,14 @@ public class mainAutoinstall
          res.forEach(System.out::println);
            }
          else System.out.println("Request unsatisfiable");
+        
+           try
+          {
+            ontocore.syncReasonerDataBehavior();
+          } 
+        catch (OWLOntologyStorageException ex)
+          {
+            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
+          }
       }
   }

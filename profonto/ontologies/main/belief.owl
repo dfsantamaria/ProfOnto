@@ -14,6 +14,9 @@
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Import>http://www.dmi.unict.it/prof-onto-behavior.owl</Import>
     <Declaration>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskExecution"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskExecution"/>
     </Declaration>
     <Declaration>
@@ -26,42 +29,110 @@
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#performs"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#setUpFrom"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/light-uninstallation-request.owl#alan-task-1-1-1-kitchen"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#main_kitchen_light"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/light-uninstallation-request.owl#light-uninstallation-req-goal"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-light1"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/light-uninstallation-request.owl#light-uninstallation-req-plan"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_off"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/light-uninstallation-request.owl#light-uninstallation-req-task"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#alan-goal-1-1-1"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/light-uninstallation-request.owl#light-uninstallation-req-task_execution"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1-exec"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device"/>
     </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#home_object_type"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#uninstall"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profonto-home.owl#profonto-home"/>
+    </Declaration>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Space"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/light-uninstallation-request.owl#alan-task-1-1-1-kitchen"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#GoalDescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/light-uninstallation-request.owl#light-uninstallation-req-goal"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#PlanDescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/light-uninstallation-request.owl#light-uninstallation-req-plan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskDescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/light-uninstallation-request.owl#light-uninstallation-req-task"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskExecution"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/light-uninstallation-request.owl#light-uninstallation-req-task_execution"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Device"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device"/>
+    </ClassAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#setUpFrom"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#main_kitchen_light"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-light1"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#consistsOfTaskDescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/light-uninstallation-request.owl#light-uninstallation-req-goal"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/light-uninstallation-request.owl#light-uninstallation-req-task"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#consistsOfGoalDescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/light-uninstallation-request.owl#light-uninstallation-req-plan"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/light-uninstallation-request.owl#light-uninstallation-req-goal"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskExecution"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#alan-goal-1-1-1"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1-exec"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/light-uninstallation-request.owl#light-uninstallation-req-task"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/light-uninstallation-request.owl#light-uninstallation-req-task_execution"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1-exec"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#main_kitchen_light"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/light-uninstallation-request.owl#light-uninstallation-req-task"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskOperator"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1-exec"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_off"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/light-uninstallation-request.owl#light-uninstallation-req-task"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#uninstall"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/light-uninstallation-request.owl#light-uninstallation-req-task_execution"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskOperator"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/light-uninstallation-request.owl#light-uninstallation-req-task_execution"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#uninstall"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasType"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#home_object_type"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasType"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#light_component_type"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#requests"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/light-uninstallation-request.owl#light-uninstallation-req-plan"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#performs"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profonto-home.owl#profonto-home"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/light-uninstallation-request.owl#light-uninstallation-req-task_execution"/>
     </ObjectPropertyAssertion>
 </Ontology>
 

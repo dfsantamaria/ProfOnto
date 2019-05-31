@@ -244,11 +244,6 @@
         <NamedIndividual IRI="#profHomeUninstallDevice"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasComponentType"/>
-        <NamedIndividual IRI="#profonto-home"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#light_component_type"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasType"/>
         <NamedIndividual IRI="#profonto-home"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#home_object_type"/>
