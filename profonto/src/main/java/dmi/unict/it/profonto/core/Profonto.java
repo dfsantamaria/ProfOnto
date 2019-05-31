@@ -984,8 +984,9 @@ public class Profonto extends OntologyCore
             query+=taskExec+" prof:hasTaskOperator "+ "<"+subqueryParam[2]+">"+" .\n";
             
             query+="}\n";
-            query+="WHERE { \n";         
-            query+=this.getQueries().get("body02b.sparql").replaceAll("//operation//", "<"+subqueryParam[2]+">")
+            query+="WHERE { \n";   
+            query+=this.getQueries().get("body02b.sparql");
+            query+=this.getQueries().get("body02c.sparql").replaceAll("//operation//", "<"+subqueryParam[2]+">")
                     .replaceAll("//obtype//", "<"+subqueryParam[4]+">"); 
             query+="}";
                      
