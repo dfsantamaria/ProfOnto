@@ -945,7 +945,7 @@ public class Profonto extends OntologyCore
             prefix+="PREFIX base: <"+IRIrequest+">\n"; 
             String query=prefix;
             //Subquery over request
-            String subquery=prefix+this.getQueries().get("body02a.sparql");            
+            String subquery=prefix+this.getQueries().get("body02a.sparql");             
             QueryExecution execQ = this.createQuery(ontology, subquery);
             ResultSet setIRI=execQ.execSelect();                        
             QuerySolution qs=setIRI.next();
@@ -989,7 +989,7 @@ public class Profonto extends OntologyCore
             query+=this.getQueries().get("body02c.sparql").replaceAll("//operation//", "<"+subqueryParam[2]+">")
                     .replaceAll("//obtype//", "<"+subqueryParam[4]+">"); 
             query+="}";
-            System.out.println(query);
+                     
             res=performQuery(ontology, query);
             //res.axioms().forEach(System.out::println);         
           }
@@ -997,7 +997,7 @@ public class Profonto extends OntologyCore
           {
             Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
           }   
-        if(res.axioms().count()==0) 
+        if(res==null) 
             return null;
         axioms=Stream.concat(res.axioms(), axioms);
         return axioms;

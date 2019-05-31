@@ -14,9 +14,6 @@
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Import>http://www.dmi.unict.it/oasis.owl/0.0.1</Import>
     <Declaration>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#LightObjectType"/>
-    </Declaration>
-    <Declaration>
         <NamedIndividual IRI="#generalUtterance"/>
     </Declaration>
     <Declaration>
@@ -35,18 +32,11 @@
         <NamedIndividual IRI="#generalRequest"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#light_object_type"/>
-    </Declaration>
-    <Declaration>
         <NamedIndividual IRI="#home_device"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#execute"/>
     </Declaration>
-    <SubClassOf>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#LightObjectType"/>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#HomeObjectType"/>
-    </SubClassOf>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
         <NamedIndividual IRI="#execute"/>
@@ -66,10 +56,6 @@
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
         <NamedIndividual IRI="#install"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#LightObjectType"/>
-        <NamedIndividual IRI="#light_object_type"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#OntologyDescriptionObjectType"/>
