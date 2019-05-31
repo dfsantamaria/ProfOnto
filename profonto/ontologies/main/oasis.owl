@@ -42,10 +42,10 @@
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Corrado Santoro</Literal>
     </Annotation>
     <Declaration>
-        <Class IRI="#GoalEntrustment"/>
+        <Class IRI="#SmartContractPart"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#SmartContractPart"/>
+        <Class IRI="#GoalEntrustment"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasConnectionEntry"/>
@@ -78,10 +78,10 @@
         <ObjectProperty IRI="#hasAppellation"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#PermanentStatus"/>
+        <Class IRI="#Scheduling"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Scheduling"/>
+        <Class IRI="#PermanentStatus"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#exploits"/>
@@ -106,6 +106,9 @@
     </Declaration>
     <Declaration>
         <DataProperty IRI="#descriptionProvidedByURL"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#LightComponentType"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ConnectionEntry"/>
@@ -168,10 +171,10 @@
         <Class IRI="#Behavior"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#OntologyDescriptionObjectType"/>
+        <ObjectProperty IRI="#provides"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#provides"/>
+        <Class IRI="#OntologyDescriptionObjectType"/>
     </Declaration>
     <Declaration>
         <Class IRI="#RequestDescriptionObject"/>
@@ -198,13 +201,13 @@
         <Class IRI="#BeliefObject"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#isServiceSatisfiedBy"/>
+        <ObjectProperty IRI="#hasConditionalRestrictionOperator"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ComponentConfiguration"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasConditionalRestrictionOperator"/>
+        <ObjectProperty IRI="#isServiceSatisfiedBy"/>
     </Declaration>
     <Declaration>
         <Class IRI="#OntologyDescriptionObject"/>
@@ -219,19 +222,19 @@
         <ObjectProperty IRI="#setUpFrom"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#SpaceType"/>
+        <Class IRI="#ServiceObject"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ServiceObject"/>
+        <Class IRI="#SpaceType"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#realizedByBehavior"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasTaskParameter"/>
+        <Class IRI="#TaskOperator"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#TaskOperator"/>
+        <ObjectProperty IRI="#hasTaskParameter"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasStatus"/>
@@ -285,10 +288,10 @@
         <Class IRI="#ConditionalRestrictionDescriptor"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#partecipatesInSmartContract"/>
+        <ObjectProperty IRI="#hasScheduling"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasScheduling"/>
+        <ObjectProperty IRI="#partecipatesInSmartContract"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Component"/>
@@ -297,10 +300,10 @@
         <ObjectProperty IRI="#hasFeature"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Action"/>
+        <Class IRI="#BeliefPart"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#BeliefPart"/>
+        <Class IRI="#Action"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#descriptionProvidedByEntity"/>
@@ -339,10 +342,10 @@
         <Class IRI="#EnviromentComponent"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasOpportunityValue"/>
+        <Class IRI="#OpportunityValue"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#OpportunityValue"/>
+        <ObjectProperty IRI="#hasOpportunityValue"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ActionPart"/>
@@ -351,13 +354,16 @@
         <Class IRI="#BehaviorTemplate"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#ComponentType"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#Agent_Configuration"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#FeasibilityTrue"/>
+        <ObjectProperty IRI="#providesSmartContractType"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#providesSmartContractType"/>
+        <Class IRI="#FeasibilityTrue"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#entrustedWith"/>
@@ -372,10 +378,10 @@
         <Class IRI="#GoalExecution"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#BehaviorPart"/>
+        <ObjectProperty IRI="#hasConditionalRestrictionDescriptor"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasConditionalRestrictionDescriptor"/>
+        <Class IRI="#BehaviorPart"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Sensor"/>
@@ -408,10 +414,13 @@
         <ObjectProperty IRI="#requestsBehavior"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#BeliefDescriptor"/>
+        <Class IRI="#TemperatureValue"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#TemperatureValue"/>
+        <ObjectProperty IRI="#hasObjectType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#BeliefDescriptor"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#consistsOfSmartContractEntry"/>
@@ -420,10 +429,10 @@
         <ObjectProperty IRI="#hasTaskExecution"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasConditionalSet"/>
+        <Class IRI="#SmartContractEntryType"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#SmartContractEntryType"/>
+        <ObjectProperty IRI="#hasConditionalSet"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasTaskDescriptor"/>
@@ -441,10 +450,10 @@
         <Class IRI="#HumanAgentBehaviorTemplate"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#RequestType"/>
+        <DataProperty IRI="#descriptionProvidedByEntityIRI"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#descriptionProvidedByEntityIRI"/>
+        <Class IRI="#RequestType"/>
     </Declaration>
     <Declaration>
         <Class IRI="#System"/>
@@ -486,10 +495,10 @@
         <Class IRI="#ActionStatus"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#isInvolvedInEntrustmentWith"/>
+        <Class IRI="#SoftwareAgent"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#SoftwareAgent"/>
+        <ObjectProperty IRI="#isInvolvedInEntrustmentWith"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Status"/>
@@ -507,6 +516,9 @@
         <Class IRI="#Actor"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#hasComponentType"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="#greatherEqual"/>
     </Declaration>
     <Declaration>
@@ -519,10 +531,10 @@
         <ObjectProperty IRI="#adoptsComponentTemplate"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#defines"/>
+        <Class IRI="#UrbanObjectType"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#UrbanObjectType"/>
+        <ObjectProperty IRI="#defines"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasValue"/>
@@ -537,28 +549,28 @@
         <ObjectProperty IRI="#hasConditionalObject"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ConditionalSet"/>
+        <Class IRI="#InformationObject"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#InformationObject"/>
+        <Class IRI="#ConditionalSet"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasTaskOperator"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#TaskObject"/>
+        <ObjectProperty IRI="#fallsWithin"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#fallsWithin"/>
+        <Class IRI="#TaskObject"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#messageDeliveredTo"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#TimeOperator"/>
+        <Class IRI="#ConditionalRestrictionOperator"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ConditionalRestrictionOperator"/>
+        <Class IRI="#TimeOperator"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ComponentTemplate"/>
@@ -624,10 +636,10 @@
         <Class IRI="#Implementation"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#setsUp"/>
+        <ObjectProperty IRI="#hasExecutionObject"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasExecutionObject"/>
+        <ObjectProperty IRI="#setsUp"/>
     </Declaration>
     <Declaration>
         <Class IRI="#SmartContract"/>
@@ -636,19 +648,19 @@
         <ObjectProperty IRI="#hasSpaceSpan"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#consistsOfConnectionEntry"/>
+        <NamedIndividual IRI="#spaceSpan"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#spaceSpan"/>
+        <ObjectProperty IRI="#consistsOfConnectionEntry"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#signsSmartContract"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ServiceRequest"/>
+        <Class IRI="#SmartContractEntry"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#SmartContractEntry"/>
+        <Class IRI="#ServiceRequest"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasObject"/>
@@ -726,10 +738,10 @@
         <ObjectProperty IRI="#consistsOfDescription"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ConnectionPart"/>
+        <Class IRI="#RobotAgentBehaviorTemplate"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#RobotAgentBehaviorTemplate"/>
+        <Class IRI="#ConnectionPart"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#entrustedFrom"/>
@@ -866,6 +878,10 @@
     <SubClassOf>
         <Class IRI="#ComponentTemplate"/>
         <Class IRI="#Template"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ComponentType"/>
+        <Class IRI="#Type"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Conditional"/>
@@ -1038,6 +1054,10 @@
     <SubClassOf>
         <Class IRI="#InformationObjectType"/>
         <Class IRI="#Type"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#LightComponentType"/>
+        <Class IRI="#ComponentType"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Message"/>
@@ -1452,6 +1472,10 @@
         <ObjectProperty IRI="#hasSubject"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasComponentType"/>
+        <ObjectProperty IRI="#hasType"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasConditional"/>
         <ObjectProperty IRI="#hasConditionalPart"/>
     </SubObjectPropertyOf>
@@ -1542,6 +1566,10 @@
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasImplementation"/>
         <ObjectProperty IRI="#hasFeature"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasObjectType"/>
+        <ObjectProperty IRI="#hasType"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasOpportunityValue"/>
@@ -1809,6 +1837,10 @@
         <Class IRI="#Belief"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasComponentType"/>
+        <Class IRI="#Device"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasConditionalDescriptor"/>
         <Class IRI="#Conditional"/>
     </ObjectPropertyDomain>
@@ -1855,6 +1887,10 @@
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasGoalExecution"/>
         <Class IRI="#GoalDescription"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasObjectType"/>
+        <Class IRI="#Device"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasScheduling"/>
@@ -2071,6 +2107,10 @@
         <Class IRI="#BeliefSubject"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasComponentType"/>
+        <Class IRI="#ComponentType"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
         <ObjectProperty IRI="#hasConditional"/>
         <Class IRI="#Conditional"/>
     </ObjectPropertyRange>
@@ -2145,6 +2185,10 @@
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasImplementation"/>
         <Class IRI="#Implementation"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasObjectType"/>
+        <Class IRI="#ObjectType"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasOpportunityValue"/>
@@ -2515,6 +2559,16 @@
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#ComponentType</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the type of object.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ComponentType</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Component type</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Conditional</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a single conditional</Literal>
     </AnnotationAssertion>
@@ -2881,12 +2935,7 @@
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#HomeObjectType</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Domestic obect</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#HomeObjectType</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Home object type</Literal>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Domestic device type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -2936,7 +2985,7 @@
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#ObjectType</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the type of object.</Literal>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes device types</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
@@ -3032,6 +3081,11 @@
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#RequestDescriptionObject</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Request description object</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#RequestType</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Request type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -3406,12 +3460,12 @@
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#UrbanObjectType</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the type of urban object.</Literal>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the type of urban devices</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#UrbanObjectType</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Urban object type</Literal>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Urban device type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>

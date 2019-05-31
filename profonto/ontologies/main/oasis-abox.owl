@@ -23,6 +23,9 @@
         <NamedIndividual IRI="#install"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="#light_component_type"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="#ontology_description_object_type"/>
     </Declaration>
     <Declaration>
@@ -32,10 +35,10 @@
         <NamedIndividual IRI="#generalRequest"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#home_device"/>
+        <NamedIndividual IRI="#execute"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#execute"/>
+        <NamedIndividual IRI="#home_object_type"/>
     </Declaration>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
@@ -51,11 +54,15 @@
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#HomeObjectType"/>
-        <NamedIndividual IRI="#home_device"/>
+        <NamedIndividual IRI="#home_object_type"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
         <NamedIndividual IRI="#install"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#LightComponentType"/>
+        <NamedIndividual IRI="#light_component_type"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#OntologyDescriptionObjectType"/>
