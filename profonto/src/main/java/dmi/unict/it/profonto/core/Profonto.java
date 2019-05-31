@@ -109,7 +109,7 @@ public class Profonto extends OntologyCore
         generators.add(new InferredEquivalentDataPropertiesAxiomGenerator());
         generators.add(new InferredEquivalentObjectPropertyAxiomGenerator());
         generators.add(new InferredInverseObjectPropertiesAxiomGenerator());
-        generators.add(new InferredObjectPropertyCharacteristicAxiomGenerator());
+       // generators.add(new InferredObjectPropertyCharacteristicAxiomGenerator());
         // NOTE: InferredPropertyAssertionGenerator significantly slows down
         // inference computation
         //  generators.add(new org.semanticweb.owlapi.util.InferredPropertyAssertionGenerator());
@@ -119,7 +119,7 @@ public class Profonto extends OntologyCore
 
         List<InferredIndividualAxiomGenerator<? extends OWLIndividualAxiom>> individualAxioms = new ArrayList<>();
         generators.addAll(individualAxioms);
-        generators.add(new InferredDisjointClassesAxiomGenerator());
+     //   generators.add(new InferredDisjointClassesAxiomGenerator()); //THIS ENTRY IS PROBLEMATIC
     }
 
     private Configuration getConfiguration()
@@ -546,11 +546,11 @@ public class Profonto extends OntologyCore
             this.getMainManager().addIRIMapper(new SimpleIRIMapper(ontodevice.getOntologyID().getOntologyIRI().get(),
                     IRI.create(file.getCanonicalFile())));
 
-            FileOutputStream outStream = new FileOutputStream(file);
-
-            this.getMainManager().saveOntology(ontodevice, new OWLXMLDocumentFormat(), outStream);
+          //  FileOutputStream outStream = new FileOutputStream(file);
+          syncReasoner(ontodevice.getOntologyID().getOntologyIRI().get().getIRIString(), filesource);
+         //   this.getMainManager().saveOntology(ontodevice, new OWLXMLDocumentFormat(), outStream);
             this.getDevices().put(id, ontodevice.getOntologyID().getOntologyIRI().get().toString());
-            outStream.close();
+        //    outStream.close();
             //  syncReasonerDataBehavior();
 
         } catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
@@ -639,7 +639,7 @@ public class Profonto extends OntologyCore
 
     }
 
-    public void loadDevicesFromPath(boolean toimport) throws OWLOntologyCreationException, OWLOntologyStorageException, IOException
+    public void loadDevicesFromPath(boolean toimport) throws OWLOntologyStorageException, IOException
     {
         Path path = this.getOntologiesDevicesPath();
         //HashMap<String, Pair<OWLOntology,File>>
@@ -648,37 +648,43 @@ public class Profonto extends OntologyCore
         {
             if (files[i].isFile())
             {
-                String name = files[i].getName();
-                OWLOntology ontology = this.getMainManager().loadOntologyFromOntologyDocument(files[i]);
-                this.getDevices().put(name, new Pair(ontology.getOntologyID().getOntologyIRI().get().toString(), files[i]));
-                if (toimport)
-                {
-                    this.addImportToOntology(this.getDataBehaviorOntology(), ontology.getOntologyID().getOntologyIRI().get());
-                    this.getMainManager().addIRIMapper(new SimpleIRIMapper(ontology.getOntologyID().getOntologyIRI().get(),
-                            IRI.create(files[i].getCanonicalFile())));
-                }
-
-                //Getting configurations from the current device
-                File confFolder = new File(this.getOntologiesDeviceConfigurationPath() + File.separator + name);
-                if (confFolder.isDirectory())
-                {
-                    File[] confs = confFolder.listFiles();
-                    for (int j = 0; j < confs.length; j++)
-                    {
-                        ontology = this.getMainManager().loadOntologyFromOntologyDocument(confs[j]);//IDconfig <IDdevice, IDOntology> 
-                        /*attention here - need to be modified since the user is not got from the ontology*/
-                        this.getDeviceConfigurations().put(confs[j].getName(), new String[]
-                        {
-                            name, ontology.getOntologyID().getOntologyIRI().get().toString(), "iduser"
-                        });
-                        if (toimport)
-                        {
-                            this.addImportToOntology(this.getDataBehaviorOntology(), ontology.getOntologyID().getOntologyIRI().get());
-                            this.getMainManager().addIRIMapper(new SimpleIRIMapper(ontology.getOntologyID().getOntologyIRI().get(),
-                                    IRI.create(confs[j].getCanonicalFile())));
-                        }
-                    }
-                }
+                try {
+                    String name = files[i].getName();
+                    
+                    OWLOntology ontology = this.getMainManager().loadOntologyFromOntologyDocument(files[i]);
+                    this.getDevices().put(name, new Pair(ontology.getOntologyID().getOntologyIRI().get().toString(), files[i]));
+                    if (toimport)
+                      {
+                        this.addImportToOntology(this.getDataBehaviorOntology(), ontology.getOntologyID().getOntologyIRI().get());
+                        this.getMainManager().addIRIMapper(new SimpleIRIMapper(ontology.getOntologyID().getOntologyIRI().get(),
+                                IRI.create(files[i].getCanonicalFile())));
+                      }
+                    
+                    //Getting configurations from the current device
+                    File confFolder = new File(this.getOntologiesDeviceConfigurationPath() + File.separator + name);
+                    if (confFolder.isDirectory())
+                      {
+                        File[] confs = confFolder.listFiles();
+                        for (int j = 0; j < confs.length; j++)
+                          {
+                            ontology = this.getMainManager().loadOntologyFromOntologyDocument(confs[j]);//IDconfig <IDdevice, IDOntology>
+                            /*attention here - need to be modified since the user is not got from the ontology*/
+                            this.getDeviceConfigurations().put(confs[j].getName(), new String[]
+                              {
+                                name, ontology.getOntologyID().getOntologyIRI().get().toString(), "iduser"
+                            });
+                            if (toimport)
+                              {
+                                this.addImportToOntology(this.getDataBehaviorOntology(), ontology.getOntologyID().getOntologyIRI().get());
+                                this.getMainManager().addIRIMapper(new SimpleIRIMapper(ontology.getOntologyID().getOntologyIRI().get(),
+                                        IRI.create(confs[j].getCanonicalFile())));
+                              }
+                          }
+                      } 
+                   } catch (OWLOntologyCreationException ex) 
+                     {
+                      Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+                     }
             }
         }
 
@@ -900,6 +906,13 @@ public class Profonto extends OntologyCore
         
     }
 
+    
+     public OntologyModel performQuery(String query) throws OWLOntologyCreationException
+      {
+        OWLOntology ontology=this.getMainManager().createOntology();
+        return this.performQuery(ontology,query);
+      }
+    
     public OntologyModel performQuery(OWLOntology ontology, String query)
       {
         OntologyModel res=null;
@@ -948,13 +961,13 @@ public class Profonto extends OntologyCore
                                    qs.getResource("task").getURI(),
                                    qs.getResource("operation").getURI(),
                                    qs.getResource("device_object").getURI(),            
-                                   qs.getResource("obtype").getURI(), 
+                                   //qs.getResource("obtype").getURI(), 
                                    null};            
             Resource r=qs.getResource("parameter");
             if(r!=null)             
               { 
-                subqueryParam[5]=r.getURI(); 
-                axioms=retrieveAssertions(subqueryParam[5], ontology);
+                subqueryParam[4]=r.getURI(); 
+                axioms=retrieveAssertions(subqueryParam[4], ontology);
               } 
             query+="CONSTRUCT {\n";        
             for(String s : subqueryParam)
@@ -964,9 +977,9 @@ public class Profonto extends OntologyCore
               }         
             
             String taskExec="<"+subqueryParam[1]+"_execution>";
-            if(subqueryParam[5]!=null)
+            if(subqueryParam[4]!=null)
               {
-                query+=taskExec + "prof:hasTaskParameter "+ " <"+subqueryParam[5]+"> ." ;
+                query+=taskExec + " prof:hasTaskParameter "+ " <"+subqueryParam[4]+"> ." ;
               }
             //query+="?selected_device" + " <"+subqueryParam[2]+">" + " <"+subqueryParam[4]+"> ." ; 
             
@@ -974,17 +987,17 @@ public class Profonto extends OntologyCore
             query+="?selected_device prof:performs "+ taskExec+" .\n";
             query+="<"+subqueryParam[1]+"> prof:hasTaskExecution "+taskExec + ".\n";
             query+=taskExec+" rdf:type prof:TaskExecution .\n";
-            query+=taskExec+" prof:hasTaskObject "+ "<"+subqueryParam[0]+">"+" .\n";
+            query+=taskExec+" prof:hasTaskObject "+ "?device_object .\n";
             query+=taskExec+" prof:hasTaskOperator "+ "<"+subqueryParam[2]+">"+" .\n";
             
             query+="}\n";
             query+="WHERE { \n";   
             query+=this.getQueries().get("body02b.sparql");
             query+=this.getQueries().get("body02c.sparql").replaceAll("//operation//", "<"+subqueryParam[2]+">")
-                    .replaceAll("//obtype//", "<"+subqueryParam[4]+">"); 
+                    .replaceAll("//taskrequest//", "<"+subqueryParam[3]+">"); 
             query+="}";
             System.out.println(query);
-            res=performQuery(ontology, query);
+            res=performQuery(query);
             //res.axioms().forEach(System.out::println);         
           }
         catch (OWLOntologyCreationException ex)

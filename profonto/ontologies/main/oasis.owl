@@ -423,10 +423,10 @@
         <Class IRI="#BeliefDescriptor"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#consistsOfSmartContractEntry"/>
+        <ObjectProperty IRI="#hasTaskExecution"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasTaskExecution"/>
+        <ObjectProperty IRI="#consistsOfSmartContractEntry"/>
     </Declaration>
     <Declaration>
         <Class IRI="#SmartContractEntryType"/>
@@ -1748,38 +1748,6 @@
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#configurationProvidedBy"/>
         <Class IRI="#Configuration"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#consistsOfConnectionEntry"/>
-        <Class IRI="#Connection"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#consistsOfEntrustment"/>
-        <Class IRI="#EntrustmentActivity"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#consistsOfGoalDescription"/>
-        <Class IRI="#Behavior"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#consistsOfGoalEntrustment"/>
-        <Class IRI="#PlanEntrustment"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#consistsOfGoalExecution"/>
-        <Class IRI="#PlanExecution"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#consistsOfSmartContractEntry"/>
-        <Class IRI="#SmartContract"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#consistsOfTaskEntrustment"/>
-        <Class IRI="#GoalEntrustment"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#cosistsOfTaskExecution"/>
-        <Class IRI="#GoalExecution"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#definesSmartContractEntryType"/>
@@ -3635,7 +3603,7 @@
     <AnnotationAssertion>
         <AnnotationProperty IRI="#isFoundInEntity"/>
         <IRI>#hasBeliefOperator</IRI>
-        <AnonymousIndividual nodeID="_:genid2"/>
+        <AnonymousIndividual nodeID="_:genid8"/>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>

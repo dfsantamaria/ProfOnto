@@ -2,4 +2,5 @@
 ?goal prof:consistsOfTaskDescription ?task .
 ?task prof:hasTaskOperator //operation// .
 ?task prof:hasTaskObject ?device_object .
-?device_object prof:hasType //obtype// .
+?device_object prof:hasType ?requesttype .
+//taskrequest// prof:hasType ?requesttype .
