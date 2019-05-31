@@ -942,7 +942,7 @@ public class Profonto extends OntologyCore
             String prefix=this.getQueries().get("prefix01.sparql");
             prefix+="PREFIX prof: <"+this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#>\n";
             prefix+="PREFIX abox: <"+this.getMainAbox().getOntologyID().getOntologyIRI().get().toString()+"#>\n";
-            prefix+="PREFIX base: <"+IRIrequest+">\n";
+            prefix+="PREFIX base: <"+IRIrequest+">\n"; 
             String query=prefix;
             //Subquery over request
             String subquery=prefix+this.getQueries().get("body02a.sparql");             
@@ -958,13 +958,16 @@ public class Profonto extends OntologyCore
                                    null};            
             Resource r=qs.getResource("parameter");
             if(r!=null)             
-              {
+              { 
                 subqueryParam[5]=r.getURI(); 
                 axioms=retrieveAssertions(subqueryParam[5], ontology);
               } 
             query+="CONSTRUCT {\n";        
             for(String s : subqueryParam)
-              query+="<"+s+"> "+"rdf:type owl:NamedIndividual.";         
+              {
+               if(s!=null) 
+                query+="<"+s+"> "+"rdf:type owl:NamedIndividual. \n";
+              }         
             
             String taskExec="<"+subqueryParam[1]+"_execution>";
             if(subqueryParam[5]!=null)
@@ -973,18 +976,19 @@ public class Profonto extends OntologyCore
               }
             //query+="?selected_device" + " <"+subqueryParam[2]+">" + " <"+subqueryParam[4]+"> ." ; 
             
-            query+="?selected_device rdf:type owl:NamedIndividual.";
-            query+="?selected_device prof:performs "+ taskExec+" .";
-            query+=taskExec+" rdf:type prof:TaskExecution .";
-            query+=taskExec+" prof:hasTaskObject "+ "<"+subqueryParam[0]+">"+" .";
-            query+=taskExec+" prof:hasTaskOperator "+ "<"+subqueryParam[2]+">"+" .";
+            query+="?selected_device rdf:type owl:NamedIndividual.\n";
+            query+="?selected_device prof:performs "+ taskExec+" .\n";
+            query+="<"+subqueryParam[1]+"> prof:hasTaskExecution "+taskExec + ".\n";
+            query+=taskExec+" rdf:type prof:TaskExecution .\n";
+            query+=taskExec+" prof:hasTaskObject "+ "<"+subqueryParam[0]+">"+" .\n";
+            query+=taskExec+" prof:hasTaskOperator "+ "<"+subqueryParam[2]+">"+" .\n";
             
             query+="}\n";
             query+="WHERE { \n";         
             query+=this.getQueries().get("body02b.sparql").replaceAll("//operation//", "<"+subqueryParam[2]+">")
                     .replaceAll("//obtype//", "<"+subqueryParam[4]+">"); 
             query+="}";
-                        
+                     
             res=performQuery(ontology, query);
             //res.axioms().forEach(System.out::println);         
           }

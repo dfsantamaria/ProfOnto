@@ -80,6 +80,11 @@ public class mainAutoinstall
     
     public static void main(String[] args)
       {
+        File profonto=new File("ontologies/devices/ProfHomeAssistant.owl");     
+        if((profonto.exists()))
+          profonto.delete();
+        
+        
         File ontoFile=new File("ontologies/main/oasis.owl");
         File aboxFile=new File("ontologies/main/oasis-abox.owl");
        // File dataFile=new File("ontologies/main/dataset.owl");
@@ -111,12 +116,11 @@ public class mainAutoinstall
         //Stream<OWLAxiom> axioms=Stream.empty();
         String userId="ALAN";
         
-              
-        if(!(new File("ontologies/devices/ProfHomeAssistant.owl").exists()))
-          {
-            InputStream assistantData=readData("ontologies/test/homeassistant.owl"); 
-            ontocore.addDevice(assistantData, "ProfHomeAssistant");
-          }        
+       
+         
+       InputStream assistantData=readData("ontologies/test/homeassistant.owl"); 
+       ontocore.addDevice(assistantData, "ProfHomeAssistant");
+                  
   
          InputStream request=readData("ontologies/test/light-installation-request.owl");
          Stream<OWLAxiom> res= ontocore.parseRequest(request);
@@ -124,7 +128,7 @@ public class mainAutoinstall
         
          System.out.println();
          
-         res=ontocore.retrieveAssertions("http://www.dmi.unict.it/light-installation-request.owl#light-installation-req-ontology");
+         res=ontocore.retrieveAssertions("http://www.dmi.unict.it/light-installation-request.owl#light-installation-request");
                                          
          res.forEach(System.out::println);
       }

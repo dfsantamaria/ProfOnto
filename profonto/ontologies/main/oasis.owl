@@ -441,6 +441,9 @@
         <Class IRI="#HumanAgentBehaviorTemplate"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#RequestType"/>
+    </Declaration>
+    <Declaration>
         <DataProperty IRI="#descriptionProvidedByEntityIRI"/>
     </Declaration>
     <Declaration>
@@ -1095,6 +1098,10 @@
     <SubClassOf>
         <Class IRI="#RequestDescriptionObject"/>
         <Class IRI="#DescriptionObject"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#RequestType"/>
+        <Class IRI="#Type"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Robot"/>
@@ -3574,7 +3581,7 @@
     <AnnotationAssertion>
         <AnnotationProperty IRI="#isFoundInEntity"/>
         <IRI>#hasBeliefOperator</IRI>
-        <AnonymousIndividual nodeID="_:genid4"/>
+        <AnonymousIndividual nodeID="_:genid2"/>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
