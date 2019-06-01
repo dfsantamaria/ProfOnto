@@ -112,7 +112,7 @@ public class Profonto extends OntologyCore
        // generators.add(new InferredObjectPropertyCharacteristicAxiomGenerator());
         // NOTE: InferredPropertyAssertionGenerator significantly slows down
         // inference computation
-        //  generators.add(new org.semanticweb.owlapi.util.InferredPropertyAssertionGenerator());
+        generators.add(new org.semanticweb.owlapi.util.InferredPropertyAssertionGenerator());
         generators.add(new InferredSubClassAxiomGenerator());
         generators.add(new InferredSubDataPropertyAxiomGenerator());
         generators.add(new InferredSubObjectPropertyAxiomGenerator());
@@ -422,26 +422,14 @@ public class Profonto extends OntologyCore
         addAxiomsToOntology(this.getDataBeliefOntology(), axioms);
     }
 
-//    public OWLOntology configureDevice(OWLOntology ontodevice, Stream<OWLAxiom> axioms)
-//    {      
-//      //Edit here to get configuration data from user        //
-//      ChangeApplied changes=ontodevice.addAxioms(axioms);      
-//      try {            
-//            this.getMainManager().saveOntology(ontodevice);
-//        } 
-//      catch (OWLOntologyStorageException ex) {
-//            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//      return ontodevice;
-//    }
-    private void syncReasoner(String storeOntology, String file) throws OWLOntologyStorageException
-    {
-        OWLOntology m = this.getMainManager().getOntology(IRI.create(storeOntology));
-        //   m.imports().forEach(ont ->ont.axioms().forEach(a-> m.addAxiom(a)));     
+
+    private void syncReasoner(OWLOntology ontology, String file) throws OWLOntologyStorageException
+    {     
+          
         ReasonerFactory rf = new ReasonerFactory();
         org.semanticweb.HermiT.Configuration config = new org.semanticweb.HermiT.Configuration();
         config.ignoreUnsupportedDatatypes = true;
-        OWLReasoner reasoner = rf.createReasoner(m, config);
+        OWLReasoner reasoner = rf.createReasoner(ontology, config);
         reasoner.precomputeInferences(InferenceType.CLASS_HIERARCHY,
                 InferenceType.CLASS_ASSERTIONS,
                 InferenceType.OBJECT_PROPERTY_HIERARCHY,
@@ -452,25 +440,28 @@ public class Profonto extends OntologyCore
         if (consistencyCheck)
         {
             InferredOntologyGenerator iog = new InferredOntologyGenerator(reasoner, generators);
-            iog.fillOntology(this.getMainManager().getOWLDataFactory(), m);
+            iog.fillOntology(this.getMainManager().getOWLDataFactory(), ontology);
             reasoner.flush();
-            this.getMainManager().saveOntology(m,
+            if(!(file==null || file.equals("")))
+                this.getMainManager().saveOntology(ontology,
                     IRI.create(new File(file)));
         } else
         {
             System.out.println("Inconsistent Knowledge base");
-        }
+        }        
     }
 
     /**
      * Runs the reasoner on the behavior data
      *
      * @throws OWLOntologyStorageException
+     * @throws org.semanticweb.owlapi.model.OWLOntologyCreationException
      */
-    public void syncReasonerDataBehavior() throws OWLOntologyStorageException
-    {
-        this.syncReasoner(this.getDataBehaviorOntology().getOntologyID().getOntologyIRI().get().toString(),
-                this.getDataBehaviorInfo().getKey());
+    public void syncReasonerDataBehavior() throws OWLOntologyStorageException, OWLOntologyCreationException
+    {      
+        OWLOntology m = this.getDataBeliefOntology();
+        m.imports().forEach(ont ->ont.axioms().forEach(a-> m.addAxiom(a)));     
+        this.syncReasoner(m, this.getDataBehaviorInfo().getKey());
     }
 
     private void refreshOntology(OWLOntology ontology) throws OWLOntologyStorageException, OWLOntologyCreationException
@@ -547,7 +538,7 @@ public class Profonto extends OntologyCore
                     IRI.create(file.getCanonicalFile())));
 
           //  FileOutputStream outStream = new FileOutputStream(file);
-          syncReasoner(ontodevice.getOntologyID().getOntologyIRI().get().getIRIString(), filesource);
+          syncReasoner(ontodevice, filesource);
          //   this.getMainManager().saveOntology(ontodevice, new OWLXMLDocumentFormat(), outStream);
             this.getDevices().put(id, ontodevice.getOntologyID().getOntologyIRI().get().toString());
         //    outStream.close();
@@ -944,6 +935,8 @@ public class Profonto extends OntologyCore
         try
           {
             ontology = this.getMainManager().loadOntologyFromOntologyDocument(request); 
+            //ontology.;
+            syncReasoner(ontology, null);                          
             this.getDataBeliefOntology().addAxioms(ontology.axioms());
             String IRIrequest=ontology.getOntologyID().getOntologyIRI().get().toString();
             String prefix=this.getQueries().get("prefix01.sparql");
@@ -952,7 +945,8 @@ public class Profonto extends OntologyCore
             prefix+="PREFIX base: <"+IRIrequest+">\n"; 
             String query=prefix;
             //Subquery over request
-            String subquery=prefix+this.getQueries().get("body02a.sparql");            
+            String subquery=prefix+this.getQueries().get("body02a.sparql");           
+            
             QueryExecution execQ = this.createQuery(ontology, subquery);
             ResultSet setIRI=execQ.execSelect();                        
             QuerySolution qs=setIRI.next();
@@ -997,13 +991,14 @@ public class Profonto extends OntologyCore
                     .replaceAll("//taskrequest//", "<"+subqueryParam[3]+">"); 
             query+="}";
             System.out.println(query);
-            res=performQuery(query);
+            ontology.addAxioms(this.getDataBehaviorOntology().axioms());
+            res=performQuery(ontology,query);
             //res.axioms().forEach(System.out::println);         
           }
-        catch (OWLOntologyCreationException ex)
+        catch (OWLOntologyCreationException | OWLOntologyStorageException ex)   
           {
             Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
-          }   
+          }
         if(res.axioms().count()==0) 
             return null;
         axioms=Stream.concat(res.axioms(), axioms);

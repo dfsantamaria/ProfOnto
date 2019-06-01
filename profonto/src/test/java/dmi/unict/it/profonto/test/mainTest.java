@@ -125,14 +125,7 @@ public class mainTest
         
         InputStream deviceConfig=readData("ontologies/test/alan-config.owl");
         ontocore.addDeviceConfiguration(deviceConfig, id, id+"Conf-1","ALAN");        
-        try
-          {
-            ontocore.syncReasonerDataBehavior();
-          } 
-        catch (OWLOntologyStorageException ex)
-          {
-            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
-          }
+    
   
          InputStream request=readData("ontologies/test/user-request.owl");
          Stream<OWLAxiom> res= ontocore.acceptUserRequest(request, "http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1", 

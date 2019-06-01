@@ -14,10 +14,6 @@
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Import>http://www.dmi.unict.it/oasis.owl</Import>
     <Import>http://www.dmi.unict.it/profonto-home.owl</Import>
-    <InverseObjectProperties>
-        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
-        <ObjectProperty abbreviatedIRI="owl:topObjectProperty"/>
-    </InverseObjectProperties>
 </Ontology>
 
 

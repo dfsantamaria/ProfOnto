@@ -134,15 +134,7 @@ public class mainAutoinstall
                                          
          res.forEach(System.out::println);
            }
-         else System.out.println("Request unsatisfiable");
-        
-         try
-          {
-            ontocore.syncReasonerDataBehavior();
-          } 
-        catch (OWLOntologyStorageException ex)
-          {
-            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
-          }
+         else System.out.println("Request unsatisfiable");              
+       
       }
   }

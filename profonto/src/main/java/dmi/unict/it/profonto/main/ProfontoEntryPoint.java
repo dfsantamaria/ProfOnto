@@ -125,7 +125,8 @@ public class ProfontoEntryPoint
         try
         {
             ontocore.syncReasonerDataBehavior();
-        } catch (OWLOntologyStorageException ex)
+        }
+        catch (OWLOntologyStorageException | OWLOntologyCreationException ex)
         {
             Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
