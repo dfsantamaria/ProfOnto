@@ -51,7 +51,7 @@ Instructions:
    2.3) You can now delete the src folder.
 
 3) Running. 
-   3.1) Locate and run the file main-test or test-base.py in target/python folder. Those files contains some example of using the current version
+   3.1) Locate and run the file main-test or test-base.py in target/python folder. These files contains some example of using the current version
         of the assistant.
 
 
