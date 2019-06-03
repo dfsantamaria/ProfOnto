@@ -46,11 +46,12 @@ Instructions:
    1.1)Use git clone or download the source code from GitHub.
 
 2) Setup. 
-   2.1) Make sure that Python, Maven, and Java are in your systema path.
-   2.2) Locate and run the setup.py file in main folder.
+   2.1) Make sure that Python, Maven, and Java are in your system path.
+   2.2) Locate and run the setup.py file in main folder. Wait for the installation.
    2.3) You can now delete the src folder.
 
 3) Running. 
-   3.1) Locate and run the file main.py in target/python folder.
+   3.1) Locate and run the file main-test or test-base.py in target/python folder. Those files contains some example of using the current version
+        of the assistant.
 
 
