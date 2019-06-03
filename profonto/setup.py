@@ -22,8 +22,9 @@ print("Running maven, please wait...")
 mvn="mvn clean install"
 p = subprocess.Popen(mvn, shell=True, stdout = subprocess.PIPE)
 stdout, stderr = p.communicate()
-print(stdout)
-if re.search('BUILD SUCCESS', stdout.decode('utf-8'), re.IGNORECASE):
+print(stdout.decode('utf-8'))
+
+if  stderr is None:
    print("Almost finished...")
    print("Copying required files...")
    copy_tree("ontologies", "target/ontologies")
