@@ -34,14 +34,15 @@ time.sleep(10)
 profontoGateWay = JavaGateway()                   # connect to the JVM
 profonto = profontoGateWay .entry_point
 
+home=readOntoFile("ontologies/test/homeassistant.owl")
+value = profonto.addDevice(home, "ProfHomeAssistant")  #read the device data
+print("Home assistant added with exit code:", value)
 
 user=readOntoFile("ontologies/test/alan.owl")
 value = profonto.addUser(user, "alan")  #read the user data
 print("User added with exit code:", value)
 
-home=readOntoFile("ontologies/test/homeassistant.owl")
-value = profonto.addDevice(home, "ProfHomeAssistant")  #read the device data
-print("Home assistant added with exit code:", value)
+
 
 device=readOntoFile("ontologies/test/lightagent.owl")
 value = profonto.addDevice(device, "device")  #read the device data
@@ -52,8 +53,8 @@ config=readOntoFile("ontologies/test/alan-config.owl")
 value = profonto.addConfiguration(config, "device", "device-Conf1", "alan")  #read the device configuration data
 print("Configuration added with exit code:", value)
 
-value=profonto.syncReasonerDataBehavior(); # sync the reasoner
-print("Data Behavior synchronized with exit code:", value)
+#value=profonto.syncReasonerDataBehavior(); # sync the reasoner
+#print("Data Behavior synchronized with exit code:", value)
 
 request=readOntoFile("ontologies/test/user-request.owl")
 value=profonto.acceptUserRequest(request, "http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1",
@@ -63,18 +64,26 @@ value=profonto.acceptUserRequest(request, "http://www.dmi.unict.it/user-request.
 
 print("Request output:", value)
 
+
+print("Testing parseRequest step 1...")
+request=readOntoFile("ontologies/test/user-request.owl")
+value=profonto.parseRequest(request)
+print ("Request:", value)
+
 value=profonto.removeUser("alan")  #remove user
 print("User removed with exit code:", value)
 value=profonto.removeDevice("device") #remove data
 print("Device removed with exit code:", value)
 
+print("Testing parseRequest step 2...")
 
-
-request=readOntoFile("ontologies/test/light-installation-request.owl")
+request=readOntoFile("ontologies/test/light-uninstallation-request.owl")
+print("Request red...")
 value=profonto.parseRequest(request)
+print("Printing request")
 print ("Request:", value)
 
-value=profonto.retrieveAssertions("http://www.dmi.unict.it/light-installation-request.owl#light-installation-req-ontology");
+value=profonto.retrieveAssertions("http://www.dmi.unict.it/light-uninstallation-request.owl#light-uninstallation-req-task");
 print ("Graph:", value)
 
 

@@ -104,7 +104,12 @@ public class mainTest
           {
             Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
           }
-                   
+        
+          if(!(new File("ontologies/devices/ProfHomeAssistant.owl").exists()))
+          {
+            InputStream assistantData=readData("ontologies/test/homeassistant.owl"); 
+            ontocore.addDevice(assistantData, "ProfHomeAssistant");
+          }           
          
         //Device
         String id= "dev"+ new Timestamp(new Date().getTime()).toString().replace(" ","").replace(":","").replace(".","");
@@ -117,21 +122,19 @@ public class mainTest
         InputStream ontologyData=readData("ontologies/test/lightagent.owl");        
         ontocore.addDevice(ontologyData, id);
         
-        if(!(new File("ontologies/devices/ProfHomeAssistant.owl").exists()))
-          {
-            InputStream assistantData=readData("ontologies/test/homeassistant.owl"); 
-            ontocore.addDevice(assistantData, "ProfHomeAssistant");
-          }
+      
         
         InputStream deviceConfig=readData("ontologies/test/alan-config.owl");
         ontocore.addDeviceConfiguration(deviceConfig, id, id+"Conf-1","ALAN");        
     
   
          InputStream request=readData("ontologies/test/user-request.owl");
+         System.out.println("Testing acceptUserRequest");
          Stream<OWLAxiom> res= ontocore.acceptUserRequest(request, "http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1", 
                                     "http://www.dmi.unict.it/ontoas/alan.owl#Alan",
                                     "http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1-exec",
                                     "http://www.dmi.unict.it/user-request.owl#alan-goal-1-1-1");
+         
          res.forEach(System.out::println);
 // remove an user and the related configurations        
 //        try
@@ -142,11 +145,17 @@ public class mainTest
 //            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
 //          }
         
+         
+         request=readData("ontologies/test/user-request.owl");   
+         System.out.println("Parse user request:");
+         res= ontocore.parseRequest(request);         
+         res.forEach(System.out::println);   
+
         try
           {            
             ontocore.removePermanentUser(userId);
             ontocore.removePermanentDevice(id);
-            ontocore.refreshDataBehavior();     
+           // ontocore.refreshDataBehavior();     
            
           }
         catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex)
@@ -154,8 +163,22 @@ public class mainTest
             Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
           }
           
-            
-            
+       request=readData("ontologies/test/light-installation-request.owl");
+       res= ontocore.parseRequest(request);
+       System.out.println("Request of device:");
+       if(res!=null)
+           {
+         res.forEach(System.out::println);        
+        
+         System.out.println();
+         System.out.println("Retrieve data:");
+         res=ontocore.retrieveAssertions("http://www.dmi.unict.it/light-installation-request.owl#light-installation-req-task");
+                                         
+         res.forEach(System.out::println);
+           }
+         else System.out.println("Request unsatisfiable");              
+       
+      
             
 //        try
 //          {              

@@ -50,8 +50,8 @@ config=readOntoFile("ontologies/test/alan-config.owl")
 value = profonto.addConfiguration(config, "device", "device-Conf1", "alan")  #read the device configuration data
 print("Configuration added with exit code:", value)
 
-value=profonto.syncReasonerDataBehavior(); # sync the reasoner
-print("Data Behavior synchronized with exit code:", value)
+#value=profonto.syncReasonerDataBehavior(); # sync the reasoner
+#print("Data Behavior synchronized with exit code:", value)
 
 request=readOntoFile("ontologies/test/user-request.owl")
 value=profonto.acceptUserRequest(request, "http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1",
