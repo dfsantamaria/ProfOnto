@@ -134,14 +134,14 @@ public class ProfontoEntryPoint
         return 0;
     }
 
-    public static String acceptUserRequest(String request, String IRItask, String IRIUser, String IRIExec, String IRIgoalexec)
-    {
-       Stream<OWLAxiom> res= ontocore.acceptUserRequest(getInputStream(request), IRItask, IRIUser, IRIExec, IRIgoalexec);
-       StringBuilder out=new StringBuilder();
-      // res.forEach(x->System.out.println(x.));
-       res.forEach(x->out.append(x.toString()).append("\n"));
-       return out.toString();
-    }
+//    public static String acceptUserRequest(String request, String IRItask, String IRIUser, String IRIExec, String IRIgoalexec)
+//    {
+//       Stream<OWLAxiom> res= ontocore.acceptUserRequest(getInputStream(request), IRItask, IRIUser, IRIExec, IRIgoalexec);
+//       StringBuilder out=new StringBuilder();
+//      // res.forEach(x->System.out.println(x.));
+//       res.forEach(x->out.append(x.toString()).append("\n"));
+//       return out.toString();
+//    }
     
     public static String parseRequest(String request)
       {

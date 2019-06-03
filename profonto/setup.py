@@ -1,6 +1,7 @@
 import subprocess
 import sys
 import os
+import re
 from pathlib import Path
 from distutils.dir_util import copy_tree
 
@@ -22,8 +23,11 @@ mvn="mvn clean install"
 p = subprocess.Popen(mvn, shell=True, stdout = subprocess.PIPE)
 stdout, stderr = p.communicate()
 print(stdout)
-print("Almost finished...")
-print("Copying required files...")
-copy_tree("ontologies", "target/ontologies")
-copy_tree("src/main/python", "target/python")
-print("Setup finished")
+if re.search('BUILD SUCCESS', stdout.decode('utf-8'), re.IGNORECASE):
+   print("Almost finished...")
+   print("Copying required files...")
+   copy_tree("ontologies", "target/ontologies")
+   copy_tree("src/main/python", "target/python")
+   print("Setup finished")
+else:
+    print("Uncompilable Java source")
