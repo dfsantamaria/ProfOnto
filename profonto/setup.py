@@ -2,9 +2,7 @@ import subprocess
 import sys
 import os
 import re
-from pathlib import Path
 from distutils.dir_util import copy_tree
-
 
 def install(package):
     subprocess.call([sys.executable, "-m", "pip", "install", package])
@@ -16,6 +14,10 @@ install('spacy')
 install('pyreadline')
 install('py4j')
 install('rdflib')
+install('pathlib')
+
+from pathlib import Path
+
 
 print("Running maven, please wait...")
 
