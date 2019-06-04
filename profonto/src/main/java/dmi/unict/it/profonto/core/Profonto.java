@@ -981,7 +981,7 @@ public class Profonto extends OntologyCore
             query+="?selected_device prof:performs "+ taskExec+" .\n";
             query+="<"+subqueryParam[1]+"> prof:hasTaskExecution "+taskExec + ".\n";
             query+=taskExec+" rdf:type prof:TaskExecution .\n";
-            query+=taskExec+" prof:hasTaskObject "+ "?device_object .\n";
+            query+=taskExec+" prof:hasTaskObject "+ "<"+subqueryParam[3]+">"+".\n";
             query+=taskExec+" prof:hasTaskOperator "+ "<"+subqueryParam[2]+">"+" .\n";
             
             query+="}\n";
