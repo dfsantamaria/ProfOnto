@@ -23,11 +23,18 @@ for the_file in os.listdir(folder):
         print(e)
 
 jar="java -jar Prof-Onto-1.0-SNAPSHOT.jar"
-process = subprocess.Popen(jar, shell=True, stdout = subprocess.PIPE)
+process = subprocess.Popen(jar, universal_newlines=True, stdout = subprocess.PIPE)
 #stdout, stderr = process.communicate()
-#print(stdout)
 
-time.sleep(10)
+welcome=''
+while True:
+  out = process.stdout.read(1)
+  if out != '\n':
+   welcome+=out
+  else:
+    break
+
+print(welcome)
 
 profontoGateWay = JavaGateway()                   # connect to the JVM
 profonto = profontoGateWay .entry_point
