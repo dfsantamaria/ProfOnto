@@ -163,7 +163,7 @@ public class mainTest
             Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
           }
           
-       request=readData("ontologies/test/light-installation-request.owl");
+       request=readData("ontologies/test/interpretation-request.owl");
        res= ontocore.parseRequest(request);
        System.out.println("Request of device:");
        if(res!=null)
@@ -172,7 +172,7 @@ public class mainTest
         
          System.out.println();
          System.out.println("Retrieve data:");
-         res=ontocore.retrieveAssertions("http://www.dmi.unict.it/light-installation-request.owl#light-installation-req-task");
+         res=ontocore.retrieveAssertions("http://www.dmi.unict.it/interpretation-request.owl#user-utterance-1");
                                          
          res.forEach(System.out::println);
            }
