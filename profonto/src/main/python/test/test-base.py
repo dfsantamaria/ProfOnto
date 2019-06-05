@@ -9,8 +9,10 @@ def readOntoFile(file):
  return f.read()
 
 
-p = Path(__file__).parents[1]
+
+p = Path(__file__).parents[2]
 os.chdir(p)
+
 
 folder = 'ontologies/devices'
 for the_file in os.listdir(folder):
@@ -39,14 +41,15 @@ print(welcome)
 profontoGateWay = JavaGateway()                   # connect to the JVM
 profonto = profontoGateWay .entry_point
 
+home=readOntoFile("ontologies/test/homeassistant.owl")
+value = profonto.addDevice(home, "ProfHomeAssistant")  #read the device data
+print("Home assistant added with exit code:", value)
 
 user=readOntoFile("ontologies/test/alan.owl")
 value = profonto.addUser(user, "alan")  #read the user data
 print("User added with exit code:", value)
 
-home=readOntoFile("ontologies/test/homeassistant.owl")
-value = profonto.addDevice(home, "ProfHomeAssistant")  #read the device data
-print("Home assistant added with exit code:", value)
+
 
 device=readOntoFile("ontologies/test/lightagent.owl")
 value = profonto.addDevice(device, "device")  #read the device data
@@ -65,20 +68,32 @@ print("Configuration added with exit code:", value)
 #                                                                                 "http://www.dmi.unict.it/ontoas/alan.owl#Alan",
 #                                                                "http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1-exec",
 #                                                                     "http://www.dmi.unict.it/user-request.owl#alan-goal-1-1-1");
-#
-# print("Request output:", value)
+#print("Request output:", value)
+
 
 print("Testing parseRequest step 1...")
 request=readOntoFile("ontologies/test/user-request.owl")
 value=profonto.parseRequest(request)
 print ("Request:", value)
 
-
 value=profonto.removeUser("alan")  #remove user
 print("User removed with exit code:", value)
 value=profonto.removeDevice("device") #remove data
 print("Device removed with exit code:", value)
-value=profonto.removeDevice("ProfHomeAssistant") #remove data
+
+print("Testing parseRequest step 2...")
+
+request=readOntoFile("ontologies/test/light-uninstallation-request.owl")
+print("Request red...")
+value=profonto.parseRequest(request)
+print("Printing request")
+print ("Request:", value)
+
+value=profonto.retrieveAssertions("http://www.dmi.unict.it/light-uninstallation-request.owl#light-uninstallation-req-task");
+print ("Graph:", value)
+
+
+value=profonto.removeDevice("ProfHomeAssistant") #remove assistant
 print("Home assistant removed with exit code:", value)
 
 

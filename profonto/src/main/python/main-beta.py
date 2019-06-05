@@ -1,21 +1,26 @@
 import sys
 
-sys.path.insert(0, "./lib")
-
 from py4j.java_gateway import JavaGateway
 import subprocess
 import os
 import time
 import socket
 
-from phidias.Types import *
-from phidias.Main import *
-from phidias.Lib import *
-
 from pathlib import Path
 from threading import *
 
 profonto=''
+
+
+def getProcessOut(process):
+  welcome=''
+  while True:
+    out = process.stdout.read(1)
+    if out != '\n':
+        welcome += out
+    else:
+        break
+  return welcome
 
 class client(Thread):
     def __init__(self, socket, address):
@@ -45,15 +50,7 @@ def init_gateway():
     jar = "java -jar Prof-Onto-1.0-SNAPSHOT.jar"
     process = subprocess.Popen(jar, universal_newlines=True, stdout=subprocess.PIPE)
     # stdout, stderr = process.communicate()
-    welcome = ''
-    while True:
-        out = process.stdout.read(1)
-        if out != '\n':
-            welcome += out
-        else:
-            break
-    print(welcome)
-
+    print(getProcessOut(process))
     profontoGateWay = JavaGateway()  # connect to the JVM
     profonto = profontoGateWay.entry_point
     return
@@ -72,10 +69,11 @@ def init_server():
       return
 
 
-class launch(Procedure): pass
+
+phydiasProcess = subprocess.Popen(["python","phydias-start.py"], universal_newlines=True, shell=True, stdout=subprocess.PIPE)
+print(getProcessOut(phydiasProcess))
+
+init_gateway()
+init_server()
 
 
-launch() >>  [init_gateway(), init_server()]
-
-PHIDIAS.run()
-#PHIDIAS.shell(globals())
