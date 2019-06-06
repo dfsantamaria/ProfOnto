@@ -9,8 +9,6 @@ import socket
 from pathlib import Path
 from threading import *
 
-profonto=''
-
 
 def getProcessOut(process):
   welcome=''
@@ -63,17 +61,10 @@ def init_server():
       serversocket.bind((host, port))
       serversocket.listen(5)
       print("Prof-Onto Assistant has been started: send requests to:", host, "port ", port)
+      # Manage me suitably
+      PHIDIAS.achieve(say_hello())
+      #
       while 1:
           clientsocket, address = serversocket.accept()
           client(clientsocket, address)
       return
-
-
-
-phydiasProcess = subprocess.Popen(["python","phydias-start.py"], universal_newlines=True, shell=True, stdout=subprocess.PIPE)
-print(getProcessOut(phydiasProcess))
-
-init_gateway()
-init_server()
-
-
