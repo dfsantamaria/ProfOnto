@@ -9,9 +9,11 @@ Corrado Santoro - santoro@dmi.unict.it
 
 Prof-Onto
 
-Prof-Onto is a domotic system based on the ontology OASIS - an Ontology for Agent Systems and Integration of Services.
+Prof-Onto is a domotic system based on the ontology OASIS - an Ontology for Agent Systems and Integration of Services 
+(http://www.dmi.unict.it/~santamaria/projects/oasis/oasis.php)- and exploiting  Phidias - PytHon Interactive Declarative 
+Intelligent Agent System (https://github.com/corradosantoro/phidias) - 
 
-Version 1.0. In the current version, Prof-Onto is a domotic simulation enviroment, i.e, no physical devices can be actually connected but
+Version 0.1. In the current version, Prof-Onto is a domotic simulation enviroment, i.e, no physical devices can be actually connected but
 communications are emulated via OWL serialized files.
 
 
