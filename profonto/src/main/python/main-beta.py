@@ -9,7 +9,6 @@ import socket
 from pathlib import Path
 from threading import *
 
-
 def getProcessOut(process):
   welcome=''
   while True:
@@ -60,11 +59,32 @@ def init_server():
       port = 8000
       serversocket.bind((host, port))
       serversocket.listen(5)
-      print("Prof-Onto Assistant has been started: send requests to:", host, "port ", port)
-      # Manage me suitably
+      print("Prof-Onto Assistant has been started, send requests to:", host, "port ", port)
+      #Manage me suitably
       PHIDIAS.achieve(say_hello())
       #
       while 1:
           clientsocket, address = serversocket.accept()
           client(clientsocket, address)
       return
+
+
+
+#################################################PHIDIAS PART ##############################
+
+sys.path.insert(0, "./lib")
+
+from phidias.Types  import *
+from phidias.Main import *
+from phidias.Lib import *
+
+
+class say_hello(Procedure): pass
+
+say_hello() >> [ show_line("Hello world from Phidias") ]
+
+################################################ END PHIDIAS PART ##########################
+
+PHIDIAS.run()
+init_gateway()
+init_server()
