@@ -1,5 +1,8 @@
 import sys
 
+sys.path.insert(0, "./lib")
+from phidiasbind import *
+
 from py4j.java_gateway import JavaGateway
 import subprocess
 import os
@@ -68,22 +71,6 @@ def init_server():
           client(clientsocket, address)
       return
 
-
-
-#################################################PHIDIAS PART ##############################
-
-sys.path.insert(0, "./lib")
-
-from phidias.Types  import *
-from phidias.Main import *
-from phidias.Lib import *
-
-
-class say_hello(Procedure): pass
-
-say_hello() >> [ show_line("Hello world from Phidias") ]
-
-################################################ END PHIDIAS PART ##########################
 
 PHIDIAS.run()
 init_gateway()
