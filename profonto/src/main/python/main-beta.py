@@ -30,10 +30,14 @@ class client(Thread):
         self.start()
 
     def run(self):
+        message=''
         while 1:
-            print('Client sent:', self.sock.recv(1024).decode())
-            self.sock.send(b'Oi you sent something to me')
-
+          data=self.sock.recv(1024).decode()
+                       #self.sock.send(b'you sent something to me')
+          if not data:
+             break
+          message+=data
+        print('Client sent:', message)
 
 def init_gateway():
     p = Path(__file__).parents[1]
@@ -63,9 +67,6 @@ def init_server():
       serversocket.bind((host, port))
       serversocket.listen(5)
       print("Prof-Onto Assistant has been started, send requests to:", host, "port ", port)
-      #Manage me suitably
-      PHIDIAS.achieve(say_hello())
-      #
       while 1:
           clientsocket, address = serversocket.accept()
           client(clientsocket, address)
@@ -73,5 +74,6 @@ def init_server():
 
 
 PHIDIAS.run()
+PHIDIAS.achieve(welcome())
 init_gateway()
 init_server()

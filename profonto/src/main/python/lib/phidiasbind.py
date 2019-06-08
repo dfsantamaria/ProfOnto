@@ -7,8 +7,8 @@ from phidias.Main import *
 from phidias.Lib import *
 
 
-class say_hello(Procedure): pass
+class welcome(Procedure): pass
 
-say_hello() >> [ show_line("Hello world from Phidias") ]
+welcome() >> [ show_line("Phidias has been started, welcome!") ]
 
 ################################################ END PHIDIAS PART ##########################
