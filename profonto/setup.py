@@ -9,12 +9,13 @@ def install(package):
 
 print("Installing required python packages, please wait...")
 
-install('telegram')
+install('nltk')
 install('spacy')
 install('pyreadline')
 install('py4j')
 install('rdflib')
 install('pathlib')
+
 
 from pathlib import Path
 
