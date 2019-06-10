@@ -32,7 +32,7 @@ class Decide_Action(Action):
 
 
 def_vars("rdf_source")
-welcome() >> [ show_line("Phidias has been started, welcome!") ]
+welcome() >> [ show_line("Phidias has been started. Wait for Prof-Onto to start") ]
 decide(rdf_source) >> [Decide_Action(rdf_source)]
 
 ################################################ END PHIDIAS PART ##########################
