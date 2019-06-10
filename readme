@@ -44,7 +44,13 @@ whether oral or written, obtained by you from the BGS or from the BGS web site s
 
 Instructions:
 
-Notice that Pyhton 3.7 is required.
+- Notice that Pyhton 3.7 is required.
+
+- Refer to the paper:
+  "Towards an Ontology-Based Framework for a Behavior-Oriented Integration of the IoT, by Domenico Cantone, Carmelo 
+  Fabio Longo, Marianna Nicolosi-Asmundo, Daniele Francesco Santamaria, and Corrado Santoro, in Proceedings of the 20th Workshop
+  From Objects to Agents, 26-28 June, 2019, Parma, Italy, CEUR Workshop Proceedings"
+  for an explanation of the ontology.
 
 1) Download. 
    1.1)Use git clone or download the source code from GitHub.
