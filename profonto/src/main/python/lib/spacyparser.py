@@ -117,12 +117,12 @@ class SpaCyEnParser:
 
 
 dep = SpaCyEnParser('turn off the light')
-intentions = dep.getIntentions()
-print(intensions)
-modificators = dep.getModificators()
-print(modificators)
-temp_modificators = dep.getTemp_modificators()
-print(temp_modificators)
-conditionals = dep.getConditionals()
-print(conditionals)
 
+intentions = dep.getIntentions()
+#print("Intentions: ", intensions)
+modificators = dep.getModificators()
+print("Modificators: ", modificators)
+temp_modificators = dep.getTemp_modificators()
+print("Temp modificators: ",temp_modificators)
+conditionals = dep.getConditionals()
+print("Conditionals: ",conditionals)

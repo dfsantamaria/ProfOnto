@@ -17,6 +17,8 @@ install('rdflib')
 install('pathlib')
 
 
+subprocess.call([sys.executable, "-m", "spacy", "download", "en"])
+
 from pathlib import Path
 
 
