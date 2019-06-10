@@ -51,12 +51,14 @@ Notice that Pyhton 3.7 is required.
 
 2) Setup. 
    2.1) Make sure that Python, Maven, and Java are in your system path.
-   2.2) Locate and run the setup.py file in main folder. Wait for the installation.
-   2.3) You can now delete the src folder.
+   2.2) Locate and run the "setup.py" file in the folder "main". Wait for the installation and make sure maven terminates without errors.
+   2.3) You can now delete the folder "src". All required files are in the folder "target"
 
 3) Running. 
-   3.1) The folder target/python/test contains two examples, main-test.pay and  client-test.py which show the overall functioning of the 
-        domotic assistant. The file main-beta.py in the folder target/python will run a beta version of the domotic assistant.
+   3.1) The folder "target/python/test" contains two examples, "main-test.pay" and  "client-test.py" which show the overall functioning of 
+        the domotic assistant. 
+        The file "main-beta.py" in the folder "target/python" runs a beta version of the domotic assistant and will be the main file
+        of the stable version. Stay tuned for updates.
    
    
 
