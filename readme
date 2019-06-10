@@ -55,7 +55,9 @@ Notice that Pyhton 3.7 is required.
    2.3) You can now delete the src folder.
 
 3) Running. 
-   3.1) Locate and run the file main-test or test-base.py in target/python folder. These files contains some example of using the 
-        current version of the assistant.
+   3.1) The folder target/python/test contains two examples, main-test.pay and  client-test.py which show the overall functioning of the 
+        domotic assistant. The file main-beta.py in the folder target/python will run a beta version of the domotic assistant.
+   
+   
 
 
