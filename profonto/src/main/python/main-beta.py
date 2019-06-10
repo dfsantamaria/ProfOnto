@@ -1,16 +1,45 @@
 import sys
-
 sys.path.insert(0, "./lib")
-from phidiasbind import *
 
 from py4j.java_gateway import JavaGateway
 import subprocess
 import os
 import time
 import socket
-
 from pathlib import Path
 from threading import *
+
+profonto = ''
+
+
+
+#################################################PHIDIAS PART ##############################
+
+
+
+from phidias.Types  import *
+from phidias.Main import *
+from phidias.Lib import *
+from shared import*
+
+class welcome(Procedure): pass
+class decide(Procedure): pass
+
+
+class Decide_Action(Action):
+    def execute(self, rdf_source):
+       value = profonto.parseRequest(rdf_source())
+       print("Client send request:", value)
+
+
+
+def_vars("rdf_source")
+welcome() >> [ show_line("Phidias has been started, welcome!") ]
+decide(rdf_source) >> [Decide_Action(rdf_source)]
+
+################################################ END PHIDIAS PART ##########################
+
+
 
 def readOntoFile(file):
  f=open(file,"r")
@@ -41,11 +70,11 @@ class client(Thread):
           if not data:
              break
           request+=data
-        print(request)
-        value = profonto.parseRequest(request)
-        print ("Client send request:", value)
+        #print(request)
+        PHIDIAS.achieve(decide(request))
 
 def init_gateway():
+    global profonto
     p = Path(__file__).parents[1]
     os.chdir(p)
     folder = 'ontologies/devices'
@@ -63,7 +92,7 @@ def init_gateway():
     print(getProcessOut(process))
     profontoGateWay = JavaGateway()  # connect to the JVM
     profonto = profontoGateWay.entry_point
-    return profonto
+
 
 
 def init_server():
@@ -81,12 +110,13 @@ def init_server():
 
 PHIDIAS.run()
 PHIDIAS.achieve(welcome())
-profonto=init_gateway()
+init_gateway()
 
 #Adding HomeAssistant
 home=readOntoFile("ontologies/test/homeassistant.owl")
 value = profonto.addDevice(home, "ProfHomeAssistant")  #read the device data
 print("Home assistant added with exit code:", value)
-
+###
 
 init_server()
+

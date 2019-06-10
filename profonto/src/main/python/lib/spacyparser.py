@@ -30,7 +30,7 @@ class SpaCyEnParser:
         doc = nlp(message)
 
         for token in doc:
-            print("{0} --{1}--> {2}".format(token.head.text, token.dep_, token.text))
+         #   print("{0} --{1}--> {2}".format(token.head.text, token.dep_, token.text))
 
             if token.dep_ == "ROOT":
                 root = token.head.text
@@ -114,15 +114,3 @@ class SpaCyEnParser:
 
     def getConditionals(self):
             return self.conditionals
-
-
-dep = SpaCyEnParser('turn off the light')
-
-intentions = dep.getIntentions()
-#print("Intentions: ", intensions)
-modificators = dep.getModificators()
-print("Modificators: ", modificators)
-temp_modificators = dep.getTemp_modificators()
-print("Temp modificators: ",temp_modificators)
-conditionals = dep.getConditionals()
-print("Conditionals: ",conditionals)
