@@ -3,13 +3,16 @@ import sys
 import os
 import re
 from distutils.dir_util import copy_tree
+from pathlib import Path
 
 def install(package):
     subprocess.call([sys.executable, "-m", "pip", "install", package])
 
 print("Installing required python packages, please wait...")
 
-install('nltk')
+#Uncomment the following line when wordnet will be required
+#install('nltk')
+
 install('spacy')
 install('pyreadline')
 install('py4j')
@@ -19,7 +22,11 @@ install('pathlib')
 
 subprocess.call([sys.executable, "-m", "spacy", "download", "en"])
 
-from pathlib import Path
+#Uncomment the following two lines when wordnet will be required
+#import nltk
+#nltk.download('wordnet')
+
+
 
 
 print("Running maven, please wait...")
