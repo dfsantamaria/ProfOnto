@@ -29,7 +29,7 @@ p = subprocess.Popen(mvn, shell=True, stdout = subprocess.PIPE)
 stdout, stderr = p.communicate()
 print(stdout.decode('utf-8'))
 
-if  stderr is None:
+if  stderr is None :
    print("Almost finished...")
    print("Copying required files...")
    copy_tree("ontologies", "target/ontologies")

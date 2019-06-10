@@ -8,6 +8,10 @@ import time
 import socket
 from pathlib import Path
 from threading import *
+from phidias.Types  import *
+from phidias.Main import *
+from phidias.Lib import *
+
 
 profonto = ''
 
@@ -15,12 +19,6 @@ profonto = ''
 
 #################################################PHIDIAS PART ##############################
 
-
-
-from phidias.Types  import *
-from phidias.Main import *
-from phidias.Lib import *
-from shared import*
 
 class welcome(Procedure): pass
 class decide(Procedure): pass
