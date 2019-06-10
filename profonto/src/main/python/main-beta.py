@@ -12,15 +12,19 @@ import socket
 from pathlib import Path
 from threading import *
 
+def readOntoFile(file):
+ f=open(file,"r")
+ return f.read()
+
 def getProcessOut(process):
-  welcome=''
+  message=''
   while True:
     out = process.stdout.read(1)
     if out != '\n':
-        welcome += out
+        message += out
     else:
         break
-  return welcome
+  return message
 
 class client(Thread):
     def __init__(self, socket, address):
@@ -30,14 +34,16 @@ class client(Thread):
         self.start()
 
     def run(self):
-        message=''
+        request=''
         while 1:
           data=self.sock.recv(1024).decode()
                        #self.sock.send(b'you sent something to me')
           if not data:
              break
-          message+=data
-        print('Client sent:', message)
+          request+=data
+        print(request)
+        value = profonto.parseRequest(request)
+        print ("Client send request:", value)
 
 def init_gateway():
     p = Path(__file__).parents[1]
@@ -57,7 +63,7 @@ def init_gateway():
     print(getProcessOut(process))
     profontoGateWay = JavaGateway()  # connect to the JVM
     profonto = profontoGateWay.entry_point
-    return
+    return profonto
 
 
 def init_server():
@@ -75,5 +81,12 @@ def init_server():
 
 PHIDIAS.run()
 PHIDIAS.achieve(welcome())
-init_gateway()
+profonto=init_gateway()
+
+#Adding HomeAssistant
+home=readOntoFile("ontologies/test/homeassistant.owl")
+value = profonto.addDevice(home, "ProfHomeAssistant")  #read the device data
+print("Home assistant added with exit code:", value)
+
+
 init_server()

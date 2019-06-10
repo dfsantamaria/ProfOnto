@@ -995,9 +995,10 @@ public class Profonto extends OntologyCore
             res=performQuery(ontology,query);
             //res.axioms().forEach(System.out::println);         
           }
-        catch (OWLOntologyCreationException | OWLOntologyStorageException ex)   
+        catch (Exception ex)   
           {
             Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            return Stream.of();
           }
         if(res.axioms().count()==0) 
             return null;

@@ -9,7 +9,7 @@ def readOntoFile(file):
 p = Path(__file__).parents[2]
 os.chdir(p)
 
-home=readOntoFile("ontologies/test/homeassistant.owl")
+home=readOntoFile("ontologies/test/user-request.owl")
 
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect(('localhost', 8000))
