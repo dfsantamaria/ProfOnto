@@ -12,43 +12,124 @@
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
-    <Import>http://www.dmi.unict.it/oasis.owl</Import>
     <Import>http://www.dmi.unict.it/oasis-abox.owl</Import>
+    <Import>http://www.dmi.unict.it/oasis.owl</Import>
     <Declaration>
-        <NamedIndividual IRI="#profHomeExecuteUserRequest"/>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Behavior"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#usertoaddorremove"/>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ComponentType"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#goal-profHomeInstallDevice"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#profHomeUninstallDevice"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#profHomeParseUtterance"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskObject"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskOperator"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#userUtterance"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#profHomeInstallDevice"/>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Device"/>
     </Declaration>
     <Declaration>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#EnviromentComponent"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#task-profHomeParseUtterance"/>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#GoalDescription"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#HomeObjectType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskDescription"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskObject"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#consistsOfGoalDescription"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#consistsOfTaskDescription"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasBehavior"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasDeviceType"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasObjectType"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskOperator"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasType"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#add"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#agent_type"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#execute"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#generalRequest"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#generalUtterance"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#home_object_type"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#install"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#parse"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#uninstall"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#goal-profHomeAddUser"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#goal-profHomeExecuteUserRequest"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#goal-profHomeInstallDevice"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#goal-profHomeParseUtterance"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#goal-profHomeRemoveUser"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#goal-profHomeUninstallDevice"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#profHomeAddUser"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#profHomeDeviceInstallationObject"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#profHomeExecuteUserRequest"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#profHomeInstallDevice"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#profHomeParseUtterance"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#profHomeRemoveUser"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#profHomeUninstallDevice"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#profonto-home"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#task-profHomeAddUser"/>
@@ -60,64 +141,22 @@
         <NamedIndividual IRI="#task-profHomeInstallDevice"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#profHomeDeviceInstallationObject"/>
+        <NamedIndividual IRI="#task-profHomeParseUtterance"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#goal-profHomeExecuteUserRequest"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#consistsOfTaskDescription"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#profHomeAddUser"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#Device"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasType"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#HomeObjectType"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskDescription"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#userRequest"/>
+        <NamedIndividual IRI="#task-profHomeRemoveUser"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#task-profHomeUninstallDevice"/>
     </Declaration>
     <Declaration>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#Behavior"/>
+        <NamedIndividual IRI="#userRequest"/>
     </Declaration>
     <Declaration>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#GoalDescription"/>
+        <NamedIndividual IRI="#userUtterance"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#consistsOfGoalDescription"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#goal-profHomeParseUtterance"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#goal-profHomeUninstallDevice"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasDeviceType"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasBehavior"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#goal-profHomeAddUser"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#profonto-home"/>
+        <NamedIndividual IRI="#usertoaddorremove"/>
     </Declaration>
     <SubClassOf>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#HomeObjectType"/>
@@ -141,6 +180,10 @@
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#GoalDescription"/>
+        <NamedIndividual IRI="#goal-profHomeRemoveUser"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#GoalDescription"/>
         <NamedIndividual IRI="#goal-profHomeUninstallDevice"/>
     </ClassAssertion>
     <ClassAssertion>
@@ -169,6 +212,10 @@
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#Behavior"/>
+        <NamedIndividual IRI="#profHomeRemoveUser"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Behavior"/>
         <NamedIndividual IRI="#profHomeUninstallDevice"/>
     </ClassAssertion>
     <ClassAssertion>
@@ -190,6 +237,10 @@
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskDescription"/>
         <NamedIndividual IRI="#task-profHomeParseUtterance"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskDescription"/>
+        <NamedIndividual IRI="#task-profHomeRemoveUser"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskDescription"/>
@@ -226,6 +277,11 @@
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#consistsOfTaskDescription"/>
         <NamedIndividual IRI="#goal-profHomeParseUtterance"/>
         <NamedIndividual IRI="#task-profHomeParseUtterance"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#consistsOfTaskDescription"/>
+        <NamedIndividual IRI="#goal-profHomeRemoveUser"/>
+        <NamedIndividual IRI="#task-profHomeRemoveUser"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#consistsOfTaskDescription"/>
@@ -259,6 +315,11 @@
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#consistsOfGoalDescription"/>
+        <NamedIndividual IRI="#profHomeRemoveUser"/>
+        <NamedIndividual IRI="#goal-profHomeRemoveUser"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#consistsOfGoalDescription"/>
         <NamedIndividual IRI="#profHomeUninstallDevice"/>
         <NamedIndividual IRI="#goal-profHomeUninstallDevice"/>
     </ObjectPropertyAssertion>
@@ -281,6 +342,11 @@
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasBehavior"/>
         <NamedIndividual IRI="#profonto-home"/>
         <NamedIndividual IRI="#profHomeParseUtterance"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasBehavior"/>
+        <NamedIndividual IRI="#profonto-home"/>
+        <NamedIndividual IRI="#profHomeRemoveUser"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasBehavior"/>
@@ -334,6 +400,16 @@
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
+        <NamedIndividual IRI="#task-profHomeRemoveUser"/>
+        <NamedIndividual IRI="#usertoaddorremove"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskOperator"/>
+        <NamedIndividual IRI="#task-profHomeRemoveUser"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#remove"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
         <NamedIndividual IRI="#task-profHomeUninstallDevice"/>
         <NamedIndividual IRI="#profHomeDeviceInstallationObject"/>
     </ObjectPropertyAssertion>
@@ -361,5 +437,5 @@
 
 
 
-<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
 
