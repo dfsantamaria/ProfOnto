@@ -14,6 +14,9 @@
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Import>http://www.dmi.unict.it/oasis.owl/0.0.1</Import>
     <Declaration>
+        <NamedIndividual IRI="#add"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="#generalUtterance"/>
     </Declaration>
     <Declaration>
@@ -35,11 +38,25 @@
         <NamedIndividual IRI="#generalRequest"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="#agent_type"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="#execute"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#home_object_type"/>
     </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#remove"/>
+    </Declaration>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
+        <NamedIndividual IRI="#add"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#AgentType"/>
+        <NamedIndividual IRI="#agent_type"/>
+    </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
         <NamedIndividual IRI="#execute"/>
@@ -71,6 +88,10 @@
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
         <NamedIndividual IRI="#parse"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
+        <NamedIndividual IRI="#remove"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>

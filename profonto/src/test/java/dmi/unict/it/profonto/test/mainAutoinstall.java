@@ -136,5 +136,14 @@ public class mainAutoinstall
            }
          else System.out.println("Request unsatisfiable");              
        
+       System.out.println("Add user request");
+       request=readData("ontologies/test/add-user-request.owl");         
+       res= ontocore.parseRequest(request).axioms();
+       System.out.println("Request of device:");
+       if(res!=null)
+           {
+              res.forEach(System.out::println);   
+           } 
+       
       }
   }

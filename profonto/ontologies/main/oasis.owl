@@ -141,6 +141,9 @@
         <NamedIndividual IRI="#greatherThan"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#hasMessagePart"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="#adoptsAgentBehaviorTemplate"/>
     </Declaration>
     <Declaration>
@@ -222,6 +225,9 @@
         <ObjectProperty IRI="#setUpFrom"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#MessagePart"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#ServiceObject"/>
     </Declaration>
     <Declaration>
@@ -237,10 +243,10 @@
         <ObjectProperty IRI="#hasTaskParameter"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasStatus"/>
+        <Class IRI="#Connection"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Connection"/>
+        <ObjectProperty IRI="#hasStatus"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasParameter"/>
@@ -261,6 +267,9 @@
         <ObjectProperty IRI="#consistsOfTaskDescription"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#MessageDescriptor"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="#hasConditionalRestrictionParameter"/>
     </Declaration>
     <Declaration>
@@ -271,6 +280,9 @@
     </Declaration>
     <Declaration>
         <Class IRI="#SoftwareAgentBehaviorTemplate"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasMessageParameter"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#consistsOfTaskEntrustment"/>
@@ -324,10 +336,10 @@
         <ObjectProperty IRI="#requestService"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#PlanPart"/>
+        <Class IRI="#GoalPart"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#GoalPart"/>
+        <Class IRI="#PlanPart"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#hasScheduleRepetition"/>
@@ -444,6 +456,9 @@
         <ObjectProperty IRI="#hasBeliefDescriptor"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#MessageOperator"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#Actuator"/>
     </Declaration>
     <Declaration>
@@ -478,6 +493,9 @@
     </Declaration>
     <Declaration>
         <Class IRI="#ServiceDescriptor"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasMessageOperator"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#providesService"/>
@@ -567,6 +585,9 @@
         <ObjectProperty IRI="#messageDeliveredTo"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#MessageObject"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#ConditionalRestrictionOperator"/>
     </Declaration>
     <Declaration>
@@ -622,6 +643,9 @@
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#cosistsOfTaskExecution"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MessageParameter"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Service"/>
@@ -711,6 +735,9 @@
         <Class IRI="#PhysicalSpace"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#AgentType"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#ConditionalDescriptor"/>
     </Declaration>
     <Declaration>
@@ -748,6 +775,9 @@
     </Declaration>
     <Declaration>
         <Class IRI="#SmartContractType"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasMessageObject"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasConfiguration"/>
@@ -826,6 +856,10 @@
     <SubClassOf>
         <Class IRI="#AgentBehaviorTemplate"/>
         <Class IRI="#BehaviorTemplate"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#AgentType"/>
+        <Class IRI="#Type"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Agent_Configuration"/>
@@ -1062,6 +1096,26 @@
     <SubClassOf>
         <Class IRI="#Message"/>
         <Class IRI="#DescriptionObject"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#Message"/>
+        <Class IRI="#MessagePart"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MessageDescriptor"/>
+        <Class IRI="#Descriptor"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MessageObject"/>
+        <Class IRI="#MessageDescriptor"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MessageOperator"/>
+        <Class IRI="#MessageDescriptor"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#MessageParameter"/>
+        <Class IRI="#MessageDescriptor"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#ObjectType"/>
@@ -1568,6 +1622,30 @@
         <ObjectProperty IRI="#hasFeature"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasMessageObject"/>
+        <ObjectProperty IRI="#hasMessagePart"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasMessageObject"/>
+        <ObjectProperty IRI="#hasObject"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasMessageOperator"/>
+        <ObjectProperty IRI="#hasMessagePart"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasMessageOperator"/>
+        <ObjectProperty IRI="#hasOperator"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasMessageParameter"/>
+        <ObjectProperty IRI="#hasMessagePart"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasMessageParameter"/>
+        <ObjectProperty IRI="#hasParameter"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasObjectType"/>
         <ObjectProperty IRI="#hasType"/>
     </SubObjectPropertyOf>
@@ -1750,6 +1828,38 @@
         <Class IRI="#Configuration"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
+        <ObjectProperty IRI="#consistsOfConnectionEntry"/>
+        <Class IRI="#Connection"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#consistsOfEntrustment"/>
+        <Class IRI="#EntrustmentActivity"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#consistsOfGoalDescription"/>
+        <Class IRI="#Behavior"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#consistsOfGoalEntrustment"/>
+        <Class IRI="#PlanEntrustment"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#consistsOfGoalExecution"/>
+        <Class IRI="#PlanExecution"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#consistsOfSmartContractEntry"/>
+        <Class IRI="#SmartContract"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#consistsOfTaskEntrustment"/>
+        <Class IRI="#GoalEntrustment"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#cosistsOfTaskExecution"/>
+        <Class IRI="#GoalExecution"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
         <ObjectProperty IRI="#definesSmartContractEntryType"/>
         <Class IRI="#SmartContractType"/>
     </ObjectPropertyDomain>
@@ -1855,6 +1965,18 @@
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasGoalExecution"/>
         <Class IRI="#GoalDescription"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasMessageObject"/>
+        <Class IRI="#Message"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasMessageOperator"/>
+        <Class IRI="#Message"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasMessageParameter"/>
+        <Class IRI="#Message"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasObjectType"/>
@@ -2155,6 +2277,18 @@
         <Class IRI="#Implementation"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasMessageObject"/>
+        <Class IRI="#MessageObject"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasMessageOperator"/>
+        <Class IRI="#MessageOperator"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasMessageParameter"/>
+        <Class IRI="#MessageParameter"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
         <ObjectProperty IRI="#hasObjectType"/>
         <Class IRI="#ObjectType"/>
     </ObjectPropertyRange>
@@ -2414,6 +2548,11 @@
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#AgentBehaviorTemplate</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Agent behavior template</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#AgentType</IRI>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Agent type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -2949,6 +3088,31 @@
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Message</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Message</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#MessageDescriptor</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Message descriptor</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#MessageObject</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Message object</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#MessageOperator</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Message operator</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#MessageParameter</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Message parameter</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#MessagePart</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Message part</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -3603,7 +3767,7 @@
     <AnnotationAssertion>
         <AnnotationProperty IRI="#isFoundInEntity"/>
         <IRI>#hasBeliefOperator</IRI>
-        <AnonymousIndividual nodeID="_:genid8"/>
+        <AnonymousIndividual nodeID="_:genid3"/>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>

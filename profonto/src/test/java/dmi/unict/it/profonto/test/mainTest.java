@@ -180,8 +180,7 @@ public class mainTest
            }
          else System.out.println("Request unsatisfiable");              
        
-      
-            
+    
 //        try
 //          {              
 //            ontocore.removePermanentDevice(id);
