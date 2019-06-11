@@ -144,6 +144,14 @@ public class mainAutoinstall
            {
               res.forEach(System.out::println);   
            } 
+       System.out.println("Remove user request");
+       request=readData("ontologies/test/remove-user-request.owl");         
+       res= ontocore.parseRequest(request).axioms();
+       System.out.println("Request of device:");
+       if(res!=null)
+           {
+              res.forEach(System.out::println);   
+           } 
        
       }
   }

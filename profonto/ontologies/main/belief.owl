@@ -79,6 +79,18 @@
     <Declaration>
         <NamedIndividual IRI="http://www.dmi.unict.it/profonto-home.owl#profonto-home"/>
     </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-goal"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-plan"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-task"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-task_execution"/>
+    </Declaration>
     <SubClassOf>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#ActionPart"/>
         <Class abbreviatedIRI="owl:Thing"/>
@@ -847,6 +859,86 @@
         <Class abbreviatedIRI="owl:Thing"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#alan"/>
     </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#BehaviorPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-goal"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#DescriptionObject"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-goal"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#GoalDescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-goal"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#GoalPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-goal"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#RequestDescriptionObject"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-goal"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-goal"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Behavior"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-plan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#BehaviorPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-plan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#DescriptionObject"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-plan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#PlanDescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-plan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#PlanPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-plan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#RequestDescriptionObject"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-plan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-plan"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#BehaviorPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-task"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#DescriptionObject"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-task"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#RequestDescriptionObject"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-task"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskDescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-task"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskPart"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-task"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class abbreviatedIRI="owl:Thing"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-task"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskExecution"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-task_execution"/>
+    </ClassAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#consistsOf"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/add-user-request.owl#add-user-req-goal"/>
@@ -1088,6 +1180,11 @@
         <NamedIndividual IRI="http://www.dmi.unict.it/add-user-request.owl#add-user-req-plan"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#requests"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#alan"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-plan"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#performs"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/profonto-home.owl#profonto-home"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/add-user-request.owl#add-user-req-task_execution"/>
@@ -1096,6 +1193,101 @@
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#performs"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/profonto-home.owl#profonto-home"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/light-uninstallation-request.owl#light-uninstallation-req-task_execution"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#performs"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/profonto-home.owl#profonto-home"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-task_execution"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#consistsOf"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-goal"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-task"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#consistsOfDescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-goal"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-task"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#consistsOfTaskDescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-goal"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-task"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#consistsOf"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-plan"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-goal"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#consistsOf"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-plan"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-task"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#consistsOfDescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-plan"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-goal"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#consistsOfGoalDescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-plan"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-goal"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasDescriptor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-task"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#add"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasDescriptor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-task"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#alan"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasObject"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-task"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#alan"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasOperator"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-task"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#add"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskDescriptor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-task"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#add"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskDescriptor"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-task"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#alan"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskExecution"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-task"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-task_execution"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-task"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#alan"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskOperator"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-task"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#add"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-task_execution"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#alan"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskOperator"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-req-task_execution"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#add"/>
     </ObjectPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.dmi.unict.it/oasis.owl#descriptionProvidedByIRI"/>
