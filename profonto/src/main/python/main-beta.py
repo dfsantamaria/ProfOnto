@@ -25,17 +25,21 @@ profhome = URIRef("http://www.dmi.unict.it/profonto-home.owl#profonto-home")
 class welcome(Procedure): pass
 class decide(Procedure): pass
 
+
+def getOntologyFile(graph, execution):
+    file=None
+    for t in graph.objects(execution, URIRef(oasis + "hasTaskParameter")): # retrieving source
+       for s in graph.objects(t, URIRef(oasis + "descriptionProvidedByURL")):
+           if (s is not None):
+             file = readOntoFile(s)
+    return file
+
 # Actions that the assistant performs
 def profhome_decide(graph, execution):
+    device = next(graph.objects(execution, URIRef(oasis + "hasTaskObject")))
     for actions in graph.objects(execution, URIRef(oasis + "hasTaskOperator")):
         if actions == URIRef(oasisabox + "install"):  # installation task
-            device = next(graph.objects(execution, URIRef(oasis + "hasTaskObject")))
-            sourceOnt = next(graph.objects(execution, URIRef(oasis + "hasTaskParameter")))
-            # retrieving source
-            literal = next(graph.objects(sourceOnt, URIRef(oasis + "descriptionProvidedByURL")))
-            file = None
-            if (literal is not None):
-                file = readOntoFile(literal)
+            file = getOntologyFile(graph, execution)
             value = profonto.addDevice(file, retrieveEntityName(device))  # read the device data
             print("Device", device, "added with exit code:", value)
 
@@ -43,6 +47,18 @@ def profhome_decide(graph, execution):
             device = next(graph.objects(execution, URIRef(oasis + "hasTaskObject")))
             value = profonto.removeDevice(retrieveEntityName(device))  # read the device data
             print("Device", device, "removed with exit code:", value)
+
+        elif actions == URIRef(oasisabox + "add") or actions == URIRef(oasisabox + "remove"):  # add user task
+             for thetype in graph.objects(device, URIRef(oasis + "hasType")):
+                 if thetype== URIRef(oasisabox + "agent_type"): #adding or removing user
+                     if actions == URIRef(oasisabox + "add"):
+                         file = getOntologyFile(graph, execution)
+                         value= profonto.addUser(file, retrieveEntityName(device) )
+                         print("User", device, "added with exit code:", value)
+                     elif actions == URIRef(oasisabox + "remove"):
+                          value=profonto.removeUser(retrieveEntityName(device))
+                          print("User", device, "removed with exit code:", value)
+                 break
 
 
 
@@ -66,6 +82,8 @@ decide(rdf_source) >> [ Decide_Action(rdf_source) ]
 
 
 ################################################ END PHIDIAS PART ##########################
+
+
 
 
 def retrieveEntityName(string):

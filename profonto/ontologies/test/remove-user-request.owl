@@ -70,7 +70,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskOperator"/>
         <NamedIndividual IRI="#remove-user-req-task"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#add"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#remove"/>
     </ObjectPropertyAssertion>
 </Ontology>
 

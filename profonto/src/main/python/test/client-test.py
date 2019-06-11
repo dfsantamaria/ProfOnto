@@ -27,5 +27,18 @@ client_socket.send(home.encode())
 client_socket.close()
 
 
+#adding user
 
+home=readOntoFile("ontologies/test/add-user-request.owl")
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect(('localhost', 8000))
+client_socket.send(home.encode())
+client_socket.close()
 
+#removing user
+
+home=readOntoFile("ontologies/test/remove-user-request.owl")
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect(('localhost', 8000))
+client_socket.send(home.encode())
+client_socket.close()
