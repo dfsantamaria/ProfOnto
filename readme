@@ -65,9 +65,9 @@ Instructions:
    3.1A) The folder "target/python/test" contains two examples, "main-test.pay" and  "client-test.py" which show the overall functioning of 
          the domotic assistant. You can execute them separately, or 
         
-   3.1B) The file "main-beta.py" in the folder "target/python" runs a beta version of the domotic assistant. Currently he can install and 
-         unistall devices. Run the file "main-beta.py" and wait for it to load. Then, run the file "client-test.py" in "target/python/test"
-         that will add and remove a device.
+   3.1B) The file "main-beta.py" in the folder "target/python" runs a beta version of the domotic assistant. Currently it can install and 
+         unistall devices, add and remove users. Run the file "main-beta.py" and wait for it to load. Then, run the file "client-test.py" in "target/python/test"
+         that will add and remove a device, add and remove a user.
          
          Stay tuned for updates.
    
