@@ -122,7 +122,7 @@ public class mainAutoinstall
        ontocore.addDevice(assistantData, "ProfHomeAssistant");            
        
        InputStream request=readData("ontologies/test/light-uninstallation-request.owl");
-       Stream<OWLAxiom> res= ontocore.parseRequest(request);
+       Stream<OWLAxiom> res= ontocore.parseRequest(request).axioms();
        System.out.println("Request:");
        if(res!=null)
            {

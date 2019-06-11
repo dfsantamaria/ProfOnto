@@ -20,6 +20,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
@@ -148,7 +149,8 @@ public class mainTest
          
          request=readData("ontologies/test/user-request.owl");   
          System.out.println("Parse user request:");
-         res= ontocore.parseRequest(request);         
+         OWLOntology out=ontocore.parseRequest(request);          
+         res= out.axioms();         
          res.forEach(System.out::println);   
 
         try
@@ -164,7 +166,7 @@ public class mainTest
           }
           
        request=readData("ontologies/test/interpretation-request.owl");
-       res= ontocore.parseRequest(request);
+       res= ontocore.parseRequest(request).axioms();
        System.out.println("Request of device:");
        if(res!=null)
            {

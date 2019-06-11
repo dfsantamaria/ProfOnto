@@ -9,9 +9,23 @@ def readOntoFile(file):
 p = Path(__file__).parents[2]
 os.chdir(p)
 
-home=readOntoFile("ontologies/test/light-installation-request.owl")
 
+#installing device
+
+home=readOntoFile("ontologies/test/light-installation-request.owl")
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect(('localhost', 8000))
 client_socket.send(home.encode())
 client_socket.close()
+
+#removing device
+
+home=readOntoFile("ontologies/test/light-uninstallation-request.owl")
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect(('localhost', 8000))
+client_socket.send(home.encode())
+client_socket.close()
+
+
+
+

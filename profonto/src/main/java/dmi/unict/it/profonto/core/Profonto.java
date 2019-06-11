@@ -45,13 +45,11 @@ import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.util.InferredAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredClassAssertionAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredDataPropertyCharacteristicAxiomGenerator;
-import org.semanticweb.owlapi.util.InferredDisjointClassesAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredEquivalentClassAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredEquivalentDataPropertiesAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredEquivalentObjectPropertyAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredIndividualAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredInverseObjectPropertiesAxiomGenerator;
-import org.semanticweb.owlapi.util.InferredObjectPropertyCharacteristicAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredOntologyGenerator;
 import org.semanticweb.owlapi.util.InferredSubClassAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredSubDataPropertyAxiomGenerator;
@@ -927,7 +925,7 @@ public class Profonto extends OntologyCore
      * @param request The ontology of the request     
      * @return the set of axioms representing the execution of the given request
      */
-    public Stream<OWLAxiom> parseRequest(InputStream request)
+    public OWLOntology parseRequest(InputStream request)
     {
         OntologyModel res=null;
         Stream<OWLAxiom> axioms=Stream.of();
@@ -998,12 +996,24 @@ public class Profonto extends OntologyCore
         catch (Exception ex)   
           {
             Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
-            return Stream.of();
+            return null;
           }
         if(res.axioms().count()==0) 
             return null;
         axioms=Stream.concat(res.axioms(), axioms);
-        return axioms;
+        
+        OWLOntology out=null;
+        try
+          {
+            out= getMainManager().createOntology(axioms);
+          } 
+        catch (OWLOntologyCreationException ex)
+          {
+            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+          }
+        
+        return out;
         
     }
     

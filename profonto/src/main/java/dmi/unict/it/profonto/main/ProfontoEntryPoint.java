@@ -7,6 +7,7 @@ package dmi.unict.it.profonto.main;
 
 import dmi.unict.it.profonto.core.Profonto;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
@@ -14,7 +15,10 @@ import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
+import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLDocumentFormat;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import py4j.GatewayServer;
@@ -145,13 +149,23 @@ public class ProfontoEntryPoint
     
     public static String parseRequest(String request)
       {
-        Stream<OWLAxiom> res= ontocore.parseRequest(getInputStream(request));
-        StringBuilder out=new StringBuilder();   
+        OWLOntology res= ontocore.parseRequest(getInputStream(request));
+        ByteArrayOutputStream out=new ByteArrayOutputStream();
         if(res!=null)
           { 
-        res.forEach(x->out.append(x.toString()).append("\n"));
-        return out.toString();
-          }
+            try
+              {
+                res.saveOntology(new RDFXMLDocumentFormat(), out);
+                if(out!=null)
+                   out.close(); 
+                return out.toString();
+              } 
+            catch (OWLOntologyStorageException | IOException ex)
+              {
+                Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
+                return "";
+              }                      
+      }
         return "";
       }
 
