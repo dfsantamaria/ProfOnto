@@ -22,32 +22,27 @@ profhome = URIRef("http://www.dmi.unict.it/profonto-home.owl#profonto-home")
 
 #################################################PHIDIAS PART ##############################
 
-
 class welcome(Procedure): pass
 class decide(Procedure): pass
-class profhome_decide(Procedure): pass
 
+# Actions that the assistant performs
+def profhome_decide(graph, execution):
+    for actions in graph.objects(execution, URIRef(oasis + "hasTaskOperator")):
+        if actions == URIRef(oasisabox + "install"):  # installation task
+            device = next(graph.objects(execution, URIRef(oasis + "hasTaskObject")))
+            sourceOnt = next(graph.objects(execution, URIRef(oasis + "hasTaskParameter")))
+            # retrieving source
+            literal = next(graph.objects(sourceOnt, URIRef(oasis + "descriptionProvidedByURL")))
+            file = None
+            if (literal is not None):
+                file = readOntoFile(literal)
+            value = profonto.addDevice(file, retrieveEntityName(device))  # read the device data
+            print("Device", device, "added with exit code:", value)
 
-#Actions that the assistant performs
-class Profhome_Decide_Action(Action):
-     def execute(self, graph, execution):
-         for actions in graph().objects(execution(), URIRef(oasis + "hasTaskOperator")):
-             if actions == URIRef(oasisabox+"install"): #installation task
-               device= next(graph().objects(execution(), URIRef(oasis + "hasTaskObject")))
-               sourceOnt=next(graph().objects(execution(), URIRef(oasis + "hasTaskParameter")))
-               #retrieving source
-               literal= next(graph().objects(sourceOnt, URIRef(oasis + "descriptionProvidedByURL")))
-               if(literal is not None):
-                  file=readOntoFile(literal)
-
-                  print(retrieveEntityName(device))
-                  value = profonto.addDevice(file, retrieveEntityName(device))  #read the device data
-                  print("Device", device, "added with exit code:", value)
-
-             elif actions == URIRef(oasisabox + "uninstall"):  # uninstallation task
-                 device = next(graph().objects(execution(), URIRef(oasis + "hasTaskObject")))
-                 value = profonto.removeDevice(retrieveEntityName(device))  # read the device data
-                 print("Device", device, "removed with exit code:", value)
+        elif actions == URIRef(oasisabox + "uninstall"):  # uninstallation task
+            device = next(graph.objects(execution, URIRef(oasis + "hasTaskObject")))
+            value = profonto.removeDevice(retrieveEntityName(device))  # read the device data
+            print("Device", device, "removed with exit code:", value)
 
 
 
@@ -61,16 +56,14 @@ class Decide_Action(Action):
        for execution in g.subjects(RDF.type, URIRef(oasis+"TaskExecution")):
           for executer in g.subjects( URIRef(oasis+"performs"), execution):
               if( executer == profhome ) :
-                 PHIDIAS.achieve(profhome_decide(g,execution))
+                profhome_decide(g,execution)
 
 
 
-
-
-def_vars("rdf_source", "graph", "execution")
+def_vars("rdf_source")
 welcome() >> [ show_line("Phidias has been started. Wait for Prof-Onto to start") ]
 decide(rdf_source) >> [ Decide_Action(rdf_source) ]
-profhome_decide(graph, execution) >> [ Profhome_Decide_Action(graph, execution) ]
+
 
 ################################################ END PHIDIAS PART ##########################
 
@@ -104,11 +97,9 @@ class client(Thread):
         request=''
         while 1:
           data=self.sock.recv(1024).decode()
-                       #self.sock.send(b'you sent something to me')
           if not data:
              break
           request+=data
-        #print(request)
         PHIDIAS.achieve(decide(request))
 
 def init_gateway():
