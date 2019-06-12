@@ -72,10 +72,10 @@
         <Class IRI="#TaskEntrustment"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#timeSpan"/>
+        <ObjectProperty IRI="#hasAppellation"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasAppellation"/>
+        <NamedIndividual IRI="#timeSpan"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Scheduling"/>
@@ -387,6 +387,12 @@
         <DataProperty IRI="#descriptionProvidedByIRI"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#hasAgentType"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasConfigurationType"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#GoalExecution"/>
     </Declaration>
     <Declaration>
@@ -631,6 +637,9 @@
     </Declaration>
     <Declaration>
         <Class IRI="#TaskPart"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ConfigurationType"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#adoptsTemplate"/>
@@ -966,6 +975,10 @@
         <Class IRI="#ConfigurationPart"/>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#ConfigurationType"/>
+        <Class IRI="#Type"/>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#ConfiguredThing"/>
         <Class IRI="#ConfigurationPart"/>
     </SubClassOf>
@@ -1490,6 +1503,10 @@
         <ObjectProperty IRI="#isRelatedWith"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasAgentType"/>
+        <ObjectProperty IRI="#hasType"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasAppellation"/>
         <ObjectProperty IRI="#isDescribedBy"/>
     </SubObjectPropertyOf>
@@ -1588,6 +1605,10 @@
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasConfiguration"/>
         <ObjectProperty IRI="#isInvolvedInConfigurationSetUpWith"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasConfigurationType"/>
+        <ObjectProperty IRI="#hasType"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasConnection"/>
@@ -1892,6 +1913,10 @@
         <Class IRI="#Space"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasAgentType"/>
+        <Class IRI="#Agent"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasBehavior"/>
         <ObjectUnionOf>
             <Class IRI="#Agent"/>
@@ -1916,7 +1941,7 @@
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasComponentType"/>
-        <Class IRI="#Device"/>
+        <Class IRI="#Component"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasConditionalDescriptor"/>
@@ -2173,6 +2198,10 @@
         <Class IRI="#Space"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasAgentType"/>
+        <Class IRI="#AgentType"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
         <ObjectProperty IRI="#hasAppellation"/>
         <Class IRI="#Appellation"/>
     </ObjectPropertyRange>
@@ -2239,6 +2268,10 @@
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasConfiguration"/>
         <Class IRI="#Configuration"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasConfigurationType"/>
+        <Class IRI="#ConfigurationType"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasConnection"/>
@@ -2778,6 +2811,11 @@
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#ConfigurationPart</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Configuration part</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ConfigurationType</IRI>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Configuration type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -3767,7 +3805,7 @@
     <AnnotationAssertion>
         <AnnotationProperty IRI="#isFoundInEntity"/>
         <IRI>#hasBeliefOperator</IRI>
-        <AnonymousIndividual nodeID="_:genid3"/>
+        <AnonymousIndividual nodeID="_:genid2"/>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>

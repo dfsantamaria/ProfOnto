@@ -14,6 +14,21 @@
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Import>http://www.dmi.unict.it/oasis.owl/0.0.1</Import>
     <Declaration>
+        <NamedIndividual IRI="#ontology_description_object_type"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#light_component_type"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#parse"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#generalRequest"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#device_type"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="#add"/>
     </Declaration>
     <Declaration>
@@ -26,19 +41,10 @@
         <NamedIndividual IRI="#install"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#light_component_type"/>
+        <NamedIndividual IRI="#user_type"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#ontology_description_object_type"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#parse"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#generalRequest"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#agent_type"/>
+        <NamedIndividual IRI="#user_cofiguration_type"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#execute"/>
@@ -55,7 +61,7 @@
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#AgentType"/>
-        <NamedIndividual IRI="#agent_type"/>
+        <NamedIndividual IRI="#device_type"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
@@ -96,6 +102,14 @@
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
         <NamedIndividual IRI="#uninstall"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConfigurationType"/>
+        <NamedIndividual IRI="#user_cofiguration_type"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#AgentType"/>
+        <NamedIndividual IRI="#user_type"/>
     </ClassAssertion>
 </Ontology>
 

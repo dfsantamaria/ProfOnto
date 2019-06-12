@@ -73,9 +73,9 @@
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#uninstall"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasComponentType"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasAgentType"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#light_component_type"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#device_type"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasObjectType"/>

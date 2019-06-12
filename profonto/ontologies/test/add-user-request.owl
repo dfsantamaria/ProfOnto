@@ -88,7 +88,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasType"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#alan"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#agent_type"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#user_type"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#requests"/>

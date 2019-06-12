@@ -6,6 +6,7 @@
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      ontologyIRI="http://www.dmi.unict.it/ontoas/alan.owl">
+    <Prefix name="" IRI="http://www.dmi.unict.it/ontoas/alan.owl"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
@@ -15,10 +16,18 @@
     <Declaration>
         <NamedIndividual IRI="#Alan"/>
     </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#user_type"/>
+    </Declaration>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#User"/>
         <NamedIndividual IRI="#Alan"/>
     </ClassAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasAgentType"/>
+        <NamedIndividual IRI="#Alan"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#user_type"/>
+    </ObjectPropertyAssertion>
 </Ontology>
 
 

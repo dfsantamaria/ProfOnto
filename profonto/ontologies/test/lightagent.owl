@@ -12,7 +12,7 @@
     <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
     <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
-    <Import>http://www.dmi.unict.it/oasis.owl</Import>    
+    <Import>http://www.dmi.unict.it/oasis.owl</Import>
     <Declaration>
         <NamedIndividual IRI="#LD-turnoff-goaldescription"/>
     </Declaration>
@@ -23,34 +23,37 @@
         <NamedIndividual IRI="#LD-turnon-behavior"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#LightObjectType"/>
+        <NamedIndividual IRI="#LD-turnoff-taskdescription"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#kitchen"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_on"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskSubject"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#LD-turnoff-taskdescription"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_on"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#LD-turnon-taskdescription"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_off"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#LightObjectType"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#light-device"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskSubject"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#LD-turnon-goaldescription"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#LD-turnoff-behavior"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_off"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#device_type"/>
     </Declaration>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#Behavior"/>
@@ -143,6 +146,11 @@
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskOperator"/>
         <NamedIndividual IRI="#LD-turnon-taskdescription"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_on"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasAgentType"/>
+        <NamedIndividual IRI="#light-device"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#device_type"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasBehavior"/>

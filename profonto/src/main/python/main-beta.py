@@ -50,7 +50,7 @@ def profhome_decide(graph, execution):
 
         elif actions == URIRef(oasisabox + "add") or actions == URIRef(oasisabox + "remove"):  # add user task
              for thetype in graph.objects(device, URIRef(oasis + "hasType")):
-                 if thetype== URIRef(oasisabox + "agent_type"): #adding or removing user
+                 if thetype== URIRef(oasisabox + "user_type"): #adding or removing user
                      if actions == URIRef(oasisabox + "add"):
                          file = getOntologyFile(graph, execution)
                          value= profonto.addUser(file, retrieveEntityName(device) )

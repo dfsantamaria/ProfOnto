@@ -15,13 +15,43 @@
     <Import>http://www.dmi.unict.it/oasis-abox.owl</Import>
     <Import>http://www.dmi.unict.it/oasis.owl</Import>
     <Declaration>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskDescription"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Space"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#light-installation-req-plan"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="http://www.dmi.unict.it/oasis.owl#descriptionProvidedByURL"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskOperator"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#GoalDescription"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#light-installation-req-goal"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#consistsOfGoalDescription"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasObjectType"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskParameter"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="#light-installation-req-ontology"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#light-installation-req-task"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#light-installation-req-plan"/>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#PlanDescription"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#alan-task-1-1-1-kitchen"/>
@@ -30,7 +60,22 @@
         <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#light-installation-req-goal"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#consistsOfTaskDescription"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskParameter"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Device"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#OntologyDescriptionObject"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#requests"/>
     </Declaration>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#Space"/>
@@ -86,9 +131,9 @@
         <NamedIndividual IRI="#light-installation-req-ontology"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasComponentType"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasAgentType"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#light_component_type"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#device_type"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasObjectType"/>
