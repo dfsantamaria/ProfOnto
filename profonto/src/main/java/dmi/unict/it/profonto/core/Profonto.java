@@ -750,40 +750,40 @@ public class Profonto extends OntologyCore
      * @param idConfig ID of the configuration
      * @return the ontology representing the configuration
      */
-    public OWLOntology addDeviceConfiguration(InputStream deviceConfig, String idDevice, String idConfig, String iduser)
-    {
-        File directory = new File(this.getOntologiesDeviceConfigurationPath() + File.separator + idDevice);
-        if (!directory.exists())
-        {
-            directory.mkdir();
-        }
-
-        OWLOntology ontodevConf = null;
-        try
-        {
-            ontodevConf = this.getMainManager().loadOntologyFromOntologyDocument(deviceConfig);
-            addImportToOntology(this.getDataBehaviorOntology(), ontodevConf.getOntologyID().getOntologyIRI().get());
-            String filesource = directory.getAbsolutePath() + File.separator + idConfig + ".owl";
-            File file = new File(filesource);
-            FileOutputStream outStream = new FileOutputStream(file);
-
-            this.getMainManager().addIRIMapper(new SimpleIRIMapper(ontodevConf.getOntologyID().getOntologyIRI().get(),
-                    IRI.create(file.getCanonicalFile())));
-
-            this.getMainManager().saveOntology(ontodevConf, new OWLXMLDocumentFormat(), outStream);
-            this.getDeviceConfigurations().put(idConfig, new String[]
-            {
-                idDevice, ontodevConf.getOntologyID().getOntologyIRI().get().toString(), iduser
-            });
-            outStream.close();
-            //    this.syncReasonerDataBehavior();
-
-        } catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
-        {
-            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return ontodevConf;
-    }
+//    public OWLOntology addDeviceConfiguration(InputStream deviceConfig, String idDevice, String idConfig, String iduser)
+//    {
+//        File directory = new File(this.getOntologiesDeviceConfigurationPath() + File.separator + idDevice);
+//        if (!directory.exists())
+//        {
+//            directory.mkdir();
+//        }
+//
+//        OWLOntology ontodevConf = null;
+//        try
+//        {
+//            ontodevConf = this.getMainManager().loadOntologyFromOntologyDocument(deviceConfig);
+//            addImportToOntology(this.getDataBehaviorOntology(), ontodevConf.getOntologyID().getOntologyIRI().get());
+//            String filesource = directory.getAbsolutePath() + File.separator + idConfig + ".owl";
+//            File file = new File(filesource);
+//            FileOutputStream outStream = new FileOutputStream(file);
+//
+//            this.getMainManager().addIRIMapper(new SimpleIRIMapper(ontodevConf.getOntologyID().getOntologyIRI().get(),
+//                    IRI.create(file.getCanonicalFile())));
+//
+//            this.getMainManager().saveOntology(ontodevConf, new OWLXMLDocumentFormat(), outStream);
+//            this.getDeviceConfigurations().put(idConfig, new String[]
+//            {
+//                idDevice, ontodevConf.getOntologyID().getOntologyIRI().get().toString(), iduser
+//            });
+//            outStream.close();
+//            //    this.syncReasonerDataBehavior();
+//
+//        } catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
+//        {
+//            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return ontodevConf;
+//    }
 
     /**
      * Removes a given device

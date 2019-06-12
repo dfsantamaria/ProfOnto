@@ -107,11 +107,11 @@ public class ProfontoEntryPoint
         return 0;
     }
     
-    public static int addConfiguration(String description, String iddevice, String idconfig, String iduser)
-    {
-        ontocore.addDeviceConfiguration(getInputStream(description), iddevice, idconfig, iduser);
-        return 0;
-    }
+//    public static int addConfiguration(String description, String iddevice, String idconfig, String iduser)
+//    {
+//        ontocore.addDeviceConfiguration(getInputStream(description), iddevice, idconfig, iduser);
+//        return 0;
+//    }
 
     public static int removeUser(String id)
     {

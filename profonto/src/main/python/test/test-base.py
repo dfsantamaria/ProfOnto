@@ -46,18 +46,18 @@ value = profonto.addDevice(home, "ProfHomeAssistant")  #read the device data
 print("Home assistant added with exit code:", value)
 
 user=readOntoFile("ontologies/test/alan.owl")
-value = profonto.addUser(user, "alan")  #read the user data
+value = profonto.addUser(user, "Alan")  #read the user data
 print("User added with exit code:", value)
 
 
 
 device=readOntoFile("ontologies/test/lightagent.owl")
-value = profonto.addDevice(device, "device")  #read the device data
+value = profonto.addDevice(device, "light-device")  #read the device data
 print("Device added with exit code:", value)
 
 
 config=readOntoFile("ontologies/test/alan-config.owl")
-value = profonto.addConfiguration(config, "device", "device-Conf1", "alan")  #read the device configuration data
+value = profonto.addConfiguration(config)  #read the device configuration data
 print("Configuration added with exit code:", value)
 
 #value=profonto.syncReasonerDataBehavior(); # sync the reasoner
@@ -76,9 +76,9 @@ request=readOntoFile("ontologies/test/user-request.owl")
 value=profonto.parseRequest(request)
 print ("Request:", value)
 
-value=profonto.removeUser("alan")  #remove user
+value=profonto.removeUser("Alan")  #remove user
 print("User removed with exit code:", value)
-value=profonto.removeDevice("device") #remove data
+value=profonto.removeDevice("light-device") #remove data
 print("Device removed with exit code:", value)
 
 print("Testing parseRequest step 2...")
