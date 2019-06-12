@@ -42,23 +42,25 @@ profontoGateWay = JavaGateway()                   # connect to the JVM
 profonto = profontoGateWay .entry_point
 
 home=readOntoFile("ontologies/test/homeassistant.owl")
-value = profonto.addDevice(home, "ProfHomeAssistant")  #read the device data
-print("Home assistant added with exit code:", value)
+assistant = profonto.addDevice(home)  #read the device data
+print("Home assistant added:", assistant)
+
 
 user=readOntoFile("ontologies/test/alan.owl")
-value = profonto.addUser(user, "Alan")  #read the user data
-print("User added with exit code:", value)
-
+value = profonto.addUser(user)  #read the user data
+print("User added:", value)
+value=""
 
 
 device=readOntoFile("ontologies/test/lightagent.owl")
-value = profonto.addDevice(device, "light-device")  #read the device data
-print("Device added with exit code:", value)
+value = profonto.addDevice(device)  #read the device data
+print("Device added:", value)
 
 
 config=readOntoFile("ontologies/test/alan-config.owl")
 value = profonto.addConfiguration(config)  #read the device configuration data
-print("Configuration added with exit code:", value)
+print("Configuration added:", value)
+value=""
 
 #value=profonto.syncReasonerDataBehavior(); # sync the reasoner
 #print("Data Behavior synchronized with exit code:", value)
@@ -77,9 +79,11 @@ value=profonto.parseRequest(request)
 print ("Request:", value)
 
 value=profonto.removeUser("Alan")  #remove user
-print("User removed with exit code:", value)
+print("User removed:", value)
+value=""
 value=profonto.removeDevice("light-device") #remove data
-print("Device removed with exit code:", value)
+print("Device removed:", value)
+value=""
 
 print("Testing parseRequest step 2...")
 
@@ -93,8 +97,8 @@ value=profonto.retrieveAssertions("http://www.dmi.unict.it/light-uninstallation-
 print ("Graph:", value)
 
 
-value=profonto.removeDevice("ProfHomeAssistant") #remove assistant
-print("Home assistant removed with exit code:", value)
+value=profonto.removeDevice(assistant) #remove assistant
+print("Home assistant removed ", value)
 
 
 profontoGateWay.shutdown() #Shutdown the gateway

@@ -8,10 +8,8 @@ package dmi.unict.it.profonto.test;
 import dmi.unict.it.profonto.core.Profonto;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -122,7 +120,7 @@ public class mainAutoinstall
        
          
        InputStream assistantData=readData("ontologies/test/homeassistant.owl"); 
-       ontocore.addDevice(assistantData, "ProfHomeAssistant");            
+       ontocore.addDevice(assistantData);            
        
        InputStream request=readData("ontologies/test/light-uninstallation-request.owl");
        Stream<OWLAxiom> res= ontocore.parseRequest(request).axioms();
@@ -160,6 +158,17 @@ public class mainAutoinstall
               res.forEach(System.out::println);                 
            } 
                     
+       
+       System.out.println("Remove user configuration request");
+       request=readData("ontologies/test/remove-user-configuration-request.owl");         
+       g=ontocore.parseRequest(request);
+       res= g.axioms();
+       System.out.println("Request of device:");
+       if(res!=null)
+           {
+              res.forEach(System.out::println);                 
+           } 
+       
        
        System.out.println("Remove user request");
        request=readData("ontologies/test/remove-user-request.owl");         

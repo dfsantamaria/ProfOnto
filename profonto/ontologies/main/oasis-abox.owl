@@ -14,9 +14,6 @@
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Import>http://www.dmi.unict.it/oasis.owl/0.0.1</Import>
     <Declaration>
-        <NamedIndividual IRI="#ontology_description_object_type"/>
-    </Declaration>
-    <Declaration>
         <NamedIndividual IRI="#light_component_type"/>
     </Declaration>
     <Declaration>
@@ -29,10 +26,10 @@
         <NamedIndividual IRI="#generalRequest"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#device_type"/>
+        <NamedIndividual IRI="#add"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#add"/>
+        <NamedIndividual IRI="#device_type"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#generalUtterance"/>
@@ -86,10 +83,6 @@
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#LightComponentType"/>
         <NamedIndividual IRI="#light_component_type"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#OntologyDescriptionObjectType"/>
-        <NamedIndividual IRI="#ontology_description_object_type"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>

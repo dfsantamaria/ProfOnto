@@ -15,7 +15,7 @@
     <Import>http://www.dmi.unict.it/oasis-abox.owl</Import>
     <Import>http://www.dmi.unict.it/oasis.owl</Import>
     <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#alan"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#Alan"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#remove-user-req-goal"/>
@@ -28,7 +28,7 @@
     </Declaration>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#User"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#alan"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#Alan"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#GoalDescription"/>
@@ -44,12 +44,12 @@
     </ClassAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasAgentType"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#alan"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#Alan"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#user_type"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#requests"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#alan"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#Alan"/>
         <NamedIndividual IRI="#remove-user-req-plan"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
@@ -65,7 +65,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
         <NamedIndividual IRI="#remove-user-req-task"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#alan"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#Alan"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskOperator"/>

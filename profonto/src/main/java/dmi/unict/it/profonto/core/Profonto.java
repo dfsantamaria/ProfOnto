@@ -40,6 +40,7 @@ import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import org.semanticweb.HermiT.ReasonerFactory;
 import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.AxiomType;
+import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
@@ -492,17 +493,27 @@ public class Profonto extends OntologyCore
      * insert a new user given its ontology data
      *
      * @param ontologyData the inputstream representing the ontology data
-     * @param id the name of the ontology file representing the device
      * @return the created ontology
      */
-    public OWLOntology addUser(InputStream ontologyData, String id)
+    public String addUser(InputStream ontologyData)
     {
         OWLOntology ontouser = null;
+        String val[]=new String[]{""};
         try
         {
+            
             ontouser = this.getMainManager().loadOntologyFromOntologyDocument(ontologyData);
-            addImportToOntology(this.getDataBehaviorOntology(), ontouser.getOntologyID().getOntologyIRI().get());
-            String filesource = this.getOntologiesUsersPath() + File.separator + id + ".owl";
+            addImportToOntology(this.getDataBehaviorOntology(), ontouser.getOntologyID().getOntologyIRI().get()); 
+            String userclass=this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#User";
+            ontouser.logicalAxioms().filter(x->x.isOfType(AxiomType.CLASS_ASSERTION)).forEach(
+              element -> {
+                            OWLClassAssertionAxiom ax=((OWLClassAssertionAxiom) element);
+                            if(ax.getClassExpression().asOWLClass().toStringID().equals(userclass))                              
+                                val[0]=getEntityName(ax.getIndividual().asOWLNamedIndividual().toStringID());                            
+                         });  
+            
+            
+            String filesource = this.getOntologiesUsersPath() + File.separator + val[0] + ".owl";
             File file = new File(filesource);
 
             this.getMainManager().addIRIMapper(new SimpleIRIMapper(ontouser.getOntologyID().getOntologyIRI().get(),
@@ -511,31 +522,40 @@ public class Profonto extends OntologyCore
             FileOutputStream outStream = new FileOutputStream(file);
 
             this.getMainManager().saveOntology(ontouser, new OWLXMLDocumentFormat(), outStream);
-            this.getUsers().put(id, ontouser.getOntologyID().getOntologyIRI().get().toString());
+            this.getUsers().put(val[0], ontouser.getOntologyID().getOntologyIRI().get().toString());
             outStream.close();
             //   syncReasonerDataBehavior();            
         } catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
         {
             Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return ontouser;
+        return val[0];
     }
 
     /**
      * insert a new device given its ontology data
      *
-     * @param ontologyData the inputstream representing the ontology data
-     * @param id the name of the ontology file representing the device
+     * @param ontologyData the device added
      * @return the created ontology
      */
-    public OWLOntology addDevice(InputStream ontologyData, String id)
+    public String addDevice(InputStream ontologyData)
     {
         OWLOntology ontodevice = null;
+        String val[]={""};
         try
         {
             ontodevice = this.getMainManager().loadOntologyFromOntologyDocument(ontologyData);
             addImportToOntology(this.getDataBehaviorOntology(), ontodevice.getOntologyID().getOntologyIRI().get());
-            String filesource = this.getOntologiesDevicesPath() + File.separator + id + ".owl";
+            
+            String deviceclass=this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#Device";
+            ontodevice.logicalAxioms().filter(x->x.isOfType(AxiomType.CLASS_ASSERTION)).forEach(
+              element -> {
+                            OWLClassAssertionAxiom ax=((OWLClassAssertionAxiom) element);
+                            if(ax.getClassExpression().asOWLClass().toStringID().equals(deviceclass))                              
+                                val[0]=getEntityName(ax.getIndividual().asOWLNamedIndividual().toStringID());                            
+                         });  
+            
+            String filesource = this.getOntologiesDevicesPath() + File.separator + val[0] + ".owl";
             File file = new File(filesource);
 
             this.getMainManager().addIRIMapper(new SimpleIRIMapper(ontodevice.getOntologyID().getOntologyIRI().get(),
@@ -544,7 +564,7 @@ public class Profonto extends OntologyCore
           //  FileOutputStream outStream = new FileOutputStream(file);
           syncReasoner(ontodevice, filesource);
          //   this.getMainManager().saveOntology(ontodevice, new OWLXMLDocumentFormat(), outStream);
-            this.getDevices().put(id, ontodevice.getOntologyID().getOntologyIRI().get().toString());
+            this.getDevices().put(val[0], ontodevice.getOntologyID().getOntologyIRI().get().toString());
         //    outStream.close();
             //  syncReasonerDataBehavior();
 
@@ -552,7 +572,7 @@ public class Profonto extends OntologyCore
         {
             Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return ontodevice;
+        return val[0];
     }
 
     /**
@@ -691,7 +711,7 @@ public class Profonto extends OntologyCore
         return s.substring(s.lastIndexOf("#") + 1);
       }
     
-    public OWLOntology addDeviceConfiguration(InputStream deviceConfig) throws OWLOntologyCreationException
+    public String addDeviceConfiguration(InputStream deviceConfig) throws OWLOntologyCreationException
     {
        
       OWLOntology ontodevConf = null;
@@ -739,7 +759,7 @@ public class Profonto extends OntologyCore
         {
             Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
         }
-        return ontodevConf;      
+        return vals[1];      
     }
     
     /**
@@ -795,15 +815,18 @@ public class Profonto extends OntologyCore
     //IDconfig <IDdevice-  IDOntology- IDuser
     public void removePermanentConfigurationFromDevice(String id) throws OWLOntologyStorageException, OWLOntologyCreationException, IOException
     {
-        String[] device = (String[]) this.getDeviceConfigurations().remove(id);
+        String[] device = (String[]) this.getDeviceConfigurations().remove(id);        
         OWLOntology ontology = this.getMainManager().getOntology(IRI.create((String) device[1]));
         this.getMainManager().removeOntology(ontology);
         removeImportFromOntology(this.getDataBehaviorOntology(), IRI.create(ontology.getOntologyID().getOntologyIRI().get().toString()));
-        String file = this.getOntologiesDeviceConfigurationPath() + File.separator + (String) device[1] + File.separator + id + ".owl";
+        String file = this.getOntologiesDeviceConfigurationPath() + File.separator + (String) device[0] + File.separator + id + ".owl";
         File f = new File(file);
         this.getMainManager().getIRIMappers().remove(new SimpleIRIMapper(ontology.getOntologyID().getOntologyIRI().get(),
                 IRI.create(f.getCanonicalFile())));
-        f.delete(); //always be sure to close all the open streams       
+        f.delete(); //always be sure to close all the open streams 
+        
+        
+        
     }
 
     /**

@@ -80,31 +80,32 @@ public class ProfontoEntryPoint
         return inputstream;
     }
 
-    public static int addDevice(String description, String id)
+    public static String addDevice(String description)
     {
-        ontocore.addDevice(getInputStream(description), id);
-        return 0;
+        return ontocore.addDevice(getInputStream(description));
+        
     }
 
-    public static int addUser(String description, String id)
+    public static String addUser(String description)
     {
-        ontocore.addUser(getInputStream(description), id);
-        return 0;
+        return ontocore.addUser(getInputStream(description));
+        
     }
 
     
-   public static int addConfiguration(String description)
+   public static String addConfiguration(String description)
     {
+       String value="";
         try    
           {
-            ontocore.addDeviceConfiguration(getInputStream(description));
+            value=ontocore.addDeviceConfiguration(getInputStream(description));
           } 
         catch (OWLOntologyCreationException ex)
           {
             Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
-            return -1;
+            
           }
-        return 0;
+        return value;
     }
     
 //    public static int addConfiguration(String description, String iddevice, String idconfig, String iduser)
@@ -184,6 +185,20 @@ public class ProfontoEntryPoint
         return "";
       }
 
+    public static int removeConfiguration(String configuration)
+      {
+        try
+          {
+            ontocore.removePermanentConfigurationFromDevice(configuration);
+          } 
+        catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex)
+          {
+            Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
+          }
+        return 0;
+      }
+    
     public static String retrieveAssertions(String individual)
       {
         Stream<OWLAxiom> res=ontocore.retrieveAssertions(individual);

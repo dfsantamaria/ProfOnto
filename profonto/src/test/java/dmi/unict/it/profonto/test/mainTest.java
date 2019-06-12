@@ -110,31 +110,41 @@ public class mainTest
           if(!(new File("ontologies/devices/ProfHomeAssistant.owl").exists()))
           {
             InputStream assistantData=readData("ontologies/test/homeassistant.owl"); 
-            ontocore.addDevice(assistantData, "ProfHomeAssistant");
+            ontocore.addDevice(assistantData);
           }           
          
         //Device
         String id= "light-device";
         //Stream<OWLAxiom> axioms=Stream.empty();
-        String userId="Alan";
+        String userId="";
         
         InputStream userData=readData("ontologies/test/alan.owl"); 
-        ontocore.addUser(userData, userId);
+        userId=ontocore.addUser(userData);
         
         InputStream ontologyData=readData("ontologies/test/lightagent.owl");        
-        ontocore.addDevice(ontologyData, id);
+        id=ontocore.addDevice(ontologyData);
         
              
-       ByteArrayOutputStream outputstream = new ByteArrayOutputStream();
+       
         try
           {                     
-            ontocore.addDeviceConfiguration(readData("ontologies/test/alan-config.rdf"));
+            String conf=ontocore.addDeviceConfiguration(readData("ontologies/test/alan-config.owl"));
+            System.out.println(conf);
+            ontocore.removePermanentConfigurationFromDevice(conf);
           } 
         catch (OWLOntologyCreationException ex)
           {
             Logger.getLogger(mainAutoinstall.class.getName()).log(Level.SEVERE, null, ex);
+          } 
+        catch (OWLOntologyStorageException | IOException ex)
+          {
+            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
           }
-
+        // InputStream deviceConfig=readData("ontologies/test/alan-config.owl");
+        // ontocore.addDeviceConfiguration(deviceConfig, id, id+"Conf-1","ALAN");
+        
+        
+        
        // InputStream deviceConfig=readData("ontologies/test/alan-config.owl");
        // ontocore.addDeviceConfiguration(deviceConfig, id, id+"Conf-1","ALAN");        
     

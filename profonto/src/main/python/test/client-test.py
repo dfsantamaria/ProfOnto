@@ -35,8 +35,26 @@ client_socket.connect(('localhost', 8000))
 client_socket.send(home.encode())
 client_socket.close()
 
+#a request
+home=readOntoFile("ontologies/test/user-request.owl")
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect(('localhost', 8000))
+client_socket.send(home.encode())
+client_socket.close()
 
-time.sleep(15)
+
+
+
+
+time.sleep(5)
+
+
+#adding configuration
+home=readOntoFile("ontologies/test/remove-user-configuration-request.owl")
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect(('localhost', 8000))
+client_socket.send(home.encode())
+client_socket.close()
 
 #removing device
 

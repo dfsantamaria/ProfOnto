@@ -18,7 +18,7 @@ from phidias.Lib import *
 profonto = ''
 oasis = 'http://www.dmi.unict.it/oasis.owl#'
 oasisabox = 'http://www.dmi.unict.it/oasis-abox.owl#'
-profhome = URIRef("http://www.dmi.unict.it/profonto-home.owl#profonto-home")
+assistant=''
 
 #################################################PHIDIAS PART ##############################
 
@@ -34,35 +34,47 @@ def getOntologyFile(graph, execution):
              file = readOntoFile(s)
     return file
 
+
+def device_engage(graph,execution):
+    #for s,p,o in graph.triples( (None,None,None) ):
+    #    print(s,p,o)
+    taskObject = next(graph.objects(execution, URIRef(oasis + "hasTaskObject")))
+    taskOperator = next(graph.objects(execution, URIRef(oasis + "hasTaskOperator")))
+    performer = next(graph.subjects(URIRef(oasis + "performs"), execution))
+    print("To engage:", performer, taskObject, taskOperator)
+
 # Actions that the assistant performs
 def profhome_decide(graph, execution):
     requester = next(graph.objects(execution, URIRef(oasis + "hasTaskObject")))
     for actions in graph.objects(execution, URIRef(oasis + "hasTaskOperator")):
         if actions == URIRef(oasisabox + "install"):  # installation task
             file = getOntologyFile(graph, execution)
-            value = profonto.addDevice(file, retrieveEntityName(requester))  # read the device data
-            print("Device", requester, "added with exit code:", value)
+            value = profonto.addDevice(file)  # read the device data
+            print("Device", value, "added.")
 
         elif actions == URIRef(oasisabox + "uninstall"):  # uninstallation task
-            requester = next(graph.objects(execution, URIRef(oasis + "hasTaskObject")))
+            #requester = next(graph.objects(execution, URIRef(oasis + "hasTaskObject")))
             value = profonto.removeDevice(retrieveEntityName(requester))  # read the device data
-            print("Device", requester, "removed with exit code:", value)
+            print("Device", retrieveEntityName(requester), "removed with exit code", value,".")
 
         elif actions == URIRef(oasisabox + "add") or actions == URIRef(oasisabox + "remove"):  # add user task
              for thetype in graph.objects(requester, URIRef(oasis + "hasType")):
                  if thetype== URIRef(oasisabox + "user_type"): #adding or removing user
                      if actions == URIRef(oasisabox + "add"):
                          file = getOntologyFile(graph, execution)
-                         value= profonto.addUser(file, retrieveEntityName(requester) )
-                         print("User", requester, "added with exit code:", value)
+                         value= profonto.addUser(file)
+                         print("User", value, "added.")
                      elif actions == URIRef(oasisabox + "remove"):
                           value=profonto.removeUser(retrieveEntityName(requester))
-                          print("User", requester, "removed with exit code:", value)
+                          print("User", retrieveEntityName(requester), "removed with exit code", value, ".")
                  elif thetype == URIRef(oasisabox + "user_configuration_type"):  # adding or removing user
                      if actions == URIRef(oasisabox + "add"):
                          file = getOntologyFile(graph, execution)
                          value= profonto.addConfiguration(file)
-                         print("Configuration added with exit code:", value)
+                         print("Configuration added:", value,".")
+                     elif actions == URIRef(oasisabox + "remove"):
+                         value = profonto.removeConfiguration(retrieveEntityName(requester))
+                         print("Configuration", retrieveEntityName(requester), "removed.")
                  break
 
 
@@ -76,10 +88,10 @@ class Decide_Action(Action):
        g.parse(data=value)
        for execution in g.subjects(RDF.type, URIRef(oasis+"TaskExecution")):
           for executer in g.subjects( URIRef(oasis+"performs"), execution):
-              if( executer == profhome ) :
+              if( retrieveEntityName(executer) == assistant ) :
                 profhome_decide(g,execution)
-
-
+              else:
+                device_engage(g,execution)
 
 def_vars("rdf_source")
 welcome() >> [ show_line("Phidias has been started. Wait for Prof-Onto to start") ]
@@ -166,8 +178,8 @@ init_gateway()
 
 #Adding HomeAssistant
 home=readOntoFile("ontologies/test/homeassistant.owl")
-value = profonto.addDevice(home, "ProfHomeAssistant")  #read the device data
-print("Home assistant added with exit code:", value)
+assistant = profonto.addDevice(home)  #read the device data
+print("Home assistant added:", assistant)
 ###
 
 init_server()

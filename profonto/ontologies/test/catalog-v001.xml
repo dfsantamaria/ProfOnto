@@ -4,18 +4,17 @@
     <uri id="User Entered Import Resolution" name="http://www.dmi.unict.it/oasis.owl/0.0.1" uri="file:/D:/Dati/Documents/NetBeansProjects/profonto/profonto/ontologies/main/oasis.owl"/>
     <uri id="User Entered Import Resolution" name="http://www.dmi.unict.it/oasis-abox.owl" uri="file:/D:/Dati/Documents/NetBeansProjects/profonto/profonto/ontologies/main/oasis-abox.owl"/>
     <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1560339079874" name="http://www.dmi.unict.it/add-user-configuration-request.owl" uri="add-user-configuration-request.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1560339079874" name="http://www.dmi.unict.it/add-user-request.owl" uri="add-user-request.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1560339079874" name="duplicate:http://www.dmi.unict.it/alan-config.owl" uri="alan-config.rdf"/>
-        <uri id="Automatically generated entry, Timestamp=1560339079874" name="duplicate:http://www.dmi.unict.it/alan-config.owl" uri="alan-config2.rdf"/>
-        <uri id="Automatically generated entry, Timestamp=1560339079874" name="http://www.dmi.unict.it/alan-config.owl#" uri="alan-config.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1560339079874" name="http://www.dmi.unict.it/interpretation-request.owl" uri="interpretation-request.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1560339079874" name="http://www.dmi.unict.it/light-installation-request.owl" uri="light-installation-request.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1560339079874" name="http://www.dmi.unict.it/light-uninstallation-request.owl" uri="light-uninstallation-request.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1560339079874" name="http://www.dmi.unict.it/lightagent.owl" uri="lightagent.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1560339079874" name="http://www.dmi.unict.it/ontoas/alan.owl" uri="alan.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1560339079874" name="http://www.dmi.unict.it/profonto-home.owl" uri="homeassistant.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1560339079874" name="http://www.dmi.unict.it/remove-user-request.owl" uri="remove-user-request.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1560339079874" name="http://www.dmi.unict.it/user-request.owl" uri="user-request.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1560346964816" name="http://www.dmi.unict.it/add-user-configuration-request.owl" uri="add-user-configuration-request.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1560346964816" name="http://www.dmi.unict.it/add-user-request.owl" uri="add-user-request.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1560346964816" name="http://www.dmi.unict.it/alan-config.owl#" uri="alan-config.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1560346964816" name="http://www.dmi.unict.it/interpretation-request.owl" uri="interpretation-request.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1560346964816" name="http://www.dmi.unict.it/light-installation-request.owl" uri="light-installation-request.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1560346964816" name="http://www.dmi.unict.it/light-uninstallation-request.owl" uri="light-uninstallation-request.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1560346964816" name="http://www.dmi.unict.it/lightagent.owl" uri="lightagent.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1560346964816" name="http://www.dmi.unict.it/ontoas/alan.owl" uri="alan.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1560346964816" name="http://www.dmi.unict.it/profonto-home.owl" uri="homeassistant.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1560346964816" name="http://www.dmi.unict.it/remove-user-configuration-request.owl" uri="remove-user-configuration-request.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1560346964816" name="http://www.dmi.unict.it/remove-user-request.owl" uri="remove-user-request.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1560346964816" name="http://www.dmi.unict.it/user-request.owl" uri="user-request.owl"/>
     </group>
 </catalog>
