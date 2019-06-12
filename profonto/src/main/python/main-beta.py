@@ -36,28 +36,33 @@ def getOntologyFile(graph, execution):
 
 # Actions that the assistant performs
 def profhome_decide(graph, execution):
-    device = next(graph.objects(execution, URIRef(oasis + "hasTaskObject")))
+    requester = next(graph.objects(execution, URIRef(oasis + "hasTaskObject")))
     for actions in graph.objects(execution, URIRef(oasis + "hasTaskOperator")):
         if actions == URIRef(oasisabox + "install"):  # installation task
             file = getOntologyFile(graph, execution)
-            value = profonto.addDevice(file, retrieveEntityName(device))  # read the device data
-            print("Device", device, "added with exit code:", value)
+            value = profonto.addDevice(file, retrieveEntityName(requester))  # read the device data
+            print("Device", requester, "added with exit code:", value)
 
         elif actions == URIRef(oasisabox + "uninstall"):  # uninstallation task
-            device = next(graph.objects(execution, URIRef(oasis + "hasTaskObject")))
-            value = profonto.removeDevice(retrieveEntityName(device))  # read the device data
-            print("Device", device, "removed with exit code:", value)
+            requester = next(graph.objects(execution, URIRef(oasis + "hasTaskObject")))
+            value = profonto.removeDevice(retrieveEntityName(requester))  # read the device data
+            print("Device", requester, "removed with exit code:", value)
 
         elif actions == URIRef(oasisabox + "add") or actions == URIRef(oasisabox + "remove"):  # add user task
-             for thetype in graph.objects(device, URIRef(oasis + "hasType")):
+             for thetype in graph.objects(requester, URIRef(oasis + "hasType")):
                  if thetype== URIRef(oasisabox + "user_type"): #adding or removing user
                      if actions == URIRef(oasisabox + "add"):
                          file = getOntologyFile(graph, execution)
-                         value= profonto.addUser(file, retrieveEntityName(device) )
-                         print("User", device, "added with exit code:", value)
+                         value= profonto.addUser(file, retrieveEntityName(requester) )
+                         print("User", requester, "added with exit code:", value)
                      elif actions == URIRef(oasisabox + "remove"):
-                          value=profonto.removeUser(retrieveEntityName(device))
-                          print("User", device, "removed with exit code:", value)
+                          value=profonto.removeUser(retrieveEntityName(requester))
+                          print("User", requester, "removed with exit code:", value)
+                 elif thetype == URIRef(oasisabox + "user_configuration_type"):  # adding or removing user
+                     if actions == URIRef(oasisabox + "add"):
+                         file = getOntologyFile(graph, execution)
+                         value= profonto.addConfiguration(file)
+                         print("Configuration added with exit code:", value)
                  break
 
 

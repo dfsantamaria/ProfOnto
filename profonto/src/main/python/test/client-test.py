@@ -18,18 +18,29 @@ client_socket.connect(('localhost', 8000))
 client_socket.send(home.encode())
 client_socket.close()
 
-#removing device
 
-home=readOntoFile("ontologies/test/light-uninstallation-request.owl")
+#adding user
+
+home=readOntoFile("ontologies/test/add-user-request.owl")
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect(('localhost', 8000))
 client_socket.send(home.encode())
 client_socket.close()
 
 
-#adding user
+#adding configuration
+home=readOntoFile("ontologies/test/add-user-configuration-request.owl")
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect(('localhost', 8000))
+client_socket.send(home.encode())
+client_socket.close()
 
-home=readOntoFile("ontologies/test/add-user-request.owl")
+
+time.sleep(15)
+
+#removing device
+
+home=readOntoFile("ontologies/test/light-uninstallation-request.owl")
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect(('localhost', 8000))
 client_socket.send(home.encode())

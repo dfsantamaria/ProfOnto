@@ -8,8 +8,10 @@ package dmi.unict.it.profonto.test;
 import dmi.unict.it.profonto.core.Profonto;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -20,6 +22,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 import org.semanticweb.owlapi.model.OWLAxiom;
+import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
@@ -136,6 +139,8 @@ public class mainAutoinstall
            }
          else System.out.println("Request unsatisfiable");              
        
+          
+       
        System.out.println("Add user request");
        request=readData("ontologies/test/add-user-request.owl");         
        res= ontocore.parseRequest(request).axioms();
@@ -144,6 +149,18 @@ public class mainAutoinstall
            {
               res.forEach(System.out::println);   
            } 
+       
+       System.out.println("Add user configuration request");
+       request=readData("ontologies/test/add-user-configuration-request.owl");         
+       OWLOntology g=ontocore.parseRequest(request);
+       res= g.axioms();
+       System.out.println("Request of device:");
+       if(res!=null)
+           {
+              res.forEach(System.out::println);                 
+           } 
+                    
+       
        System.out.println("Remove user request");
        request=readData("ontologies/test/remove-user-request.owl");         
        res= ontocore.parseRequest(request).axioms();

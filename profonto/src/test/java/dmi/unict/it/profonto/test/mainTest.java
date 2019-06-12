@@ -8,6 +8,7 @@ package dmi.unict.it.profonto.test;
 import dmi.unict.it.profonto.core.Profonto;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -113,9 +114,9 @@ public class mainTest
           }           
          
         //Device
-        String id= "dev"+ new Timestamp(new Date().getTime()).toString().replace(" ","").replace(":","").replace(".","");
+        String id= "light-device";
         //Stream<OWLAxiom> axioms=Stream.empty();
-        String userId="ALAN";
+        String userId="Alan";
         
         InputStream userData=readData("ontologies/test/alan.owl"); 
         ontocore.addUser(userData, userId);
@@ -123,11 +124,22 @@ public class mainTest
         InputStream ontologyData=readData("ontologies/test/lightagent.owl");        
         ontocore.addDevice(ontologyData, id);
         
-      
-        
-        InputStream deviceConfig=readData("ontologies/test/alan-config.owl");
-        ontocore.addDeviceConfiguration(deviceConfig, id, id+"Conf-1","ALAN");        
+             
+       ByteArrayOutputStream outputstream = new ByteArrayOutputStream();
+        try
+          {                     
+            ontocore.addDeviceConfiguration(readData("ontologies/test/alan-config.rdf"));
+          } 
+        catch (OWLOntologyCreationException ex)
+          {
+            Logger.getLogger(mainAutoinstall.class.getName()).log(Level.SEVERE, null, ex);
+          }
+
+       // InputStream deviceConfig=readData("ontologies/test/alan-config.owl");
+       // ontocore.addDeviceConfiguration(deviceConfig, id, id+"Conf-1","ALAN");        
     
+        
+        
   
          InputStream request=readData("ontologies/test/user-request.owl");
          System.out.println("Testing acceptUserRequest");

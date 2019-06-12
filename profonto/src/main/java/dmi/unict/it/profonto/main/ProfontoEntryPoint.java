@@ -92,6 +92,21 @@ public class ProfontoEntryPoint
         return 0;
     }
 
+    
+   public static int addConfiguration(String description)
+    {
+        try    
+          {
+            ontocore.addDeviceConfiguration(getInputStream(description));
+          } 
+        catch (OWLOntologyCreationException ex)
+          {
+            Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
+          }
+        return 0;
+    }
+    
     public static int addConfiguration(String description, String iddevice, String idconfig, String iduser)
     {
         ontocore.addDeviceConfiguration(getInputStream(description), iddevice, idconfig, iduser);

@@ -20,6 +20,9 @@
         <NamedIndividual IRI="#light_component_type"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="#user_configuration_type"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="#parse"/>
     </Declaration>
     <Declaration>
@@ -42,9 +45,6 @@
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#user_type"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#user_cofiguration_type"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#execute"/>
@@ -105,7 +105,7 @@
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#ConfigurationType"/>
-        <NamedIndividual IRI="#user_cofiguration_type"/>
+        <NamedIndividual IRI="#user_configuration_type"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#AgentType"/>

@@ -6,6 +6,7 @@
 package dmi.unict.it.profonto.core;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -37,9 +38,13 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import org.semanticweb.HermiT.ReasonerFactory;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLIndividualAxiom;
+import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.util.InferredAxiomGenerator;
@@ -56,6 +61,7 @@ import org.semanticweb.owlapi.util.InferredSubDataPropertyAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredSubObjectPropertyAxiomGenerator;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
 import ru.avicomp.ontapi.OntologyModel;
+import sun.net.www.content.audio.x_aiff;
 
 /**
  *
@@ -679,6 +685,63 @@ public class Profonto extends OntologyCore
 
     }
 
+    
+    public String getEntityName(String s)
+      {
+        return s.substring(s.lastIndexOf("#") + 1);
+      }
+    
+    public OWLOntology addDeviceConfiguration(InputStream deviceConfig) throws OWLOntologyCreationException
+    {
+       
+      OWLOntology ontodevConf = null;
+      String []vals=new String[]{"","",""};  
+      try
+        {           
+            ontodevConf = this.getMainManager().loadOntologyFromOntologyDocument(deviceConfig);
+            String settles=(this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#settles");
+            String config=(this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#configurationProvidedBy");
+            ontodevConf.logicalAxioms().filter(x->x.isOfType(AxiomType.OBJECT_PROPERTY_ASSERTION)).forEach(
+              element -> {
+                            OWLObjectPropertyAssertionAxiom ax=((OWLObjectPropertyAssertionAxiom) element);
+                            if(ax.getProperty().getNamedProperty().toStringID().equals(settles))                              
+                                vals[0]=getEntityName(ax.getSubject().asOWLNamedIndividual().toStringID());
+                            else if(ax.getProperty().getNamedProperty().toStringID().equals(config)) 
+                              {
+                                 vals[1]=getEntityName(ax.getSubject().asOWLNamedIndividual().toStringID());
+                                 vals[2]=getEntityName(ax.getObject().asOWLNamedIndividual().toStringID());
+                                
+                              }
+                         });  
+            
+            File directory = new File(this.getOntologiesDeviceConfigurationPath() + File.separator + vals[0]);
+            if (!directory.exists())
+            {
+             directory.mkdir();
+            }
+            addImportToOntology(this.getDataBehaviorOntology(), ontodevConf.getOntologyID().getOntologyIRI().get());
+            String filesource = directory.getAbsolutePath() + File.separator + vals[1] + ".owl";
+            File file = new File(filesource);
+            FileOutputStream outStream = new FileOutputStream(file);
+
+            this.getMainManager().addIRIMapper(new SimpleIRIMapper(ontodevConf.getOntologyID().getOntologyIRI().get(),
+                    IRI.create(file.getCanonicalFile())));
+
+            this.getMainManager().saveOntology(ontodevConf, new OWLXMLDocumentFormat(), outStream);
+            this.getDeviceConfigurations().put(vals[1], new String[]
+            {
+                vals[0], ontodevConf.getOntologyID().getOntologyIRI().get().toString(), vals[2]
+            });
+            outStream.close();
+            //    this.syncReasonerDataBehavior();
+
+        } catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
+        {
+            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return ontodevConf;      
+    }
+    
     /**
      * Adds a configuration device
      *
