@@ -1039,7 +1039,7 @@ public class Profonto extends OntologyCore
                                    qs.getResource("task").getURI(),
                                    qs.getResource("operation").getURI(),
                                    qs.getResource("device_object").getURI(),            
-                                   //qs.getResource("obtype").getURI(), 
+                                   qs.getResource("obtype").getURI(), 
                                    null};            
             Resource r=qs.getResource("parameter");
             
