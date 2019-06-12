@@ -1042,12 +1042,18 @@ public class Profonto extends OntologyCore
                                    //qs.getResource("obtype").getURI(), 
                                    null};            
             Resource r=qs.getResource("parameter");
+            
+            String theobject=" <"+subqueryParam[3]+">"; //edit this line
             if(r!=null)             
               { 
                 subqueryParam[4]=r.getURI(); 
                 axioms=retrieveAssertions(subqueryParam[4], ontology);
+                
               } 
-            query+="CONSTRUCT {\n";        
+            //axioms=Stream.concat(retrieveAssertions(subqueryParam[1], ontology), axioms);
+            
+            query+="CONSTRUCT {\n";   
+            
             for(String s : subqueryParam)
               {
                if(s!=null) 
@@ -1058,6 +1064,7 @@ public class Profonto extends OntologyCore
             if(subqueryParam[4]!=null)
               {
                 query+=taskExec + " prof:hasTaskParameter "+ " <"+subqueryParam[4]+"> ." ;
+                
               }
             //query+="?selected_device" + " <"+subqueryParam[2]+">" + " <"+subqueryParam[4]+"> ." ; 
             
@@ -1065,9 +1072,9 @@ public class Profonto extends OntologyCore
             query+="?selected_device prof:performs "+ taskExec+" .\n";
             query+="<"+subqueryParam[1]+"> prof:hasTaskExecution "+taskExec + ".\n";
             query+=taskExec+" rdf:type prof:TaskExecution .\n";
-            query+=taskExec+" prof:hasTaskObject "+ "<"+subqueryParam[3]+">"+".\n";
+            query+=taskExec+" prof:hasTaskObject "+ theobject+".\n";
             query+=taskExec+" prof:hasTaskOperator "+ "<"+subqueryParam[2]+">"+" .\n";
-            query+="<"+subqueryParam[3]+">"+ "prof:hasType"+ "?requesttype"  +".\n";
+            query+=theobject+ "prof:hasType "+ " ?requesttype"  +".\n";
             query+="}\n";
             query+="WHERE { \n";   
             query+=this.getQueries().get("body02b.sparql");
