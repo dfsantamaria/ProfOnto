@@ -14,28 +14,28 @@
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Import>http://www.dmi.unict.it/oasis-abox.owl</Import>
     <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#kitchen"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#alan"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#alan-task-1-1-1-kitchen"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#alan-plan-1"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#LightObjectType"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#alan-goal-1-1"/>
+        <NamedIndividual IRI="#alan-plan-1"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#alan-task-1-1-1-object"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="#alan-goal-1-1"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="#alan-task-1-1-1"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#LightObjectType"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#kitchen"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_off"/>
@@ -64,6 +64,10 @@
         <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskObject"/>
         <NamedIndividual IRI="#alan-task-1-1-1-object"/>
     </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskObjectTemplate"/>
+        <NamedIndividual IRI="#alan-task-1-1-1-object"/>
+    </ClassAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#requests"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#alan"/>
@@ -80,7 +84,7 @@
         <NamedIndividual IRI="#alan-goal-1-1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#adoptsTaskObjectTemplate"/>
         <NamedIndividual IRI="#alan-task-1-1-1"/>
         <NamedIndividual IRI="#alan-task-1-1-1-object"/>
     </ObjectPropertyAssertion>

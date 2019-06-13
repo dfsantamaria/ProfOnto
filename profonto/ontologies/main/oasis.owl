@@ -159,6 +159,9 @@
         <ObjectProperty IRI="#deliversMessage"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#adoptsTaskObjectTemplate"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#VirtualSpace"/>
     </Declaration>
     <Declaration>
@@ -816,6 +819,9 @@
         <Class IRI="#ServiceOperator"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#TaskObjectTemplate"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#Feasibility"/>
     </Declaration>
     <Declaration>
@@ -1319,6 +1325,14 @@
         <Class IRI="#TaskDescriptor"/>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#TaskObjectTemplate"/>
+        <Class IRI="#TaskObject"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TaskObjectTemplate"/>
+        <Class IRI="#Template"/>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#TaskOperator"/>
         <Class IRI="#Operator"/>
     </SubClassOf>
@@ -1404,6 +1418,10 @@
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#adoptsComponentTemplate"/>
+        <ObjectProperty IRI="#adoptsTemplate"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#adoptsTaskObjectTemplate"/>
         <ObjectProperty IRI="#adoptsTemplate"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
@@ -2120,6 +2138,14 @@
     <ObjectPropertyRange>
         <ObjectProperty IRI="#adoptsAgentBehaviorTemplate"/>
         <Class IRI="#AgentBehaviorTemplate"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#adoptsTaskObjectTemplate"/>
+        <Class IRI="#TaskObject"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#adoptsTaskObjectTemplate"/>
+        <Class IRI="#TaskObjectTemplate"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#adoptsTemplate"/>
@@ -3548,6 +3574,11 @@
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the object of a task</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#TaskObjectTemplate</IRI>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Task object template</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#TaskOperator</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes task operators.</Literal>
@@ -3805,7 +3836,7 @@
     <AnnotationAssertion>
         <AnnotationProperty IRI="#isFoundInEntity"/>
         <IRI>#hasBeliefOperator</IRI>
-        <AnonymousIndividual nodeID="_:genid2"/>
+        <AnonymousIndividual nodeID="_:genid1"/>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>

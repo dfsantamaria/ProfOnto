@@ -1039,11 +1039,20 @@ public class Profonto extends OntologyCore
                                    qs.getResource("task").getURI(),
                                    qs.getResource("operation").getURI(),
                                    qs.getResource("device_object").getURI(),            
-                                   qs.getResource("obtype").getURI(), 
+                                   qs.getResource("obtype").getURI(),
+                                   qs.getResource("hasTask").getURI(),
                                    null};            
+            
             Resource r=qs.getResource("parameter");
             
             String theobject=" <"+subqueryParam[3]+">"; //edit this line
+            
+            if((subqueryParam[5]).equals(this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#adoptsTaskObjectTemplate"))      
+              { 
+                theobject=" ?device_object ";
+              }
+              
+            
             if(r!=null)             
               { 
                 subqueryParam[4]=r.getURI(); 
