@@ -1083,14 +1083,14 @@ public class Profonto extends OntologyCore
             query+=taskExec+" rdf:type prof:TaskExecution .\n";
             query+=taskExec+" prof:hasTaskObject "+ theobject+".\n";
             query+=taskExec+" prof:hasTaskOperator "+ "<"+subqueryParam[2]+">"+" .\n";
-            query+=theobject+ "prof:hasType "+ " ?requesttype"  +".\n";
+            query+=theobject+ "prof:hasType "+ " ?requesttype"  +" .\n";
             query+="}\n";
             query+="WHERE { \n";   
             query+=this.getQueries().get("body02b.sparql");
             query+=this.getQueries().get("body02c.sparql").replaceAll("//operation//", "<"+subqueryParam[2]+">")
-                    .replaceAll("//taskrequest//", "<"+subqueryParam[3]+">"); 
+                    .replaceAll("//taskrequest//", " <"+subqueryParam[3]+"> "); 
             query+="}";
-           // System.out.println(query);
+            System.out.println(query);
             ontology.addAxioms(this.getDataBehaviorOntology().axioms());
             res=performQuery(ontology,query);
             //res.axioms().forEach(System.out::println);         
