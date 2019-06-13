@@ -17,6 +17,7 @@ import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
+import org.apache.commons.io.FileUtils;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -79,12 +80,14 @@ public class mainTest
     
     public static void main(String[] args)
       {
+        
         File ontoFile=new File("ontologies/main/oasis.owl");
         File aboxFile=new File("ontologies/main/oasis-abox.owl");
        // File dataFile=new File("ontologies/main/dataset.owl");
         Profonto ontocore=new Profonto();
         try
-          {
+          { 
+            FileUtils.cleanDirectory( (Paths.get("ontologies"+File.separator+"devices")).toFile());
             ontocore.setOntologiesDeviceConfigurationsPath(Paths.get("ontologies"+File.separator+"devConfigs"));
             ontocore.setOntologiesDevicesPath(Paths.get("ontologies"+File.separator+"devices"));
             ontocore.setMainOntologiesPath(Paths.get("ontologies"+File.separator+"main"));
@@ -96,7 +99,9 @@ public class mainTest
             
             ontocore.setDataBehaviorOntology("http://www.dmi.unict.it/prof-onto-behavior.owl","behavior.owl");  
             ontocore.setDataBeliefOntology("http://www.dmi.unict.it/prof-onto-belief.owl","belief.owl");
-            ontocore.loadDevicesFromPath(true); //use this if the devices folder is not empty 
+            ontocore.loadDevicesFromPath(false); //use this if the devices folder is not empty 
+           
+            
            // ontocore.startReasoner();
           } 
         catch (OWLOntologyCreationException | OWLOntologyStorageException | IOException ex)
@@ -111,22 +116,18 @@ public class mainTest
           }           
          
         //Device
-        String id= "light-device";
-        //Stream<OWLAxiom> axioms=Stream.empty();
+        String id= "";        
         String userId="";
         
         InputStream userData=readData("ontologies/test/alan.owl"); 
         userId=ontocore.addUser(userData);
         
         InputStream ontologyData=readData("ontologies/test/lightagent.owl");        
-        id=ontocore.addDevice(ontologyData);
-        
-             
+        id=ontocore.addDevice(ontologyData);             
        
         try
           {                     
-            String conf=ontocore.addDeviceConfiguration(readData("ontologies/test/alan-config.owl"));
-            System.out.println(conf);
+            String conf=ontocore.addDeviceConfiguration(readData("ontologies/test/alan-config.owl"));            
             ontocore.removePermanentConfigurationFromDevice(conf);
           } 
         catch (OWLOntologyCreationException ex)

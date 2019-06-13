@@ -19,6 +19,7 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
+import org.apache.commons.io.FileUtils;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
@@ -81,10 +82,7 @@ public class mainAutoinstall
     
     public static void main(String[] args)
       {
-        File profonto=new File("ontologies/devices/ProfHomeAssistant.owl");     
-        if((profonto.exists()))
-          profonto.delete();
-        
+              
         
         File ontoFile=new File("ontologies/main/oasis.owl");
         File aboxFile=new File("ontologies/main/oasis-abox.owl");
@@ -92,6 +90,7 @@ public class mainAutoinstall
         Profonto ontocore=new Profonto();
         try
           {
+            FileUtils.cleanDirectory( (Paths.get("ontologies"+File.separator+"devices")).toFile());  
             ontocore.setOntologiesDeviceConfigurationsPath(Paths.get("ontologies"+File.separator+"devConfigs"));
             ontocore.setOntologiesDevicesPath(Paths.get("ontologies"+File.separator+"devices"));
             ontocore.setMainOntologiesPath(Paths.get("ontologies"+File.separator+"main"));
