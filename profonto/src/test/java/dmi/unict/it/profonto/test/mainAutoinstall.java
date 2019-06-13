@@ -121,7 +121,7 @@ public class mainAutoinstall
        InputStream assistantData=readData("ontologies/test/homeassistant.owl"); 
        ontocore.addDevice(assistantData);            
        
-       InputStream request=readData("ontologies/test/light-uninstallation-request.owl");
+       InputStream request=readData("ontologies/test/light-installation-request.owl");
        Stream<OWLAxiom> res= ontocore.parseRequest(request).axioms();
        System.out.println("Request:");
        if(res!=null)
@@ -130,7 +130,7 @@ public class mainAutoinstall
         
          System.out.println();
          System.out.println("Retrieve data:");
-         res=ontocore.retrieveAssertions("http://www.dmi.unict.it/light-uninstallation-request.owl#light-uninstallation-req-task");
+         res=ontocore.retrieveAssertions("http://www.dmi.unict.it/light-installation-request.owl#light-installation-req-task");
                                          
          res.forEach(System.out::println);
            }

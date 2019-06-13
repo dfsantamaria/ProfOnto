@@ -1326,10 +1326,6 @@
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#TaskObjectTemplate"/>
-        <Class IRI="#TaskObject"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#TaskObjectTemplate"/>
         <Class IRI="#Template"/>
     </SubClassOf>
     <SubClassOf>
@@ -2138,10 +2134,6 @@
     <ObjectPropertyRange>
         <ObjectProperty IRI="#adoptsAgentBehaviorTemplate"/>
         <Class IRI="#AgentBehaviorTemplate"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="#adoptsTaskObjectTemplate"/>
-        <Class IRI="#TaskObject"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#adoptsTaskObjectTemplate"/>
