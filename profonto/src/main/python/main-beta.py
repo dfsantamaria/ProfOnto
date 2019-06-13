@@ -47,16 +47,16 @@ def device_engage(graph,execution):
 def profhome_decide(graph, execution):
     requester = next(graph.objects(execution, URIRef(oasis + "hasTaskObject")))
     for actions in graph.objects(execution, URIRef(oasis + "hasTaskOperator")):
-        if actions == URIRef(oasisabox + "install"):  # installation task
+        if actions == URIRef(oasisabox + "install"):
             file = getOntologyFile(graph, execution)
             value = profonto.addDevice(file)  # read the device data
             print("Device", value, "added.")
-
+            break
         elif actions == URIRef(oasisabox + "uninstall"):  # uninstallation task
             #requester = next(graph.objects(execution, URIRef(oasis + "hasTaskObject")))
             value = profonto.removeDevice(retrieveEntityName(requester))  # read the device data
             print("Device", retrieveEntityName(requester), "removed with exit code", value,".")
-
+            break
         elif actions == URIRef(oasisabox + "add") or actions == URIRef(oasisabox + "remove"):  # add user task
              for thetype in graph.objects(requester, URIRef(oasis + "hasType")):
                  if thetype== URIRef(oasisabox + "user_type"): #adding or removing user
@@ -76,8 +76,14 @@ def profhome_decide(graph, execution):
                          value = profonto.removeConfiguration(retrieveEntityName(requester))
                          print("Configuration", retrieveEntityName(requester), "removed.")
                  break
-
-
+        elif actions == URIRef(oasisabox + "parse"):
+            for thetype in graph.objects(requester, URIRef(oasis + "hasType")):
+                if thetype == URIRef(oasisabox + "generalUtterance"):
+                    print("General utterances parser is being developed... stay tuned!")
+                    break
+        else:
+            print("Action", actions, "not supported yet")
+            break
 
 #Decide which decision has to be taken
 class Decide_Action(Action):

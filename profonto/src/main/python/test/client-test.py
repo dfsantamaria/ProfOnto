@@ -43,7 +43,12 @@ client_socket.send(home.encode())
 client_socket.close()
 
 
-
+#a request
+home=readOntoFile("ontologies/test/interpretation-request.owl")
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect(('localhost', 8000))
+client_socket.send(home.encode())
+client_socket.close()
 
 
 time.sleep(5)
