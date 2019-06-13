@@ -60,16 +60,21 @@ Instructions:
    2.2) Locate and run the "setup.py" file in the folder "main". Wait for the installation and make sure maven terminates without errors.
    2.3) You can now delete the folder "src". All required files are in the folder "target"
 
-3) Running. You have two choices:
-
-   3.1A) The folder "target/python/test" contains two examples, "main-test.pay" and  "client-test.py" which show the overall functioning of 
-         the domotic assistant. You can execute them separately, or 
+3) Running.   
         
-   3.1B) The file "main-beta.py" in the folder "target/python" runs a beta version of the domotic assistant. Currently it can install and 
-         unistall devices, add and remove users, add and remove configurations. Run the file "main-beta.py" and wait for it to load. Then, run the file "client-test.py" in "target/python/test"
-         that will add device, a user, a configuration, and then it will remove them.
+   3.1) The file "main-beta.py" in the folder "target/python" runs a beta version of the domotic assistant. Currently it can 
+         - install and uninistall devices;
+         - add and remove users;
+         - add and remove configurations.
+         - simulate the execution of simple requests.
          
-         Stay tuned for updates.
+         Run the file "main-beta.py" and wait for it to load. 
+         
+   3.2) Then, run the file "client-test.py" in "target/python/test". It  will add a device, a user, a configuration, request a simple task 
+        and then it will remove the device, the configuration,  and the user previously added.
+         
+         
+        Stay tuned for updates.
    
    
 
