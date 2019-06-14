@@ -1090,7 +1090,7 @@ public class Profonto extends OntologyCore
             query+=this.getQueries().get("body02c.sparql").replaceAll("//operation//", "<"+subqueryParam[2]+">")
                     .replaceAll("//taskrequest//", " <"+subqueryParam[3]+"> "); 
             query+="}";
-            System.out.println(query);
+            //System.out.println(query);
             ontology.addAxioms(this.getDataBehaviorOntology().axioms());
             res=performQuery(ontology,query);
             //res.axioms().forEach(System.out::println);         
