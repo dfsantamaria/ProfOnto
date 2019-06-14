@@ -146,17 +146,18 @@ public class mainTest
        // InputStream deviceConfig=readData("ontologies/test/alan-config.owl");
        // ontocore.addDeviceConfiguration(deviceConfig, id, id+"Conf-1","ALAN");        
     
-        
+        InputStream request;
+        Stream<OWLAxiom> res;
         
   
-         InputStream request=readData("ontologies/test/user-request.owl");
-         System.out.println("Testing acceptUserRequest");
-         Stream<OWLAxiom> res= ontocore.acceptUserRequest(request, "http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1", 
-                                    "http://www.dmi.unict.it/ontoas/alan.owl#Alan",
-                                    "http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1-exec",
-                                    "http://www.dmi.unict.it/user-request.owl#alan-goal-1-1-1");
-         
-         res.forEach(System.out::println);
+//         InputStream request=readData("ontologies/test/user-request.owl");
+//         System.out.println("Testing acceptUserRequest");
+//         Stream<OWLAxiom> res= ontocore.acceptUserRequest(request, "http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1", 
+//                                    "http://www.dmi.unict.it/ontoas/alan.owl#Alan",
+//                                    "http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1-exec",
+//                                    "http://www.dmi.unict.it/user-request.owl#alan-goal-1-1-1");
+//         
+//         res.forEach(System.out::println);
 // remove an user and the related configurations        
 //        try
 //          {

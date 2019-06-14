@@ -59,17 +59,6 @@ value = profonto.addConfiguration(config)  #read the device configuration data
 print("Configuration added:", value)
 value=""
 
-#value=profonto.syncReasonerDataBehavior(); # sync the reasoner
-#print("Data Behavior synchronized with exit code:", value)
-#
-# request=readOntoFile("ontologies/test/user-request.owl")
-# value=profonto.acceptUserRequest(request, "http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1",
-#                                                                                 "http://www.dmi.unict.it/ontoas/alan.owl#Alan",
-#                                                                "http://www.dmi.unict.it/user-request.owl#alan-task-1-1-1-exec",
-#                                                                     "http://www.dmi.unict.it/user-request.owl#alan-goal-1-1-1");
-#
-# print("Request output:", value)
-
 print("Testing parseRequest step 1...")
 request=readOntoFile("ontologies/test/user-request.owl")
 value=profonto.parseRequest(request)

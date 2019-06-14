@@ -1,3 +1,0 @@
-?object prof:hasSpaceSpan ?space .
-?object prof:hasType ?obtype .
-?space prof:hasType  ?spacetype .

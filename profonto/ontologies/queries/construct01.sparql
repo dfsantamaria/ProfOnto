@@ -1,0 +1,7 @@
+?selected_device rdf:type owl:NamedIndividual .
+?selected_device prof:performs //taskexec// .
+//param1// prof:hasTaskExecution //taskexec// .
+//taskexec// rdf:type prof:TaskExecution .
+//taskexec// prof:hasTaskObject //theobject// .
+//taskexec// prof:hasTaskOperator //param2// .
+//theobject// prof:hasType ?requesttype .

@@ -6,7 +6,6 @@
 package dmi.unict.it.profonto.core;
 
 import java.io.BufferedReader;
-import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -38,14 +37,11 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import org.semanticweb.owlapi.model.RemoveImport;
 import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import org.semanticweb.HermiT.ReasonerFactory;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLIndividualAxiom;
-import org.semanticweb.owlapi.model.OWLLogicalAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.util.InferredAxiomGenerator;
@@ -62,7 +58,6 @@ import org.semanticweb.owlapi.util.InferredSubDataPropertyAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredSubObjectPropertyAxiomGenerator;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
 import ru.avicomp.ontapi.OntologyModel;
-import sun.net.www.content.audio.x_aiff;
 
 /**
  *
@@ -935,51 +930,51 @@ public class Profonto extends OntologyCore
         return query;
       }
     
-    /**
-     *
-     * @param request The InputStream object representing the request
-     * @param IRItask The IRI of the OASIS Task instance from the request
-     * @param IRIuser The IRI of the OASIS USER instance of the user
-     * @param IRIexec The IRI of the OASIS TaskExcecution instance to create
-     * @param IRIGoalExec The IRI of the OASIS GoalExecution instance to create
-     * @return The OWLAxiom Stream containing the result of the query
-     */
-    public Stream<OWLAxiom> acceptUserRequest(InputStream request, String IRItask, String IRIuser, String IRIexec, String IRIGoalExec)
-    {
-        OntologyModel res=null;
-        OWLOntology ontology;
-        
-        try
-          {
-            ontology = this.getMainManager().loadOntologyFromOntologyDocument(request);
-          
-            //Merge and query here         
-            String query=this.getQueries().get("prefix01.sparql");            
-            query+="PREFIX prof: <"+this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#>\n";
-            query+="CONSTRUCT {\n";
-            query+=(this.getQueries().get("construct01a.sparql").replaceAll("//exec//","<"+IRIexec+">").replaceAll("//goal//","<"+IRIGoalExec+">"));
-            query+=(this.getQueries().get("construct01b.sparql"));
-            query+="}";
-            query+="WHERE { \n";
-            query+=(this.getQueries().get("body01a.sparql").replaceAll("//task//", "<"+IRItask+">"));
-            query+=(this.getQueries().get("body01b.sparql"));
-            query+=(this.getQueries().get("body01c.sparql").replaceAll("//user//", "<"+IRIuser+">"));
-            query+=this.getQueries().get("body01d.sparql");
-            query+="}";
-          
-            //System.out.println(query);   
-            res=performQuery(ontology, query);
-            //res.axioms().forEach(System.out::println); 
-          }
-        catch (OWLOntologyCreationException ex)
-          {
-            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
-          }   
-        if(res==null) 
-            return null;
-        return res.axioms();
-        
-    }
+//    /**
+//     *
+//     * @param request The InputStream object representing the request
+//     * @param IRItask The IRI of the OASIS Task instance from the request
+//     * @param IRIuser The IRI of the OASIS USER instance of the user
+//     * @param IRIexec The IRI of the OASIS TaskExcecution instance to create
+//     * @param IRIGoalExec The IRI of the OASIS GoalExecution instance to create
+//     * @return The OWLAxiom Stream containing the result of the query
+//     */
+//    public Stream<OWLAxiom> acceptUserRequest(InputStream request, String IRItask, String IRIuser, String IRIexec, String IRIGoalExec)
+//    {
+//        OntologyModel res=null;
+//        OWLOntology ontology;
+//        
+//        try
+//          {
+//            ontology = this.getMainManager().loadOntologyFromOntologyDocument(request);
+//          
+//            //Merge and query here         
+//            String query=this.getQueries().get("prefix01.sparql");            
+//            query+="PREFIX prof: <"+this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#>\n";
+//            query+="CONSTRUCT {\n";
+//            query+=(this.getQueries().get("construct01a.sparql").replaceAll("//exec//","<"+IRIexec+">").replaceAll("//goal//","<"+IRIGoalExec+">"));
+//            query+=(this.getQueries().get("construct01b.sparql"));
+//            query+="}";
+//            query+="WHERE { \n";
+//            query+=(this.getQueries().get("body01a.sparql").replaceAll("//task//", "<"+IRItask+">"));
+//            query+=(this.getQueries().get("body01b.sparql"));
+//            query+=(this.getQueries().get("body01c.sparql").replaceAll("//user//", "<"+IRIuser+">"));
+//            query+=this.getQueries().get("body01d.sparql");
+//            query+="}";
+//          
+//            //System.out.println(query);   
+//            res=performQuery(ontology, query);
+//            //res.axioms().forEach(System.out::println); 
+//          }
+//        catch (OWLOntologyCreationException ex)
+//          {
+//            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+//          }   
+//        if(res==null) 
+//            return null;
+//        return res.axioms();
+//        
+//    }
 
     
      public OntologyModel performQuery(String query) throws OWLOntologyCreationException
@@ -1077,13 +1072,19 @@ public class Profonto extends OntologyCore
               }
             //query+="?selected_device" + " <"+subqueryParam[2]+">" + " <"+subqueryParam[4]+"> ." ; 
             
-            query+="?selected_device rdf:type owl:NamedIndividual.\n";
-            query+="?selected_device prof:performs "+ taskExec+" .\n";
-            query+="<"+subqueryParam[1]+"> prof:hasTaskExecution "+taskExec + ".\n";
-            query+=taskExec+" rdf:type prof:TaskExecution .\n";
-            query+=taskExec+" prof:hasTaskObject "+ theobject+".\n";
-            query+=taskExec+" prof:hasTaskOperator "+ "<"+subqueryParam[2]+">"+" .\n";
-            query+=theobject+ "prof:hasType "+ " ?requesttype"  +" .\n";
+            
+            query+=this.getQueries().get("construct01.sparql").replaceAll("//taskexec//", " "+taskExec+" ")
+                                                              .replaceAll("//param1//", " <"+subqueryParam[1]+"> ")
+                                                              .replaceAll("//param2//", " <"+subqueryParam[2]+"> ")
+                                                              .replaceAll("//theobject//", " "+theobject+" ");
+            
+//            query+="?selected_device rdf:type owl:NamedIndividual.\n";
+//            query+="?selected_device prof:performs "+ taskExec+" .\n";
+//            query+="<"+subqueryParam[1]+"> prof:hasTaskExecution "+taskExec + ".\n";
+//            query+=taskExec+" rdf:type prof:TaskExecution .\n";
+//            query+=taskExec+" prof:hasTaskObject "+ theobject+".\n";
+//            query+=taskExec+" prof:hasTaskOperator "+ "<"+subqueryParam[2]+">"+" .\n";
+//            query+=theobject+ "prof:hasType "+ " ?requesttype"  +" .\n";
             query+="}\n";
             query+="WHERE { \n";   
             query+=this.getQueries().get("body02b.sparql");
