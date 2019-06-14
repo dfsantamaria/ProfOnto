@@ -93,9 +93,6 @@
         <Class IRI="#HomeObjectType"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasServiceObject"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="#TaskDescription"/>
     </Declaration>
     <Declaration>
@@ -213,9 +210,6 @@
         <Class IRI="#ComponentConfiguration"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#isServiceSatisfiedBy"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="#OntologyDescriptionObject"/>
     </Declaration>
     <Declaration>
@@ -231,13 +225,7 @@
         <Class IRI="#MessagePart"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ServiceObject"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="#SpaceType"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#realizedByBehavior"/>
     </Declaration>
     <Declaration>
         <Class IRI="#TaskOperator"/>
@@ -336,9 +324,6 @@
         <Class IRI="#Conditional"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#requestService"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="#GoalPart"/>
     </Declaration>
     <Declaration>
@@ -349,6 +334,9 @@
     </Declaration>
     <Declaration>
         <Class IRI="#ConditionalRestrictionParameter"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasService"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasGeometricExtension"/>
@@ -432,9 +420,6 @@
         <Class IRI="#ActiveStatus"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#requestsBehavior"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="#TemperatureValue"/>
     </Declaration>
     <Declaration>
@@ -495,22 +480,10 @@
         <Class IRI="#Device"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasServiceDescriptor"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="#Space"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ServiceDescriptor"/>
-    </Declaration>
-    <Declaration>
         <ObjectProperty IRI="#hasMessageOperator"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#providesService"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasServiceOperator"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#consistsOfEntry"/>
@@ -666,9 +639,6 @@
         <ObjectProperty IRI="#hasConditionalRestriction"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasServiceParameter"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="#Implementation"/>
     </Declaration>
     <Declaration>
@@ -696,13 +666,7 @@
         <Class IRI="#SmartContractEntry"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ServiceRequest"/>
-    </Declaration>
-    <Declaration>
         <ObjectProperty IRI="#hasObject"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ServicePart"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ConditionalRestriction"/>
@@ -739,9 +703,6 @@
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasConditionalSubject"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ServiceParameter"/>
     </Declaration>
     <Declaration>
         <Class IRI="#PhysicalSpace"/>
@@ -814,9 +775,6 @@
     </Declaration>
     <Declaration>
         <Class IRI="#GoalDescription"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ServiceOperator"/>
     </Declaration>
     <Declaration>
         <Class IRI="#TaskObjectTemplate"/>
@@ -1214,35 +1172,7 @@
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Service"/>
-        <Class IRI="#ServicePart"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#ServiceDescriptor"/>
-        <Class IRI="#Descriptor"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#ServiceObject"/>
-        <Class IRI="#ServiceDescriptor"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#ServiceOperator"/>
-        <Class IRI="#Operator"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#ServiceOperator"/>
-        <Class IRI="#ServiceDescriptor"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#ServiceParameter"/>
-        <Class IRI="#ServiceDescriptor"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#ServiceRequest"/>
-        <Class IRI="#RequestDescriptionObject"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#ServiceRequest"/>
-        <Class IRI="#ServicePart"/>
+        <Class IRI="#Behavior"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#SmartContract"/>
@@ -1693,32 +1623,8 @@
         <ObjectProperty IRI="#isInvolvedInSchedulingWith"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasServiceDescriptor"/>
-        <ObjectProperty IRI="#hasDescriptor"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasServiceObject"/>
-        <ObjectProperty IRI="#hasObject"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasServiceObject"/>
-        <ObjectProperty IRI="#hasServiceDescriptor"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasServiceOperator"/>
-        <ObjectProperty IRI="#hasOperator"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasServiceOperator"/>
-        <ObjectProperty IRI="#hasServiceDescriptor"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasServiceParameter"/>
-        <ObjectProperty IRI="#hasParameter"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasServiceParameter"/>
-        <ObjectProperty IRI="#hasServiceDescriptor"/>
+        <ObjectProperty IRI="#hasService"/>
+        <ObjectProperty IRI="#hasBehavior"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasSmartContractEntry"/>
@@ -1789,10 +1695,6 @@
         <ObjectProperty IRI="#partecipatesInSmartContract"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#isServiceSatisfiedBy"/>
-        <ObjectProperty IRI="#isRelatedWith"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
         <ObjectProperty IRI="#messageDeliveredTo"/>
         <ObjectProperty IRI="#isRelatedWith"/>
     </SubObjectPropertyOf>
@@ -1801,24 +1703,8 @@
         <ObjectProperty IRI="#isRelatedWith"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#providesService"/>
-        <ObjectProperty IRI="#provides"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
         <ObjectProperty IRI="#providesSmartContractType"/>
         <ObjectProperty IRI="#provides"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#realizedByBehavior"/>
-        <ObjectProperty IRI="#isDescribedBy"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#requestService"/>
-        <ObjectProperty IRI="#requests"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#requestsBehavior"/>
-        <ObjectProperty IRI="#requests"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#setUpFrom"/>
@@ -2026,20 +1912,8 @@
         <Class IRI="#RequestDescriptionObject"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasServiceDescriptor"/>
-        <Class IRI="#Service"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasServiceObject"/>
-        <Class IRI="#Service"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasServiceOperator"/>
-        <Class IRI="#Service"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasServiceParameter"/>
-        <Class IRI="#Service"/>
+        <ObjectProperty IRI="#hasService"/>
+        <Class IRI="#Agent"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasSmartContractEntry"/>
@@ -2066,10 +1940,6 @@
         <Class IRI="#Agent"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#isServiceSatisfiedBy"/>
-        <Class IRI="#ServiceRequest"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
         <ObjectProperty IRI="#messageDeliveredTo"/>
         <Class IRI="#Message"/>
     </ObjectPropertyDomain>
@@ -2078,23 +1948,7 @@
         <Class IRI="#Agent"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#providesService"/>
-        <Class IRI="#Agent"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
         <ObjectProperty IRI="#providesSmartContractType"/>
-        <Class IRI="#Agent"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#realizedByBehavior"/>
-        <Class IRI="#Service"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#requestService"/>
-        <Class IRI="#Agent"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#requestsBehavior"/>
         <Class IRI="#Agent"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
@@ -2352,16 +2206,8 @@
         <Class IRI="#Scheduling"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasServiceObject"/>
-        <Class IRI="#ServiceObject"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasServiceOperator"/>
-        <Class IRI="#ServiceOperator"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasServiceParameter"/>
-        <Class IRI="#ServiceParameter"/>
+        <ObjectProperty IRI="#hasService"/>
+        <Class IRI="#Service"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasSmartContractEntry"/>
@@ -2416,10 +2262,6 @@
         <Class IRI="#SmartContract"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#isServiceSatisfiedBy"/>
-        <Class IRI="#Service"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
         <ObjectProperty IRI="#messageDeliveredTo"/>
         <Class IRI="#Connection"/>
     </ObjectPropertyRange>
@@ -2428,24 +2270,8 @@
         <Class IRI="#SmartContract"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#providesService"/>
-        <Class IRI="#Service"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
         <ObjectProperty IRI="#providesSmartContractType"/>
         <Class IRI="#SmartContractType"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="#realizedByBehavior"/>
-        <Class IRI="#Behavior"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="#requestService"/>
-        <Class IRI="#Service"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="#requestsBehavior"/>
-        <Class IRI="#RequestDescriptionObject"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#setUpFrom"/>
@@ -3316,76 +3142,6 @@
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Sensor</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Service</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a service i.e.,  a discrete unit of functionality that can be accessed remotely and acted upon and updated independently</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#Service</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Service</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#ServiceDescriptor</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes services descriptors</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#ServiceDescriptor</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Service descriptor</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#ServiceObject</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This classs describes services objects</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#ServiceObject</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Service object</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#ServiceOperator</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes services operators</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#ServiceOperator</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Service operator</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#ServiceParameter</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes services parameters</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#ServiceParameter</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Service parameter</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#ServicePart</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a part of a service</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#ServicePart</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Service part</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#ServiceRequest</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes  requests of  services</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#ServiceRequest</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Service request</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#SmartContract</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Smart contract</Literal>
@@ -3927,26 +3683,6 @@
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#hasServiceDescriptor</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links services to their descriptors</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#hasServiceObject</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links services to their objects</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#hasServiceOperator</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links services to their operators</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#hasServiceParameter</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links services to their parameters</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasSmartContractEntry</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links smart contracts to their entries</Literal>
     </AnnotationAssertion>
@@ -4052,18 +3788,8 @@
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#providesService</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This properties is used to links Agents to Services</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#requests</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to the requestes thing</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#requestsBehavior</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links agent to a request of action</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
