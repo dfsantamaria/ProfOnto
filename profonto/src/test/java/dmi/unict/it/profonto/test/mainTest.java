@@ -98,6 +98,7 @@ public class mainTest
             ontocore.setMainAbox(aboxFile);
             
             ontocore.setDataBehaviorOntology("http://www.dmi.unict.it/prof-onto-behavior.owl","behavior.owl");  
+            ontocore.setDataChronoOntology("http://www.dmi.unict.it/prof-onto-chrono.owl","chronology.owl");
             ontocore.setDataBeliefOntology("http://www.dmi.unict.it/prof-onto-belief.owl","belief.owl");
             ontocore.loadDevicesFromPath(false); //use this if the devices folder is not empty 
            
@@ -192,7 +193,7 @@ public class mainTest
         
          System.out.println();
          System.out.println("Retrieve data:");
-         res=ontocore.retrieveAssertions("http://www.dmi.unict.it/interpretation-request.owl#user-utterance-1");
+         res=ontocore.retrieveChronologyAssertions("http://www.dmi.unict.it/interpretation-request.owl#user-utterance-1");
                                          
          res.forEach(System.out::println);
            }

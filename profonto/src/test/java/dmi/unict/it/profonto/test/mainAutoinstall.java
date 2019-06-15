@@ -100,7 +100,8 @@ public class mainAutoinstall
             ontocore.setMainOntology(ontoFile); 
             ontocore.setMainAbox(aboxFile);
             
-            ontocore.setDataBehaviorOntology("http://www.dmi.unict.it/prof-onto-behavior.owl","behavior.owl");  
+            ontocore.setDataBehaviorOntology("http://www.dmi.unict.it/prof-onto-behavior.owl","behavior.owl"); 
+            ontocore.setDataChronoOntology("http://www.dmi.unict.it/prof-onto-chrono.owl","chronology.owl");
             ontocore.setDataBeliefOntology("http://www.dmi.unict.it/prof-onto-belief.owl","belief.owl");
             ontocore.loadDevicesFromPath(true); //use this if the devices folder is not empty 
            // ontocore.startReasoner();
@@ -130,7 +131,7 @@ public class mainAutoinstall
         
          System.out.println();
          System.out.println("Retrieve data:");
-         res=ontocore.retrieveAssertions("http://www.dmi.unict.it/light-installation-request.owl#light-installation-req-task");
+         res=ontocore.retrieveChronologyAssertions("http://www.dmi.unict.it/light-installation-request.owl#light-installation-req-task");
                                          
          res.forEach(System.out::println);
            }

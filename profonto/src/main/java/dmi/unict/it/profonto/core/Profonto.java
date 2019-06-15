@@ -72,6 +72,7 @@ public class Profonto extends OntologyCore
     private final HashMap<String, String> queries; //FileName, content
     private Pair<String, OWLOntology> databehavior;
     private Pair<String, OWLOntology> databelief;
+    private Pair<String, OWLOntology> datachrono;
     private final Configuration configuration;
     private final List<InferredAxiomGenerator<? extends OWLAxiom>> generators;
 
@@ -86,6 +87,7 @@ public class Profonto extends OntologyCore
         configuration = new Configuration(paths);
         databehavior = null;
         databelief = null;
+        datachrono = null;
         mainAbox=null;        
         generators = new ArrayList<>();
         setDefaultReasonerGenerators(generators);
@@ -239,6 +241,20 @@ public class Profonto extends OntologyCore
         databelief = new Pair(this.getMainOntologiesPath() + File.separator + inputFile.getName(), this.getMainManager().loadOntologyFromOntologyDocument(inputFile));
     }
 
+    
+    /**
+     * Sets the data-chrono ontology from file
+     *
+     * @param inputFile the file serializing the ontology
+     * @throws OWLOntologyCreationException
+     * @throws org.semanticweb.owlapi.model.OWLOntologyStorageException
+     */
+    public void setDataChronoOntology(File inputFile) throws OWLOntologyCreationException, OWLOntologyStorageException
+    {
+        datachrono = new Pair(this.getMainOntologiesPath() + File.separator + inputFile.getName(), this.getMainManager().loadOntologyFromOntologyDocument(inputFile));
+    }
+    
+    
     /**
      * Sets the data-behavior ontology from file
      *
@@ -266,12 +282,35 @@ public class Profonto extends OntologyCore
         File inputFile = new File(this.getMainOntologiesPath() + File.separator + name);
         this.getMainManager().saveOntology(dt, new OWLXMLDocumentFormat(), IRI.create(inputFile));
         setDataBeliefOntology(inputFile);
-        addImportToOntology(this.getDataBehaviorOntology(), this.getMainOntology().getOntologyID().getOntologyIRI().get());
-        addImportToOntology(this.getDataBeliefOntology(), this.getDataBehaviorOntology().getOntologyID().getOntologyIRI().get());
+        //addImportToOntology(this.getDataBehaviorOntology(), this.getMainOntology().getOntologyID().getOntologyIRI().get());
+        addImportToOntology(this.getDataBeliefOntology(), this.getDataChronoOntology().getOntologyID().getOntologyIRI().get());
     }
 
+    
+      /**
+     * Sets the data-chronology ontology from file name
+     *
+     * @param iri The IRI of the ontology
+     * @param name the name of the file serializing the ontology
+     * @throws OWLOntologyCreationException
+     * @throws org.semanticweb.owlapi.model.OWLOntologyStorageException
+     * @throws java.io.IOException
+     */
+    public void setDataChronoOntology(String iri, String name) throws OWLOntologyCreationException, OWLOntologyStorageException, IOException
+    {
+        OWLOntology dt = this.getMainManager().createOntology(IRI.create(iri));
+        File inputFile = new File(this.getMainOntologiesPath() + File.separator + name);
+        this.getMainManager().saveOntology(dt, new OWLXMLDocumentFormat(), IRI.create(inputFile));
+        setDataChronoOntology(inputFile);
+        addImportToOntology(this.getDataChronoOntology(), this.getMainOntology().getOntologyID().getOntologyIRI().get());
+        addImportToOntology(this.getDataChronoOntology(), this.getDataBehaviorOntology().getOntologyID().getOntologyIRI().get());
+    }
+    
+    
+    
+    
     /**
-     * Sets the data-belief ontology from file name
+     * Sets the data-beheavior ontology from file name
      *
      * @param iri The IRI of the ontology
      * @param name the name of the file serializing the ontology
@@ -340,6 +379,17 @@ public class Profonto extends OntologyCore
         return getDataBeliefInfo().getValue();
     }
 
+       /**
+     * Returns the data-chronoloy ontology
+     *
+     * @return the data-chronology ontology
+     */
+    public OWLOntology getDataChronoOntology()
+    {
+        return getDataChronoInfo().getValue();
+    }
+    
+    
     /**
      * Returns the data-belief ontology
      *
@@ -350,6 +400,16 @@ public class Profonto extends OntologyCore
         return this.databelief;
     }
 
+      /**
+     * Returns the data-chronology ontology
+     *
+     * @return the data-chronology ontology
+     */
+    public Pair<String, OWLOntology> getDataChronoInfo()
+    {
+        return this.datachrono;
+    }
+    
     /**
      * Returns the data-behavior ontology
      *
@@ -422,6 +482,10 @@ public class Profonto extends OntologyCore
         addAxiomsToOntology(this.getDataBeliefOntology(), axioms);
     }
 
+    public void addDataToDataChrono(Stream<OWLAxiom> axioms) throws OWLOntologyCreationException
+    {
+        addAxiomsToOntology(this.getDataChronoOntology(), axioms);
+    } 
 
     private void syncReasoner(OWLOntology ontology, String file) throws OWLOntologyStorageException
     {     
@@ -459,7 +523,7 @@ public class Profonto extends OntologyCore
      */
     public void syncReasonerDataBehavior() throws OWLOntologyStorageException, OWLOntologyCreationException
     {      
-        OWLOntology m = this.getDataBeliefOntology();
+        OWLOntology m = this.getDataBehaviorOntology();
         m.imports().forEach(ont ->ont.axioms().forEach(a-> m.addAxiom(a)));     
         this.syncReasoner(m, this.getDataBehaviorInfo().getKey());
     }
@@ -991,7 +1055,7 @@ public class Profonto extends OntologyCore
         this.getMainManager().ontologies().forEach(x->ontology.addAxioms(x.axioms()));
         QueryExecution execQ = this.createQuery(ontology, query);
         res=this.performConstructQuery(execQ);
-        this.addDataToDataBelief(res.axioms());
+        this.addDataToDataChrono(res.axioms());
         this.getMainManager().removeOntology(ontology);
        } 
         catch (OWLOntologyCreationException | IOException ex)
@@ -1039,7 +1103,7 @@ public class Profonto extends OntologyCore
             
             //ontology.;
             syncReasoner(ontology, null);                          
-            this.getDataBeliefOntology().addAxioms(ontology.axioms());       
+            this.getDataChronoOntology().addAxioms(ontology.axioms());       
             String query=prefix;
             //Subquery over request
             subquery=prefix+this.getQueries().get("body02a.sparql");            
@@ -1155,9 +1219,9 @@ public class Profonto extends OntologyCore
     }
     
     
-    public Stream<OWLAxiom> retrieveAssertions(String iriInd)
+    public Stream<OWLAxiom> retrieveChronologyAssertions(String iriInd)
       {
-         return retrieveAssertions(iriInd, this.getDataBeliefOntology());
+         return retrieveAssertions(iriInd, this.getDataChronoOntology());
       }
     
     private Stream<OWLAxiom> retrieveAssertions(String iriInd, OWLOntology ontology)

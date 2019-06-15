@@ -17,7 +17,6 @@ import java.util.logging.Logger;
 import java.util.stream.Stream;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
@@ -57,6 +56,7 @@ public class ProfontoEntryPoint
             ontocore.setMainAbox(aboxFile);
               
             ontocore.setDataBehaviorOntology("http://www.dmi.unict.it/prof-onto-behavior.owl", "behavior.owl");
+            ontocore.setDataChronoOntology("http://www.dmi.unict.it/prof-onto-chrono.owl","chronology.owl");
             ontocore.setDataBeliefOntology("http://www.dmi.unict.it/prof-onto-belief.owl", "belief.owl");
             ontocore.loadDevicesFromPath(true); //use this if the devices folder is not empty 
             // ontocore.startReasoner();
@@ -201,7 +201,7 @@ public class ProfontoEntryPoint
     
     public static String retrieveAssertions(String individual)
       {
-        Stream<OWLAxiom> res=ontocore.retrieveAssertions(individual);
+        Stream<OWLAxiom> res=ontocore.retrieveChronologyAssertions(individual);
         if(res!=null)
           { 
             StringBuilder out=new StringBuilder();      
