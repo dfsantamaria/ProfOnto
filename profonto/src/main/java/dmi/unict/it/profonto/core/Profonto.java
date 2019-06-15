@@ -73,7 +73,7 @@ public class Profonto extends OntologyCore
     private Pair<String, OWLOntology> databehavior;
     private Pair<String, OWLOntology> databelief;
     private final Configuration configuration;
-    private List<InferredAxiomGenerator<? extends OWLAxiom>> generators;
+    private final List<InferredAxiomGenerator<? extends OWLAxiom>> generators;
 
     public Profonto()
     {
@@ -1014,20 +1014,38 @@ public class Profonto extends OntologyCore
         try
           {
             ontology = this.getMainManager().loadOntologyFromOntologyDocument(request); 
-            //ontology.;
-            syncReasoner(ontology, null);                          
-            this.getDataBeliefOntology().addAxioms(ontology.axioms());
+            
+            //prefix
             String IRIrequest=ontology.getOntologyID().getOntologyIRI().get().toString();
             String prefix=this.getQueries().get("prefix01.sparql");
             prefix+="PREFIX prof: <"+this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#>\n";
-            prefix+="PREFIX abox: <"+this.getMainAbox().getOntologyID().getOntologyIRI().get().toString()+"#>\n";
+            String mainID=this.getMainAbox().getOntologyID().getOntologyIRI().get().toString();
+            prefix+="PREFIX abox: <"+mainID+"#>\n";
             prefix+="PREFIX base: <"+IRIrequest+">\n"; 
+            
+            //Filtering configuration            
+            String subquery=prefix+this.getQueries().get("body01a.sparql");
+            QueryExecution execQ = this.createQuery(ontology, subquery);
+            ResultSet setIRI=execQ.execSelect();
+            ArrayList<Pair<String,String>> configs=new  ArrayList();
+            while(setIRI.hasNext())
+              {
+                QuerySolution qs=setIRI.next();
+                configs.add(new Pair(qs.getResource("prop").getURI(),qs.getResource("thetype").getURI()));
+              }   
+            
+//            for(Pair<String,String> s : configs)
+//                  System.out.println(s.getKey()+" "+s.getValue());
+            
+            //ontology.;
+            syncReasoner(ontology, null);                          
+            this.getDataBeliefOntology().addAxioms(ontology.axioms());       
             String query=prefix;
             //Subquery over request
-            String subquery=prefix+this.getQueries().get("body02a.sparql");           
+            subquery=prefix+this.getQueries().get("body02a.sparql");            
             
-            QueryExecution execQ = this.createQuery(ontology, subquery);
-            ResultSet setIRI=execQ.execSelect();                        
+            execQ = this.createQuery(ontology, subquery);
+            setIRI=execQ.execSelect();                        
             QuerySolution qs=setIRI.next();
             
             String[] subqueryParam={qs.getResource("selected_device").getURI(),
@@ -1054,7 +1072,8 @@ public class Profonto extends OntologyCore
                 axioms=retrieveAssertions(subqueryParam[4], ontology);
                 
               } 
-            //axioms=Stream.concat(retrieveAssertions(subqueryParam[1], ontology), axioms);
+            
+                      
             
             query+="CONSTRUCT {\n";   
             
@@ -1090,6 +1109,21 @@ public class Profonto extends OntologyCore
             query+=this.getQueries().get("body02b.sparql");
             query+=this.getQueries().get("body02c.sparql").replaceAll("//operation//", "<"+subqueryParam[2]+">")
                     .replaceAll("//taskrequest//", " <"+subqueryParam[3]+"> "); 
+            
+            //matching in case of configuration
+            if(configs.size()>0)
+              {
+                query+=this.getQueries().get("body02d.sparql");
+                for(int i=0; i< configs.size(); i++)
+                  {               
+                    String thevar=" ?configs"+i+" ";
+                    String thekey=" <"+configs.get(i).getKey()+"> ";
+                    String thevalue=" <"+configs.get(i).getValue()+"> ";
+                    query+="?setted " + thekey + thevar  + ".\n";
+                    query+=thevar + "prof:hasType" + thevalue+".\n" ;
+                  }                
+              }
+            
             query+="}";
             //System.out.println(query);
             ontology.addAxioms(this.getDataBehaviorOntology().axioms());

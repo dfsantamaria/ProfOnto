@@ -128,16 +128,13 @@ public class mainTest
         try
           {                     
             String conf=ontocore.addDeviceConfiguration(readData("ontologies/test/alan-config.owl"));            
-            ontocore.removePermanentConfigurationFromDevice(conf);
+            //ontocore.removePermanentConfigurationFromDevice(conf);
           } 
         catch (OWLOntologyCreationException ex)
           {
             Logger.getLogger(mainAutoinstall.class.getName()).log(Level.SEVERE, null, ex);
           } 
-        catch (OWLOntologyStorageException | IOException ex)
-          {
-            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
-          }
+       
         // InputStream deviceConfig=readData("ontologies/test/alan-config.owl");
         // ontocore.addDeviceConfiguration(deviceConfig, id, id+"Conf-1","ALAN");
         

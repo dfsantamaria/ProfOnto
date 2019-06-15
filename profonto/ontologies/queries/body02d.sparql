@@ -1,0 +1,9 @@
+{
+?device_object prof:hasConfiguration ?configuration .
+}
+UNION
+{
+?selected_device prof:hasConfiguration ?configuration .
+}
+
+?configuration prof:setsUp ?setted .

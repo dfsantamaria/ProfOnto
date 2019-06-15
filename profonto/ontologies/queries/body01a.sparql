@@ -1,0 +1,31 @@
+SELECT ?prop ?thetype
+WHERE
+{
+ {
+   ?task prof:hasTaskObject ?taskObj .
+ }
+ UNION
+ {
+  ?task prof:adoptsTaskObjectTemplate ?taskObj .
+ }
+
+ ?taskObj ?prop ?obj .
+ ?prop rdf:type owl:ObjectProperty.
+
+ {
+  ?obj  ?type ?thetype .
+  ?type rdfs:subPropertyOf prof:hasType .	
+ }
+ UNION
+ {
+   ?obj prof:hasType ?thetype .
+ }
+
+FILTER NOT EXISTS
+{
+   ?prop rdfs:subPropertyOf prof:hasType .
+}
+
+FILTER(?prop != rdf:type && ?prop != prof:hasType && ?prop != owl:TopObjectProperty)
+
+}
