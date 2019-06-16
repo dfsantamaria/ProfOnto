@@ -81,9 +81,7 @@ public class mainAutoinstall
     }
     
     public static void main(String[] args)
-      {
-              
-        
+      {        
         File ontoFile=new File("ontologies/main/oasis.owl");
         File aboxFile=new File("ontologies/main/oasis-abox.owl");
        // File dataFile=new File("ontologies/main/dataset.owl");

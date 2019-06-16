@@ -1,0 +1,7 @@
+SELECT ?taska ?taskb
+WHERE
+{
+   ?taskb prof:dependsOn ?taska .
+   ?taska prof:hasTaskOperator ?a .
+   ?taska prof:hasTaskOperator ?b .
+}

@@ -1065,6 +1065,31 @@ public class Profonto extends OntologyCore
         return res;
       }
     
+    
+    
+    
+    private String[][] retrieveDependencies(OWLOntology ontology, String prefix) throws OWLOntologyCreationException
+      {
+       
+        String subquery = prefix + this.getQueries().get("body01b.sparql");        
+        QueryExecution execQ = this.createQuery(ontology, subquery);
+        ResultSet setIRI = execQ.execSelect();
+        String[][] depends=new String[setIRI.getRowNumber()][2];
+        int i=0;
+        while(setIRI.hasNext())
+          {
+            QuerySolution qs = setIRI.next();
+            depends[i][0]=qs.getResource("taska").getURI();
+            depends[i][1]=qs.getResource("taskb").getURI();
+            i++;
+          }
+        return depends;
+      }
+    
+    
+    
+    
+    
     /**
      * Returns the set of axioms concerning the execution of the given request
      * @param request The ontology of the request     
@@ -1073,6 +1098,8 @@ public class Profonto extends OntologyCore
     public OWLOntology parseRequest(InputStream request)
       {
         OntologyModel res = null;
+        String[][] depends=null;
+        String[][] configs=null;
         Stream<OWLAxiom> axioms = Stream.of();
         OWLOntology ontology;
         try
@@ -1087,20 +1114,27 @@ public class Profonto extends OntologyCore
             prefix += "PREFIX abox: <" + mainID + "#>\n";
             prefix += "PREFIX base: <" + IRIrequest + ">\n";
 
+            //dependencies
+            depends= retrieveDependencies(ontology, prefix);
+            
             //Filtering configuration            
             String subquery = prefix + this.getQueries().get("body01a.sparql");
             QueryExecution execQ = this.createQuery(ontology, subquery);
             ResultSet setIRI = execQ.execSelect();
-            ArrayList<String[]> configs = new ArrayList();
+            
+            if(setIRI.getRowNumber()>0)
+              {
+            configs = new String[setIRI.getRowNumber()][3];            
+            int i=0;
             while (setIRI.hasNext())
               {
                 QuerySolution qs = setIRI.next();
-                configs.add(new String[]
-                  {
-                    qs.getResource("task").getURI(), qs.getResource("prop").getURI(), qs.getResource("thetype").getURI()
-                  });
+                configs[i][0]= qs.getResource("task").getURI();
+                configs[i][1]= qs.getResource("prop").getURI();
+                configs[i][2]= qs.getResource("thetype").getURI();                  
+                i++;
               }
-
+              }
 //            for(Pair<String,String> s : configs)
 //                  System.out.println(s.getKey()+" "+s.getValue());
             //ontology.;
@@ -1108,17 +1142,16 @@ public class Profonto extends OntologyCore
             this.getDataChronoOntology().addAxioms(ontology.axioms());
             ontology.addAxioms(this.getDataBehaviorOntology().axioms());
 
-            String query = prefix;
+            //String query = prefix; //here
             //Subquery over request
             subquery = prefix + this.getQueries().get("body02a.sparql");
             execQ = this.createQuery(ontology, subquery);
             setIRI = execQ.execSelect();
             //iterate over the number of requests
             while (setIRI.hasNext())
-              {
-                query = prefix;
+              {                
+                String query = prefix;
                 QuerySolution qs = setIRI.next();
-
                 String[] subqueryParam =
                   {
                     qs.getResource("selected_device").getURI(),
@@ -1169,14 +1202,16 @@ public class Profonto extends OntologyCore
                         .replaceAll("//taskrequest//", " <" + subqueryParam[3] + "> ");
 
                 //Match the configuration of the devices with the settings provided by the request
-                if (configs.size() > 0)
+                //for multiple tasks the following code must change since configuration are mixed among tasks
+                //you must use a union for each task configuration and change the query with a ORDER By task.
+                if (configs!=null && configs.length > 0)
                   {
                     query += this.getQueries().get("body02d.sparql");
-                    for (int i = 0; i < configs.size(); i++)
+                    for (int i = 0; i < configs.length; i++)
                       {
                         String thevar = " ?configs" + i + " ";
-                        String thekey = " <" + ((String[]) configs.get(i))[1] + "> ";
-                        String thevalue = " <" + ((String[]) configs.get(i))[2] + "> ";
+                        String thekey = " <" + configs[i][1] + "> ";
+                        String thevalue = " <" + configs[i][2] + "> ";
                         query += "?setted " + thekey + thevar + ".\n";
                         query += thevar + "prof:hasType" + thevalue + ".\n";
                       }
@@ -1198,7 +1233,20 @@ public class Profonto extends OntologyCore
             return null;
           }
         axioms = Stream.concat(res.axioms(), axioms);
-
+        
+        if(depends!=null)
+          {
+            OWLAxiom[] depAxioms= new OWLAxiom [depends.length];
+            for(int i=0; i<depends.length;i++)
+              {
+                OWLAxiom ax= this.getMainManager().getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(
+                this.getMainManager().getOWLDataFactory().getOWLObjectProperty(IRI.create(this.getMainAbox().getOntologyID().getOntologyIRI().get().toString()+"#dependsOn")), 
+                this.getMainManager().getOWLDataFactory().getOWLNamedIndividual(IRI.create(depends[i][0]+"_execution")),
+                this.getMainManager().getOWLDataFactory().getOWLNamedIndividual(IRI.create(depends[i][1]+"_execution")));
+                depAxioms[i]=ax;
+              }
+              axioms = Stream.concat(Stream.of(depAxioms), axioms);
+          }
         OWLOntology out = null;
         try
           {
