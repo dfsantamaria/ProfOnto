@@ -1056,7 +1056,7 @@ public class Profonto extends OntologyCore
         QueryExecution execQ = this.createQuery(ontology, query);
         res=this.performConstructQuery(execQ);
         this.addDataToDataChrono(res.axioms());
-        this.getMainManager().removeOntology(ontology);
+  //      this.getMainManager().removeOntology(ontology);
        } 
         catch (OWLOntologyCreationException | IOException ex)
         {
@@ -1103,14 +1103,20 @@ public class Profonto extends OntologyCore
             
             //ontology.;
             syncReasoner(ontology, null);                          
-            this.getDataChronoOntology().addAxioms(ontology.axioms());       
+            this.getDataChronoOntology().addAxioms(ontology.axioms());  
+            ontology.addAxioms(this.getDataBehaviorOntology().axioms());  
+            
             String query=prefix;
             //Subquery over request
-            subquery=prefix+this.getQueries().get("body02a.sparql");            
-            
+            subquery=prefix+this.getQueries().get("body02a.sparql");             
             execQ = this.createQuery(ontology, subquery);
-            setIRI=execQ.execSelect();                        
-            QuerySolution qs=setIRI.next();
+            setIRI=execQ.execSelect();  
+            
+            
+            while(setIRI.hasNext())
+              { 
+                query=prefix;
+                QuerySolution qs=setIRI.next();
             
             String[] subqueryParam={qs.getResource("selected_device").getURI(),
                                    qs.getResource("task").getURI(),
@@ -1127,17 +1133,14 @@ public class Profonto extends OntologyCore
             if((subqueryParam[5]).equals(this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#adoptsTaskObjectTemplate"))      
               { 
                 theobject=" ?device_object ";
-              }
-              
+              }              
             
             if(r!=null)             
               { 
                 subqueryParam[4]=r.getURI(); 
                 axioms=retrieveAssertions(subqueryParam[4], ontology);
                 
-              } 
-            
-                      
+              }       
             
             query+="CONSTRUCT {\n";   
             
@@ -1153,8 +1156,7 @@ public class Profonto extends OntologyCore
                 query+=taskExec + " prof:hasTaskParameter "+ " <"+subqueryParam[4]+"> ." ;
                 
               }
-            //query+="?selected_device" + " <"+subqueryParam[2]+">" + " <"+subqueryParam[4]+"> ." ; 
-            
+            //query+="?selected_device" + " <"+subqueryParam[2]+">" + " <"+subqueryParam[4]+"> ." ;             
             
             query+=this.getQueries().get("construct01.sparql").replaceAll("//taskexec//", " "+taskExec+" ")
                                                               .replaceAll("//param1//", " <"+subqueryParam[1]+"> ")
@@ -1189,10 +1191,11 @@ public class Profonto extends OntologyCore
               }
             
             query+="}";
-            //System.out.println(query);
-            ontology.addAxioms(this.getDataBehaviorOntology().axioms());
+            //System.out.println(query);            
             res=performQuery(ontology,query);
-            //res.axioms().forEach(System.out::println);         
+            //res.axioms().forEach(System.out::println);    
+           }
+            this.getMainManager().removeOntology(ontology);
           }
         catch (Exception ex)   
           {
