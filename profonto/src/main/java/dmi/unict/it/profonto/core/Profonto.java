@@ -1201,19 +1201,19 @@ public class Profonto extends OntologyCore
                 query += this.getQueries().get("body02c.sparql").replaceAll("//operation//", "<" + subqueryParam[2] + ">")
                         .replaceAll("//taskrequest//", " <" + subqueryParam[3] + "> ");
 
-                //Match the configuration of the devices with the settings provided by the request
-                //for multiple tasks the following code must change since configuration are mixed among tasks
-                //you must use a union for each task configuration and change the query with a ORDER By task.
                 if (configs!=null && configs.length > 0)
                   {
                     query += this.getQueries().get("body02d.sparql");
                     for (int i = 0; i < configs.length; i++)
                       {
+                        if(subqueryParam[0].equals(configs[i][0]))
+                          {
                         String thevar = " ?configs" + i + " ";
                         String thekey = " <" + configs[i][1] + "> ";
                         String thevalue = " <" + configs[i][2] + "> ";
                         query += "?setted " + thekey + thevar + ".\n";
                         query += thevar + "prof:hasType" + thevalue + ".\n";
+                          }
                       }
                   }
                 query += "}";
