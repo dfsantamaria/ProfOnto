@@ -1,4 +1,4 @@
-SELECT ?prop ?thetype
+SELECT ?task ?prop ?thetype
 WHERE
 {
  {

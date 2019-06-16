@@ -1091,11 +1091,11 @@ public class Profonto extends OntologyCore
             String subquery=prefix+this.getQueries().get("body01a.sparql");
             QueryExecution execQ = this.createQuery(ontology, subquery);
             ResultSet setIRI=execQ.execSelect();
-            ArrayList<Pair<String,String>> configs=new  ArrayList();
+            ArrayList<String[]> configs=new  ArrayList();
             while(setIRI.hasNext())
               {
                 QuerySolution qs=setIRI.next();
-                configs.add(new Pair(qs.getResource("prop").getURI(),qs.getResource("thetype").getURI()));
+                configs.add(new String []{qs.getResource("task").getURI(),qs.getResource("prop").getURI(), qs.getResource("thetype").getURI()});
               }   
             
 //            for(Pair<String,String> s : configs)
@@ -1181,8 +1181,8 @@ public class Profonto extends OntologyCore
                 for(int i=0; i< configs.size(); i++)
                   {               
                     String thevar=" ?configs"+i+" ";
-                    String thekey=" <"+configs.get(i).getKey()+"> ";
-                    String thevalue=" <"+configs.get(i).getValue()+"> ";
+                    String thekey=" <"+((String[])configs.get(i))[1]+"> ";
+                    String thevalue=" <"+((String[]) configs.get(i))[2]+"> ";
                     query+="?setted " + thekey + thevar  + ".\n";
                     query+=thevar + "prof:hasType" + thevalue+".\n" ;
                   }                
