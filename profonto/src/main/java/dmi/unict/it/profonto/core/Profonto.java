@@ -1071,155 +1071,147 @@ public class Profonto extends OntologyCore
      * @return the set of axioms representing the execution of the given request
      */
     public OWLOntology parseRequest(InputStream request)
-    {
-        OntologyModel res=null;
-        Stream<OWLAxiom> axioms=Stream.of();
-        OWLOntology ontology;        
+      {
+        OntologyModel res = null;
+        Stream<OWLAxiom> axioms = Stream.of();
+        OWLOntology ontology;
         try
           {
-            ontology = this.getMainManager().loadOntologyFromOntologyDocument(request); 
-            
+            ontology = this.getMainManager().loadOntologyFromOntologyDocument(request);
+
             //prefix
-            String IRIrequest=ontology.getOntologyID().getOntologyIRI().get().toString();
-            String prefix=this.getQueries().get("prefix01.sparql");
-            prefix+="PREFIX prof: <"+this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#>\n";
-            String mainID=this.getMainAbox().getOntologyID().getOntologyIRI().get().toString();
-            prefix+="PREFIX abox: <"+mainID+"#>\n";
-            prefix+="PREFIX base: <"+IRIrequest+">\n"; 
-            
+            String IRIrequest = ontology.getOntologyID().getOntologyIRI().get().toString();
+            String prefix = this.getQueries().get("prefix01.sparql");
+            prefix += "PREFIX prof: <" + this.getMainOntology().getOntologyID().getOntologyIRI().get().toString() + "#>\n";
+            String mainID = this.getMainAbox().getOntologyID().getOntologyIRI().get().toString();
+            prefix += "PREFIX abox: <" + mainID + "#>\n";
+            prefix += "PREFIX base: <" + IRIrequest + ">\n";
+
             //Filtering configuration            
-            String subquery=prefix+this.getQueries().get("body01a.sparql");
+            String subquery = prefix + this.getQueries().get("body01a.sparql");
             QueryExecution execQ = this.createQuery(ontology, subquery);
-            ResultSet setIRI=execQ.execSelect();
-            ArrayList<String[]> configs=new  ArrayList();
-            while(setIRI.hasNext())
+            ResultSet setIRI = execQ.execSelect();
+            ArrayList<String[]> configs = new ArrayList();
+            while (setIRI.hasNext())
               {
-                QuerySolution qs=setIRI.next();
-                configs.add(new String []{qs.getResource("task").getURI(),qs.getResource("prop").getURI(), qs.getResource("thetype").getURI()});
-              }   
-            
+                QuerySolution qs = setIRI.next();
+                configs.add(new String[]
+                  {
+                    qs.getResource("task").getURI(), qs.getResource("prop").getURI(), qs.getResource("thetype").getURI()
+                  });
+              }
+
 //            for(Pair<String,String> s : configs)
 //                  System.out.println(s.getKey()+" "+s.getValue());
-            
             //ontology.;
-            syncReasoner(ontology, null);                          
-            this.getDataChronoOntology().addAxioms(ontology.axioms());  
-            ontology.addAxioms(this.getDataBehaviorOntology().axioms());  
-            
-            String query=prefix;
+            syncReasoner(ontology, null);
+            this.getDataChronoOntology().addAxioms(ontology.axioms());
+            ontology.addAxioms(this.getDataBehaviorOntology().axioms());
+
+            String query = prefix;
             //Subquery over request
-            subquery=prefix+this.getQueries().get("body02a.sparql");             
+            subquery = prefix + this.getQueries().get("body02a.sparql");
             execQ = this.createQuery(ontology, subquery);
-            setIRI=execQ.execSelect();  
-            
-            
-            while(setIRI.hasNext())
-              { 
-                query=prefix;
-                QuerySolution qs=setIRI.next();
-            
-            String[] subqueryParam={qs.getResource("selected_device").getURI(),
-                                   qs.getResource("task").getURI(),
-                                   qs.getResource("operation").getURI(),
-                                   qs.getResource("device_object").getURI(),            
-                                   qs.getResource("obtype").getURI(),
-                                   qs.getResource("hasTask").getURI(),
-                                   null};            
-            
-            Resource r=qs.getResource("parameter");
-            
-            String theobject=" <"+subqueryParam[3]+">"; //edit this line
-            
-            if((subqueryParam[5]).equals(this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#adoptsTaskObjectTemplate"))      
-              { 
-                theobject=" ?device_object ";
-              }              
-            
-            if(r!=null)             
-              { 
-                subqueryParam[4]=r.getURI(); 
-                axioms=retrieveAssertions(subqueryParam[4], ontology);
+            setIRI = execQ.execSelect();
+            //iterate over the number of requests
+            while (setIRI.hasNext())
+              {
+                query = prefix;
+                QuerySolution qs = setIRI.next();
+
+                String[] subqueryParam =
+                  {
+                    qs.getResource("selected_device").getURI(),
+                    qs.getResource("task").getURI(),
+                    qs.getResource("operation").getURI(),
+                    qs.getResource("device_object").getURI(),
+                    null, //qs.getResource("obtype").getURI(),
+                    qs.getResource("hasTask").getURI(),                    
+                  };                
+
+                String theobject = " <" + subqueryParam[3] + ">"; //edit this line
+                if ((subqueryParam[5]).equals(this.getMainOntology().getOntologyID().getOntologyIRI().get().toString() + "#adoptsTaskObjectTemplate"))
+                  {
+                    theobject = " ?device_object ";
+                  }
                 
-              }       
-            
-            query+="CONSTRUCT {\n";   
-            
-            for(String s : subqueryParam)
-              {
-               if(s!=null) 
-                query+="<"+s+"> "+"rdf:type owl:NamedIndividual. \n";
-              }         
-            
-            String taskExec="<"+subqueryParam[1]+"_execution>";
-            if(subqueryParam[4]!=null)
-              {
-                query+=taskExec + " prof:hasTaskParameter "+ " <"+subqueryParam[4]+"> ." ;
-                
+                Resource r = qs.getResource("parameter");
+                if (r != null)
+                  {
+                    subqueryParam[4] = r.getURI();
+                    axioms = retrieveAssertions(subqueryParam[4], ontology);
+                  }
+
+                query += "CONSTRUCT {\n";
+
+                for (String s : subqueryParam)
+                  {
+                    if (s != null)
+                      {
+                        query += "<" + s + "> " + "rdf:type owl:NamedIndividual. \n";
+                      }
+                  }
+
+                String taskExec = "<" + subqueryParam[1] + "_execution>";
+                if (subqueryParam[4] != null)
+                  {
+                    query += taskExec + " prof:hasTaskParameter " + " <" + subqueryParam[4] + "> .";
+                  }                            
+
+                query += this.getQueries().get("construct01.sparql").replaceAll("//taskexec//", " " + taskExec + " ")
+                        .replaceAll("//param1//", " <" + subqueryParam[1] + "> ")
+                        .replaceAll("//param2//", " <" + subqueryParam[2] + "> ")
+                        .replaceAll("//theobject//", " " + theobject + " ");
+                query += "}\n";
+                query += "WHERE { \n";
+                query += this.getQueries().get("body02b.sparql");
+                query += this.getQueries().get("body02c.sparql").replaceAll("//operation//", "<" + subqueryParam[2] + ">")
+                        .replaceAll("//taskrequest//", " <" + subqueryParam[3] + "> ");
+
+                //Match the configuration of the devices with the settings provided by the request
+                if (configs.size() > 0)
+                  {
+                    query += this.getQueries().get("body02d.sparql");
+                    for (int i = 0; i < configs.size(); i++)
+                      {
+                        String thevar = " ?configs" + i + " ";
+                        String thekey = " <" + ((String[]) configs.get(i))[1] + "> ";
+                        String thevalue = " <" + ((String[]) configs.get(i))[2] + "> ";
+                        query += "?setted " + thekey + thevar + ".\n";
+                        query += thevar + "prof:hasType" + thevalue + ".\n";
+                      }
+                  }
+                query += "}";
+                // System.out.println(query);            
+                res = performQuery(ontology, query);
+                //res.axioms().forEach(System.out::println);    
               }
-            //query+="?selected_device" + " <"+subqueryParam[2]+">" + " <"+subqueryParam[4]+"> ." ;             
-            
-            query+=this.getQueries().get("construct01.sparql").replaceAll("//taskexec//", " "+taskExec+" ")
-                                                              .replaceAll("//param1//", " <"+subqueryParam[1]+"> ")
-                                                              .replaceAll("//param2//", " <"+subqueryParam[2]+"> ")
-                                                              .replaceAll("//theobject//", " "+theobject+" ");
-            
-//            query+="?selected_device rdf:type owl:NamedIndividual.\n";
-//            query+="?selected_device prof:performs "+ taskExec+" .\n";
-//            query+="<"+subqueryParam[1]+"> prof:hasTaskExecution "+taskExec + ".\n";
-//            query+=taskExec+" rdf:type prof:TaskExecution .\n";
-//            query+=taskExec+" prof:hasTaskObject "+ theobject+".\n";
-//            query+=taskExec+" prof:hasTaskOperator "+ "<"+subqueryParam[2]+">"+" .\n";
-//            query+=theobject+ "prof:hasType "+ " ?requesttype"  +" .\n";
-            query+="}\n";
-            query+="WHERE { \n";   
-            query+=this.getQueries().get("body02b.sparql");
-            query+=this.getQueries().get("body02c.sparql").replaceAll("//operation//", "<"+subqueryParam[2]+">")
-                    .replaceAll("//taskrequest//", " <"+subqueryParam[3]+"> "); 
-            
-            //matching in case of configuration
-            if(configs.size()>0)
-              {
-                query+=this.getQueries().get("body02d.sparql");
-                for(int i=0; i< configs.size(); i++)
-                  {               
-                    String thevar=" ?configs"+i+" ";
-                    String thekey=" <"+((String[])configs.get(i))[1]+"> ";
-                    String thevalue=" <"+((String[]) configs.get(i))[2]+"> ";
-                    query+="?setted " + thekey + thevar  + ".\n";
-                    query+=thevar + "prof:hasType" + thevalue+".\n" ;
-                  }                
-              }
-            
-            query+="}";
-            //System.out.println(query);            
-            res=performQuery(ontology,query);
-            //res.axioms().forEach(System.out::println);    
-           }
             this.getMainManager().removeOntology(ontology);
-          }
-        catch (Exception ex)   
+          } 
+        catch (Exception ex)
           {
             Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
             return null;
           }
-        if(res.axioms().count()==0) 
+        if (res.axioms().count() == 0)
+          {
             return null;
-        axioms=Stream.concat(res.axioms(), axioms);
-        
-        OWLOntology out=null;
+          }
+        axioms = Stream.concat(res.axioms(), axioms);
+
+        OWLOntology out = null;
         try
           {
-            out= getMainManager().createOntology(axioms);
+            out = getMainManager().createOntology(axioms);
           } 
         catch (OWLOntologyCreationException ex)
           {
             Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
             return null;
           }
-        
         return out;
-        
-    }
+
+      }
     
     
     public Stream<OWLAxiom> retrieveChronologyAssertions(String iriInd)
