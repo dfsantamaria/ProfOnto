@@ -36,7 +36,7 @@ client_socket.send(home.encode())
 client_socket.close()
 
 #a request
-home=readOntoFile("ontologies/test/user-request.owl")
+home=readOntoFile("ontologies/test/user-request-2.owl")
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect(('localhost', 8000))
 client_socket.send(home.encode())

@@ -26,6 +26,15 @@ class welcome(Procedure): pass
 class decide(Procedure): pass
 
 
+def computesDependencies(graph, executions):
+      for first, second in graph.subject_objects(predicate=URIRef(oasis + "dependsOn")):
+          index=0
+          while index < len(executions):
+              key,value = executions[index]
+              if second == key :
+                  executions[index]= (key,value+1)
+              index += 1
+
 def getOntologyFile(graph, execution):
     file=None
     for t in graph.objects(execution, URIRef(oasis + "hasTaskParameter")): # retrieving source
@@ -92,8 +101,17 @@ class Decide_Action(Action):
        #print("Client send request:", value)
        g = rdflib.Graph()
        g.parse(data=value)
+       executions=[]
        for execution in g.subjects(RDF.type, URIRef(oasis+"TaskExecution")):
-          for executer in g.subjects( URIRef(oasis+"performs"), execution):
+           executions.append((execution, 0))
+
+       if len(executions) > 1 :
+          computesDependencies(g,executions)
+          executions=sorted(executions, key = lambda x: x[1])
+
+
+       for execution, val in executions:
+           for executer in g.subjects( URIRef(oasis+"performs"), execution):
               if( retrieveEntityName(executer) == assistant ) :
                 profhome_decide(g,execution)
               else:

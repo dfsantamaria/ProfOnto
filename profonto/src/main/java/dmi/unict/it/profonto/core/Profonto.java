@@ -1068,20 +1068,20 @@ public class Profonto extends OntologyCore
     
     
     
-    private String[][] retrieveDependencies(OWLOntology ontology, String prefix) throws OWLOntologyCreationException
-      {
-       
+    private ArrayList<String[]> retrieveDependencies(OWLOntology ontology, String prefix) throws OWLOntologyCreationException
+      {       
         String subquery = prefix + this.getQueries().get("body01b.sparql");        
         QueryExecution execQ = this.createQuery(ontology, subquery);
         ResultSet setIRI = execQ.execSelect();
-        String[][] depends=new String[setIRI.getRowNumber()][2];
-        int i=0;
+        ArrayList<String[]> depends=new ArrayList();
+       
         while(setIRI.hasNext())
           {
             QuerySolution qs = setIRI.next();
-            depends[i][0]=qs.getResource("taska").getURI();
-            depends[i][1]=qs.getResource("taskb").getURI();
-            i++;
+            String[] entry=new String[2];
+            entry[0]=qs.getResource("taska").getURI();
+            entry[1]=qs.getResource("taskb").getURI();
+            depends.add(entry);           
           }
         return depends;
       }
@@ -1098,8 +1098,8 @@ public class Profonto extends OntologyCore
     public OWLOntology parseRequest(InputStream request)
       {
         OntologyModel res = null;
-        String[][] depends=null;
-        String[][] configs=null;
+        ArrayList<String[]> depends=new ArrayList();
+        ArrayList<String[]> configs=null;
         Stream<OWLAxiom> axioms = Stream.of();
         OWLOntology ontology;
         try
@@ -1122,19 +1122,18 @@ public class Profonto extends OntologyCore
             QueryExecution execQ = this.createQuery(ontology, subquery);
             ResultSet setIRI = execQ.execSelect();
             
-            if(setIRI.getRowNumber()>0)
-              {
-            configs = new String[setIRI.getRowNumber()][3];            
-            int i=0;
+            
+            configs = new ArrayList();           
             while (setIRI.hasNext())
-              {
-                QuerySolution qs = setIRI.next();
-                configs[i][0]= qs.getResource("task").getURI();
-                configs[i][1]= qs.getResource("prop").getURI();
-                configs[i][2]= qs.getResource("thetype").getURI();                  
-                i++;
-              }
-              }
+                 {
+                   QuerySolution qs = setIRI.next();
+                   String[] entry=new String[3];
+                   entry[0]= qs.getResource("task").getURI();
+                   entry[1]= qs.getResource("prop").getURI();
+                   entry[2]= qs.getResource("thetype").getURI();     
+                   configs.add(entry);                   
+                 }
+              
 //            for(Pair<String,String> s : configs)
 //                  System.out.println(s.getKey()+" "+s.getValue());
             //ontology.;
@@ -1201,16 +1200,16 @@ public class Profonto extends OntologyCore
                 query += this.getQueries().get("body02c.sparql").replaceAll("//operation//", "<" + subqueryParam[2] + ">")
                         .replaceAll("//taskrequest//", " <" + subqueryParam[3] + "> ");
 
-                if (configs!=null && configs.length > 0)
+                if (configs.size() > 0)
                   {
                     query += this.getQueries().get("body02d.sparql");
-                    for (int i = 0; i < configs.length; i++)
+                    for (int i = 0; i < configs.size(); i++)
                       {
-                        if(subqueryParam[0].equals(configs[i][0]))
+                        if(subqueryParam[0].equals(configs.get(i)[0]))
                           {
                         String thevar = " ?configs" + i + " ";
-                        String thekey = " <" + configs[i][1] + "> ";
-                        String thevalue = " <" + configs[i][2] + "> ";
+                        String thekey = " <" + configs.get(i)[1] + "> ";
+                        String thevalue = " <" + configs.get(i)[2] + "> ";
                         query += "?setted " + thekey + thevar + ".\n";
                         query += thevar + "prof:hasType" + thevalue + ".\n";
                           }
@@ -1220,29 +1219,31 @@ public class Profonto extends OntologyCore
                 // System.out.println(query);            
                 res = performQuery(ontology, query);
                 //res.axioms().forEach(System.out::println);    
-              }
-            this.getMainManager().removeOntology(ontology);
-          } 
-        catch (Exception ex)
-          {
-            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-          }
-        if (res.axioms().count() == 0)
+          if (res.axioms().count() == 0)
           {
             return null;
           }
         axioms = Stream.concat(res.axioms(), axioms);
-        
-        if(depends!=null)
+            
+          }    
+      } 
+      catch (Exception ex)
           {
-            OWLAxiom[] depAxioms= new OWLAxiom [depends.length];
-            for(int i=0; i<depends.length;i++)
+            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+          }
+        
+     this.getMainManager().removeOntology(ontology);
+        
+        if(depends.size()>0)
+          {
+            OWLAxiom[] depAxioms= new OWLAxiom [depends.size()];
+            for(int i=0; i<depends.size();i++)
               {
                 OWLAxiom ax= this.getMainManager().getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(
-                this.getMainManager().getOWLDataFactory().getOWLObjectProperty(IRI.create(this.getMainAbox().getOntologyID().getOntologyIRI().get().toString()+"#dependsOn")), 
-                this.getMainManager().getOWLDataFactory().getOWLNamedIndividual(IRI.create(depends[i][0]+"_execution")),
-                this.getMainManager().getOWLDataFactory().getOWLNamedIndividual(IRI.create(depends[i][1]+"_execution")));
+                this.getMainManager().getOWLDataFactory().getOWLObjectProperty(IRI.create(this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#dependsOn")), 
+                this.getMainManager().getOWLDataFactory().getOWLNamedIndividual(IRI.create(depends.get(i)[0]+"_execution")),
+                this.getMainManager().getOWLDataFactory().getOWLNamedIndividual(IRI.create(depends.get(i)[1]+"_execution")));
                 depAxioms[i]=ax;
               }
               axioms = Stream.concat(Stream.of(depAxioms), axioms);

@@ -166,7 +166,7 @@ public class mainTest
 //          }
         
          
-         request=readData("ontologies/test/user-request.owl");   
+         request=readData("ontologies/test/user-request-2.owl");   
          System.out.println("Parse user request:");
          OWLOntology out=ontocore.parseRequest(request);          
          res= out.axioms();         
