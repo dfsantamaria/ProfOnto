@@ -6,3 +6,7 @@
 //taskexec// prof:hasTaskOperator //param2// .
 //theobject// prof:hasType ?requesttype .
 
+?selected_device prof:hasConfiguration ?conconf .
+?conconf prof:hasConnection ?aconnect .
+?conconf rdf:type owl:NamedIndividual .
+?aconnect rdf:type owl:NamedIndividual .

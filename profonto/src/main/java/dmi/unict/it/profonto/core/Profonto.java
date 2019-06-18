@@ -1224,7 +1224,16 @@ public class Profonto extends OntologyCore
             return null;
           }
         axioms = Stream.concat(res.axioms(), axioms);
-            
+        String[] conn=new String[]{""};
+        res.logicalAxioms().filter(x->x.isOfType(AxiomType.OBJECT_PROPERTY_ASSERTION)).forEach
+        (
+          element -> { 
+              OWLObjectPropertyAssertionAxiom ax=(OWLObjectPropertyAssertionAxiom) element;
+             if( ax.getProperty().asOWLObjectProperty().toStringID().equals(this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#hasConnection"))
+                 conn[0] = ax.getObject().toStringID();
+          }
+        );       
+        axioms = Stream.concat(retrieveAssertions(conn[0], ontology), axioms);
           }    
       } 
       catch (Exception ex)
