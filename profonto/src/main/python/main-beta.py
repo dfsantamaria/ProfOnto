@@ -50,7 +50,9 @@ def device_engage(graph,execution):
     taskObject = next(graph.objects(execution, URIRef(oasis + "hasTaskObject")))
     taskOperator = next(graph.objects(execution, URIRef(oasis + "hasTaskOperator")))
     performer = next(graph.subjects(URIRef(oasis + "performs"), execution))
-    print("To engage:", performer, taskObject, taskOperator)
+    devip=next(graph.objects(subject=None, predicate=URIRef(oasis + "hasIPAddress")))
+    devport=next(graph.objects(subject=None, predicate=URIRef(oasis + "hasPortNumber")))
+    print("To engage:", performer, taskObject, taskOperator, devip, devport)
 
 # Actions that the assistant performs
 def profhome_decide(graph, execution):
