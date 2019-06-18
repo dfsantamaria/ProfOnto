@@ -6,9 +6,3 @@ UNION
   ?selected_device prof:adoptsTemplate ?template .
   ?template prof:hasBehavior ?behav .
 }
-
-OPTIONAL 
-{
-  ?selected_device prof:hasConfiguration ?conconf .
-  ?conconf prof:hasConnection ?aconnect .  
-}
