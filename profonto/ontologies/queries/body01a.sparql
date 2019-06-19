@@ -1,14 +1,7 @@
 SELECT ?task ?prop ?thetype
 WHERE
-{
- {
-   ?task prof:hasTaskObject ?taskObj .
- }
- UNION
- {
-  ?task prof:adoptsTaskObjectTemplate ?taskObj .
- }
-
+{ 
+ ?task prof:hasTaskObject ?taskObj .
  ?taskObj ?prop ?obj .
  ?prop rdf:type owl:ObjectProperty.
 

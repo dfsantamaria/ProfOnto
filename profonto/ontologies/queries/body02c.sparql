@@ -1,12 +1,6 @@
 ?behav prof:consistsOfGoalDescription ?goal .
 ?goal prof:consistsOfTaskDescription ?task .
 ?task prof:hasTaskOperator //operation// .
-{
 ?task prof:hasTaskObject ?device_object .
-}
-UNION
-{
-?task prof:adoptsTaskObjectTemplate ?device_object .	
-}
 ?device_object prof:hasType ?requesttype .
 //taskrequest// prof:hasType ?requesttype .

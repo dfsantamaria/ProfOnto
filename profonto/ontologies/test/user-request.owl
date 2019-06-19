@@ -80,7 +80,7 @@
         <NamedIndividual IRI="#alan-goal-1-1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#adoptsTaskObjectTemplate"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
         <NamedIndividual IRI="#alan-task-1-1-1"/>
         <NamedIndividual IRI="#alan-task-1-1-1-object"/>
     </ObjectPropertyAssertion>

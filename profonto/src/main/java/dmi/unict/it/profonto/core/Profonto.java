@@ -1158,11 +1158,13 @@ public class Profonto extends OntologyCore
                     qs.getResource("operation").getURI(),
                     qs.getResource("device_object").getURI(),
                     null, //qs.getResource("obtype").getURI(),
-                    qs.getResource("hasTask").getURI(),                    
+                    //qs.getResource("hasTask").getURI(),                    
                   };                
 
-                String theobject = " <" + subqueryParam[3] + ">"; //edit this line
-                if ((subqueryParam[5]).equals(this.getMainOntology().getOntologyID().getOntologyIRI().get().toString() + "#adoptsTaskObjectTemplate"))
+                 String theobject = " <" + subqueryParam[3] + ">"; //edit this line
+                
+                 execQ = this.createQuery(ontology, prefix + this.getQueries().get("ask01a.sparql").replaceAll("//theobj//", theobject));
+                 if(execQ.execAsk())
                   {
                     theobject = " ?device_object ";
                   }
@@ -1287,4 +1289,5 @@ public class Profonto extends OntologyCore
          return axioms;        
       }
     
+       
 }
