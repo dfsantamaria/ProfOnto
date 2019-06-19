@@ -201,7 +201,7 @@ def init_server():
 PHIDIAS.run()
 PHIDIAS.achieve(welcome())
 init_gateway()
-
+print(open("amens/logo.txt", "r").read())
 #Adding HomeAssistant
 home=readOntoFile("ontologies/test/homeassistant.owl")
 assistant = profonto.addDevice(home)  #read the device data

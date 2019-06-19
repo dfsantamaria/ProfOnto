@@ -41,6 +41,7 @@ if  stderr is None :
    print("Copying required files...")
    copy_tree("ontologies", "target/ontologies")
    copy_tree("src/main/python", "target/python")
+   copy_tree("amens", "target/amens")
    print("Setup finished")
 else:
     print("Uncompilable Java source")
