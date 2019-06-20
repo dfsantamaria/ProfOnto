@@ -141,6 +141,9 @@
         <NamedIndividual IRI="#profonto-home"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="#profonto-home-template"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="#profonto-homeConfigConnection"/>
     </Declaration>
     <Declaration>
@@ -261,6 +264,10 @@
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#Device"/>
         <NamedIndividual IRI="#profonto-home"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#AgentBehaviorTemplate"/>
+        <NamedIndividual IRI="#profonto-home-template"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#Connection"/>
@@ -404,54 +411,59 @@
         <NamedIndividual IRI="#goal-profHomeUninstallDevice"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#adoptsAgentBehaviorTemplate"/>
+        <NamedIndividual IRI="#profonto-home"/>
+        <NamedIndividual IRI="#profonto-home-template"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasAgentType"/>
         <NamedIndividual IRI="#profonto-home"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#device_type"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasBehavior"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasConfiguration"/>
         <NamedIndividual IRI="#profonto-home"/>
+        <NamedIndividual IRI="#profonto-homeConfiguration"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasBehavior"/>
+        <NamedIndividual IRI="#profonto-home-template"/>
         <NamedIndividual IRI="#profHomeAddUser"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasBehavior"/>
-        <NamedIndividual IRI="#profonto-home"/>
+        <NamedIndividual IRI="#profonto-home-template"/>
         <NamedIndividual IRI="#profHomeAddUserConfiguration"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasBehavior"/>
-        <NamedIndividual IRI="#profonto-home"/>
+        <NamedIndividual IRI="#profonto-home-template"/>
         <NamedIndividual IRI="#profHomeExecuteUserRequest"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasBehavior"/>
-        <NamedIndividual IRI="#profonto-home"/>
+        <NamedIndividual IRI="#profonto-home-template"/>
         <NamedIndividual IRI="#profHomeInstallDevice"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasBehavior"/>
-        <NamedIndividual IRI="#profonto-home"/>
+        <NamedIndividual IRI="#profonto-home-template"/>
         <NamedIndividual IRI="#profHomeParseUtterance"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasBehavior"/>
-        <NamedIndividual IRI="#profonto-home"/>
+        <NamedIndividual IRI="#profonto-home-template"/>
         <NamedIndividual IRI="#profHomeRemoveUser"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasBehavior"/>
-        <NamedIndividual IRI="#profonto-home"/>
+        <NamedIndividual IRI="#profonto-home-template"/>
         <NamedIndividual IRI="#profHomeRemoveUserConfiguration"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasBehavior"/>
-        <NamedIndividual IRI="#profonto-home"/>
+        <NamedIndividual IRI="#profonto-home-template"/>
         <NamedIndividual IRI="#profHomeUninstallDevice"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasConfiguration"/>
-        <NamedIndividual IRI="#profonto-home"/>
-        <NamedIndividual IRI="#profonto-homeConfiguration"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasConnection"/>

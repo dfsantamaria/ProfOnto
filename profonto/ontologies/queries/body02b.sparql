@@ -1,5 +1,9 @@
 {
 ?selected_device prof:hasBehavior ?behav .
+ FILTER NOT EXISTS
+  {
+    ?selected_device rdf:type prof:AgentBehaviorTemplate .
+  }
 }
 UNION
 {
