@@ -1,6 +1,20 @@
 ?behav prof:consistsOfGoalDescription ?goal .
 ?goal prof:consistsOfTaskDescription ?task .
 ?task prof:hasTaskOperator //operation// .
-?task prof:hasTaskObject ?device_object .
-?device_object prof:hasType ?requesttype .
+{
+ ?task prof:hasTaskObject ?device_object .
+ ?device_object prof:hasType ?requesttype .
+ FILTER NOT EXISTS
+  {
+   ?component prof:adoptsTemplate ?device_object .
+  }
+}
+UNION
+{
+  ?task prof:hasTaskObject ?objecttemp .
+  ?device_object prof:adoptsComponentTemplate ?objecttemp . 
+  ?selected_device prof:settles ?device_object . 
+  ?objecttemp prof:hasType ?requesttype .
+}
+
 //taskrequest// prof:hasType ?requesttype .

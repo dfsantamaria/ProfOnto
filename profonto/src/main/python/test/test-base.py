@@ -52,7 +52,7 @@ print("User added:", value)
 value=""
 
 
-device=readOntoFile("ontologies/test/lightagent.owl")
+device=readOntoFile("ontologies/test/lightagent-from-template.owl")
 value = profonto.addDevice(device)  #read the device data
 print("Device added:", value)
 

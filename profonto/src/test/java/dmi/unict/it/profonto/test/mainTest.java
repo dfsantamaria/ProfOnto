@@ -123,7 +123,7 @@ public class mainTest
         InputStream userData=readData("ontologies/test/alan.owl"); 
         userId=ontocore.addUser(userData);
         
-        InputStream ontologyData=readData("ontologies/test/lightagent.owl");        
+        InputStream ontologyData=readData("ontologies/test/lightagent-from-template.owl");        
         id=ontocore.addDevice(ontologyData);             
        
         try
