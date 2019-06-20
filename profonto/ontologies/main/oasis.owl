@@ -123,10 +123,13 @@
         <Class IRI="#Conditional"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#ConditionalBody"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#ConditionalDescriptor"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ConditionalObject"/>
+        <Class IRI="#ConditionalHead"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ConditionalPart"/>
@@ -438,9 +441,6 @@
         <ObjectProperty IRI="#adoptsComponentTemplate"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#adoptsTaskObjectTemplate"/>
-    </Declaration>
-    <Declaration>
         <ObjectProperty IRI="#adoptsTemplate"/>
     </Declaration>
     <Declaration>
@@ -546,10 +546,13 @@
         <ObjectProperty IRI="#hasConditional"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#hasConditionalBody"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="#hasConditionalDescriptor"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasConditionalObject"/>
+        <ObjectProperty IRI="#hasConditionalHead"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasConditionalPart"/>
@@ -565,9 +568,6 @@
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasConditionalRestrictionParameter"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasConditionalSet"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasConditionalSubject"/>
@@ -904,12 +904,16 @@
         <Class IRI="#ConditionalPart"/>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#ConditionalBody"/>
+        <Class IRI="#Conditional"/>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#ConditionalDescriptor"/>
         <Class IRI="#Descriptor"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#ConditionalObject"/>
-        <Class IRI="#ConditionalDescriptor"/>
+        <Class IRI="#ConditionalHead"/>
+        <Class IRI="#Conditional"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#ConditionalRestriction"/>
@@ -1356,10 +1360,6 @@
         <ObjectProperty IRI="#adoptsTemplate"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#adoptsTaskObjectTemplate"/>
-        <ObjectProperty IRI="#adoptsTemplate"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
         <ObjectProperty IRI="#adoptsTemplate"/>
         <ObjectProperty IRI="#isDescribedBy"/>
     </SubObjectPropertyOf>
@@ -1504,16 +1504,16 @@
         <ObjectProperty IRI="#hasConditionalPart"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasConditionalBody"/>
+        <ObjectProperty IRI="#hasConditional"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasConditionalDescriptor"/>
         <ObjectProperty IRI="#hasDescriptor"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasConditionalObject"/>
-        <ObjectProperty IRI="#hasConditionalDescriptor"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasConditionalObject"/>
-        <ObjectProperty IRI="#hasObject"/>
+        <ObjectProperty IRI="#hasConditionalHead"/>
+        <ObjectProperty IRI="#hasConditional"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasConditionalRestriction"/>
@@ -1542,10 +1542,6 @@
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasConditionalRestrictionParameter"/>
         <ObjectProperty IRI="#hasParameter"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasConditionalSet"/>
-        <ObjectProperty IRI="#hasConditionalPart"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasConditionalSubject"/>
@@ -1857,7 +1853,7 @@
         <Class IRI="#Conditional"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasConditionalObject"/>
+        <ObjectProperty IRI="#hasConditionalRestriction"/>
         <Class IRI="#Conditional"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
@@ -1999,10 +1995,6 @@
         <Class IRI="#AgentBehaviorTemplate"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#adoptsTaskObjectTemplate"/>
-        <Class IRI="#TaskObjectTemplate"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
         <ObjectProperty IRI="#adoptsTemplate"/>
         <Class IRI="#Template"/>
     </ObjectPropertyRange>
@@ -2115,12 +2107,16 @@
         <Class IRI="#Conditional"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasConditionalBody"/>
+        <Class IRI="#ConditionalBody"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
         <ObjectProperty IRI="#hasConditionalDescriptor"/>
         <Class IRI="#ConditionalDescriptor"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasConditionalObject"/>
-        <Class IRI="#ConditionalObject"/>
+        <ObjectProperty IRI="#hasConditionalHead"/>
+        <Class IRI="#ConditionalHead"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasConditionalRestriction"/>
@@ -2137,10 +2133,6 @@
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasConditionalRestrictionParameter"/>
         <Class IRI="#ConditionalRestrictionParameter"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasConditionalSet"/>
-        <Class IRI="#ConditionalSet"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasConditionalSubject"/>
@@ -2579,6 +2571,11 @@
         <Literal xml:lang="en">Conditional</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ConditionalBody</IRI>
+        <Literal>Conditional body</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#ConditionalDescriptor</IRI>
         <Literal xml:lang="en">This class describes a conditional descriptor</Literal>
@@ -2589,14 +2586,9 @@
         <Literal xml:lang="en">Conditional descriptor</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#ConditionalObject</IRI>
-        <Literal xml:lang="en">This class describes the object of a conditional</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#ConditionalObject</IRI>
-        <Literal xml:lang="en">Conditional object</Literal>
+        <IRI>#ConditionalHead</IRI>
+        <Literal>Conditional head</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
@@ -3601,7 +3593,7 @@
     <AnnotationAssertion>
         <AnnotationProperty IRI="#isFoundInEntity"/>
         <IRI>#hasBeliefOperator</IRI>
-        <AnonymousIndividual nodeID="_:genid2147483649"/>
+        <AnonymousIndividual nodeID="_:genid2147483648"/>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -3615,11 +3607,6 @@
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#hasConditionalObject</IRI>
-        <Literal xml:lang="en">This property links things to a conditional object</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasConditionalRestriction</IRI>
         <Literal xml:lang="en">This property links things to a conditional restriction</Literal>
     </AnnotationAssertion>
@@ -3627,11 +3614,6 @@
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasConditionalRestrictionOperator</IRI>
         <Literal xml:lang="en">This property links things to a conditional operator</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#hasConditionalSet</IRI>
-        <Literal xml:lang="en">This property links things to a conditional set</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
