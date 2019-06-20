@@ -93,19 +93,7 @@
         <Class IRI="#Belief"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#BeliefDescriptor"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#BeliefObject"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#BeliefOperator"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="#BeliefPart"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#BeliefSubject"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Component"/>
@@ -528,18 +516,6 @@
         <ObjectProperty IRI="#hasBehavior"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasBeliefDescriptor"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasBeliefObject"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasBeliefOperator"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasBeliefSubject"/>
-    </Declaration>
-    <Declaration>
         <ObjectProperty IRI="#hasComponentType"/>
     </Declaration>
     <Declaration>
@@ -720,6 +696,9 @@
         <ObjectProperty IRI="#provides"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#providesBelief"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="#providesSmartContractType"/>
     </Declaration>
     <Declaration>
@@ -869,22 +848,6 @@
     <SubClassOf>
         <Class IRI="#Belief"/>
         <Class IRI="#BeliefPart"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#BeliefDescriptor"/>
-        <Class IRI="#Descriptor"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#BeliefObject"/>
-        <Class IRI="#BeliefDescriptor"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#BeliefOperator"/>
-        <Class IRI="#BeliefDescriptor"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#BeliefSubject"/>
-        <Class IRI="#BeliefDescriptor"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Component"/>
@@ -1471,34 +1434,6 @@
         <ObjectProperty IRI="#isDescribedBy"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasBeliefDescriptor"/>
-        <ObjectProperty IRI="#hasDescriptor"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasBeliefObject"/>
-        <ObjectProperty IRI="#hasBeliefDescriptor"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasBeliefObject"/>
-        <ObjectProperty IRI="#hasObject"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasBeliefOperator"/>
-        <ObjectProperty IRI="#hasBeliefDescriptor"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasBeliefOperator"/>
-        <ObjectProperty IRI="#hasOperator"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasBeliefSubject"/>
-        <ObjectProperty IRI="#hasBeliefDescriptor"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasBeliefSubject"/>
-        <ObjectProperty IRI="#hasSubject"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasComponentType"/>
         <ObjectProperty IRI="#hasType"/>
     </SubObjectPropertyOf>
@@ -1711,6 +1646,10 @@
         <ObjectProperty IRI="#isRelatedWith"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
+        <ObjectProperty IRI="#providesBelief"/>
+        <ObjectProperty IRI="#provides"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
         <ObjectProperty IRI="#providesSmartContractType"/>
         <ObjectProperty IRI="#provides"/>
     </SubObjectPropertyOf>
@@ -1830,22 +1769,6 @@
             <Class IRI="#Agent"/>
             <Class IRI="#AgentBehaviorTemplate"/>
         </ObjectUnionOf>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasBeliefDescriptor"/>
-        <Class IRI="#Belief"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasBeliefObject"/>
-        <Class IRI="#Belief"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasBeliefOperator"/>
-        <Class IRI="#Belief"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasBeliefSubject"/>
-        <Class IRI="#Belief"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasComponentType"/>
@@ -2086,22 +2009,6 @@
         <Class IRI="#Behavior"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasBeliefDescriptor"/>
-        <Class IRI="#BeliefDescriptor"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasBeliefObject"/>
-        <Class IRI="#BeliefObject"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasBeliefOperator"/>
-        <Class IRI="#BeliefOperator"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasBeliefSubject"/>
-        <Class IRI="#BeliefSubject"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
         <ObjectProperty IRI="#hasComponentType"/>
         <Class IRI="#ComponentType"/>
     </ObjectPropertyRange>
@@ -2272,6 +2179,10 @@
     <ObjectPropertyRange>
         <ObjectProperty IRI="#partecipatesInSmartContract"/>
         <Class IRI="#SmartContract"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#providesBelief"/>
+        <Class IRI="#Belief"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#providesSmartContractType"/>
@@ -2485,36 +2396,6 @@
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#BeliefDescriptor</IRI>
-        <Literal xml:lang="en">This class comprises belief descriptors</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#BeliefDescriptor</IRI>
-        <Literal xml:lang="en">Belief descriptor</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#BeliefObject</IRI>
-        <Literal xml:lang="en">This class describes belief objects</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#BeliefObject</IRI>
-        <Literal xml:lang="en">Belief object</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#BeliefOperator</IRI>
-        <Literal xml:lang="en">This class describes belief operators</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#BeliefOperator</IRI>
-        <Literal xml:lang="en">Belief operator</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#BeliefPart</IRI>
         <Literal xml:lang="en">This class describes belif parts</Literal>
     </AnnotationAssertion>
@@ -2522,16 +2403,6 @@
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#BeliefPart</IRI>
         <Literal xml:lang="en">Belief part</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#BeliefSubject</IRI>
-        <Literal xml:lang="en">Belief subject</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#BeliefSubject</IRI>
-        <Literal xml:lang="en">This class describes belief subjects</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -3592,11 +3463,6 @@
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasBehavior</IRI>
         <Literal xml:lang="en">This property links agents to the related behavior</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty IRI="#isFoundInEntity"/>
-        <IRI>#hasBeliefOperator</IRI>
-        <AnonymousIndividual nodeID="_:genid2147483648"/>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
