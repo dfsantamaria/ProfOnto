@@ -723,6 +723,9 @@
         <ObjectProperty IRI="#providesSmartContractType"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#refersTo"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="#requests"/>
     </Declaration>
     <Declaration>
