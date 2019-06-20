@@ -90,12 +90,6 @@
         <Class IRI="#BehaviorTemplate"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Belief"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#BeliefPart"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="#Component"/>
     </Declaration>
     <Declaration>
@@ -696,9 +690,6 @@
         <ObjectProperty IRI="#provides"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#providesBelief"/>
-    </Declaration>
-    <Declaration>
         <ObjectProperty IRI="#providesSmartContractType"/>
     </Declaration>
     <Declaration>
@@ -780,6 +771,15 @@
         <AnnotationProperty IRI="http://purl.org/dc/terms/created"/>
     </Declaration>
     <Declaration>
+        <AnnotationProperty IRI="#beliefHasTimeSpan"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="#beliefProvidedBy"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="#hasBeliefInformation"/>
+    </Declaration>
+    <Declaration>
         <AnnotationProperty IRI="#isFoundInEntity"/>
     </Declaration>
     <Declaration>
@@ -844,10 +844,6 @@
     <SubClassOf>
         <Class IRI="#BehaviorTemplate"/>
         <Class IRI="#Template"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#Belief"/>
-        <Class IRI="#BeliefPart"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Component"/>
@@ -1644,10 +1640,6 @@
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#partecipatesInSmartContract"/>
         <ObjectProperty IRI="#isRelatedWith"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#providesBelief"/>
-        <ObjectProperty IRI="#provides"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#providesSmartContractType"/>
@@ -2181,10 +2173,6 @@
         <Class IRI="#SmartContract"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#providesBelief"/>
-        <Class IRI="#Belief"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
         <ObjectProperty IRI="#providesSmartContractType"/>
         <Class IRI="#SmartContractType"/>
     </ObjectPropertyRange>
@@ -2383,26 +2371,6 @@
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#BehaviorPart</IRI>
         <Literal xml:lang="en">Behavior part</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Belief</IRI>
-        <Literal xml:lang="en">This class describes Believes</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#Belief</IRI>
-        <Literal xml:lang="en">Belief</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#BeliefPart</IRI>
-        <Literal xml:lang="en">This class describes belif parts</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#BeliefPart</IRI>
-        <Literal xml:lang="en">Belief part</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -3684,6 +3652,18 @@
         <IRI>#triggers</IRI>
         <Literal xml:lang="en">This property links agents to triggered events</Literal>
     </AnnotationAssertion>
+    <SubAnnotationPropertyOf>
+        <AnnotationProperty IRI="#beliefHasTimeSpan"/>
+        <AnnotationProperty IRI="#hasBeliefInformation"/>
+    </SubAnnotationPropertyOf>
+    <SubAnnotationPropertyOf>
+        <AnnotationProperty IRI="#beliefProvidedBy"/>
+        <AnnotationProperty IRI="#hasBeliefInformation"/>
+    </SubAnnotationPropertyOf>
+    <SubAnnotationPropertyOf>
+        <AnnotationProperty IRI="#isInTheBeliefOf"/>
+        <AnnotationProperty IRI="#hasBeliefInformation"/>
+    </SubAnnotationPropertyOf>
     <AnnotationPropertyRange>
         <AnnotationProperty IRI="#isInTheBeliefOf"/>
         <IRI>http://www.dmi.unict.it/profeta.owl#Belief</IRI>
