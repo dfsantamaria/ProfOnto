@@ -65,6 +65,22 @@ value=profonto.parseRequest(request)
 print ("Request:", value)
 
 
+print("Testing parseRequest step 2 Add belief...")
+request=readOntoFile("ontologies/test/add-belief-request.owl")
+value=profonto.parseRequest(request)
+print ("Request:", value)
+
+
+print("Testing parseRequest step 3 Retrieve belief...")
+request=readOntoFile("ontologies/test/retrieve-belief-request.owl")
+value=profonto.parseRequest(request)
+print ("Request:", value)
+
+print("Testing parseRequest step 4 Remove belief...")
+request=readOntoFile("ontologies/test/remove-belief-request.owl")
+value=profonto.parseRequest(request)
+print ("Request:", value)
+
 value=profonto.removeUser("Alan")  #remove user
 print("User removed with exit code:", value)
 value=profonto.removeDevice("light-device") #remove data

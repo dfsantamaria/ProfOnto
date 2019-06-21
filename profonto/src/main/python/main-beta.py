@@ -86,12 +86,28 @@ def profhome_decide(graph, execution):
                      elif actions == URIRef(oasisabox + "remove"):
                          value = profonto.removeConfiguration(retrieveEntityName(requester))
                          print("Configuration", retrieveEntityName(requester), "removed.")
+                 elif  thetype == URIRef(oasisabox + "belief_description_object_type"):
+                      if actions == URIRef(oasisabox + "add"):
+                         file = getOntologyFile(graph, execution)
+                         value = profonto.addDataBelief(file)
+                         print("Belief  added with exit code", value)
+                      elif actions == URIRef(oasisabox + "remove"):
+                         file = getOntologyFile(graph, execution)
+                         value = profonto.removeDataBelief(file)
+                         print("Belief removed with exit code", value)
                  break
         elif actions == URIRef(oasisabox + "parse"):
             for thetype in graph.objects(requester, URIRef(oasis + "hasType")):
                 if thetype == URIRef(oasisabox + "generalUtterance"):
                     print("General utterances parser is being developed... stay tuned!")
                     break
+        elif actions == URIRef(oasisabox + "retrieve"):
+            for thetype in graph.objects(requester, URIRef(oasis + "hasType")):
+                if thetype == URIRef(oasisabox + "belief_description_object_type"):
+                    file = getOntologyFile(graph, execution)
+                    value = profonto.retrieveDataBelief(file)
+                    print("Belief retrieved:\n", value)
+
         else:
             print("Action", actions, "not supported yet")
             break

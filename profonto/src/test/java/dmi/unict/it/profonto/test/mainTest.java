@@ -193,7 +193,7 @@ public class mainTest
         
          System.out.println();
          System.out.println("Retrieve data:");
-         res=ontocore.retrieveChronologyAssertions("http://www.dmi.unict.it/interpretation-request.owl#user-utterance-1");
+         res=ontocore.retrieveBeliefAssertions("http://www.dmi.unict.it/interpretation-request.owl#user-utterance-1");
                                          
          res.forEach(System.out::println);
            }

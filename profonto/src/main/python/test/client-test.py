@@ -51,10 +51,31 @@ client_socket.send(home.encode())
 client_socket.close()
 
 
+#Belief
+
+home=readOntoFile("ontologies/test/add-belief-request.owl")
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect(('localhost', 8000))
+client_socket.send(home.encode())
+client_socket.close()
+
+home=readOntoFile("ontologies/test/retrieve-belief-request.owl")
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect(('localhost', 8000))
+client_socket.send(home.encode())
+client_socket.close()
+
+home=readOntoFile("ontologies/test/remove-belief-request.owl")
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect(('localhost', 8000))
+client_socket.send(home.encode())
+client_socket.close()
+
+
 time.sleep(5)
 
 
-#adding configuration
+#removing configuration
 home=readOntoFile("ontologies/test/remove-user-configuration-request.owl")
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect(('localhost', 8000))

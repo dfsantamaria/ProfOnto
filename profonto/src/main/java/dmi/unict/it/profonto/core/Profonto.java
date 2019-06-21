@@ -39,6 +39,7 @@ import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import org.semanticweb.HermiT.ReasonerFactory;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
@@ -458,26 +459,62 @@ public class Profonto extends OntologyCore
      * @return the extended ontology
      * @throws org.semanticweb.owlapi.model.OWLOntologyCreationException
      */
-    public OWLOntology addAxiomsToOntology(OWLOntology ontology, Stream<OWLAxiom> axioms) throws OWLOntologyCreationException
+    public int addAxiomsToOntology(OWLOntology ontology, Stream<OWLAxiom> axioms) throws OWLOntologyCreationException
     {
         ChangeApplied changes = ontology.addAxioms(axioms);
         try
-        {
+        {            
             this.getMainManager().saveOntology(ontology);
             this.getMainManager().loadOntology(ontology.getOntologyID().getOntologyIRI().get());
         } catch (OWLOntologyStorageException ex)
         {
             Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
         }
-        return ontology;
+        if(changes.equals(ChangeApplied.SUCCESSFULLY))
+                return 0;
+        return -1;
     }
 
+    public int removeAxiomsFromOntology(OWLOntology ontology, Stream<OWLAxiom> axioms) throws OWLOntologyCreationException
+    {
+        ChangeApplied changes = ontology.remove(axioms);
+        try
+        {            
+            this.getMainManager().saveOntology(ontology);
+            this.getMainManager().loadOntology(ontology.getOntologyID().getOntologyIRI().get());
+        } catch (OWLOntologyStorageException ex)
+        {
+            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
+        }
+        if(changes.equals(ChangeApplied.SUCCESSFULLY))
+                return 0;
+        return -1;
+    }
+    
     public void addDataToDataBehavior(Stream<OWLAxiom> axioms) throws OWLOntologyCreationException
     {
         addAxiomsToOntology(this.getDataBehaviorOntology(), axioms);
     }
     
-     public void addDataToDataBelief(Stream<OWLAxiom> axioms) throws OWLOntologyCreationException
+    public int addDataToDataBelief(InputStream ontologystring) throws OWLOntologyCreationException
+    {
+        OWLOntology ontology=this.getMainManager().loadOntologyFromOntologyDocument(ontologystring);
+        int r= addAxiomsToOntology(this.getDataBeliefOntology(), ontology.axioms()); 
+        this.getMainManager().removeOntology(ontology);
+        return r;
+    }
+    
+    public int removeDataFromDataBelief(InputStream ontologystring) throws OWLOntologyCreationException
+    {
+        OWLOntology ontology=this.getMainManager().loadOntologyFromOntologyDocument(ontologystring);
+        int r= removeAxiomsFromOntology(this.getDataBeliefOntology(), ontology.axioms()); 
+        this.getMainManager().removeOntology(ontology);
+        return r;
+    }
+    
+    public void addDataToDataBelief(Stream<OWLAxiom> axioms) throws OWLOntologyCreationException
     {
         addAxiomsToOntology(this.getDataBeliefOntology(), axioms);
     }
@@ -1274,10 +1311,27 @@ public class Profonto extends OntologyCore
       }
     
     
-    public Stream<OWLAxiom> retrieveChronologyAssertions(String iriInd)
+    public Stream<OWLAxiom> retrieveBeliefAssertions(String iriInd)
       {
-         return retrieveAssertions(iriInd, this.getDataChronoOntology());
+         return retrieveAssertions(iriInd, this.getDataBeliefOntology());
       }
+    
+    public Stream<OWLAxiom> retrieveDataBelief(InputStream input) throws OWLOntologyCreationException
+    {
+      OWLOntology ontology=this.getMainManager().loadOntologyFromOntologyDocument(input);
+      Stream<OWLAxiom> axioms=Stream.empty();
+      Iterator<OWLNamedIndividual> iterator=ontology.individualsInSignature().iterator();
+      while(iterator.hasNext())
+      { 
+        OWLNamedIndividual individual=iterator.next();
+              axioms=Stream.concat(this.getDataBeliefOntology().axioms().filter(x->x.isLogicalAxiom())
+                                              .filter(x->x.isOfType(AxiomType.OBJECT_PROPERTY_ASSERTION) || x.isOfType(AxiomType.DATA_PROPERTY_ASSERTION))
+                                              .filter(x->x.containsEntityInSignature( individual))
+                    ,axioms);
+      }
+      this.getMainManager().removeOntology(ontology);
+      return axioms;
+    }
     
     private Stream<OWLAxiom> retrieveAssertions(String iriInd, OWLOntology ontology)
       {     

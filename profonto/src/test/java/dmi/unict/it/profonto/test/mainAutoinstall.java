@@ -129,7 +129,7 @@ public class mainAutoinstall
         
          System.out.println();
          System.out.println("Retrieve data:");
-         res=ontocore.retrieveChronologyAssertions("http://www.dmi.unict.it/light-installation-request.owl#light-installation-req-task");
+         res=ontocore.retrieveBeliefAssertions("http://www.dmi.unict.it/light-installation-request.owl#light-installation-req-task");
                                          
          res.forEach(System.out::println);
            }
@@ -168,6 +168,33 @@ public class mainAutoinstall
            } 
        
        
+       System.out.println("Add belief request");
+       request=readData("ontologies/test/add-belief-request.owl");         
+       res= ontocore.parseRequest(request).axioms();
+       System.out.println("Request of device:");
+       if(res!=null)
+           {
+              res.forEach(System.out::println);   
+           } 
+       
+       System.out.println("Retrieve belief request");
+       request=readData("ontologies/test/retrieve-belief-request.owl");         
+       res= ontocore.parseRequest(request).axioms();
+       System.out.println("Request of device:");
+       if(res!=null)
+           {
+              res.forEach(System.out::println);   
+           } 
+       
+       System.out.println("Remove belief request");
+       request=readData("ontologies/test/remove-belief-request.owl");         
+       res= ontocore.parseRequest(request).axioms();
+       System.out.println("Request of device:");
+       if(res!=null)
+           {
+              res.forEach(System.out::println);   
+           } 
+              
        System.out.println("Remove user request");
        request=readData("ontologies/test/remove-user-request.owl");         
        res= ontocore.parseRequest(request).axioms();

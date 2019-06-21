@@ -15,10 +15,12 @@ import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import py4j.GatewayServer;
 
@@ -140,6 +142,51 @@ public class ProfontoEntryPoint
         return 0;
     }
 
+    public static int addDataBelief(String input)
+    {
+        try
+        {
+            return ontocore.addDataToDataBelief(getInputStream(input));
+        } catch (OWLOntologyCreationException ex)
+        {
+            Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
+        }
+    }
+    
+    public static int removeDataBelief(String input)
+    {
+       try
+        {
+            return ontocore.removeDataFromDataBelief(getInputStream(input));
+        } 
+       catch (OWLOntologyCreationException ex)
+        {
+            Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
+        }
+    }
+    
+    public String retrieveDataBelief(String input)
+    {
+        try
+        {
+            Stream<OWLAxiom> res=ontocore.retrieveDataBelief(getInputStream(input));
+            if(res!=null)
+            {
+                StringBuilder out=new StringBuilder();
+                res.forEach(x->out.append(x.toString()).append("\n"));
+                return out.toString();
+            }
+            return "";
+        }
+        catch (OWLOntologyCreationException ex)
+        {
+            Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
+            return "";
+        }
+    }
+    
     public static int syncReasonerDataBehavior()
     {
         try
@@ -201,7 +248,7 @@ public class ProfontoEntryPoint
     
     public static String retrieveAssertions(String individual)
       {
-        Stream<OWLAxiom> res=ontocore.retrieveChronologyAssertions(individual);
+        Stream<OWLAxiom> res=ontocore.retrieveBeliefAssertions(individual);
         if(res!=null)
           { 
             StringBuilder out=new StringBuilder();      
