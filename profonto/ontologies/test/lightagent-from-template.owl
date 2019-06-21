@@ -116,7 +116,7 @@
         <NamedIndividual IRI="#light-device-light1"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#AgentBehaviorTemplate"/>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#DeviceBehaviorTemplate"/>
         <NamedIndividual IRI="#light-device-template"/>
     </ClassAssertion>
     <ClassAssertion>

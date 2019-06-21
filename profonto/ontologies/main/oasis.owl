@@ -90,6 +90,9 @@
         <Class IRI="#BehaviorTemplate"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#BeliefDescriptionObjectType"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#Component"/>
     </Declaration>
     <Declaration>
@@ -582,6 +585,9 @@
         <ObjectProperty IRI="#hasImplementation"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#hasInformationObjectType"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="#hasMessageObject"/>
     </Declaration>
     <Declaration>
@@ -844,6 +850,10 @@
     <SubClassOf>
         <Class IRI="#BehaviorTemplate"/>
         <Class IRI="#Template"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#BeliefDescriptionObjectType"/>
+        <Class IRI="#InformationObjectType"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Component"/>
@@ -1127,7 +1137,7 @@
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#RequestType"/>
-        <Class IRI="#Type"/>
+        <Class IRI="#InformationObjectType"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Robot"/>
@@ -1526,6 +1536,10 @@
         <ObjectProperty IRI="#hasFeature"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasInformationObjectType"/>
+        <ObjectProperty IRI="#hasType"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasMessageObject"/>
         <ObjectProperty IRI="#hasMessagePart"/>
     </SubObjectPropertyOf>
@@ -1815,6 +1829,10 @@
         <Class IRI="#GoalDescription"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasInformationObjectType"/>
+        <Class IRI="#InformationObject"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasMessageObject"/>
         <Class IRI="#Message"/>
     </ObjectPropertyDomain>
@@ -2083,6 +2101,10 @@
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasImplementation"/>
         <Class IRI="#Implementation"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasInformationObjectType"/>
+        <Class IRI="#InformationObjectType"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasMessageObject"/>
