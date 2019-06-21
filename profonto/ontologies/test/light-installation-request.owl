@@ -111,6 +111,11 @@
         <NamedIndividual IRI="#light-installation-req-task"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasInformationObjectType"/>
+        <NamedIndividual IRI="#light-installation-req-ontology"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#ontology_description_object_type"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#consistsOfGoalDescription"/>
         <NamedIndividual IRI="#light-installation-req-plan"/>
         <NamedIndividual IRI="#light-installation-req-goal"/>

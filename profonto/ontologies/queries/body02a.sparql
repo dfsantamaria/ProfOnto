@@ -1,4 +1,4 @@
-SELECT ?selected_device ?task ?operation ?device_object ?parameter ?obtype
+SELECT ?selected_device ?task ?operation ?device_object ?tparameter ?obtype ?paramtype
 WHERE
  { 
 ?selected_device prof:requests ?plan .
@@ -7,5 +7,6 @@ WHERE
 ?task prof:hasTaskOperator ?operation .
 ?task  prof:hasTaskObject ?device_object .
 ?device_object prof:hasType ?obtype .
-OPTIONAL{ ?task prof:hasTaskParameter ?parameter . }
+OPTIONAL { ?task prof:hasTaskParameter ?tparameter . }
+OPTIONAL { ?task prof:hasTaskParameter ?tparameter .  ?tparameter prof:hasType ?paramtype . }
 }

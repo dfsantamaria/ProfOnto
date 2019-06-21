@@ -1,0 +1,11 @@
+OPTIONAL
+{
+  ?task prof:hasTaskParameter ?Taskparam .  
+}
+
+OPTIONAL
+{
+   ?task prof:hasTaskParameter ?Taskparam .
+   ?Taskparam prof:hasType ?Taskparamtype .
+   FILTER ( ?Taskparamtype = //paramt// )
+}

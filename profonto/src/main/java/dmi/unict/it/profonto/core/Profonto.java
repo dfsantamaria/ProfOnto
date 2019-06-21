@@ -1195,7 +1195,8 @@ public class Profonto extends OntologyCore
                     qs.getResource("operation").getURI(),
                     qs.getResource("device_object").getURI(),
                     null, //qs.getResource("obtype").getURI(),
-                    //qs.getResource("hasTask").getURI(),                    
+                    //qs.getResource("hasTask").getURI(),  
+                    null
                   };                
 
                  String theobject = " <" + subqueryParam[3] + ">"; //edit this line
@@ -1206,13 +1207,18 @@ public class Profonto extends OntologyCore
                     theobject = " ?device_object ";
                   }
                 
-                Resource r = qs.getResource("parameter");
+                Resource r = qs.getResource("tparameter");
                 if (r != null)
                   {
                     subqueryParam[4] = r.getURI();
                     axioms = retrieveAssertions(subqueryParam[4], ontology);
                   }
-
+                r=qs.getResource("paramtype");
+                if(r!=null)
+                {
+                  subqueryParam[5]=r.getURI();
+                }
+                
                 query += "CONSTRUCT {\n";
 
                 for (String s : subqueryParam)
@@ -1239,6 +1245,11 @@ public class Profonto extends OntologyCore
                 query += this.getQueries().get("body02c.sparql").replaceAll("//operation//", "<" + subqueryParam[2] + ">")
                         .replaceAll("//taskrequest//", " <" + subqueryParam[3] + "> ");
 
+                if(subqueryParam[5] != null )
+                 {                     
+                    query+=this.getQueries().get("body02e.sparql").replaceAll("//paramt//", " <"+ subqueryParam[5]+"> ");
+                 }
+                
                 if (configs.size() > 0)
                   {
                     query += this.getQueries().get("body02d.sparql");
@@ -1255,7 +1266,7 @@ public class Profonto extends OntologyCore
                       }
                   }
                 query += "}";
-                // System.out.println(query);            
+                 //System.out.println(query);            
                 res = performQuery(ontology, query);
                 //res.axioms().forEach(System.out::println);    
           if (res.axioms().count() == 0)
