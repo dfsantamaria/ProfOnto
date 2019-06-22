@@ -307,7 +307,12 @@ public class Profonto extends OntologyCore
         addImportToOntology(this.getDataChronoOntology(), this.getDataBehaviorOntology().getOntologyID().getOntologyIRI().get());
     }
     
-    
+    public void emptyChronology() throws OWLOntologyCreationException, OWLOntologyStorageException, IOException
+    {
+       String iri=this.getDataChronoOntology().getOntologyID().getOntologyIRI().get().toString();          
+       this.getMainManager().removeOntology(this.getDataChronoOntology());
+       this.setDataChronoOntology(iri, new File(this.getDataChronoInfo().getKey()).getName());         
+    }
     
     
     /**

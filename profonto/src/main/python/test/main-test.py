@@ -88,5 +88,6 @@ print("Device removed with exit code:", value)
 value=profonto.removeDevice(assistant) #remove data
 print("Home assistant removed:", value)
 
-
+value=profonto.emptyChronology();
+print("Chronology cleaned with exit code:", value)
 profontoGateWay.shutdown() #Shutdown the gateway

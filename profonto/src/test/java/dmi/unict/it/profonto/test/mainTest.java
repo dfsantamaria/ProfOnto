@@ -199,7 +199,22 @@ public class mainTest
            }
          else System.out.println("Request unsatisfiable");              
        
-    
+       
+        try
+        {
+            ontocore.emptyChronology();
+         } catch (OWLOntologyCreationException ex)
+        {
+            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (OWLOntologyStorageException ex)
+        {
+            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex)
+        {
+            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
+        }     
+            
+            
 //        try
 //          {              
 //            ontocore.removePermanentDevice(id);
@@ -209,6 +224,7 @@ public class mainTest
 //          {
 //            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
 //          }
+       
           
         
         

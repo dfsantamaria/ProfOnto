@@ -257,4 +257,17 @@ public class ProfontoEntryPoint
           }
         return "";
       }
+    
+    public int emptyChronology()
+    {
+        try
+        {
+            ontocore.emptyChronology();
+            return 0;
+        } catch (OWLOntologyCreationException | OWLOntologyStorageException | IOException ex)
+        {
+            Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
+        }
+    }
 }
