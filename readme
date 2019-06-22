@@ -66,6 +66,7 @@ Instructions:
          - install and uninistall devices;
          - add and remove users;
          - add and remove configurations.
+         - add, remove, and retrieve believes.
          - simulate the execution of simple requests.
          
          Run the file "main-beta.py" and wait for it to load. 
