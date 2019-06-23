@@ -384,6 +384,9 @@
         <Class IRI="#TaskParameter"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#TaskParameterTemplate"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#TaskPart"/>
     </Declaration>
     <Declaration>
@@ -1254,6 +1257,10 @@
     <SubClassOf>
         <Class IRI="#TaskParameter"/>
         <Class IRI="#TaskDescriptor"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TaskParameterTemplate"/>
+        <Class IRI="#Template"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#TaskPart"/>
@@ -3218,6 +3225,11 @@
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#TaskParameter</IRI>
         <Literal xml:lang="en">This class describes the parameter of the object of a task.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#TaskParameterTemplate</IRI>
+        <Literal>Task parameter template</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>

@@ -1216,7 +1216,7 @@ public class Profonto extends OntologyCore
                 if (r != null)
                   {
                     subqueryParam[4] = r.getURI();
-                    axioms = retrieveAssertions(subqueryParam[4], ontology);
+                    axioms = retrieveAssertions(subqueryParam[4], ontology.axioms());
                   }
                 r=qs.getResource("paramtype");
                 if(r!=null)
@@ -1288,7 +1288,7 @@ public class Profonto extends OntologyCore
                  conn[0] = ax.getObject().toStringID();
           }
         );       
-        axioms = Stream.concat(retrieveAssertions(conn[0], ontology), axioms);
+        axioms = Stream.concat(retrieveAssertions(conn[0], ontology.axioms()), axioms);
           }    
       } 
       catch (Exception ex)
@@ -1329,7 +1329,9 @@ public class Profonto extends OntologyCore
     
     public Stream<OWLAxiom> retrieveBeliefAssertions(String iriInd)
       {
-         return retrieveAssertions(iriInd, this.getDataBeliefOntology());
+         
+         return retrieveAssertions(iriInd, Stream.concat(getDataChronoOntology().axioms(), 
+                                                         getDataBeliefOntology().axioms()));
       }
     
     public Stream<OWLAxiom> retrieveDataBelief(InputStream input) throws OWLOntologyCreationException
@@ -1349,11 +1351,11 @@ public class Profonto extends OntologyCore
       return axioms;
     }
     
-    private Stream<OWLAxiom> retrieveAssertions(String iriInd, OWLOntology ontology)
+    private Stream<OWLAxiom> retrieveAssertions(String iriInd, Stream<OWLAxiom> ontology)
       {     
          
          OWLNamedIndividual individual=this.getMainManager().getOWLDataFactory().getOWLNamedIndividual(iriInd);         
-         Stream<OWLAxiom> axioms=ontology.axioms().filter(x->x.isLogicalAxiom())
+         Stream<OWLAxiom> axioms=ontology.filter(x->x.isLogicalAxiom())
                                               .filter(x->x.isOfType(AxiomType.OBJECT_PROPERTY_ASSERTION) || x.isOfType(AxiomType.DATA_PROPERTY_ASSERTION))
                                               .filter(x->x.containsEntityInSignature(individual));
          return axioms;        

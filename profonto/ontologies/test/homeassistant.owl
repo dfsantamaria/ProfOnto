@@ -243,7 +243,7 @@
         <NamedIndividual IRI="#add-config-paramater"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#Template"/>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskParameterTemplate"/>
         <NamedIndividual IRI="#add-config-paramater"/>
     </ClassAssertion>
     <ClassAssertion>
@@ -255,7 +255,7 @@
         <NamedIndividual IRI="#add-remove-belief-parameter"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#Template"/>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskParameterTemplate"/>
         <NamedIndividual IRI="#add-remove-belief-parameter"/>
     </ClassAssertion>
     <ClassAssertion>
@@ -267,7 +267,7 @@
         <NamedIndividual IRI="#add-user-parameter"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#Template"/>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskParameterTemplate"/>
         <NamedIndividual IRI="#add-user-parameter"/>
     </ClassAssertion>
     <ClassAssertion>
@@ -327,7 +327,7 @@
         <NamedIndividual IRI="#install-device-parameter"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#Template"/>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskParameterTemplate"/>
         <NamedIndividual IRI="#install-device-parameter"/>
     </ClassAssertion>
     <ClassAssertion>
@@ -451,7 +451,7 @@
         <NamedIndividual IRI="#user-request-parameter"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#Template"/>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskParameterTemplate"/>
         <NamedIndividual IRI="#user-request-parameter"/>
     </ClassAssertion>
     <ClassAssertion>
