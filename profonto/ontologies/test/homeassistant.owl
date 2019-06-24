@@ -861,6 +861,26 @@
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#user_type"/>
     </ObjectPropertyAssertion>
     <DataPropertyAssertion>
+        <DataProperty IRI="http://www.dmi.unict.it/oasis.owl#descriptionProvidedByURL"/>
+        <NamedIndividual IRI="#add-config-paramater"/>
+        <Literal></Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://www.dmi.unict.it/oasis.owl#descriptionProvidedByURL"/>
+        <NamedIndividual IRI="#add-remove-belief-parameter"/>
+        <Literal></Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://www.dmi.unict.it/oasis.owl#descriptionProvidedByURL"/>
+        <NamedIndividual IRI="#add-user-parameter"/>
+        <Literal></Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://www.dmi.unict.it/oasis.owl#descriptionProvidedByURL"/>
+        <NamedIndividual IRI="#install-device-parameter"/>
+        <Literal></Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
         <DataProperty IRI="http://www.dmi.unict.it/oasis.owl#hasIPAddress"/>
         <NamedIndividual IRI="#profonto-homeConfigConnection"/>
         <Literal>localhost</Literal>
@@ -869,6 +889,11 @@
         <DataProperty IRI="http://www.dmi.unict.it/oasis.owl#hasPortNumber"/>
         <NamedIndividual IRI="#profonto-homeConfigConnection"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">8000</Literal>
+    </DataPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://www.dmi.unict.it/oasis.owl#descriptionProvidedByURL"/>
+        <NamedIndividual IRI="#user-request-parameter"/>
+        <Literal></Literal>
     </DataPropertyAssertion>
 </Ontology>
 
