@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
@@ -39,6 +40,7 @@ import org.semanticweb.owlapi.model.parameters.ChangeApplied;
 import org.semanticweb.HermiT.ReasonerFactory;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
@@ -633,6 +635,23 @@ public class Profonto extends OntologyCore
         return val[0];
     }
 
+    
+    public String[] getConnectionInfo(String device)
+    {       
+     OWLOntology ontology= this.getDevice(device); 
+     String[] value={"",""};
+     ontology.axioms().filter(x->x.isOfType(AxiomType.DATA_PROPERTY_ASSERTION))
+                      .forEach( x  ->
+     {
+        OWLDataPropertyAssertionAxiom ax = ((OWLDataPropertyAssertionAxiom) x);
+        if(ax.getProperty().asOWLDataProperty().toStringID().equals(this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#hasIPAddress"))
+            value[0]= ax.getObject().getLiteral();
+        else if(ax.getProperty().asOWLDataProperty().toStringID().equals(this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#hasPortNumber"))
+            value[1]= ax.getObject().getLiteral();
+     });
+    return value;
+    }
+    
     /**
      * insert a new device given its ontology data
      *
@@ -659,7 +678,7 @@ public class Profonto extends OntologyCore
             String filesource = this.getOntologiesDevicesPath() + File.separator + val[0] + ".owl";
             File file = new File(filesource);
 
-            this.getMainManager().addIRIMapper(new SimpleIRIMapper(ontodevice.getOntologyID().getOntologyIRI().get(),
+            this.getMainManager().getIRIMappers().add(new SimpleIRIMapper(ontodevice.getOntologyID().getOntologyIRI().get(),
                     IRI.create(file.getCanonicalFile())));
 
           //  FileOutputStream outStream = new FileOutputStream(file);

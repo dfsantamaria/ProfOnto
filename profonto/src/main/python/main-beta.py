@@ -19,7 +19,8 @@ profonto = ''
 oasis = 'http://www.dmi.unict.it/oasis.owl#'
 oasisabox = 'http://www.dmi.unict.it/oasis-abox.owl#'
 assistant=''
-
+host = None
+port = None
 #################################################PHIDIAS PART ##############################
 
 class welcome(Procedure): pass
@@ -203,16 +204,13 @@ def init_gateway():
 
 def init_server():
       serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-      host = 'localhost'
-      port = 8000
-      serversocket.bind((host, port))
+      serversocket.bind((host, int(port)))
       serversocket.listen(5)
       print("Prof-Onto Assistant has been started, send requests to:", host, "port ", port)
       while 1:
           clientsocket, address = serversocket.accept()
           client(clientsocket, address)
       return
-
 
 PHIDIAS.run()
 PHIDIAS.achieve(welcome())
@@ -221,7 +219,11 @@ print(open("amens/logo.txt", "r").read())
 #Adding HomeAssistant
 home=readOntoFile("ontologies/test/homeassistant.owl")
 assistant = profonto.addDevice(home)  #read the device data
-print("Home assistant added:", assistant)
+sarray = profonto.getConnectionInfo(assistant)
+host = sarray[0]
+port = sarray[1]
+
+print("Home assistant added:", assistant, "at ", host, port)
 ###
 
 init_server()

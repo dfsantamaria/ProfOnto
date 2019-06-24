@@ -112,8 +112,11 @@ public class mainTest
         
           if(!(new File("ontologies/devices/ProfHomeAssistant.owl").exists()))
           {
-            InputStream assistantData=readData("ontologies/test/homeassistant.owl"); 
-            ontocore.addDevice(assistantData);
+            InputStream assistantData=readData("ontologies/test/homeassistant.owl");            
+            String dv= ontocore.addDevice(assistantData);
+            System.out.println("Connection of Assistant:");
+            for( String s : ontocore.getConnectionInfo(dv))
+                System.out.println(s);
           }           
          
         //Device

@@ -40,6 +40,27 @@ public class ProfontoEntryPoint
 
     static Profonto ontocore;
 
+    private static String getStringFromOntology(OWLOntology res)
+    {
+        ByteArrayOutputStream out=new ByteArrayOutputStream();
+        if(res!=null)
+          { 
+            try
+              {
+                res.saveOntology(new RDFXMLDocumentFormat(), out);
+                if(out!=null)
+                   out.close(); 
+                return out.toString();
+              } 
+            catch (OWLOntologyStorageException | IOException ex)
+              {
+                Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
+                return "";
+              }     
+            } 
+         return "";
+       }
+
     public ProfontoEntryPoint()
     {
         File ontoFile = new File("ontologies/main/oasis.owl");
@@ -88,6 +109,17 @@ public class ProfontoEntryPoint
         
     }
 
+    public String[] getConnectionInfo(String device)
+    {
+      return ontocore.getConnectionInfo(device);
+    }
+    
+    public static String getDeviceOntology(String device)
+    {
+      OWLOntology res= ontocore.getDevice(device);
+      return getStringFromOntology(res);
+    }
+    
     public static String addUser(String description)
     {
         return ontocore.addUser(getInputStream(description));
@@ -213,23 +245,7 @@ public class ProfontoEntryPoint
     public static String parseRequest(String request)
       {
         OWLOntology res= ontocore.parseRequest(getInputStream(request));
-        ByteArrayOutputStream out=new ByteArrayOutputStream();
-        if(res!=null)
-          { 
-            try
-              {
-                res.saveOntology(new RDFXMLDocumentFormat(), out);
-                if(out!=null)
-                   out.close(); 
-                return out.toString();
-              } 
-            catch (OWLOntologyStorageException | IOException ex)
-              {
-                Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
-                return "";
-              }                      
-      }
-        return "";
+        return getStringFromOntology(res);
       }
 
     public static int removeConfiguration(String configuration)

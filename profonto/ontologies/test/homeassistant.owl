@@ -863,7 +863,7 @@
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.dmi.unict.it/oasis.owl#hasIPAddress"/>
         <NamedIndividual IRI="#profonto-homeConfigConnection"/>
-        <Literal>192.168.1.1</Literal>
+        <Literal>localhost</Literal>
     </DataPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.dmi.unict.it/oasis.owl#hasPortNumber"/>
