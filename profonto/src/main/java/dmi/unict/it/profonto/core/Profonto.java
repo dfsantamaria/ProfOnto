@@ -1256,7 +1256,7 @@ public class Profonto extends OntologyCore
                 String taskExec = "<" + subqueryParam[1] + "_execution>";
                 if (subqueryParam[4] != null)
                   {
-                    query += taskExec + " prof:hasTaskParameter " + " <" + subqueryParam[4] + "> .";
+                    query += taskExec + " prof:hasTaskInputParameter " + " <" + subqueryParam[4] + "> .";
                   }                            
 
                 query += this.getQueries().get("construct01.sparql").replaceAll("//taskexec//", " " + taskExec + " ")

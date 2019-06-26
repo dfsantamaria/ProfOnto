@@ -7,6 +7,6 @@ WHERE
 ?task prof:hasTaskOperator ?operation .
 ?task  prof:hasTaskObject ?device_object .
 ?device_object prof:hasType ?obtype .
-OPTIONAL { ?task prof:hasTaskParameter ?tparameter . }
-OPTIONAL { ?task prof:hasTaskParameter ?tparameter .  ?tparameter prof:hasType ?paramtype . }
+OPTIONAL { ?task prof:hasTaskInputParameter ?tparameter . }
+OPTIONAL { ?task prof:hasTaskInputParameter ?tparameter .  ?tparameter prof:hasType ?paramtype . }
 }

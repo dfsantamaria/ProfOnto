@@ -372,6 +372,9 @@
         <Class IRI="#TaskExecution"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#TaskInputParameter"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#TaskObject"/>
     </Declaration>
     <Declaration>
@@ -379,6 +382,9 @@
     </Declaration>
     <Declaration>
         <Class IRI="#TaskOperator"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TaskOutputParameter"/>
     </Declaration>
     <Declaration>
         <Class IRI="#TaskParameter"/>
@@ -654,10 +660,16 @@
         <ObjectProperty IRI="#hasTaskExecution"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#hasTaskInputParameter"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="#hasTaskObject"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasTaskOperator"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasTaskOutputParameter"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasTaskParameter"/>
@@ -745,6 +757,9 @@
     </Declaration>
     <Declaration>
         <DataProperty IRI="#hasIPAddress"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasOutputValue"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#hasPortNumber"/>
@@ -1239,6 +1254,10 @@
         <Class IRI="#TaskPart"/>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#TaskInputParameter"/>
+        <Class IRI="#TaskParameter"/>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#TaskObject"/>
         <Class IRI="#TaskDescriptor"/>
     </SubClassOf>
@@ -1253,6 +1272,10 @@
     <SubClassOf>
         <Class IRI="#TaskOperator"/>
         <Class IRI="#TaskDescriptor"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TaskOutputParameter"/>
+        <Class IRI="#TaskParameter"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#TaskParameter"/>
@@ -1623,6 +1646,10 @@
         <ObjectProperty IRI="#hasExecutionObject"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasTaskInputParameter"/>
+        <ObjectProperty IRI="#hasTaskParameter"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasTaskObject"/>
         <ObjectProperty IRI="#hasObject"/>
     </SubObjectPropertyOf>
@@ -1637,6 +1664,10 @@
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasTaskOperator"/>
         <ObjectProperty IRI="#hasTaskDescriptor"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasTaskOutputParameter"/>
+        <ObjectProperty IRI="#hasTaskParameter"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasTaskParameter"/>
@@ -2170,12 +2201,20 @@
         <Class IRI="#TaskExecution"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasTaskInputParameter"/>
+        <Class IRI="#TaskInputParameter"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
         <ObjectProperty IRI="#hasTaskObject"/>
         <Class IRI="#TaskObject"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasTaskOperator"/>
         <Class IRI="#TaskOperator"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasTaskOutputParameter"/>
+        <Class IRI="#TaskOutputParameter"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasTaskParameter"/>

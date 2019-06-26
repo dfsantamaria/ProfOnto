@@ -38,7 +38,7 @@ def computesDependencies(graph, executions):
 
 def getOntologyFile(graph, execution):
     file=None
-    for t in graph.objects(execution, URIRef(oasis + "hasTaskParameter")): # retrieving source
+    for t in graph.objects(execution, URIRef(oasis + "hasTaskInputParameter")): # retrieving source
        for s in graph.objects(t, URIRef(oasis + "descriptionProvidedByURL")):
            if (s is not None):
              file = readOntoFile(s)

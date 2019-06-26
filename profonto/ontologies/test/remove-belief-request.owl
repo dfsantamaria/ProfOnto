@@ -63,7 +63,7 @@
         <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-belief-ontology"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskParameter"/>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskInputParameter"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-belief-ontology"/>
     </ClassAssertion>
     <ObjectPropertyAssertion>
@@ -102,7 +102,7 @@
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#remove"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskParameter"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskInputParameter"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-belief-req-task"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/remove-user-request.owl#remove-user-belief-ontology"/>
     </ObjectPropertyAssertion>

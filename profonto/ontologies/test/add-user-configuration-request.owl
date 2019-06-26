@@ -52,7 +52,7 @@
         <NamedIndividual IRI="#add-user-req-ontology"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskParameter"/>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskInputParameter"/>
         <NamedIndividual IRI="#add-user-req-ontology"/>
     </ClassAssertion>
     <ClassAssertion>
@@ -88,7 +88,7 @@
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#add"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskParameter"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskInputParameter"/>
         <NamedIndividual IRI="#add-user-configuration-req-task"/>
         <NamedIndividual IRI="#add-user-req-ontology"/>
     </ObjectPropertyAssertion>

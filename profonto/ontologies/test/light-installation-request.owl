@@ -90,7 +90,7 @@
         <NamedIndividual IRI="#light-installation-req-ontology"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskParameter"/>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskInputParameter"/>
         <NamedIndividual IRI="#light-installation-req-ontology"/>
     </ClassAssertion>
     <ClassAssertion>
@@ -131,7 +131,7 @@
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#install"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskParameter"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskInputParameter"/>
         <NamedIndividual IRI="#light-installation-req-task"/>
         <NamedIndividual IRI="#light-installation-req-ontology"/>
     </ObjectPropertyAssertion>
