@@ -20,6 +20,9 @@
         <NamedIndividual IRI="#belief_description_object_type"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="#device_configuration_type"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="#device_type"/>
     </Declaration>
     <Declaration>
@@ -53,6 +56,9 @@
         <NamedIndividual IRI="#retrieve"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="#software_type"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="#uninstall"/>
     </Declaration>
     <Declaration>
@@ -68,6 +74,10 @@
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#InformationObjectType"/>
         <NamedIndividual IRI="#belief_description_object_type"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ConfigurationType"/>
+        <NamedIndividual IRI="#device_configuration_type"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#AgentType"/>
@@ -112,6 +122,10 @@
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
         <NamedIndividual IRI="#retrieve"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#AgentType"/>
+        <NamedIndividual IRI="#software_type"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>

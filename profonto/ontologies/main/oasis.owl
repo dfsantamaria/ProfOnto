@@ -66,6 +66,9 @@
         <Class IRI="#Actuator"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#ActuatorComponentType"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#Agent"/>
     </Declaration>
     <Declaration>
@@ -181,9 +184,6 @@
     </Declaration>
     <Declaration>
         <Class IRI="#EntrustmentActivity"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#EnviromentComponent"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Event"/>
@@ -313,6 +313,12 @@
     </Declaration>
     <Declaration>
         <Class IRI="#Sensor"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SensorComponent"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SensorComponentType"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Service"/>
@@ -759,6 +765,9 @@
         <DataProperty IRI="#hasIPAddress"/>
     </Declaration>
     <Declaration>
+        <DataProperty IRI="#hasInputValue"/>
+    </Declaration>
+    <Declaration>
         <DataProperty IRI="#hasOutputValue"/>
     </Declaration>
     <Declaration>
@@ -836,6 +845,10 @@
     <SubClassOf>
         <Class IRI="#Actuator"/>
         <Class IRI="#Component"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ActuatorComponentType"/>
+        <Class IRI="#ComponentType"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Agent"/>
@@ -990,10 +1003,6 @@
         <Class IRI="#Activity"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#EnviromentComponent"/>
-        <Class IRI="#Component"/>
-    </SubClassOf>
-    <SubClassOf>
         <Class IRI="#ExecutionActivity"/>
         <Class IRI="#Activity"/>
     </SubClassOf>
@@ -1071,7 +1080,7 @@
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#LightComponentType"/>
-        <Class IRI="#ComponentType"/>
+        <Class IRI="#ActuatorComponentType"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Message"/>
@@ -1172,6 +1181,14 @@
     <SubClassOf>
         <Class IRI="#Sensor"/>
         <Class IRI="#Device"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SensorComponent"/>
+        <Class IRI="#Component"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#SensorComponentType"/>
+        <Class IRI="#ComponentType"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Service"/>
@@ -2699,16 +2716,6 @@
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#EntrustmentActivity</IRI>
         <Literal xml:lang="en">Entrustment activity</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#EnviromentComponent</IRI>
-        <Literal xml:lang="en">This class describes enviroment components</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#EnviromentComponent</IRI>
-        <Literal xml:lang="en">Enviroment component</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
