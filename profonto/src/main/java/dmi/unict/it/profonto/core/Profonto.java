@@ -44,6 +44,7 @@ import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
+import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
@@ -1380,5 +1381,14 @@ public class Profonto extends OntologyCore
          return axioms;        
       }
     
-       
+    public void setExecutionStatus (String execution, String status) throws OWLOntologyStorageException
+      {
+        OWLNamedIndividual individual=this.getMainManager().getOWLDataFactory().getOWLNamedIndividual(execution);
+        OWLNamedIndividual indstatus=this.getMainManager().getOWLDataFactory().getOWLNamedIndividual(this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#"+status);
+        OWLObjectProperty property=this.getMainManager().getOWLDataFactory().getOWLObjectProperty(this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#hasStatus");
+        this.getDataChronoOntology().addAxiom(this.getMainManager().getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(
+                property, individual, indstatus));
+        this.getMainManager().saveOntology(this.getDataChronoOntology());
+      
+      }
 }
