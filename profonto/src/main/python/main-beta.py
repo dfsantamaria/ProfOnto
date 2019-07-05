@@ -27,6 +27,16 @@ class welcome(Procedure): pass
 class decide(Procedure): pass
 
 
+
+def getGraph(value):
+    g = rdflib.Graph()
+    g.parse(data=value)
+    return g
+
+def setExecutionStatus(graph):
+    for execution, status in graph.subject_objects(predicate=URIRef(oasis + "hasStatus")):
+      profonto.setExecutionStatus(execution, status)
+
 def computesDependencies(graph, executions):
       for first, second in graph.subject_objects(predicate=URIRef(oasis + "dependsOn")):
           index=0
@@ -125,8 +135,7 @@ class Decide_Action(Action):
     def execute(self, rdf_source):
        value = profonto.parseRequest(rdf_source())
        #print("Client send request:", value)
-       g = rdflib.Graph()
-       g.parse(data=value)
+       g = getGraph(value)
        executions=[]
        for execution in g.subjects(RDF.type, URIRef(oasis+"TaskExecution")):
            executions.append((execution, 0))
