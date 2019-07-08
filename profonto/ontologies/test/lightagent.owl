@@ -98,7 +98,7 @@
         <NamedIndividual IRI="#light-device-config-connect"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#EnviromentComponent"/>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Component"/>
         <NamedIndividual IRI="#light-device-light1"/>
     </ClassAssertion>
     <ClassAssertion>

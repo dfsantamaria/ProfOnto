@@ -124,7 +124,7 @@ def profhome_decide(graph, execution):
                     file = getOntologyFile(graph, execution)
                     value = profonto.retrieveDataBelief(file)
                     profonto.setExecutionStatus(execution, "succeded_status")
-                    print("Belief retrieved:\n", value)
+                    print("Belief retrieved:\n"+ value)
 
         else:
             print("Action", actions, "not supported yet")

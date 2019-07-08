@@ -67,6 +67,9 @@
     <Declaration>
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_on"/>
     </Declaration>
+    <Declaration>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#EnviromentComponent"/>
+    </Declaration>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#Behavior"/>
         <NamedIndividual IRI="#LD-turnoff-behavior"/>
@@ -148,7 +151,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
         <NamedIndividual IRI="#LD-turnoff-taskdescription"/>
-        <NamedIndividual IRI="#light-device-light-template"/>
+        <NamedIndividual IRI="#light-device-light1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskOperator"/>
@@ -168,7 +171,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
         <NamedIndividual IRI="#LD-turnon-taskdescription"/>
-        <NamedIndividual IRI="#light-device-light-template"/>
+        <NamedIndividual IRI="#light-device-light1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskOperator"/>
@@ -204,6 +207,11 @@
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#adoptsComponentTemplate"/>
         <NamedIndividual IRI="#light-device-light1"/>
         <NamedIndividual IRI="#light-device-light-template"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasType"/>
+        <NamedIndividual IRI="#light-device-light1"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#LightObjectType"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasBehavior"/>
