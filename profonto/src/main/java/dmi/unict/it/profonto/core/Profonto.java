@@ -506,10 +506,31 @@ public class Profonto extends OntologyCore
         addAxiomsToOntology(this.getDataBehaviorOntology(), axioms);
     }
     
+    public boolean checkHasExecutionStatutInfo(OWLOntology ontology)
+      {
+        String query=getQueryPrefix(null)+"\n"+this.getQueries().get("ask02a.sparql");          
+        boolean res=false;
+        try
+          {
+            QueryExecution execQ = this.createQuery(ontology, query);
+            res= execQ.execAsk();
+          } 
+        catch (OWLOntologyCreationException ex)
+          {
+            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+          }        
+        return res;
+      }
+    
     public int addDataToDataBelief(InputStream ontologystring) throws OWLOntologyCreationException
     {
         OWLOntology ontology=this.getMainManager().loadOntologyFromOntologyDocument(ontologystring);
-        int r= addAxiomsToOntology(this.getDataBeliefOntology(), ontology.axioms()); 
+        int r=-1;
+        if(checkHasExecutionStatutInfo(ontology))
+         r=addAxiomsToOntology(this.getDataChronoOntology(), ontology.axioms()); 
+        else
+         r=addAxiomsToOntology(this.getDataBeliefOntology(), ontology.axioms());   
         this.getMainManager().removeOntology(ontology);
         return r;
     }
@@ -517,7 +538,11 @@ public class Profonto extends OntologyCore
     public int removeDataFromDataBelief(InputStream ontologystring) throws OWLOntologyCreationException
     {
         OWLOntology ontology=this.getMainManager().loadOntologyFromOntologyDocument(ontologystring);
-        int r= removeAxiomsFromOntology(this.getDataBeliefOntology(), ontology.axioms()); 
+        int r=-1;
+        if(checkHasExecutionStatutInfo(ontology))
+         r= removeAxiomsFromOntology(this.getDataChronoOntology(), ontology.axioms()); 
+        else
+         r= removeAxiomsFromOntology(this.getDataBeliefOntology(), ontology.axioms());   
         this.getMainManager().removeOntology(ontology);
         return r;
     }
@@ -1149,7 +1174,16 @@ public class Profonto extends OntologyCore
       }
     
     
-    
+    public String getQueryPrefix(String IRIrequest)
+      {
+         String prefix = this.getQueries().get("prefix01.sparql");
+         prefix += "PREFIX prof: <" + this.getMainOntology().getOntologyID().getOntologyIRI().get().toString() + "#>\n";
+         String mainID = this.getMainAbox().getOntologyID().getOntologyIRI().get().toString();
+         prefix += "PREFIX abox: <" + mainID + "#>\n";
+         if(IRIrequest!=null)
+           prefix += "PREFIX base: <" + IRIrequest + ">\n";
+         return prefix;
+      }
     
     
     /**
@@ -1170,11 +1204,7 @@ public class Profonto extends OntologyCore
 
             //prefix
             String IRIrequest = ontology.getOntologyID().getOntologyIRI().get().toString();
-            String prefix = this.getQueries().get("prefix01.sparql");
-            prefix += "PREFIX prof: <" + this.getMainOntology().getOntologyID().getOntologyIRI().get().toString() + "#>\n";
-            String mainID = this.getMainAbox().getOntologyID().getOntologyIRI().get().toString();
-            prefix += "PREFIX abox: <" + mainID + "#>\n";
-            prefix += "PREFIX base: <" + IRIrequest + ">\n";
+            String prefix = getQueryPrefix(IRIrequest);
 
             //dependencies
             depends= retrieveDependencies(ontology, prefix);

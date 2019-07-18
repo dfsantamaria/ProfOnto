@@ -102,16 +102,15 @@ def profhome_decide(graph, execution):
                          profonto.setExecutionStatus(execution, "succeded_status")
                          print("Configuration", retrieveEntityName(requester), "removed.")
                  elif  thetype == URIRef(oasisabox + "belief_description_object_type"):
+                      file = getOntologyFile(graph, execution)
                       if actions == URIRef(oasisabox + "add"):
-                         file = getOntologyFile(graph, execution)
                          value = profonto.addDataBelief(file)
                          profonto.setExecutionStatus(execution, "succeded_status")
                          print("Belief  added with exit code", value)
                       elif actions == URIRef(oasisabox + "remove"):
-                         file = getOntologyFile(graph, execution)
                          value = profonto.removeDataBelief(file)
                          profonto.setExecutionStatus(execution, "succeded_status")
-                         print("Belief removed with exit code", value)                      
+                         print("Belief removed with exit code", value)
                  break
         elif actions == URIRef(oasisabox + "parse"):
             for thetype in graph.objects(requester, URIRef(oasis + "hasType")):

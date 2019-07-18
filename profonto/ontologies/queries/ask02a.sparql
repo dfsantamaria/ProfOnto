@@ -1,0 +1,5 @@
+ASK
+{
+  ?x rdf:type prof:TaskExecution .
+  ?x prof:hasStatus ?y .
+}

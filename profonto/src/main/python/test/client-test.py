@@ -59,6 +59,13 @@ client_socket.connect(('localhost', 8000))
 client_socket.send(home.encode())
 client_socket.close()
 
+home=readOntoFile("ontologies/test/add-belief-status-request.owl")
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect(('localhost', 8000))
+client_socket.send(home.encode())
+client_socket.close()
+
+
 home=readOntoFile("ontologies/test/retrieve-belief-request.owl")
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect(('localhost', 8000))
