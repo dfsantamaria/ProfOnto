@@ -77,7 +77,7 @@ public class ProfontoEntryPoint
             ontocore.setMainAbox(aboxFile);
               
             ontocore.setDataBehaviorOntology("http://www.dmi.unict.it/prof-onto-behavior.owl", "behavior.owl");
-            ontocore.setDataChronoOntology("http://www.dmi.unict.it/prof-onto-chrono.owl","chronology.owl");
+            ontocore.setDataRequestOntology("http://www.dmi.unict.it/prof-onto-request.owl","request.owl");
             ontocore.setDataBeliefOntology("http://www.dmi.unict.it/prof-onto-belief.owl", "belief.owl");
             ontocore.loadDevicesFromPath(true); //use this if the devices folder is not empty 
             // ontocore.startReasoner();
@@ -272,11 +272,11 @@ public class ProfontoEntryPoint
         return "";
       }
     
-    public int emptyChronology()
+    public int emptyRequest()
     {
         try
         {
-            ontocore.emptyChronology();
+            ontocore.emptyRequestOntology();
             return 0;
         } catch (OWLOntologyCreationException | OWLOntologyStorageException | IOException ex)
         {

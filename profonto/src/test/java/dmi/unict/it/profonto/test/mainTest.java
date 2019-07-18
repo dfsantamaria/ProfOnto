@@ -98,7 +98,7 @@ public class mainTest
             ontocore.setMainAbox(aboxFile);
             
             ontocore.setDataBehaviorOntology("http://www.dmi.unict.it/prof-onto-behavior.owl","behavior.owl");  
-            ontocore.setDataChronoOntology("http://www.dmi.unict.it/prof-onto-chrono.owl","chronology.owl");
+            ontocore.setDataRequestOntology("http://www.dmi.unict.it/prof-onto-request.owl","request.owl");
             ontocore.setDataBeliefOntology("http://www.dmi.unict.it/prof-onto-belief.owl","belief.owl");
             ontocore.loadDevicesFromPath(false); //use this if the devices folder is not empty 
            
@@ -205,7 +205,7 @@ public class mainTest
        
         try
         {
-            ontocore.emptyChronology();
+            ontocore.emptyRequestOntology();
          } catch (OWLOntologyCreationException ex)
         {
             Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);

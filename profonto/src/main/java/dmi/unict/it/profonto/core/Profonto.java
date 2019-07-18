@@ -18,7 +18,6 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-import java.util.function.Consumer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
@@ -76,7 +75,7 @@ public class Profonto extends OntologyCore
     private final HashMap<String, String> queries; //FileName, content
     private Pair<String, OWLOntology> databehavior;
     private Pair<String, OWLOntology> databelief;
-    private Pair<String, OWLOntology> datachrono;
+    private Pair<String, OWLOntology> datarequest;
     private final Configuration configuration;
     private final List<InferredAxiomGenerator<? extends OWLAxiom>> generators;
 
@@ -91,7 +90,7 @@ public class Profonto extends OntologyCore
         configuration = new Configuration(paths);
         databehavior = null;
         databelief = null;
-        datachrono = null;
+        datarequest = null;
         mainAbox=null;        
         generators = new ArrayList<>();
         setDefaultReasonerGenerators(generators);
@@ -247,15 +246,15 @@ public class Profonto extends OntologyCore
 
     
     /**
-     * Sets the data-chrono ontology from file
+     * Sets the data-request ontology from file
      *
      * @param inputFile the file serializing the ontology
      * @throws OWLOntologyCreationException
      * @throws org.semanticweb.owlapi.model.OWLOntologyStorageException
      */
-    public void setDataChronoOntology(File inputFile) throws OWLOntologyCreationException, OWLOntologyStorageException
+    public void setDataRequestOntology(File inputFile) throws OWLOntologyCreationException, OWLOntologyStorageException
     {
-        datachrono = new Pair(this.getMainOntologiesPath() + File.separator + inputFile.getName(), this.getMainManager().loadOntologyFromOntologyDocument(inputFile));
+        datarequest = new Pair(this.getMainOntologiesPath() + File.separator + inputFile.getName(), this.getMainManager().loadOntologyFromOntologyDocument(inputFile));
     }
     
     
@@ -287,12 +286,12 @@ public class Profonto extends OntologyCore
         this.getMainManager().saveOntology(dt, new OWLXMLDocumentFormat(), IRI.create(inputFile));
         setDataBeliefOntology(inputFile);
         //addImportToOntology(this.getDataBehaviorOntology(), this.getMainOntology().getOntologyID().getOntologyIRI().get());
-        addImportToOntology(this.getDataBeliefOntology(), this.getDataChronoOntology().getOntologyID().getOntologyIRI().get());
+        addImportToOntology(this.getDataBeliefOntology(), this.getDataRequestOntology().getOntologyID().getOntologyIRI().get());
     }
 
     
       /**
-     * Sets the data-chronology ontology from file name
+     * Sets the data-request ontology from file name
      *
      * @param iri The IRI of the ontology
      * @param name the name of the file serializing the ontology
@@ -300,21 +299,21 @@ public class Profonto extends OntologyCore
      * @throws org.semanticweb.owlapi.model.OWLOntologyStorageException
      * @throws java.io.IOException
      */
-    public void setDataChronoOntology(String iri, String name) throws OWLOntologyCreationException, OWLOntologyStorageException, IOException
+    public void setDataRequestOntology(String iri, String name) throws OWLOntologyCreationException, OWLOntologyStorageException, IOException
     {
         OWLOntology dt = this.getMainManager().createOntology(IRI.create(iri));
         File inputFile = new File(this.getMainOntologiesPath() + File.separator + name);
         this.getMainManager().saveOntology(dt, new OWLXMLDocumentFormat(), IRI.create(inputFile));
-        setDataChronoOntology(inputFile);
-        addImportToOntology(this.getDataChronoOntology(), this.getMainOntology().getOntologyID().getOntologyIRI().get());
-        addImportToOntology(this.getDataChronoOntology(), this.getDataBehaviorOntology().getOntologyID().getOntologyIRI().get());
+        Profonto.this.setDataRequestOntology(inputFile);
+        addImportToOntology(this.getDataRequestOntology(), this.getMainOntology().getOntologyID().getOntologyIRI().get());
+        addImportToOntology(this.getDataRequestOntology(), this.getDataBehaviorOntology().getOntologyID().getOntologyIRI().get());
     }
     
-    public void emptyChronology() throws OWLOntologyCreationException, OWLOntologyStorageException, IOException
+    public void emptyRequestOntology() throws OWLOntologyCreationException, OWLOntologyStorageException, IOException
     {
-       String iri=this.getDataChronoOntology().getOntologyID().getOntologyIRI().get().toString();          
-       this.getMainManager().removeOntology(this.getDataChronoOntology());
-       this.setDataChronoOntology(iri, new File(this.getDataChronoInfo().getKey()).getName());         
+       String iri=this.getDataRequestOntology().getOntologyID().getOntologyIRI().get().toString();          
+       this.getMainManager().removeOntology(this.getDataRequestOntology());
+       this.setDataRequestOntology(iri, new File(this.getDataRequestInfo().getKey()).getName());         
     }
     
     
@@ -389,13 +388,13 @@ public class Profonto extends OntologyCore
     }
 
        /**
-     * Returns the data-chronoloy ontology
+     * Returns the data-request ontology
      *
-     * @return the data-chronology ontology
+     * @return the data-request ontology
      */
-    public OWLOntology getDataChronoOntology()
+    public OWLOntology getDataRequestOntology()
     {
-        return getDataChronoInfo().getValue();
+        return getDataRequestInfo().getValue();
     }
     
     
@@ -410,13 +409,13 @@ public class Profonto extends OntologyCore
     }
 
       /**
-     * Returns the data-chronology ontology
+     * Returns the data-request ontology
      *
-     * @return the data-chronology ontology
+     * @return the data-request ontology
      */
-    public Pair<String, OWLOntology> getDataChronoInfo()
+    public Pair<String, OWLOntology> getDataRequestInfo()
     {
-        return this.datachrono;
+        return this.datarequest;
     }
     
     /**
@@ -528,7 +527,7 @@ public class Profonto extends OntologyCore
         OWLOntology ontology=this.getMainManager().loadOntologyFromOntologyDocument(ontologystring);
         int r=-1;
         if(checkHasExecutionStatutInfo(ontology))
-         r=addAxiomsToOntology(this.getDataChronoOntology(), ontology.axioms()); 
+         r=addAxiomsToOntology(this.getDataRequestOntology(), ontology.axioms()); 
         else
          r=addAxiomsToOntology(this.getDataBeliefOntology(), ontology.axioms());   
         this.getMainManager().removeOntology(ontology);
@@ -540,7 +539,7 @@ public class Profonto extends OntologyCore
         OWLOntology ontology=this.getMainManager().loadOntologyFromOntologyDocument(ontologystring);
         int r=-1;
         if(checkHasExecutionStatutInfo(ontology))
-         r= removeAxiomsFromOntology(this.getDataChronoOntology(), ontology.axioms()); 
+         r= removeAxiomsFromOntology(this.getDataRequestOntology(), ontology.axioms()); 
         else
          r= removeAxiomsFromOntology(this.getDataBeliefOntology(), ontology.axioms());   
         this.getMainManager().removeOntology(ontology);
@@ -552,9 +551,9 @@ public class Profonto extends OntologyCore
         addAxiomsToOntology(this.getDataBeliefOntology(), axioms);
     }
 
-    public void addDataToDataChrono(Stream<OWLAxiom> axioms) throws OWLOntologyCreationException
+    public void addDataToDataRequest(Stream<OWLAxiom> axioms) throws OWLOntologyCreationException
     {
-        addAxiomsToOntology(this.getDataChronoOntology(), axioms);
+        addAxiomsToOntology(this.getDataRequestOntology(), axioms);
     } 
 
     private void syncReasoner(OWLOntology ontology, String file) throws OWLOntologyStorageException
@@ -1142,7 +1141,7 @@ public class Profonto extends OntologyCore
         this.getMainManager().ontologies().forEach(x->ontology.addAxioms(x.axioms()));
         QueryExecution execQ = this.createQuery(ontology, query);
         res=this.performConstructQuery(execQ);
-        this.addDataToDataChrono(res.axioms());
+        this.addDataToDataRequest(res.axioms());
   //      this.getMainManager().removeOntology(ontology);
        } 
         catch (OWLOntologyCreationException | IOException ex)
@@ -1230,7 +1229,7 @@ public class Profonto extends OntologyCore
 //                  System.out.println(s.getKey()+" "+s.getValue());
             //ontology.;
             syncReasoner(ontology, null);
-            this.getDataChronoOntology().addAxioms(ontology.axioms());
+            this.getDataRequestOntology().addAxioms(ontology.axioms());
             ontology.addAxioms(this.getDataBehaviorOntology().axioms());
 
             //String query = prefix; //here
@@ -1380,7 +1379,7 @@ public class Profonto extends OntologyCore
     public Stream<OWLAxiom> retrieveBeliefAssertions(String iriInd)
       {
          
-         return retrieveAssertions(iriInd, Stream.concat(getDataChronoOntology().axioms(), 
+         return retrieveAssertions(iriInd, Stream.concat(getDataRequestOntology().axioms(), 
                                                          getDataBeliefOntology().axioms()));
       }
     
@@ -1416,9 +1415,9 @@ public class Profonto extends OntologyCore
         OWLNamedIndividual individual=this.getMainManager().getOWLDataFactory().getOWLNamedIndividual(execution);
         OWLNamedIndividual indstatus=this.getMainManager().getOWLDataFactory().getOWLNamedIndividual(this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#"+status);
         OWLObjectProperty property=this.getMainManager().getOWLDataFactory().getOWLObjectProperty(this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#hasStatus");
-        this.getDataChronoOntology().addAxiom(this.getMainManager().getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(
+        this.getDataRequestOntology().addAxiom(this.getMainManager().getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(
                 property, individual, indstatus));
-        this.getMainManager().saveOntology(this.getDataChronoOntology());
+        this.getMainManager().saveOntology(this.getDataRequestOntology());
       
       }
 }
