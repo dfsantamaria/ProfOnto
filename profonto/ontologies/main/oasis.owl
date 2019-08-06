@@ -699,6 +699,18 @@
         <ObjectProperty IRI="#hasValue"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#implements"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#implementsTaskInputParameter"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#implementsTaskOutputParameter"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#implementsTaskParameter"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="#isAuthorOfSmartContract"/>
     </Declaration>
     <Declaration>
@@ -1736,6 +1748,18 @@
         <ObjectProperty IRI="#isRelatedWith"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
+        <ObjectProperty IRI="#implementsTaskInputParameter"/>
+        <ObjectProperty IRI="#implementsTaskParameter"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#implementsTaskOutputParameter"/>
+        <ObjectProperty IRI="#implementsTaskParameter"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#implementsTaskParameter"/>
+        <ObjectProperty IRI="#implements"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
         <ObjectProperty IRI="#isAuthorOfSmartContract"/>
         <ObjectProperty IRI="#partecipatesInSmartContract"/>
     </SubObjectPropertyOf>
@@ -1955,6 +1979,18 @@
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasTaskExecution"/>
         <Class IRI="#TaskDescription"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#implementsTaskInputParameter"/>
+        <Class IRI="#Agent"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#implementsTaskOutputParameter"/>
+        <Class IRI="#Agent"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#implementsTaskParameter"/>
+        <Class IRI="#Agent"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#isAuthorOfSmartContract"/>
@@ -2277,6 +2313,18 @@
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasType"/>
         <Class IRI="#Type"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#implementsTaskInputParameter"/>
+        <Class IRI="#TaskInputParameter"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#implementsTaskOutputParameter"/>
+        <Class IRI="#TaskOutputParameter"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#implementsTaskParameter"/>
+        <Class IRI="#TaskParameter"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#isAuthorOfSmartContract"/>
