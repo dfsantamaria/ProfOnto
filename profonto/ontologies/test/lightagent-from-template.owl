@@ -14,6 +14,9 @@
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Import>http://www.dmi.unict.it/oasis.owl</Import>
     <Declaration>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#EnviromentComponent"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskSubject"/>
     </Declaration>
     <Declaration>
@@ -66,9 +69,6 @@
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_on"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#EnviromentComponent"/>
     </Declaration>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#Behavior"/>
@@ -151,7 +151,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
         <NamedIndividual IRI="#LD-turnoff-taskdescription"/>
-        <NamedIndividual IRI="#light-device-light1"/>
+        <NamedIndividual IRI="#light-device-light-template"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskOperator"/>
@@ -171,7 +171,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
         <NamedIndividual IRI="#LD-turnon-taskdescription"/>
-        <NamedIndividual IRI="#light-device-light1"/>
+        <NamedIndividual IRI="#light-device-light-template"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskOperator"/>
@@ -192,6 +192,11 @@
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasConfiguration"/>
         <NamedIndividual IRI="#light-device"/>
         <NamedIndividual IRI="#light-device-config"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#settles"/>
+        <NamedIndividual IRI="#light-device"/>
+        <NamedIndividual IRI="#light-device-light1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasConnection"/>
