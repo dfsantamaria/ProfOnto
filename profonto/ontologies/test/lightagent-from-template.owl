@@ -149,7 +149,7 @@
         <NamedIndividual IRI="#LD-turnoff-taskdescription"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObjectTemplate"/>
         <NamedIndividual IRI="#LD-turnoff-taskdescription"/>
         <NamedIndividual IRI="#light-device-light-template"/>
     </ObjectPropertyAssertion>
@@ -169,7 +169,7 @@
         <NamedIndividual IRI="#LD-turnon-taskdescription"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObjectTemplate"/>
         <NamedIndividual IRI="#LD-turnon-taskdescription"/>
         <NamedIndividual IRI="#light-device-light-template"/>
     </ObjectPropertyAssertion>

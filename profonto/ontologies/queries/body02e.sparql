@@ -9,3 +9,8 @@ OPTIONAL
    ?Taskparam prof:hasType ?Taskparamtype .
    FILTER ( ?Taskparamtype = //paramt// )
 }
+
+OPTIONAL
+{
+  ?task prof:hasTaskInputParameterTemplate ?Taskparam .  
+}

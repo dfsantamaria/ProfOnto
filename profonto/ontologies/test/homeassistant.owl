@@ -682,12 +682,12 @@
         <NamedIndividual IRI="#profonto-homeConfigConnection"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskInputParameter"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskInputParameterTemplate"/>
         <NamedIndividual IRI="#task-proHomeRetrieveBelief"/>
         <NamedIndividual IRI="#add-remove-belief-parameter"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObjectTemplate"/>
         <NamedIndividual IRI="#task-proHomeRetrieveBelief"/>
         <NamedIndividual IRI="#belieftoaddorretrieve"/>
     </ObjectPropertyAssertion>
@@ -697,12 +697,12 @@
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#retrieve"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskInputParameter"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskInputParameterTemplate"/>
         <NamedIndividual IRI="#task-profHomeAddBelief"/>
         <NamedIndividual IRI="#add-remove-belief-parameter"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObjectTemplate"/>
         <NamedIndividual IRI="#task-profHomeAddBelief"/>
         <NamedIndividual IRI="#belieftoaddorretrieve"/>
     </ObjectPropertyAssertion>
@@ -712,12 +712,12 @@
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#add"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskInputParameter"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskInputParameterTemplate"/>
         <NamedIndividual IRI="#task-profHomeAddUser"/>
         <NamedIndividual IRI="#add-user-parameter"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObjectTemplate"/>
         <NamedIndividual IRI="#task-profHomeAddUser"/>
         <NamedIndividual IRI="#usertoaddorremove"/>
     </ObjectPropertyAssertion>
@@ -727,12 +727,12 @@
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#add"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskInputParameter"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskInputParameterTemplate"/>
         <NamedIndividual IRI="#task-profHomeAddUserConfiguration"/>
         <NamedIndividual IRI="#add-config-paramater"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObjectTemplate"/>
         <NamedIndividual IRI="#task-profHomeAddUserConfiguration"/>
         <NamedIndividual IRI="#userconfigurationtoaddorremove"/>
     </ObjectPropertyAssertion>
@@ -742,12 +742,12 @@
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#add"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskInputParameter"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskInputParameterTemplate"/>
         <NamedIndividual IRI="#task-profHomeDeleteBelief"/>
         <NamedIndividual IRI="#add-remove-belief-parameter"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObjectTemplate"/>
         <NamedIndividual IRI="#task-profHomeDeleteBelief"/>
         <NamedIndividual IRI="#belieftoaddorretrieve"/>
     </ObjectPropertyAssertion>
@@ -757,12 +757,12 @@
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#remove"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskInputParameter"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskInputParameterTemplate"/>
         <NamedIndividual IRI="#task-profHomeExecuteUserRequest"/>
         <NamedIndividual IRI="#user-request-parameter"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObjectTemplate"/>
         <NamedIndividual IRI="#task-profHomeExecuteUserRequest"/>
         <NamedIndividual IRI="#userRequest"/>
     </ObjectPropertyAssertion>
@@ -772,12 +772,12 @@
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#execute"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskInputParameter"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskInputParameterTemplate"/>
         <NamedIndividual IRI="#task-profHomeInstallDevice"/>
         <NamedIndividual IRI="#install-device-parameter"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObjectTemplate"/>
         <NamedIndividual IRI="#task-profHomeInstallDevice"/>
         <NamedIndividual IRI="#profHomeDeviceInstallationObject"/>
     </ObjectPropertyAssertion>
@@ -787,12 +787,12 @@
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#install"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskInputParameter"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskInputParameterTemplate"/>
         <NamedIndividual IRI="#task-profHomeParseUtterance"/>
         <NamedIndividual IRI="#user-request-parameter"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObjectTemplate"/>
         <NamedIndividual IRI="#task-profHomeParseUtterance"/>
         <NamedIndividual IRI="#userUtterance"/>
     </ObjectPropertyAssertion>
@@ -802,7 +802,7 @@
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#parse"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObjectTemplate"/>
         <NamedIndividual IRI="#task-profHomeRemoveUser"/>
         <NamedIndividual IRI="#usertoaddorremove"/>
     </ObjectPropertyAssertion>
@@ -812,7 +812,7 @@
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#remove"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObjectTemplate"/>
         <NamedIndividual IRI="#task-profHomeRemoveUserConfiguration"/>
         <NamedIndividual IRI="#userconfigurationtoaddorremove"/>
     </ObjectPropertyAssertion>
@@ -822,7 +822,7 @@
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#remove"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObjectTemplate"/>
         <NamedIndividual IRI="#task-profHomeUninstallDevice"/>
         <NamedIndividual IRI="#profHomeDeviceInstallationObject"/>
     </ObjectPropertyAssertion>

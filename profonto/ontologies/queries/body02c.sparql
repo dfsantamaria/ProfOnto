@@ -11,7 +11,7 @@
 }
 UNION
 {
-  ?task prof:hasTaskObject ?objecttemp .
+  ?task prof:hasTaskObjectTemplate ?objecttemp .
   ?device_object prof:adoptsComponentTemplate ?objecttemp . 
   ?selected_device prof:settles ?device_object . 
   ?objecttemp prof:hasType ?requesttype .

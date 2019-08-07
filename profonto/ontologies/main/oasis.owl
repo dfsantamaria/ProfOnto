@@ -384,6 +384,9 @@
         <Class IRI="#TaskInputParameter"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#TaskInputParameterTemplate"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#TaskObject"/>
     </Declaration>
     <Declaration>
@@ -394,6 +397,9 @@
     </Declaration>
     <Declaration>
         <Class IRI="#TaskOutputParameter"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TaskOutputParameterTemplate"/>
     </Declaration>
     <Declaration>
         <Class IRI="#TaskParameter"/>
@@ -678,7 +684,13 @@
         <ObjectProperty IRI="#hasTaskInputParameter"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#hasTaskInputParameterTemplate"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="#hasTaskObject"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasTaskObjectTemplate"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasTaskOperator"/>
@@ -687,7 +699,16 @@
         <ObjectProperty IRI="#hasTaskOutputParameter"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#hasTaskOutputParameterTemplate"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="#hasTaskParameter"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasTaskParameterTemplate"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasTemplate"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasTimeSpan"/>
@@ -1308,6 +1329,10 @@
         <Class IRI="#TaskParameter"/>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#TaskInputParameterTemplate"/>
+        <Class IRI="#TaskParameterTemplate"/>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#TaskObject"/>
         <Class IRI="#TaskDescriptor"/>
     </SubClassOf>
@@ -1326,6 +1351,10 @@
     <SubClassOf>
         <Class IRI="#TaskOutputParameter"/>
         <Class IRI="#TaskParameter"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TaskOutputParameterTemplate"/>
+        <Class IRI="#TaskParameterTemplate"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#TaskParameter"/>
@@ -1716,12 +1745,28 @@
         <ObjectProperty IRI="#hasTaskParameter"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasTaskInputParameterTemplate"/>
+        <ObjectProperty IRI="#hasTaskInputParameter"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasTaskInputParameterTemplate"/>
+        <ObjectProperty IRI="#hasTaskParameterTemplate"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasTaskObject"/>
         <ObjectProperty IRI="#hasObject"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasTaskObject"/>
         <ObjectProperty IRI="#hasTaskDescriptor"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasTaskObjectTemplate"/>
+        <ObjectProperty IRI="#hasTaskObject"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasTaskObjectTemplate"/>
+        <ObjectProperty IRI="#hasTemplate"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasTaskOperator"/>
@@ -1736,12 +1781,32 @@
         <ObjectProperty IRI="#hasTaskParameter"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasTaskOutputParameterTemplate"/>
+        <ObjectProperty IRI="#hasTaskOutputParameter"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasTaskOutputParameterTemplate"/>
+        <ObjectProperty IRI="#hasTaskParameterTemplate"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasTaskParameter"/>
         <ObjectProperty IRI="#hasParameter"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasTaskParameter"/>
         <ObjectProperty IRI="#hasTaskDescriptor"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasTaskParameterTemplate"/>
+        <ObjectProperty IRI="#hasTaskParameter"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasTaskParameterTemplate"/>
+        <ObjectProperty IRI="#hasTemplate"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasTemplate"/>
+        <ObjectProperty IRI="#isDescribedBy"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasTimeSpan"/>
@@ -1978,6 +2043,22 @@
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasTaskExecution"/>
+        <Class IRI="#TaskDescription"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasTaskInputParameterTemplate"/>
+        <Class IRI="#TaskDescription"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasTaskObjectTemplate"/>
+        <Class IRI="#TaskDescription"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasTaskOutputParameterTemplate"/>
+        <Class IRI="#TaskDescription"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasTaskParameterTemplate"/>
         <Class IRI="#TaskDescription"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
@@ -2291,8 +2372,16 @@
         <Class IRI="#TaskInputParameter"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasTaskInputParameterTemplate"/>
+        <Class IRI="#TaskInputParameterTemplate"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
         <ObjectProperty IRI="#hasTaskObject"/>
         <Class IRI="#TaskObject"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasTaskObjectTemplate"/>
+        <Class IRI="#TaskObjectTemplate"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasTaskOperator"/>
@@ -2303,8 +2392,16 @@
         <Class IRI="#TaskOutputParameter"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasTaskOutputParameterTemplate"/>
+        <Class IRI="#TaskOutputParameterTemplate"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
         <ObjectProperty IRI="#hasTaskParameter"/>
         <Class IRI="#TaskParameter"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasTemplate"/>
+        <Class IRI="#Template"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasTimeSpan"/>
