@@ -147,7 +147,7 @@
         <Class IRI="#VirtualComponent"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#overloads"/>
+        <ObjectProperty IRI="#overrides"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Robot"/>
