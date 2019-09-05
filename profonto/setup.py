@@ -42,6 +42,8 @@ if  stderr is None :
    copy_tree("ontologies", "target/ontologies")
    copy_tree("src/main/python", "target/python")
    copy_tree("amens", "target/amens")
+   if not os.path.exists('target/ontologies/devices'):
+       os.makedirs('target/ontologies/devices')
    print("Setup finished")
 else:
     print("Uncompilable Java source")
