@@ -15,583 +15,145 @@
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Annotation>
         <AnnotationProperty IRI="http://purl.org/dc/terms/created"/>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Carmelo Fabio Longo</Literal>
-    </Annotation>
-    <Annotation>
-        <AnnotationProperty IRI="http://purl.org/dc/terms/created"/>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Marianna Nicolosi-Asmundo</Literal>
-    </Annotation>
-    <Annotation>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">OASIS</Literal>
-    </Annotation>
-    <Annotation>
-        <AnnotationProperty IRI="http://purl.org/dc/terms/created"/>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Domenico Cantone</Literal>
-    </Annotation>
-    <Annotation>
-        <AnnotationProperty IRI="http://purl.org/dc/terms/created"/>
         <IRI>http://www.dmi.unict.it/~santamaria/ext/metadata/foaf.rdf</IRI>
     </Annotation>
     <Annotation>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">OASIS- An Ontology for Agents, Systems, and Integration of Services</Literal>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/created"/>
+        <Literal xml:lang="en">Carmelo Fabio Longo</Literal>
     </Annotation>
     <Annotation>
         <AnnotationProperty IRI="http://purl.org/dc/terms/created"/>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Corrado Santoro</Literal>
+        <Literal xml:lang="en">Corrado Santoro</Literal>
+    </Annotation>
+    <Annotation>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/created"/>
+        <Literal xml:lang="en">Domenico Cantone</Literal>
+    </Annotation>
+    <Annotation>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/created"/>
+        <Literal xml:lang="en">Marianna Nicolosi-Asmundo</Literal>
+    </Annotation>
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <Literal xml:lang="en">OASIS- An Ontology for Agents, Systems, and Integration of Services</Literal>
+    </Annotation>
+    <Annotation>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <Literal>OASIS</Literal>
     </Annotation>
     <Declaration>
-        <Class IRI="#SmartContractPart"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#GoalEntrustment"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasTaskInputParameterTemplate"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#hasPublicKey"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#hasIPAddress"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasConnectionEntry"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#TaskInputParameterTemplate"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Type"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasEntrustment"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasSmartContractEntryType"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Agent"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Template"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#TaskEntrustment"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasAppellation"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#timeSpan"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#PermanentStatus"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Scheduling"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#exploits"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasConditional"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#HomeObjectType"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#TaskDescription"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#settles"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#exists"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#descriptionProvidedByURL"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#LightComponentType"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#TaskOutputParameter"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ConnectionEntry"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasTaskOutputParameter"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasGoalExecution"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#TemporaryStatus"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Activity"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasTimeSpan"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#isInvolvedInSchedulingWith"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasTaskObject"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#VirtualComponent"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#overrides"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Robot"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#greatherThan"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#refersTo"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasMessagePart"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#adoptsAgentBehaviorTemplate"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ActivationStatus"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ConditionalOperator"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Operator"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#PlanDescription"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#deliversMessage"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#VirtualSpace"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#FailedStatus"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#isInvolvedInConfigurationSetUpWith"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ConditionalRulePart"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#TaskInputParameter"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasSmartContractEntry"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Behavior"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ConditionalBody"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#OntologyDescriptionObjectType"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#provides"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ExecutionActivity"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasConnection"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#lessThan"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Human"/>
-    </Declaration>
-    <Declaration>
-        <AnnotationProperty IRI="#isFoundInEntity"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ComponentConfiguration"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#SpaceOperator"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#OntologyDescriptionObject"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Value"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasConditionalOperator"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#setUpFrom"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasTaskParameterTemplate"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#SpaceType"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#TaskOperator"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasTaskParameter"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Connection"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasStatus"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasParameter"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#SuccededStatus"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasDescriptor"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ConnectionEntryType"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#consistsOfTaskDescription"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#MessageDescriptor"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasTaskOutputParameterTemplate"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#PlanEntrustment"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#requests"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#SoftwareAgentBehaviorTemplate"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasMessageParameter"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#consistsOfTaskEntrustment"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasConditionalBody"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#GeometricExtension"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ActuatorComponentType"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Feature"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#SystemType"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#partecipatesInSmartContract"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasScheduling"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Component"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasFeature"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="#Action"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#descriptionProvidedByEntity"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ConditionalSubject"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#User"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasSystemType"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#hasScheduleRepetition"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasService"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#TaskParameterTemplate"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasGeometricExtension"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#OpportunityValue"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasOpportunityValue"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#BehaviorTemplate"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ComponentType"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#BeliefDescriptionObjectType"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#FeasibilityTrue"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#providesSmartContractType"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#implementsTaskInputParameter"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#entrustedWith"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#activatedByScheduling"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#descriptionProvidedByIRI"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasAgentType"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasConditionalRulePart"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasConfigurationType"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#GoalExecution"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Sensor"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ConfiguredThing"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasConditionalHead"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasFeasibility"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasConditionalParameter"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ObjectType"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#isRelatedWith"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#isAuthorOfSmartContract"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ConditionalObject"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#DeactiveStatus"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ActiveStatus"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasObjectType"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#TemperatureValue"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#consistsOfSmartContractEntry"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasTaskExecution"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasConditionalSet"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#SmartContractEntryType"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasTaskDescriptor"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#MessageOperator"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#PlanExecution"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Actuator"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#EdgeDevice"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#HumanAgentBehaviorTemplate"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#descriptionProvidedByEntityIRI"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#RequestType"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#System"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#configurationProvidedBy"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#TaskParameter"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Device"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasType"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#implements"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Space"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasMessageOperator"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasInformationObjectType"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#consistsOfEntry"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#consistsOf"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#failed_status"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#SoftwareAgent"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ActionStatus"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#isInvolvedInEntrustmentWith"/>
+        <Class IRI="#ActivationStatus"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Status"/>
+        <Class IRI="#ActiveStatus"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#TaskDescriptor"/>
-    </Declaration>
-    <Declaration>
-        <AnnotationProperty IRI="#isInTheBeliefOf"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#DataOperator"/>
+        <Class IRI="#Activity"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Actor"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasComponentType"/>
+        <Class IRI="#Actuator"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ActuatorComponentType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Agent"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AgentBehaviorTemplate"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AgentConfiguration"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#AgentType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Appellation"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Behavior"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#BehaviorTemplate"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#BeliefDescriptionObjectType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Component"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ComponentConfiguration"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ComponentTemplate"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ComponentType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ConditionalBody"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ConditionalDescriptor"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ConditionalHead"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#greatherEqual"/>
+        <Class IRI="#ConditionalObject"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#hasConditionDataValue"/>
+        <Class IRI="#ConditionalOperator"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#isDescribedBy"/>
+        <Class IRI="#ConditionalParameter"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#adoptsComponentTemplate"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#UrbanObjectType"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#defines"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasValue"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasConditionalObject"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#subjectedToTask"/>
+        <Class IRI="#ConditionalRulePart"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ConditionalSet"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#fallsWithin"/>
+        <Class IRI="#ConditionalSubject"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#InformationObject"/>
+        <Class IRI="#Configuration"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#TaskObject"/>
+        <Class IRI="#ConfigurationType"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasTaskOperator"/>
+        <Class IRI="#ConfiguredThing"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#messageDeliveredTo"/>
+        <Class IRI="#Connection"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#MessageObject"/>
+        <Class IRI="#ConnectionEntry"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#TimeOperator"/>
+        <Class IRI="#ConnectionEntryType"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ComponentTemplate"/>
+        <Class IRI="#ConnectionPart"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#hasInputValue"/>
+        <Class IRI="#DataOperator"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#DeactiveStatus"/>
     </Declaration>
     <Declaration>
         <Class IRI="#DescriptionObject"/>
@@ -600,235 +162,28 @@
         <Class IRI="#Descriptor"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Appellation"/>
+        <Class IRI="#Device"/>
     </Declaration>
     <Declaration>
         <Class IRI="#DeviceBehaviorTemplate"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#descriptionProvidedByLiteral"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#TaskExecution"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#succeded_status"/>
-    </Declaration>
-    <Declaration>
-        <AnnotationProperty IRI="http://purl.org/dc/terms/created"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#establishedWith"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#entrusts"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Event"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#SensorComponent"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasTemplate"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasImplementation"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ConfigurationType"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#hasConnectionInfo"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#adoptsTemplate"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasOperator"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#AgentBehaviorTemplate"/>
-    </Declaration>
-    <Declaration>
-        <AnnotationProperty IRI="#beliefHasTimeSpan"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ConditionalParameter"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#cosistsOfTaskExecution"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#MessageParameter"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasTaskObjectTemplate"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Service"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#AgentConfiguration"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Implementation"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#SensorComponentType"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#setsUp"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasExecutionObject"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#SmartContract"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasSpaceSpan"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#consistsOfConnectionEntry"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#spaceSpan"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#implementsTaskParameter"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#signsSmartContract"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#SmartContractEntry"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#hasOutputValue"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasObject"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasSmartContractType"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasConnectionEntryType"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#TaskOutputParameterTemplate"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#consistsOfGoalEntrustment"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Configuration"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Message"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#consistsOfGoalDescription"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#dependsOn"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasSpaceType"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasConditionalPart"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="http://www.w3.org/2006/time#TemporalEntity"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasConditionalSubject"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#PhysicalSpace"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ConditionalDescriptor"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#AgentType"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasBehavior"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#definesSmartContractEntryType"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#InformationObjectType"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#triggers"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasConditionalDescriptor"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasSubject"/>
-    </Declaration>
-    <Declaration>
-        <AnnotationProperty IRI="#beliefProvidedBy"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#consistsOfDescription"/>
-    </Declaration>
-    <Declaration>
-        <AnnotationProperty IRI="#hasBeliefInformation"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#RobotAgentBehaviorTemplate"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ConnectionPart"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#entrustedFrom"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#SmartContractType"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasMessageObject"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#implementsTaskOutputParameter"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasConfiguration"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#consistsOfEntrustment"/>
-    </Declaration>
-    <Declaration>
-        <DataProperty IRI="#hasPortNumber"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ExistentialOperator"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#lessEqual"/>
+        <Class IRI="#EdgeDevice"/>
     </Declaration>
     <Declaration>
         <Class IRI="#EntrustmentActivity"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#equal"/>
+        <Class IRI="#Event"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#GoalDescription"/>
+        <Class IRI="#ExecutionActivity"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasTaskInputParameter"/>
+        <Class IRI="#ExistentialOperator"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#TaskObjectTemplate"/>
+        <Class IRI="#FailedStatus"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Feasibility"/>
@@ -837,10 +192,658 @@
         <Class IRI="#FeasibilityFalse"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#consistsOfGoalExecution"/>
+        <Class IRI="#FeasibilityTrue"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Feature"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#GeometricExtension"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#GoalDescription"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#GoalEntrustment"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#GoalExecution"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#HomeObjectType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Human"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#HumanAgentBehaviorTemplate"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Implementation"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#InformationObject"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#InformationObjectType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#LightComponentType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Message"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MessageDescriptor"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MessageObject"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MessageOperator"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#MessageParameter"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ObjectType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#OntologyDescriptionObject"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#OntologyDescriptionObjectType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Operator"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#OpportunityValue"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PermanentStatus"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PhysicalSpace"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PlanDescription"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PlanEntrustment"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PlanExecution"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#RequestType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Robot"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#RobotAgentBehaviorTemplate"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Scheduling"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Sensor"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SensorComponent"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SensorComponentType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Service"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SmartContract"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SmartContractEntry"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SmartContractEntryType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SmartContractPart"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SmartContractType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SoftwareAgent"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SoftwareAgentBehaviorTemplate"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Space"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SpaceOperator"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SpaceType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Status"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SuccededStatus"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#System"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SystemType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TaskDescription"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TaskDescriptor"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TaskEntrustment"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TaskExecution"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TaskInputParameter"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TaskInputParameterTemplate"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TaskObject"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TaskObjectTemplate"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TaskOperator"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TaskOutputParameter"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TaskOutputParameterTemplate"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TaskParameter"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TaskParameterTemplate"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TemperatureValue"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Template"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TemporaryStatus"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TimeOperator"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Type"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#UrbanObjectType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#User"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Value"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#VirtualComponent"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#VirtualSpace"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="http://www.w3.org/2006/time#TemporalEntity"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#activatedByScheduling"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#adoptsAgentBehaviorTemplate"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#adoptsComponentTemplate"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#adoptsTemplate"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#configurationProvidedBy"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#consistsOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#consistsOfConnectionEntry"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#consistsOfDescription"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#consistsOfEntrustment"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#consistsOfEntry"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#consistsOfExecution"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#consistsOfGoalDescription"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#consistsOfGoalEntrustment"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#consistsOfGoalExecution"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#consistsOfSmartContractEntry"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#consistsOfTaskDescription"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#consistsOfTaskEntrustment"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#cosistsOfTaskExecution"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#defines"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#definesSmartContractEntryType"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#deliversMessage"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#dependsOn"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#descriptionProvidedByEntity"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#entrustedFrom"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#entrustedWith"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#entrusts"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#establishedWith"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#exploits"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#fallsWithin"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasAgentType"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasAppellation"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasBehavior"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasComponentType"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasConditional"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasConditionalBody"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasConditionalDescriptor"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasConditionalHead"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasConditionalObject"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasConditionalOperator"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasConditionalParameter"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasConditionalPart"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasConditionalRulePart"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasConditionalSet"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasConditionalSubject"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasConfiguration"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasConfigurationType"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasConnection"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasConnectionEntry"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasConnectionEntryType"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasDescriptor"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasEntrustment"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasExecutionObject"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasFeasibility"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasFeature"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasGenericObject"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasGeometricExtension"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasGoalExecution"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasImplementation"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasInformationObjectType"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasMessageObject"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasMessageOperator"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasMessageParameter"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasMessagePart"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasObjectType"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasOperator"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasOpportunityValue"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasParameter"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasScheduling"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasService"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasSmartContractEntry"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasSmartContractEntryType"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasSmartContractType"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasSpaceSpan"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasSpaceType"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasStatus"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasSubject"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasSystemType"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasTaskDescriptor"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasTaskExecution"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasTaskInputParameter"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasTaskInputParameterTemplate"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasTaskObject"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasTaskObjectTemplate"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasTaskOperator"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasTaskOutputParameter"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasTaskOutputParameterTemplate"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasTaskParameter"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasTaskParameterTemplate"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasTemplate"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasTimeSpan"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasType"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasValue"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#implements"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#implementsTaskInputParameter"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#implementsTaskOutputParameter"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#implementsTaskParameter"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isAuthorOfSmartContract"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isCopyOf"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isDescribedBy"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isInvolvedInConfigurationSetUpWith"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isInvolvedInEntrustmentWith"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isInvolvedInSchedulingWith"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isRelatedWith"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#messageDeliveredTo"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#overloads"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#overrides"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#partecipatesInSmartContract"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#provides"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#providesSmartContractType"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#refersTo"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#requests"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#setsUp"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#settles"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#signsSmartContract"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#subjectedToTask"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#triggers"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#descriptionProvidedByEntityIRI"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#descriptionProvidedByIRI"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#descriptionProvidedByLiteral"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#descriptionProvidedByURL"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasConditionDataValue"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasConnectionInfo"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasIPAddress"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasInputValue"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasOutputValue"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasPortNumber"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasPublicKey"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasScheduleRepetition"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#equal"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#exists"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#failed_status"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#greatherEqual"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#greatherThan"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#lessEqual"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#lessThan"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#spaceSpan"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#succeded_status"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#timeSpan"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/created"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="#beliefHasTimeSpan"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="#beliefProvidedBy"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="#hasBeliefInformation"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="#isFoundInEntity"/>
+    </Declaration>
+    <Declaration>
+        <AnnotationProperty IRI="#isInTheBeliefOf"/>
     </Declaration>
     <SubClassOf>
         <Class IRI="#ActionStatus"/>
@@ -1468,7 +1471,7 @@
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasConditionalObject"/>
-        <ObjectProperty IRI="#hasObject"/>
+        <ObjectProperty IRI="#hasGenericObject"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasConditionalOperator"/>
@@ -1548,11 +1551,11 @@
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasMessageObject"/>
-        <ObjectProperty IRI="#hasMessagePart"/>
+        <ObjectProperty IRI="#hasGenericObject"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasMessageObject"/>
-        <ObjectProperty IRI="#hasObject"/>
+        <ObjectProperty IRI="#hasMessagePart"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasMessageOperator"/>
@@ -1636,7 +1639,7 @@
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasTaskObject"/>
-        <ObjectProperty IRI="#hasObject"/>
+        <ObjectProperty IRI="#hasGenericObject"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasTaskObject"/>
@@ -1711,6 +1714,10 @@
         <ObjectProperty IRI="#partecipatesInSmartContract"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
+        <ObjectProperty IRI="#isCopyOf"/>
+        <ObjectProperty IRI="#isInvolvedInConfigurationSetUpWith"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
         <ObjectProperty IRI="#messageDeliveredTo"/>
         <ObjectProperty IRI="#isRelatedWith"/>
     </SubObjectPropertyOf>
@@ -1721,10 +1728,6 @@
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#providesSmartContractType"/>
         <ObjectProperty IRI="#provides"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#setUpFrom"/>
-        <ObjectProperty IRI="#isInvolvedInConfigurationSetUpWith"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#setsUp"/>
@@ -1952,6 +1955,10 @@
         <Class IRI="#Agent"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
+        <ObjectProperty IRI="#isCopyOf"/>
+        <Class IRI="#ConfiguredThing"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
         <ObjectProperty IRI="#messageDeliveredTo"/>
         <Class IRI="#Message"/>
     </ObjectPropertyDomain>
@@ -1966,10 +1973,6 @@
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#providesSmartContractType"/>
         <Class IRI="#Agent"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#setUpFrom"/>
-        <Class IRI="#ConfiguredThing"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#setsUp"/>
@@ -2294,6 +2297,10 @@
         <Class IRI="#SmartContract"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
+        <ObjectProperty IRI="#isCopyOf"/>
+        <Class IRI="#Actor"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
         <ObjectProperty IRI="#messageDeliveredTo"/>
         <Class IRI="#Connection"/>
     </ObjectPropertyRange>
@@ -2308,10 +2315,6 @@
     <ObjectPropertyRange>
         <ObjectProperty IRI="#providesSmartContractType"/>
         <Class IRI="#SmartContractType"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="#setUpFrom"/>
-        <Class IRI="#Actor"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#setsUp"/>
@@ -2391,1322 +2394,1322 @@
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#ActionStatus</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the status of an execution object.</Literal>
+        <Literal xml:lang="en">This class describes the status of an execution object.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#ActionStatus</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Action status</Literal>
+        <Literal xml:lang="en">Action status</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#ActivationStatus</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the status of activable objects such as believes or scheduling activities.</Literal>
+        <Literal xml:lang="en">This class describes the status of activable objects such as believes or scheduling activities.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#ActivationStatus</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Activation status</Literal>
+        <Literal xml:lang="en">Activation status</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#ActiveStatus</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the active status of  activable objects such as believes or scheduling activities.</Literal>
+        <Literal xml:lang="en">This class describes the active status of  activable objects such as believes or scheduling activities.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#ActiveStatus</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Active status</Literal>
+        <Literal xml:lang="en">Active status</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Activity</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general activity.</Literal>
+        <Literal xml:lang="en">This class describes a general activity.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Activity</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Activity</Literal>
+        <Literal xml:lang="en">Activity</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Actor</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes actors</Literal>
+        <Literal xml:lang="en">This class describes actors</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Actor</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Actor</Literal>
+        <Literal xml:lang="en">Actor</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Actuator</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a component used by agents to do something.</Literal>
+        <Literal xml:lang="en">This class describes a component used by agents to do something.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Actuator</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Actuator</Literal>
+        <Literal xml:lang="en">Actuator</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Agent</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general Agent</Literal>
+        <Literal xml:lang="en">This class describes a general Agent</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Agent</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Agent</Literal>
+        <Literal xml:lang="en">Agent</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#AgentBehaviorTemplate</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a template for agent behaviors.</Literal>
+        <Literal xml:lang="en">This class describes a template for agent behaviors.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#AgentBehaviorTemplate</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Agent behavior template</Literal>
+        <Literal xml:lang="en">Agent behavior template</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#AgentConfiguration</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes an agent configuration object</Literal>
+        <Literal xml:lang="en">This class describes an agent configuration object</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#AgentConfiguration</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Agent Configuration</Literal>
+        <Literal xml:lang="en">Agent Configuration</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#AgentType</IRI>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Agent type</Literal>
+        <Literal>Agent type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Behavior</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes an agent behavior</Literal>
+        <Literal xml:lang="en">This class describes an agent behavior</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Behavior</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Behavior</Literal>
+        <Literal xml:lang="en">Behavior</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Component</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class descrives general component</Literal>
+        <Literal xml:lang="en">This class descrives general component</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Component</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Component</Literal>
+        <Literal xml:lang="en">Component</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#ComponentTemplate</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a component template</Literal>
+        <Literal xml:lang="en">This class describes a component template</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#ComponentTemplate</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Component template</Literal>
+        <Literal xml:lang="en">Component template</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#ComponentType</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the type of object.</Literal>
+        <Literal xml:lang="en">This class describes the type of object.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#ComponentType</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Component type</Literal>
+        <Literal xml:lang="en">Component type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#ConditionalBody</IRI>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Conditional body</Literal>
+        <Literal>Conditional body</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#ConditionalDescriptor</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a conditional descriptor</Literal>
+        <Literal xml:lang="en">This class describes a conditional descriptor</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#ConditionalDescriptor</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Conditional descriptor</Literal>
+        <Literal xml:lang="en">Conditional descriptor</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#ConditionalHead</IRI>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Conditional head</Literal>
+        <Literal>Conditional head</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#ConditionalObject</IRI>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Conditional object</Literal>
+        <Literal>Conditional object</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#ConditionalOperator</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes operators used in conditionals.</Literal>
+        <Literal xml:lang="en">This class describes operators used in conditionals.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#ConditionalOperator</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Conditional operator</Literal>
+        <Literal xml:lang="en">Conditional operator</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#ConditionalParameter</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes conditional restriction parameters</Literal>
+        <Literal xml:lang="en">This class describes conditional restriction parameters</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#ConditionalParameter</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Conditional  parameter</Literal>
+        <Literal xml:lang="en">Conditional  parameter</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#ConditionalRulePart</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a single conditional</Literal>
+        <Literal xml:lang="en">This class describes a single conditional</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#ConditionalRulePart</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Conditional</Literal>
+        <Literal xml:lang="en">Conditional</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#ConditionalSet</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a set of conditionals. All the conditionals  binded to a single set must holds.</Literal>
+        <Literal xml:lang="en">This class describes a set of conditionals. All the conditionals  binded to a single set must holds.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#ConditionalSet</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Conditional set</Literal>
+        <Literal xml:lang="en">Conditional set</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#ConditionalSubject</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the subject of a conditional</Literal>
+        <Literal xml:lang="en">This class describes the subject of a conditional</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#ConditionalSubject</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Conditional subject</Literal>
+        <Literal xml:lang="en">Conditional subject</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Configuration</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a configuration object</Literal>
+        <Literal xml:lang="en">This class describes a configuration object</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Configuration</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Configuration</Literal>
+        <Literal xml:lang="en">Configuration</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#ConfigurationType</IRI>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Configuration type</Literal>
+        <Literal>Configuration type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#ConfiguredThing</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a configured projection of something</Literal>
+        <Literal xml:lang="en">This class describes a configured projection of something</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#ConfiguredThing</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Configured thing</Literal>
+        <Literal xml:lang="en">Configured thing</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Connection</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a connection point of an Agent</Literal>
+        <Literal xml:lang="en">This class describes a connection point of an Agent</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Connection</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Connection</Literal>
+        <Literal xml:lang="en">Connection</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#ConnectionEntry</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a connection entry.</Literal>
+        <Literal xml:lang="en">This class describes a connection entry.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#ConnectionEntry</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Connection entry</Literal>
+        <Literal xml:lang="en">Connection entry</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#ConnectionEntryType</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a connection entry type</Literal>
+        <Literal xml:lang="en">This class describes a connection entry type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#ConnectionEntryType</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Connection entry type</Literal>
+        <Literal xml:lang="en">Connection entry type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#ConnectionPart</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a part of a connection</Literal>
+        <Literal xml:lang="en">This class describes a part of a connection</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#ConnectionPart</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Connection part</Literal>
+        <Literal xml:lang="en">Connection part</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#DataOperator</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes data operators used in conditionals.</Literal>
+        <Literal xml:lang="en">This class describes data operators used in conditionals.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#DataOperator</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Data operator</Literal>
+        <Literal xml:lang="en">Data operator</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#DeactiveStatus</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the deactive status of  activable objects such as believes or scheduling activities.</Literal>
+        <Literal xml:lang="en">This class describes the deactive status of  activable objects such as believes or scheduling activities.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#DeactiveStatus</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Deactive status</Literal>
+        <Literal xml:lang="en">Deactive status</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#DescriptionObject</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes an object providing a description of something</Literal>
+        <Literal xml:lang="en">This class describes an object providing a description of something</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#DescriptionObject</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Description object</Literal>
+        <Literal xml:lang="en">Description object</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Descriptor</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Descriptor</Literal>
+        <Literal xml:lang="en">Descriptor</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Descriptor</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a descriptor</Literal>
+        <Literal xml:lang="en">This class describes a descriptor</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Device</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general Device</Literal>
+        <Literal xml:lang="en">This class describes a general Device</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Device</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Device</Literal>
+        <Literal xml:lang="en">Device</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#DeviceBehaviorTemplate</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a device agent behavior template</Literal>
+        <Literal xml:lang="en">This class describes a device agent behavior template</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#DeviceBehaviorTemplate</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Device agent behavior template</Literal>
+        <Literal xml:lang="en">Device agent behavior template</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#EntrustmentActivity</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes an object providing an entrustment of something to someone.</Literal>
+        <Literal xml:lang="en">This class describes an object providing an entrustment of something to someone.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#EntrustmentActivity</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Entrustment activity</Literal>
+        <Literal xml:lang="en">Entrustment activity</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Event</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general event</Literal>
+        <Literal xml:lang="en">This class describes a general event</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Event</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Event</Literal>
+        <Literal xml:lang="en">Event</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#ExecutionActivity</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes an actiivy than can be executed.</Literal>
+        <Literal xml:lang="en">This class describes an actiivy than can be executed.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#ExecutionActivity</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Execution activity</Literal>
+        <Literal xml:lang="en">Execution activity</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#ExistentialOperator</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes existential operators used in conditionals.</Literal>
+        <Literal xml:lang="en">This class describes existential operators used in conditionals.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#ExistentialOperator</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Existential operator</Literal>
+        <Literal xml:lang="en">Existential operator</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#FailedStatus</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the failed status of something.</Literal>
+        <Literal xml:lang="en">This class describes the failed status of something.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#FailedStatus</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Failed status</Literal>
+        <Literal xml:lang="en">Failed status</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Feasibility</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the feasibility of a task.</Literal>
+        <Literal xml:lang="en">This class describes the feasibility of a task.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Feasibility</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Feasibility</Literal>
+        <Literal xml:lang="en">Feasibility</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#FeasibilityFalse</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the false feasibility of a task.</Literal>
+        <Literal xml:lang="en">This class describes the false feasibility of a task.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#FeasibilityFalse</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Feasibility false</Literal>
+        <Literal xml:lang="en">Feasibility false</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#FeasibilityTrue</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the true feasibility of a task.</Literal>
+        <Literal xml:lang="en">This class describes the true feasibility of a task.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#FeasibilityTrue</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Feasibility true</Literal>
+        <Literal xml:lang="en">Feasibility true</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Feature</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a feature</Literal>
+        <Literal xml:lang="en">This class describes a feature</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Feature</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Feature</Literal>
+        <Literal xml:lang="en">Feature</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#GeometricExtension</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Geometric extension</Literal>
+        <Literal xml:lang="en">Geometric extension</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#GeometricExtension</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a set of spatial coordinates.</Literal>
+        <Literal xml:lang="en">This class describes a set of spatial coordinates.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#GoalDescription</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes an the description of  a goal.</Literal>
+        <Literal xml:lang="en">This class describes an the description of  a goal.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#GoalDescription</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Goal description</Literal>
+        <Literal xml:lang="en">Goal description</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#GoalEntrustment</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes entrustment of a goal to someone.</Literal>
+        <Literal xml:lang="en">This class describes entrustment of a goal to someone.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#GoalEntrustment</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Goal entrustment</Literal>
+        <Literal xml:lang="en">Goal entrustment</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#GoalExecution</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the execution of a goal.</Literal>
+        <Literal xml:lang="en">This class describes the execution of a goal.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#GoalExecution</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Goal execution</Literal>
+        <Literal xml:lang="en">Goal execution</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#HomeObjectType</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Domestic device type</Literal>
+        <Literal xml:lang="en">Domestic device type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#HomeObjectType</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the type of domestic object.</Literal>
+        <Literal xml:lang="en">This class describes the type of domestic object.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Human</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general Human Agent</Literal>
+        <Literal xml:lang="en">This class describes a general Human Agent</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Human</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Human agent</Literal>
+        <Literal xml:lang="en">Human agent</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#HumanAgentBehaviorTemplate</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes an human agent behavior template</Literal>
+        <Literal xml:lang="en">This class describes an human agent behavior template</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#HumanAgentBehaviorTemplate</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Human agent behavior template</Literal>
+        <Literal xml:lang="en">Human agent behavior template</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Implementation</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the implementation of an action.</Literal>
+        <Literal xml:lang="en">This class describes the implementation of an action.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Implementation</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Implementation</Literal>
+        <Literal xml:lang="en">Implementation</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Message</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a message</Literal>
+        <Literal xml:lang="en">This class describes a message</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Message</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Message</Literal>
+        <Literal xml:lang="en">Message</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#MessageDescriptor</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Message descriptor</Literal>
+        <Literal xml:lang="en">Message descriptor</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#MessageObject</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Message object</Literal>
+        <Literal xml:lang="en">Message object</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#MessageOperator</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Message operator</Literal>
+        <Literal xml:lang="en">Message operator</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#MessageParameter</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Message parameter</Literal>
+        <Literal xml:lang="en">Message parameter</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#ObjectType</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes device types</Literal>
+        <Literal xml:lang="en">This class describes device types</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#ObjectType</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Object type</Literal>
+        <Literal xml:lang="en">Object type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#OntologyDescriptionObject</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes ontology description objects</Literal>
+        <Literal xml:lang="en">This class describes ontology description objects</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#OntologyDescriptionObject</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Ontology description object</Literal>
+        <Literal xml:lang="en">Ontology description object</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Operator</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general operator</Literal>
+        <Literal xml:lang="en">This class describes a general operator</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Operator</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Operator</Literal>
+        <Literal xml:lang="en">Operator</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#OpportunityValue</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Opportunity value</Literal>
+        <Literal xml:lang="en">Opportunity value</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#OpportunityValue</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the opportunity value of a goal.</Literal>
+        <Literal xml:lang="en">This class describes the opportunity value of a goal.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#PermanentStatus</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes permanent status</Literal>
+        <Literal xml:lang="en">This class describes permanent status</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#PermanentStatus</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Permanent status</Literal>
+        <Literal xml:lang="en">Permanent status</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#PhysicalSpace</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Physical space</Literal>
+        <Literal xml:lang="en">Physical space</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#PlanDescription</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the description of  a plan.</Literal>
+        <Literal xml:lang="en">This class describes the description of  a plan.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#PlanDescription</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Plan description</Literal>
+        <Literal xml:lang="en">Plan description</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#PlanEntrustment</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes entrustment of a plan to someone.</Literal>
+        <Literal xml:lang="en">This class describes entrustment of a plan to someone.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#PlanEntrustment</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Plan entrustment</Literal>
+        <Literal xml:lang="en">Plan entrustment</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#PlanExecution</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Plan execution</Literal>
+        <Literal xml:lang="en">Plan execution</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#RequestType</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Request type</Literal>
+        <Literal xml:lang="en">Request type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Robot</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general Autonomous System</Literal>
+        <Literal xml:lang="en">This class describes a general Autonomous System</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Robot</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Robot agent</Literal>
+        <Literal xml:lang="en">Robot agent</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#RobotAgentBehaviorTemplate</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes an robot agent behavior template</Literal>
+        <Literal xml:lang="en">This class describes an robot agent behavior template</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#RobotAgentBehaviorTemplate</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Robot agent behavior template</Literal>
+        <Literal xml:lang="en">Robot agent behavior template</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Scheduling</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Scheduling</Literal>
+        <Literal xml:lang="en">Scheduling</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Scheduling</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the scheduling of an action</Literal>
+        <Literal xml:lang="en">This class describes the scheduling of an action</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Sensor</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general Sensor</Literal>
+        <Literal xml:lang="en">This class describes a general Sensor</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Sensor</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Sensor</Literal>
+        <Literal xml:lang="en">Sensor</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#SmartContract</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Smart contract</Literal>
+        <Literal xml:lang="en">Smart contract</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#SmartContract</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a smart contract</Literal>
+        <Literal xml:lang="en">This class describes a smart contract</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#SmartContractEntry</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a smart contract entry</Literal>
+        <Literal xml:lang="en">This class describes a smart contract entry</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#SmartContractEntry</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Smart contract entry</Literal>
+        <Literal xml:lang="en">Smart contract entry</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#SmartContractEntryType</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a type of smart contract entry</Literal>
+        <Literal xml:lang="en">This class describes a type of smart contract entry</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#SmartContractEntryType</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Smart contract entry type</Literal>
+        <Literal xml:lang="en">Smart contract entry type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#SmartContractPart</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a smart contract part</Literal>
+        <Literal xml:lang="en">This class describes a smart contract part</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#SmartContractPart</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Smart contract part</Literal>
+        <Literal xml:lang="en">Smart contract part</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#SmartContractType</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a smart contract type</Literal>
+        <Literal xml:lang="en">This class describes a smart contract type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#SmartContractType</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Smart contract type</Literal>
+        <Literal xml:lang="en">Smart contract type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#SoftwareAgent</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general software Agent</Literal>
+        <Literal xml:lang="en">This class describes a general software Agent</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#SoftwareAgent</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Software agent</Literal>
+        <Literal xml:lang="en">Software agent</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#SoftwareAgentBehaviorTemplate</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a software agent behavior template</Literal>
+        <Literal xml:lang="en">This class describes a software agent behavior template</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#SoftwareAgentBehaviorTemplate</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Software agent behavior template</Literal>
+        <Literal xml:lang="en">Software agent behavior template</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Space</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general space.</Literal>
+        <Literal xml:lang="en">This class describes a general space.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Space</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Space</Literal>
+        <Literal xml:lang="en">Space</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#SpaceOperator</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes space operators used in conditionals.</Literal>
+        <Literal xml:lang="en">This class describes space operators used in conditionals.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#SpaceOperator</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Space operator</Literal>
+        <Literal xml:lang="en">Space operator</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#SpaceType</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the type of space.</Literal>
+        <Literal xml:lang="en">This class describes the type of space.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#SpaceType</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Space type</Literal>
+        <Literal xml:lang="en">Space type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Status</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general status of something.</Literal>
+        <Literal xml:lang="en">This class describes a general status of something.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Status</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Status</Literal>
+        <Literal xml:lang="en">Status</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#SuccededStatus</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a succeded status</Literal>
+        <Literal xml:lang="en">This class describes a succeded status</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#SuccededStatus</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Succeded status</Literal>
+        <Literal xml:lang="en">Succeded status</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#System</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a set of things working together as parts of a mechanism.</Literal>
+        <Literal xml:lang="en">This class describes a set of things working together as parts of a mechanism.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#System</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">System</Literal>
+        <Literal xml:lang="en">System</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#TaskDescription</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the description of a task.</Literal>
+        <Literal xml:lang="en">This class describes the description of a task.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#TaskDescription</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Task description</Literal>
+        <Literal xml:lang="en">Task description</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#TaskDescriptor</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class represents the descriptors of a task</Literal>
+        <Literal xml:lang="en">This class represents the descriptors of a task</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#TaskDescriptor</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Task descriptor</Literal>
+        <Literal xml:lang="en">Task descriptor</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#TaskEntrustment</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes entrustment of a task to someone.</Literal>
+        <Literal xml:lang="en">This class describes entrustment of a task to someone.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#TaskEntrustment</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Task entrustment</Literal>
+        <Literal xml:lang="en">Task entrustment</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#TaskExecution</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the execution of a task.</Literal>
+        <Literal xml:lang="en">This class describes the execution of a task.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#TaskExecution</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Task execution</Literal>
+        <Literal xml:lang="en">Task execution</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#TaskInputParameter</IRI>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Task input parameter</Literal>
+        <Literal>Task input parameter</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#TaskObject</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Task object</Literal>
+        <Literal xml:lang="en">Task object</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#TaskObject</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the object of a task</Literal>
+        <Literal xml:lang="en">This class describes the object of a task</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#TaskObjectTemplate</IRI>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Task object template</Literal>
+        <Literal>Task object template</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#TaskOperator</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes task operators.</Literal>
+        <Literal xml:lang="en">This class describes task operators.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#TaskOperator</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Task operator</Literal>
+        <Literal xml:lang="en">Task operator</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#TaskOutputParameter</IRI>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Task input parameter</Literal>
+        <Literal>Task input parameter</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#TaskParameter</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Task parameter</Literal>
+        <Literal xml:lang="en">Task parameter</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#TaskParameter</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the parameter of the object of a task.</Literal>
+        <Literal xml:lang="en">This class describes the parameter of the object of a task.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#TaskParameterTemplate</IRI>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Task parameter template</Literal>
+        <Literal>Task parameter template</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#TemperatureValue</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describe values of temperature</Literal>
+        <Literal xml:lang="en">This class describe values of temperature</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#TemperatureValue</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Temperature value</Literal>
+        <Literal xml:lang="en">Temperature value</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Template</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a template</Literal>
+        <Literal xml:lang="en">This class describes a template</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Template</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Template</Literal>
+        <Literal xml:lang="en">Template</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#TemporaryStatus</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a temporary status</Literal>
+        <Literal xml:lang="en">This class describes a temporary status</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#TemporaryStatus</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Temporary status</Literal>
+        <Literal xml:lang="en">Temporary status</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#TimeOperator</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes time operators used in conditionals.</Literal>
+        <Literal xml:lang="en">This class describes time operators used in conditionals.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#TimeOperator</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Time operator</Literal>
+        <Literal xml:lang="en">Time operator</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Type</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general type.</Literal>
+        <Literal xml:lang="en">This class describes a general type.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Type</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Type</Literal>
+        <Literal xml:lang="en">Type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#UrbanObjectType</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes the type of urban devices</Literal>
+        <Literal xml:lang="en">This class describes the type of urban devices</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#UrbanObjectType</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Urban device type</Literal>
+        <Literal xml:lang="en">Urban device type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Value</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general complex value</Literal>
+        <Literal xml:lang="en">This class describes a general complex value</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Value</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Value</Literal>
+        <Literal xml:lang="en">Value</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#VirtualSpace</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Virtual space</Literal>
+        <Literal xml:lang="en">Virtual space</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#activatedByScheduling</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links execution activities to a scheduling</Literal>
+        <Literal xml:lang="en">This property links execution activities to a scheduling</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#adoptsTemplate</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to a Template</Literal>
+        <Literal xml:lang="en">This property links things to a Template</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#configurationProvidedBy</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links a configuration to its agent creator</Literal>
+        <Literal xml:lang="en">This property links a configuration to its agent creator</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#consistsOf</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to their forming parts</Literal>
+        <Literal xml:lang="en">This property links things to their forming parts</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#consistsOfConnectionEntry</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things connections to their entries</Literal>
+        <Literal xml:lang="en">This property links things connections to their entries</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#consistsOfDescription</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to a description object</Literal>
+        <Literal xml:lang="en">This property links things to a description object</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#consistsOfEntrustment</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to an entrustment</Literal>
+        <Literal xml:lang="en">This property links things to an entrustment</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#consistsOfEntry</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to an entry</Literal>
+        <Literal xml:lang="en">This property links things to an entry</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#consistsOfExecution</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to an execution object</Literal>
+        <Literal xml:lang="en">This property links things to an execution object</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#consistsOfGoalDescription</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to a description of a goal</Literal>
+        <Literal xml:lang="en">This property links things to a description of a goal</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#consistsOfGoalEntrustment</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to goal entrustments</Literal>
+        <Literal xml:lang="en">This property links things to goal entrustments</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#consistsOfGoalExecution</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links plans to an execution of a goal</Literal>
+        <Literal xml:lang="en">This property links plans to an execution of a goal</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#consistsOfSmartContractEntry</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links smart contracts to their entries</Literal>
+        <Literal xml:lang="en">This property links smart contracts to their entries</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#consistsOfTaskDescription</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to a description of a task</Literal>
+        <Literal xml:lang="en">This property links things to a description of a task</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#consistsOfTaskEntrustment</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to task entrustments</Literal>
+        <Literal xml:lang="en">This property links things to task entrustments</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#cosistsOfTaskExecution</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links goals to an execution of a task</Literal>
+        <Literal xml:lang="en">This property links goals to an execution of a task</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#dependsOn</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to their depending objects</Literal>
+        <Literal xml:lang="en">This property links things to their depending objects</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#entrustedFrom</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links entrustment activities to the related behavior description object</Literal>
+        <Literal xml:lang="en">This property links entrustment activities to the related behavior description object</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#entrustedWith</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things entrustment activities with the related execution activities</Literal>
+        <Literal xml:lang="en">This property links things entrustment activities with the related execution activities</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#entrusts</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links entrustment activities to agents responsible to perform the related activity</Literal>
+        <Literal xml:lang="en">This property links entrustment activities to agents responsible to perform the related activity</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#equal</IRI>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">==</Literal>
+        <Literal>==</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#establishedWith</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links two connection entry points</Literal>
+        <Literal xml:lang="en">This property links two connection entry points</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#exists</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">exists</Literal>
+        <Literal xml:lang="en">exists</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#fallsWithin</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links spaces to the contained spaces</Literal>
+        <Literal xml:lang="en">This property links spaces to the contained spaces</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#greatherEqual</IRI>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">&gt;=</Literal>
+        <Literal>&gt;=</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#greatherEqual</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">greather equal</Literal>
+        <Literal xml:lang="en">greather equal</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#greatherThan</IRI>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">&gt;</Literal>
+        <Literal>&gt;</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#greatherThan</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">greather</Literal>
+        <Literal xml:lang="en">greather</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasAppellation</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to an appellation</Literal>
+        <Literal xml:lang="en">This property links things to an appellation</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasBehavior</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links agents to the related behavior</Literal>
+        <Literal xml:lang="en">This property links agents to the related behavior</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasConditionalDescriptor</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to a conditional descriptor</Literal>
+        <Literal xml:lang="en">This property links things to a conditional descriptor</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasConditionalOperator</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to a conditional operator</Literal>
+        <Literal xml:lang="en">This property links things to a conditional operator</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasConditionalRulePart</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to conditionals</Literal>
+        <Literal xml:lang="en">This property links things to conditionals</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasConditionalSubject</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to a conditional subject</Literal>
+        <Literal xml:lang="en">This property links things to a conditional subject</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasConfiguration</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to a configuration</Literal>
+        <Literal xml:lang="en">This property links things to a configuration</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasConnection</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links agents to their connection entry point</Literal>
+        <Literal xml:lang="en">This property links agents to their connection entry point</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasConnectionEntry</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links connections to their entries</Literal>
+        <Literal xml:lang="en">This property links connections to their entries</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasConnectionEntryType</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links connection entries  to the related entry type</Literal>
+        <Literal xml:lang="en">This property links connection entries  to the related entry type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasDescriptor</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to a descriptor</Literal>
+        <Literal xml:lang="en">This property links things to a descriptor</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasExecutionObject</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links behavior descriptions with the related execution activity</Literal>
+        <Literal xml:lang="en">This property links behavior descriptions with the related execution activity</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasGeometricExtension</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links physical space with geometric extension</Literal>
+        <Literal xml:lang="en">This property links physical space with geometric extension</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasGoalExecution</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links description of goals with the related goal execution</Literal>
+        <Literal xml:lang="en">This property links description of goals with the related goal execution</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasOperator</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things with operators</Literal>
+        <Literal xml:lang="en">This property links things with operators</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasOpportunityValue</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to opportunity values</Literal>
+        <Literal xml:lang="en">This property links things to opportunity values</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasParameter</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to their parameters</Literal>
+        <Literal xml:lang="en">This property links things to their parameters</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasScheduling</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links behavior descriptions with scheduling activities</Literal>
+        <Literal xml:lang="en">This property links behavior descriptions with scheduling activities</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasSmartContractEntry</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links smart contracts to their entries</Literal>
+        <Literal xml:lang="en">This property links smart contracts to their entries</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasSmartContractEntryType</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links smart contract entries to  the related entry type</Literal>
+        <Literal xml:lang="en">This property links smart contract entries to  the related entry type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasSpaceSpan</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to spaces</Literal>
+        <Literal xml:lang="en">This property links things to spaces</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasSpaceType</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links spaces to the related space type</Literal>
+        <Literal xml:lang="en">This property links spaces to the related space type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasStatus</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to a status</Literal>
+        <Literal xml:lang="en">This property links things to a status</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasSubject</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to a subject</Literal>
+        <Literal xml:lang="en">This property links things to a subject</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasTaskDescriptor</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to a task descriptor</Literal>
+        <Literal xml:lang="en">This property links things to a task descriptor</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasTaskExecution</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links descriptions of tasks with the related execution task</Literal>
+        <Literal xml:lang="en">This property links descriptions of tasks with the related execution task</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasTaskObject</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to a task object</Literal>
+        <Literal xml:lang="en">This property links things to a task object</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasTaskOperator</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to a task operator</Literal>
+        <Literal xml:lang="en">This property links things to a task operator</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasTimeSpan</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to a temporal entity</Literal>
+        <Literal xml:lang="en">This property links things to a temporal entity</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasType</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to the related type</Literal>
+        <Literal xml:lang="en">This property links things to the related type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasValue</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to a value</Literal>
+        <Literal xml:lang="en">This property links things to a value</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#isAuthorOfSmartContract</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links agents to smart contracts as authors</Literal>
+        <Literal xml:lang="en">This property links agents to smart contracts as authors</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#isDescribedBy</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to a description thing</Literal>
+        <Literal xml:lang="en">This property links things to a description thing</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#isInvolvedInEntrustmentWith</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things involved in entrustments</Literal>
+        <Literal xml:lang="en">This property links things involved in entrustments</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#lessEqual</IRI>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">&lt;=</Literal>
+        <Literal>&lt;=</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#lessEqual</IRI>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">less equal</Literal>
+        <Literal>less equal</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#lessThan</IRI>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">&lt;</Literal>
+        <Literal>&lt;</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#lessThan</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">less</Literal>
+        <Literal xml:lang="en">less</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#partecipatesInSmartContract</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links agents to  smart contracts</Literal>
+        <Literal xml:lang="en">This property links agents to  smart contracts</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#requests</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to the requestes thing</Literal>
+        <Literal xml:lang="en">This property links things to the requestes thing</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#setsUp</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links configurations of components to the configurated object</Literal>
+        <Literal xml:lang="en">This property links configurations of components to the configurated object</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#settles</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to things phisically mounted on them</Literal>
+        <Literal xml:lang="en">This property links things to things phisically mounted on them</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#spaceSpan</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">space span</Literal>
+        <Literal xml:lang="en">space span</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#timeSpan</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">time span</Literal>
+        <Literal xml:lang="en">time span</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#triggers</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links agents to triggered events</Literal>
+        <Literal xml:lang="en">This property links agents to triggered events</Literal>
     </AnnotationAssertion>
     <SubAnnotationPropertyOf>
         <AnnotationProperty IRI="#beliefHasTimeSpan"/>
@@ -3728,5 +3731,5 @@
 
 
 
-<!-- Generated by the OWL API (version 4.2.8.20170104-2310) https://github.com/owlcs/owlapi -->
+<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
 
