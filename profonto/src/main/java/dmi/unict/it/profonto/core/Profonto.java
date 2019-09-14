@@ -525,11 +525,11 @@ public class Profonto extends OntologyCore
     public int addDataToDataBelief(InputStream ontologystring) throws OWLOntologyCreationException
     {
         OWLOntology ontology=this.getMainManager().loadOntologyFromOntologyDocument(ontologystring);
-        int r=-1;
-        if(checkHasExecutionStatutInfo(ontology))
-         r=addAxiomsToOntology(this.getDataRequestOntology(), ontology.axioms()); 
-        else
-         r=addAxiomsToOntology(this.getDataBeliefOntology(), ontology.axioms());   
+        int r=0;
+       // if(checkHasExecutionStatutInfo(ontology))
+        // r=addAxiomsToOntology(this.getDataRequestOntology(), ontology.axioms()); 
+        //else
+        r=addAxiomsToOntology(this.getDataBeliefOntology(), ontology.axioms());   
         this.getMainManager().removeOntology(ontology);
         return r;
     }
@@ -537,10 +537,10 @@ public class Profonto extends OntologyCore
     public int removeDataFromDataBelief(InputStream ontologystring) throws OWLOntologyCreationException
     {
         OWLOntology ontology=this.getMainManager().loadOntologyFromOntologyDocument(ontologystring);
-        int r=-1;
-        if(checkHasExecutionStatutInfo(ontology))
-         r= removeAxiomsFromOntology(this.getDataRequestOntology(), ontology.axioms()); 
-        else
+        int r=0;
+       // if(checkHasExecutionStatutInfo(ontology))
+       //  r= removeAxiomsFromOntology(this.getDataRequestOntology(), ontology.axioms()); 
+       // else
          r= removeAxiomsFromOntology(this.getDataBeliefOntology(), ontology.axioms());   
         this.getMainManager().removeOntology(ontology);
         return r;
