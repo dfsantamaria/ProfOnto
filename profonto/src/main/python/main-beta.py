@@ -64,6 +64,11 @@ def device_engage(graph,execution):
     devip=next(graph.objects(subject=None, predicate=URIRef(oasis + "hasIPAddress")))
     devport=next(graph.objects(subject=None, predicate=URIRef(oasis + "hasPortNumber")))
     print("To engage:", performer, taskObject, taskOperator, devip, devport)
+    toreturn=graph.serialize(format='xml')
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client_socket.connect((devip, int(devport)))
+    client_socket.send(toreturn)
+    client_socket.close()
 
 # Actions that the assistant performs
 def profhome_decide(graph, execution):

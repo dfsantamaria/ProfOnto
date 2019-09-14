@@ -1,4 +1,5 @@
 import socket, time
+from threading import *
 from pathlib import Path
 import os
 
@@ -10,8 +11,45 @@ p = Path(__file__).parents[2]
 os.chdir(p)
 
 
-#installing device
+class client(Thread):
+ def __init__(self, socket, address):
+  Thread.__init__(self)
+  self.sock = socket
+  self.addr = address
+  self.start()
 
+ def run(self):
+  request = ''
+  while 1:
+   data = self.sock.recv(2048).decode()
+   if not data:
+    break
+   request += data
+  print("\n")
+  print(request)
+  print("\n")
+
+class server(Thread):
+ def __init__(self):
+  Thread.__init__(self)
+  self.start()
+
+ def run(self):
+      host='localhost'
+      port=8087
+      serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+      serversocket.bind((host, int(port)))
+      serversocket.listen(5)
+      print("Client started:", host, "port ", port)
+      while 1:
+          clientsocket, address = serversocket.accept()
+          client(clientsocket, address)
+      return
+
+
+server()
+
+#installing device
 home=readOntoFile("ontologies/test/light-installation-request.owl")
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect(('localhost', 8000))
