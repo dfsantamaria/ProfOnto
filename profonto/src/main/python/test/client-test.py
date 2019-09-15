@@ -1,7 +1,14 @@
 import socket, time
 from threading import *
 from pathlib import Path
+import rdflib
+from rdflib import *
 import os
+
+
+oasis = 'http://www.dmi.unict.it/oasis.owl#'
+oasisabox = 'http://www.dmi.unict.it/oasis-abox.owl#'
+
 
 def readOntoFile(file):
  f=open(file,"r")
@@ -18,6 +25,17 @@ class client(Thread):
   self.addr = address
   self.start()
 
+ def performs(self, request):
+      g = rdflib.Graph()
+      g.parse(data=request)
+      # d= g.serialize(format='xml')
+      # print(d)
+      execution = next(g.subjects(RDF.type, URIRef(oasis + "TaskExecution")))
+      taskObject = next(g.objects(execution, URIRef(oasis + "hasTaskObject")))
+      taskOperator = next(g.objects(execution, URIRef(oasis + "hasTaskOperator")))
+      print("Action ", taskOperator, "on ", taskObject)
+      return
+
  def run(self):
   request = ''
   while 1:
@@ -25,9 +43,9 @@ class client(Thread):
    if not data:
     break
    request += data
-  print("\n")
-  print(request)
-  print("\n")
+   self.performs(request)
+  return
+
 
 class server(Thread):
  def __init__(self):

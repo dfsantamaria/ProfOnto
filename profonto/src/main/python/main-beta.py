@@ -55,6 +55,25 @@ def getOntologyFile(graph, execution):
     return file
 
 
+def createRequest(graph,execution):
+    request=Graph()
+    uri='http://www.dmi.unict.it/profonto-home.owl#'
+    name=retrieveEntityName(execution)
+    request.add((execution, RDF.type, URIRef(oasis + "TaskExecution")))
+    request.add((URIRef(uri+name+"PlanRequest"), RDF.type, URIRef(oasis+ "PlanDescription") ))
+    request.add((URIRef(uri + name + "GoalRequest"), RDF.type, URIRef(oasis + "GoalDescription")))
+    request.add((URIRef(uri + name + "PlanRequest"), URIRef(oasis + "consistsOfGoalDescription"), URIRef(uri + name + "GoalRequest")))
+    request.add((URIRef(uri + name + "TaskRequest"), RDF.type, URIRef(oasis + "TaskDescription")))
+    request.add((URIRef(uri + name + "GoalRequest"), URIRef(oasis + "consistsOfTaskDescription"), URIRef(uri + name + "TaskRequest")))
+    request.add((URIRef(uri + name + "TaskRequest"), URIRef(oasis + "hasTaskObject"), execution))
+    request.add((URIRef(uri + name + "TaskRequest"), URIRef(oasis + "hasTaskOperator"), URIRef(oasisabox + "performs")))
+    taskObject = next(graph.objects(execution, URIRef(oasis + "hasTaskObject")))
+    taskOperator = next(graph.objects(execution, URIRef(oasis + "hasTaskOperator")))
+    #performer = next(graph.subjects(URIRef(oasis + "performs"), execution))
+    request.add((execution, URIRef(oasis+"hasTaskObject"), taskObject))
+    request.add((execution, URIRef(oasis + "hasTaskOperator"), taskOperator))
+    return request
+
 def device_engage(graph,execution):
     #for s,p,o in graph.triples( (None,None,None) ):
     #    print(s,p,o)
@@ -64,7 +83,7 @@ def device_engage(graph,execution):
     devip=next(graph.objects(subject=None, predicate=URIRef(oasis + "hasIPAddress")))
     devport=next(graph.objects(subject=None, predicate=URIRef(oasis + "hasPortNumber")))
     print("To engage:", performer, taskObject, taskOperator, devip, devport)
-    toreturn=graph.serialize(format='xml')
+    toreturn = createRequest(graph,execution).serialize(format='xml')
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect((devip, int(devport)))
     client_socket.send(toreturn)
@@ -164,7 +183,9 @@ decide(rdf_source) >> [ Decide_Action(rdf_source) ]
 ################################################ END PHIDIAS PART ##########################
 
 
-
+def retrieveURI(string):
+    out = string.split("#", 1)[0]
+    return out
 
 def retrieveEntityName(string):
     out=string.split("#", 1)[1]
