@@ -9,17 +9,27 @@ import os
 
 
 class Agent(Thread):
-    def __init__(self, path, configuration):
+    def __init__(self, path, templates, configuration):
         Thread.__init__(self)
+        #declare class members
         self.oasis = 'http://www.dmi.unict.it/oasis.owl#'
         self.oasisabox = 'http://www.dmi.unict.it/oasis-abox.owl#'
-        self.ontologyAgent = ''
-        self.ontologyConfiguration = ''
+        self.graphTemplates = ''
+        self.graphAgent = ''
+        self.graphAgentConfiguration = ''
+        self.host = ''
+        self.port = 0
+        #end declare
+        #set agent graphs
+        self.setAgentTemplates(templates)
         self.setAgentOntology(path)
         self.setAgentConfiguration(configuration)
+        # end set
+        #set connection
+        self.setAgentConnectionInfo(self.graphAgentConfiguration)
+        #end set
         self.start()
-        self.host = 'localhost'
-        self.port = 8087
+
 
     class ServerManager(Thread):
         def __init__(self, socket, address):
@@ -46,24 +56,47 @@ class Agent(Thread):
         f = open(file, "r")
         return f.read()
 
-    def getGraph(value):
+    def getGraph(self, value):
         g = rdflib.Graph()
         g.parse(data=value)
         return g
 
+    def setAgentTemplates(self, templates):
+        self.graphTemplates=rdflib.Graph()
+        for tem in templates:
+            self.graphTemplates+= self.getGraph(self.readOntoFile(tem))
+        return
+
     def setAgentOntology(self, path):
-        self.ontologyAgent = self.readOntoFile(path)
+        self.graphAgent = self.getGraph(self.readOntoFile(path))
+        return
 
     def setAgentConfiguration(self, path):
-        self.agentConfiguration = self.readOntoFile(path)
+        self.graphAgentConfiguration = self.getGraph(self.readOntoFile(path))
+        return
+
+    def setAgentConnectionInfo(self, graph):
+        for agent, connection in graph.subject_objects(predicate=URIRef(self.oasis + "hasConnection")):
+           for property, data in graph.predicate_objects(subject=connection):
+              if property == URIRef(self.oasis+"hasIPAddress"):
+                  self.host=data
+              elif property== URIRef(self.oasis+"hasPortNumber"):
+                  self.port=data
+        return
+
+    def printGraph (self, graph):
+        print("--- printing raw triples ---")
+        for s, p, o in graph:
+           print((s, p, o))
 
     def run(self):
       serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
       serversocket.bind((self.host, int(self.port)))
       serversocket.listen(5)
       print("Client started:", self.host, "port ", self.port)
-      #print(self.ontologyAgent)
-      #print(self.agentConfiguration)
+      #self.printGraph(self.graphAgent)
+      #self.printGraph(self.graphTemplates)
+      #self.printGraph(self.graphAgentConfiguration)
       while 1:
           clientsocket, address = serversocket.accept()
           ServerManager(clientsocket, address)
@@ -81,7 +114,7 @@ def setTestPath(self):
 
 def main():
      setTestPath('')
-     Agent("ontologies/test/rasb/rasb-lightagent.owl", "ontologies/test/rasb/rasb-lightagent-config.owl")
+     Agent("ontologies/test/rasb/rasb-lightagent.owl", {"ontologies/test/rasb/lightagent-from-template.owl"} ,"ontologies/test/rasb/rasb-lightagent-config.owl")
 
 
 if __name__ == '__main__':
