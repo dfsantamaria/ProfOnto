@@ -12,21 +12,19 @@ class Agent(Thread):
     def __init__(self, path, templates, configuration):
         Thread.__init__(self)
         #declare class members
-        self.oasis = 'http://www.dmi.unict.it/oasis.owl#'
-        self.oasisabox = 'http://www.dmi.unict.it/oasis-abox.owl#'
-        self.graphTemplates = ''
-        self.graphAgent = ''
-        self.graphAgentConfiguration = ''
+        self.iriSet=['http://www.dmi.unict.it/oasis.owl#','http://www.dmi.unict.it/oasis-abox.owl#', ''] #2->agent
+        self.graphSet=['','',''] #0->Agent, 1-> agent config, 2->Templates
         self.host = ''
-        self.port = 0
+        self.port = -1
         #end declare
         #set agent graphs
         self.setAgentTemplates(templates)
         self.setAgentOntology(path)
         self.setAgentConfiguration(configuration)
+        self.setAgentIRI(self.graphSet[0])
         # end set
         #set connection
-        self.setAgentConnectionInfo(self.graphAgentConfiguration)
+        self.setAgentConnectionInfo(self.graphSet[1])
         #end set
         self.start()
 
@@ -62,26 +60,32 @@ class Agent(Thread):
         return g
 
     def setAgentTemplates(self, templates):
-        self.graphTemplates=rdflib.Graph()
+        self.graphSet[2]=rdflib.Graph()
         for tem in templates:
-            self.graphTemplates+= self.getGraph(self.readOntoFile(tem))
+            self.graphSet[2]+= self.getGraph(self.readOntoFile(tem))
         return
 
     def setAgentOntology(self, path):
-        self.graphAgent = self.getGraph(self.readOntoFile(path))
+        self.graphSet[0] = self.getGraph(self.readOntoFile(path))
         return
 
     def setAgentConfiguration(self, path):
-        self.graphAgentConfiguration = self.getGraph(self.readOntoFile(path))
+        self.graphSet[1] = self.getGraph(self.readOntoFile(path))
         return
 
     def setAgentConnectionInfo(self, graph):
-        for agent, connection in graph.subject_objects(predicate=URIRef(self.oasis + "hasConnection")):
+        for agent, connection in graph.subject_objects(predicate=URIRef(self.iriSet[0] + "hasConnection")):
            for property, data in graph.predicate_objects(subject=connection):
-              if property == URIRef(self.oasis+"hasIPAddress"):
+              if property == URIRef(self.iriSet[0]+"hasIPAddress"):
                   self.host=data
-              elif property== URIRef(self.oasis+"hasPortNumber"):
+              elif property== URIRef(self.iriSet[0]+"hasPortNumber"):
                   self.port=data
+        return
+
+    def setAgentIRI(self, graph):
+        for agent in graph.subjects(predicate=RDF.type,  object=URIRef(self.iriSet[0]+'Device')):
+            self.iriSet[2]= agent
+            break
         return
 
     def printGraph (self, graph):
@@ -93,10 +97,11 @@ class Agent(Thread):
       serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
       serversocket.bind((self.host, int(self.port)))
       serversocket.listen(5)
-      print("Client started:", self.host, "port ", self.port)
-      #self.printGraph(self.graphAgent)
-      #self.printGraph(self.graphTemplates)
-      #self.printGraph(self.graphAgentConfiguration)
+      print("Client started at", self.host, "port", self.port)
+      #print(self.iriSet[0],' ', self.iriSet[1], ' ', self.iriSet[2])
+      #self.printGraph(self.graphSet[0])
+      #self.printGraph(self.graphSet[1])
+      #self.printGraph(self.graphSet[2])
       while 1:
           clientsocket, address = serversocket.accept()
           ServerManager(clientsocket, address)
