@@ -4,8 +4,8 @@ from pathlib import Path
 import rdflib
 from rdflib import *
 import os
-
-
+from datetime import datetime
+# current date and time
 
 
 class Agent(Thread):
@@ -16,6 +16,7 @@ class Agent(Thread):
         self.iriSet=['http://www.dmi.unict.it/oasis.owl#','http://www.dmi.unict.it/oasis-abox.owl#', ''] #2->agent
         self.graphSet=['','',''] #0->Agent, 1-> agent config, 2->Templates
         self.agentInfo=['','',''] #0->name, 1->host, 2->port
+        self.hubInfo=['',''] #0->address, 1-> port
         #end declare
         #set agent graphs
         self.setAgentTemplates(templates)
@@ -93,6 +94,39 @@ class Agent(Thread):
             break
         return
 
+    def getTimeStamp(self):
+        return  (str(datetime.timestamp(datetime.now()))).replace(".", "-")
+
+    def generateRequest(self, reqGraph, timestamp):
+        agent = URIRef(self.iriSet[2] + self.agentInfo[0])
+
+        request = URIRef(self.iriSet[0] + "request"+ timestamp)             #the request
+        reqGraph.add(( request, RDF.type, URIRef(self.iriSet[0]+"PlanDescription")))  # request type
+
+        goal = URIRef(self.iriSet[0] + "goal" + timestamp)  # the goal
+        reqGraph.add((goal, RDF.type, URIRef(self.iriSet[0] + "GoalDescription")))  # goal type
+
+        task = URIRef(self.iriSet[0] + "task" + timestamp)  # the task
+        reqGraph.add((task, RDF.type, URIRef(self.iriSet[0] + "TaskDescription")))  # task type
+
+        reqGraph.add((agent, URIRef(self.iriSet[0] + "requests"), request)) #has request
+        reqGraph.add((request, URIRef(self.iriSet[0] + "consistsOfGoalDescription"), goal))  # has goal
+        reqGraph.add((goal, URIRef(self.iriSet[0] + "consistsOfTaskDescription"), task))  # has goal
+        return
+
+    def install_device(self):
+        reqGraph = rdflib.Graph()
+        timestamp = self.getTimeStamp()
+        self.generateRequest(reqGraph,timestamp)
+        for s, p, o in reqGraph:
+            print((s, p, o))
+        return
+
+    def set_hub(self, host, port):
+        self.hubInfo[0]=host
+        self.hubInfo[1]=port
+        return 1
+
     def printGraph (self, graph):
         print("--- printing raw triples ---")
         for s, p, o in graph:
@@ -153,6 +187,13 @@ class Console(Thread):
     def status_command(self, agent):
         return agent.alive
 
+    def install_device(self, agent):
+        agent.install_device()
+        return
+
+    def set_hub(self, agent, host, port):
+        return agent.set_hub(host, port)
+
     def run(self):
         agent = ''
         exec_status = True
@@ -171,9 +212,18 @@ class Console(Thread):
                 if (not status):
                     print ("not ", end= "")
                 print("active.")
+            elif command == "install":
+                 print("TO BE COMPLETED ...... ")
+                 self.install_device(agent)
+            elif command.startswith("set hub"):
+                parms=command.split();
+                if self.set_hub(agent, parms[2], parms[3]):
+                   print("The hub is located at address ", parms[2], "port ", parms[3])
+                else:
+                   print ("The hub cannot be configured, check the parameters")
             else:
                 print("Unrecognized command")
-                print("Use start | stop | status")
+                print("Use start | stop | status | install | set hub [localhost] [port]")
             time.sleep(1)
         return
 
