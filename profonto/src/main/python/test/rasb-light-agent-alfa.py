@@ -13,17 +13,19 @@ class Agent(Thread):
         Thread.__init__(self)
         self.alive=True
         #declare class members
-        self.iriSet=['http://www.dmi.unict.it/oasis.owl#','http://www.dmi.unict.it/oasis-abox.owl#', ''] #2->agent
+        self.iriSet=['http://www.dmi.unict.it/oasis.owl','http://www.dmi.unict.it/oasis-abox.owl', ''] #2->agent
         self.graphSet=['','',''] #0->Agent, 1-> agent config, 2->Templates
-        self.agentInfo=['','',''] #0->name, 1->host, 2->port
+        self.agentInfo=['','',''] #0->short name, 1->host, 2->port
         self.hubInfo=['',''] #0->address, 1-> port
+
+        self.owlobj=URIRef("http://www.w3.org/2002/07/owl#ObjectProperty");
+        self.owldat=URIRef("http://www.w3.org/2002/07/owl#DatatypeProperty")
         #end declare
         #set agent graphs
         self.setAgentTemplates(templates)
         self.setAgentOntology(path)
         self.setAgentConfiguration(configuration)
-        self.setAgentIRI(self.graphSet[0])
-        self.agentInfo[0]=self.retrieveEntityName(self.iriSet[2])
+        self.setAgentIRIs(self.graphSet[0])
         # end set
         #set connection
         self.setAgentConnectionInfo(self.graphSet[1])
@@ -80,44 +82,78 @@ class Agent(Thread):
         return
 
     def setAgentConnectionInfo(self, graph):
-        for agent, connection in graph.subject_objects(predicate=URIRef(self.iriSet[0] + "hasConnection")):
+        for agent, connection in graph.subject_objects(predicate=URIRef(self.iriSet[0] + "#hasConnection")):
            for property, data in graph.predicate_objects(subject=connection):
-              if property == URIRef(self.iriSet[0]+"hasIPAddress"):
+              if property == URIRef(self.iriSet[0]+"#hasIPAddress"):
                   self.agentInfo[1]=data
-              elif property== URIRef(self.iriSet[0]+"hasPortNumber"):
+              elif property== URIRef(self.iriSet[0]+"#hasPortNumber"):
                   self.agentInfo[2]=data
         return
 
-    def setAgentIRI(self, graph):
-        for agent in graph.subjects(predicate=RDF.type,  object=URIRef(self.iriSet[0]+'Device')):
-            self.iriSet[2]= agent
+    def setAgentIRIs(self, graph):
+        for agent in graph.subjects(predicate=RDF.type,  object=URIRef(self.iriSet[0]+'#Device')):
+            names= str(agent).split('#')
+            self.iriSet[2]= names[0]
+            self.agentInfo[0]=names[1]
             break
         return
 
     def getTimeStamp(self):
         return  (str(datetime.timestamp(datetime.now()))).replace(".", "-")
 
-    def generateRequest(self, reqGraph, timestamp):
-        agent = URIRef(self.iriSet[2] + self.agentInfo[0])
+    def generateRequest(self, reqGraph, iri):
 
-        request = URIRef(self.iriSet[0] + "request"+ timestamp)             #the request
-        reqGraph.add(( request, RDF.type, URIRef(self.iriSet[0]+"PlanDescription")))  # request type
+        request = URIRef(iri+"request")             #the request
+        reqGraph.add(( request, RDF.type, URIRef(self.iriSet[0]+"#PlanDescription")))  # request type
 
-        goal = URIRef(self.iriSet[0] + "goal" + timestamp)  # the goal
-        reqGraph.add((goal, RDF.type, URIRef(self.iriSet[0] + "GoalDescription")))  # goal type
+        goal = URIRef(iri + "goal")  # the goal
+        reqGraph.add((goal, RDF.type, URIRef(self.iriSet[0] + "#GoalDescription")))  # goal type
 
-        task = URIRef(self.iriSet[0] + "task" + timestamp)  # the task
-        reqGraph.add((task, RDF.type, URIRef(self.iriSet[0] + "TaskDescription")))  # task type
+        task = URIRef(iri + "task")  # the task
+        reqGraph.add((task, RDF.type, URIRef(self.iriSet[0] + "#TaskDescription")))  # task type
 
-        reqGraph.add((agent, URIRef(self.iriSet[0] + "requests"), request)) #has request
-        reqGraph.add((request, URIRef(self.iriSet[0] + "consistsOfGoalDescription"), goal))  # has goal
-        reqGraph.add((goal, URIRef(self.iriSet[0] + "consistsOfTaskDescription"), task))  # has goal
+        reqGraph.add((URIRef(self.iriSet[0] + "#consistsOfGoalDescription"), RDF.type, self.owlobj))
+        reqGraph.add((request, URIRef(self.iriSet[0] + "#consistsOfGoalDescription"), goal))  # has goal
+
+        reqGraph.add((URIRef(self.iriSet[0] + "#consistsOfTaskDescription"), RDF.type, self.owlobj))
+        reqGraph.add((goal, URIRef(self.iriSet[0] + "#consistsOfTaskDescription"), task))  # has goal
+
         return
 
     def install_device(self):
         reqGraph = rdflib.Graph()
         timestamp = self.getTimeStamp()
-        self.generateRequest(reqGraph,timestamp)
+        iri= str(self.iriSet[2]).rsplit('.',1)[0]+"-request"+timestamp+"#"
+        self.generateRequest(reqGraph, iri)
+
+        agent = URIRef(self.iriSet[2] + "#" + self.agentInfo[0])
+        reqGraph.add((agent, RDF.type, URIRef(self.iriSet[0] + "#Device")))  # has request
+
+        request = URIRef(iri + "request")  # the request
+        reqGraph.add((URIRef(self.iriSet[0] + "#requests"), RDF.type, self.owlobj))
+        reqGraph.add((agent, URIRef(self.iriSet[0] + "#requests"), request))  # has request
+
+        task = URIRef(iri+ "task")  # the task
+        reqGraph.add((URIRef(self.iriSet[0] + "#hasTaskOperator"), RDF.type, self.owlobj))
+        reqGraph.add((task, URIRef(self.iriSet[0] + "#hasTaskOperator"), URIRef(self.iriSet[1] + "#install")))  # task operator
+
+        reqGraph.add((URIRef(self.iriSet[0] + "#hasTaskObject"), RDF.type, self.owlobj))
+        reqGraph.add((task, URIRef(self.iriSet[0] + "#hasTaskObject"), agent ))  # task object
+
+        parameter = URIRef(iri +"parameter")  # the parameter
+        reqGraph.add((parameter, RDF.type, URIRef(self.iriSet[0] + "#TaskInputParameter")))
+        reqGraph.add((parameter, RDF.type, URIRef(self.iriSet[0] + "#OntologyDescriptionObject")))
+
+        reqGraph.add((URIRef(self.iriSet[0] + "#hasInformationObjectType"), RDF.type, self.owlobj))
+        reqGraph.add((parameter, URIRef(self.iriSet[0] + "#hasInformationObjectType"), URIRef(self.iriSet[1] + "#ontology_description_object_type")))
+
+        reqGraph.add((URIRef(self.iriSet[0] + "#descriptionProvidedByIri"), RDF.type, self.owldat))
+        reqGraph.add((parameter, URIRef(self.iriSet[0] + "#descriptionProvidedByIRI"), Literal(iri, datatype=XSD.string)))
+
+        reqGraph.add((URIRef(self.iriSet[0] + "#hasTaskParameter"), RDF.type, self.owlobj))
+        reqGraph.add((task, URIRef(self.iriSet[0] + "#hasTaskParameter"), parameter))  # task parameter
+
+        reqGraph.serialize(destination='output.owl', format='xml')
         for s, p, o in reqGraph:
             print((s, p, o))
         return
@@ -188,14 +224,19 @@ class Console(Thread):
         return agent.alive
 
     def install_device(self, agent):
-        agent.install_device()
-        return
+        return agent.install_device()
 
     def set_hub(self, agent, host, port):
         return agent.set_hub(host, port)
 
+    def checkAgent(self, agent):
+        if(agent == None):
+            print("Agent not started. Please start the agent first")
+            return 0
+        return 1
+
     def run(self):
-        agent = ''
+        agent = None
         exec_status = True
         while (exec_status):
             print("Enter a command:")
@@ -214,8 +255,12 @@ class Console(Thread):
                 print("active.")
             elif command == "install":
                  print("TO BE COMPLETED ...... ")
-                 self.install_device(agent)
+                 if self.checkAgent(agent):
+                    self.install_device(agent)
+
             elif command.startswith("set hub"):
+                if not self.checkAgent(agent):
+                   continue
                 parms=command.split();
                 if self.set_hub(agent, parms[2], parms[3]):
                    print("The hub is located at address ", parms[2], "port ", parms[3])
