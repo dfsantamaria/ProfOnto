@@ -46,7 +46,7 @@ class Agent(Thread):
 
         def performRequest(self, request):
             print(request)
-            return
+            return 1
 
         def run(self):
             request = ''
@@ -55,7 +55,7 @@ class Agent(Thread):
                 if not data:
                     break
                 request += data
-                self.performRequest(request)
+            self.performRequest(request)
             return
 
     def readOntoFile(self, file):
@@ -121,6 +121,8 @@ class Agent(Thread):
         return
 
     def install_device(self):
+        if(self.hubInfo[0]=='' or self.hubInfo[1]==''):
+           return 0;
         reqGraph = rdflib.Graph()
         timestamp = self.getTimeStamp()
         iri= str(self.iriSet[2]).rsplit('.',1)[0]+"-request"+timestamp+".owl#"
@@ -155,10 +157,16 @@ class Agent(Thread):
         reqGraph.add((URIRef(self.iriSet[0] + "#hasTaskParameter"), RDF.type, self.owlobj))
         reqGraph.add((task, URIRef(self.iriSet[0] + "#hasTaskParameter"), parameter))  # task parameter
 
-        reqGraph.serialize(destination='output.owl', format='xml')
-        for s, p, o in reqGraph:
-            print((s, p, o))
+        ont=reqGraph.serialize(format='xml')
+        self.transmit(ont)
         return 1
+
+    def transmit(self, data):
+        client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        client_socket.connect( (self.hubInfo[0], int(self.hubInfo[1])))
+        client_socket.send(data)
+        client_socket.close()
+        return
 
     def set_hub(self, host, port):
         self.hubInfo[0]=host
@@ -186,8 +194,7 @@ class Agent(Thread):
       #self.printGraph(self.graphSet[2])
       while self.alive:
           clientsocket, address = serversocket.accept()
-          ServerManager(clientsocket, address)
-
+          self.ServerManager(clientsocket, address)
       print("Server stopped. Goodbye.")
       serversocket.close()
       return
@@ -259,7 +266,7 @@ class Console(Thread):
                  print("TO BE COMPLETED ...... ")
                  if self.checkAgent(agent):
                    if( self.install_device(agent)):
-                       print("Device Installed")
+                       print("Device installation request sent")
                    else:
                        print("Device cannot be installed. Make sure the hub is correctly set.")
 
