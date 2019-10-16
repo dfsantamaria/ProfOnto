@@ -123,7 +123,9 @@ class Agent(Thread):
     def install_device(self):
         reqGraph = rdflib.Graph()
         timestamp = self.getTimeStamp()
-        iri= str(self.iriSet[2]).rsplit('.',1)[0]+"-request"+timestamp+"#"
+        iri= str(self.iriSet[2]).rsplit('.',1)[0]+"-request"+timestamp+".owl#"
+        reqGraph.add((URIRef(iri), RDF.type, OWL.Ontology))
+
         self.generateRequest(reqGraph, iri)
 
         agent = URIRef(self.iriSet[2] + "#" + self.agentInfo[0])
@@ -156,7 +158,7 @@ class Agent(Thread):
         reqGraph.serialize(destination='output.owl', format='xml')
         for s, p, o in reqGraph:
             print((s, p, o))
-        return
+        return 1
 
     def set_hub(self, host, port):
         self.hubInfo[0]=host
@@ -256,7 +258,10 @@ class Console(Thread):
             elif command == "install":
                  print("TO BE COMPLETED ...... ")
                  if self.checkAgent(agent):
-                    self.install_device(agent)
+                   if( self.install_device(agent)):
+                       print("Device Installed")
+                   else:
+                       print("Device cannot be installed. Make sure the hub is correctly set.")
 
             elif command.startswith("set hub"):
                 if not self.checkAgent(agent):
