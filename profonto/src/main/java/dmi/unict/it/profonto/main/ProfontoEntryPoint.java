@@ -103,6 +103,8 @@ public class ProfontoEntryPoint
 
     public static String addDevice(String description)
     {
+        if(description.startsWith("http")|| description.startsWith("www"))
+            return ontocore.addDevice(description);
         return ontocore.addDevice(getInputStream(description));
         
     }

@@ -9,11 +9,11 @@ from datetime import datetime
 
 
 class Agent(Thread):
-    def __init__(self, path, templates, configuration):
+    def __init__(self, path, templates, configuration, iriAgent, iriTemplate, iriConfig):
         Thread.__init__(self)
         self.alive=True
         #declare class members
-        self.iriSet=['http://www.dmi.unict.it/oasis.owl','http://www.dmi.unict.it/oasis-abox.owl', ''] #2->agent
+        self.iriSet=['http://www.dmi.unict.it/oasis.owl','http://www.dmi.unict.it/oasis-abox.owl', iriAgent , iriTemplate, iriConfig] #2->agent 3->template 4->config
         self.graphSet=['','',''] #0->Agent, 1-> agent config, 2->Templates
         self.agentInfo=['','',''] #0->short name, 1->host, 2->port
         self.hubInfo=['',''] #0->address, 1-> port
@@ -62,23 +62,27 @@ class Agent(Thread):
         f = open(file, "r")
         return f.read()
 
-    def getGraph(self, value):
+    def getGraph(self, value, iri):
         g = rdflib.Graph()
         g.parse(data=value)
+        g.bind('xml:base', iri, override=True)
         return g
 
     def setAgentTemplates(self, templates):
-        self.graphSet[2]=rdflib.Graph()
+        self.graphSet[2]=None
         for tem in templates:
-            self.graphSet[2]+= self.getGraph(self.readOntoFile(tem))
+            if(self.graphSet[2]==None):
+               self.graphSet[2]=self.getGraph(self.readOntoFile(tem), self.iriSet[3])
+            else:
+               self.graphSet[2]+= self.getGraph(self.readOntoFile(tem),self.iriSet[3])
         return
 
     def setAgentOntology(self, path):
-        self.graphSet[0] = self.getGraph(self.readOntoFile(path))
+        self.graphSet[0] = self.getGraph(self.readOntoFile(path),self.iriSet[2])
         return
 
     def setAgentConfiguration(self, path):
-        self.graphSet[1] = self.getGraph(self.readOntoFile(path))
+        self.graphSet[1] = self.getGraph(self.readOntoFile(path),self.iriSet[4])
         return
 
     def setAgentConnectionInfo(self, graph):
@@ -93,7 +97,6 @@ class Agent(Thread):
     def setAgentIRIs(self, graph):
         for agent in graph.subjects(predicate=RDF.type,  object=URIRef(self.iriSet[0]+'#Device')):
             names= str(agent).split('#')
-            self.iriSet[2]= names[0]
             self.agentInfo[0]=names[1]
             break
         return
@@ -120,9 +123,14 @@ class Agent(Thread):
 
         return
 
+
     def install_device(self):
         if(self.hubInfo[0]=='' or self.hubInfo[1]==''):
            return 0;
+        self.transmit(self.graphSet[2].serialize(format='xml'))  # transmits template
+      #  self.transmit( self.graphSet[0].serialize(format='xml', base=self.iriSet[2])) #transmits behavior
+      #  self.transmit(self.graphSet[1].serialize(format='xml', base=self.iriset[4]))  # transmits  config
+
         reqGraph = rdflib.Graph()
         timestamp = self.getTimeStamp()
         iri= str(self.iriSet[2]).rsplit('.',1)[0]+"-request"+timestamp+".owl#"
@@ -158,10 +166,11 @@ class Agent(Thread):
         reqGraph.add((task, URIRef(self.iriSet[0] + "#hasTaskParameter"), parameter))  # task parameter
 
         ont=reqGraph.serialize(format='xml')
-        self.transmit(ont)
+      #  self.transmit(ont)
         return 1
 
     def transmit(self, data):
+        print(data)
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect( (self.hubInfo[0], int(self.hubInfo[1])))
         client_socket.send(data)
@@ -218,7 +227,8 @@ class Console(Thread):
 
     def start_command(self):
         return Agent("ontologies/test/rasb/rasb-lightagent.owl", {"ontologies/test/rasb/lightagent-from-template.owl"},
-                     "ontologies/test/rasb/rasb-lightagent-config.owl")
+                     "ontologies/test/rasb/rasb-lightagent-config.owl", "http://www.dmi.unict.it/lightagent.owl", "http://www.dmi.unict.it/lightagent-template.owl",
+                     "http://www.dmi.unict.it/lightagent-configuration.owl")
 
     def stop_command(self, agent):
         agent.stop()

@@ -52,8 +52,11 @@ def getOntologyFile(graph, execution):
        for s in graph.objects(t, URIRef(oasis + "descriptionProvidedByURL")):
            if (s is not None):
              file = readOntoFile(s)
-    return file
-
+             return file
+       for s in graph.objects(t, URIRef(oasis + "descriptionProvidedByIRI")):
+         if (s is not None):
+             file=s
+             return s
 
 def createRequest(graph,execution):
     request=Graph()
@@ -95,6 +98,7 @@ def profhome_decide(graph, execution):
     for actions in graph.objects(execution, URIRef(oasis + "hasTaskOperator")):
         if actions == URIRef(oasisabox + "install"):
             file = getOntologyFile(graph, execution)
+            print(execution)
             value = profonto.addDevice(file)  # read the device data
             print("Device", value, "added.")
             break

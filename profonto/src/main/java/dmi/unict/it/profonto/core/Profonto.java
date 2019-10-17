@@ -683,13 +683,43 @@ public class Profonto extends OntologyCore
      * @param ontologyData the device added
      * @return the created ontology
      */
-    public String addDevice(InputStream ontologyData)
+    
+    public String addDevice(String URL)
     {
-        OWLOntology ontodevice = null;
-        String val[]={""};
         try
         {
-            ontodevice = this.getMainManager().loadOntologyFromOntologyDocument(ontologyData);
+           OWLOntology ontodevice=this.getMainManager().loadOntology(IRI.create(URL));
+           return addDevice(ontodevice);
+        }
+        catch (OWLOntologyCreationException ex)
+        {
+            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+       
+    }
+    
+    
+    public String addDevice(InputStream ontologyData)
+    {
+      OWLOntology ontology;
+        try
+        {
+          ontology = this.getMainManager().loadOntologyFromOntologyDocument(ontologyData);
+        } 
+        catch (OWLOntologyCreationException ex)
+        {
+            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+      return addDevice(ontology);
+    }
+    
+    public String addDevice(OWLOntology ontodevice)
+    {        
+        String val[]={""};
+        try
+        {            
             addImportToOntology(this.getDataBehaviorOntology(), ontodevice.getOntologyID().getOntologyIRI().get());
             
             String deviceclass=this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#Device";
