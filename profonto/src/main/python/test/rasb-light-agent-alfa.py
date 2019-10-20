@@ -5,6 +5,7 @@ import rdflib
 from rdflib import *
 import os
 from datetime import datetime
+import re
 # current date and time
 
 
@@ -123,16 +124,32 @@ class Agent(Thread):
 
         return
 
+    def replacenth(self, string, sub, wanted, n):
+        where = [m.start() for m in re.finditer(sub, string)][n - 1]
+        before = string[:where]
+        after = string[where:]
+        after = after.replace(sub, wanted, 1)
+        newString = before + after
+        return newString
+
+    def libbug(self, timestamp, graph, iri):
+        tosend=graph.serialize(format='xml').decode()  # transmits template
+        replace = "xml:base=\"" + iri + "\">\n"
+        tosend = self.replacenth(tosend, ">", replace, 2)
+        return tosend
 
     def install_device(self):
         if(self.hubInfo[0]=='' or self.hubInfo[1]==''):
-           return 0;
-        self.transmit(self.graphSet[2].serialize(format='xml'))  # transmits template
-      #  self.transmit( self.graphSet[0].serialize(format='xml', base=self.iriSet[2])) #transmits behavior
-      #  self.transmit(self.graphSet[1].serialize(format='xml', base=self.iriset[4]))  # transmits  config
+           return 0
+        timestamp = self.getTimeStamp()
+        tosend=self.libbug(timestamp, self.graphSet[2], self.iriSet[3])  # transmits template solving the rdflib bug of xml:base
+        self.transmit(tosend.encode())
+       # self.transmit(self.graphSet[2].serialize(format='xml'))  # transmits template
+       # self.transmit( self.graphSet[0].serialize(format='xml', base=self.iriSet[2])) #transmits behavior
+       # self.transmit(self.graphSet[1].serialize(format='xml', base=self.iriset[4]))  # transmits  config
 
         reqGraph = rdflib.Graph()
-        timestamp = self.getTimeStamp()
+
         iri= str(self.iriSet[2]).rsplit('.',1)[0]+"-request"+timestamp+".owl#"
         reqGraph.add((URIRef(iri), RDF.type, OWL.Ontology))
 
@@ -170,7 +187,7 @@ class Agent(Thread):
         return 1
 
     def transmit(self, data):
-        print(data)
+        #print(data)
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect( (self.hubInfo[0], int(self.hubInfo[1])))
         client_socket.send(data)
@@ -253,6 +270,7 @@ class Console(Thread):
             print("Agent not started. Please start the agent first")
             return 0
         return 1
+
 
     def run(self):
         agent = None
