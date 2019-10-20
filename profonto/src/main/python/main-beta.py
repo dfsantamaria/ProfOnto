@@ -159,7 +159,7 @@ def profhome_decide(graph, execution):
 
 #Decide which decision has to be taken
 class Decide_Action(Action):
-    def execute(self, rdf_source):
+    def execute(self, rdf_source, sock, addr):
        value = profonto.parseRequest(rdf_source())
        #print("Client send request:", value)
        g = getGraph(value)
@@ -171,17 +171,21 @@ class Decide_Action(Action):
           computesDependencies(g,executions)
           executions=sorted(executions, key = lambda x: x[1])
 
-
+       actcount=0
        for execution, val in executions:
            for executer in g.subjects( URIRef(oasis+"performs"), execution):
               if( retrieveEntityName(executer) == assistant ) :
                 profhome_decide(g,execution)
+                actcount=actcount+1
               else:
                 device_engage(g,execution)
+                actcount=actcount+1
+       if actcount < 1:
+           print ("Received data from " + str(addr()) + " "+ str(sock()) )
 
-def_vars("rdf_source")
+def_vars("rdf_source", "sock", "addr")
 welcome() >> [ show_line("Phidias has been started. Wait for Prof-Onto to start") ]
-decide(rdf_source) >> [ Decide_Action(rdf_source) ]
+decide(rdf_source, sock, addr) >> [ Decide_Action(rdf_source, sock, addr) ]
 
 
 ################################################ END PHIDIAS PART ##########################
@@ -223,7 +227,7 @@ class client(Thread):
           if not data:
              break
           request+=data
-        PHIDIAS.achieve(decide(request))
+        PHIDIAS.achieve(decide(request, self.sock.getsockname()[1], self.sock.getsockname()[0]))
 
 def init_gateway():
     global profonto
