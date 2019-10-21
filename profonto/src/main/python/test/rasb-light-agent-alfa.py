@@ -66,7 +66,7 @@ class Agent(Thread):
     def getGraph(self, value, iri):
         g = rdflib.Graph()
         g.parse(data=value)
-        g.bind('xml:base', iri, override=True)
+        #g.bind('xml:base', iri, override=True)
         return g
 
     def setAgentTemplates(self, templates):
@@ -142,7 +142,14 @@ class Agent(Thread):
         if(self.hubInfo[0]=='' or self.hubInfo[1]==''):
            return 0
         timestamp = self.getTimeStamp()
+
         tosend=self.libbug(timestamp, self.graphSet[2], self.iriSet[3])  # transmits template solving the rdflib bug of xml:base
+        self.transmit(tosend.encode())
+
+        tosend = self.libbug(timestamp, self.graphSet[0], self.iriSet[2])  # transmits behavior solving the rdflib bug of xml:base
+        self.transmit(tosend.encode())
+
+        tosend = self.libbug(timestamp, self.graphSet[1], self.iriSet[4])  # transmits config solving the rdflib bug of xml:base
         self.transmit(tosend.encode())
        # self.transmit(self.graphSet[2].serialize(format='xml'))  # transmits template
        # self.transmit( self.graphSet[0].serialize(format='xml', base=self.iriSet[2])) #transmits behavior
@@ -182,8 +189,8 @@ class Agent(Thread):
         reqGraph.add((URIRef(self.iriSet[0] + "#hasTaskParameter"), RDF.type, self.owlobj))
         reqGraph.add((task, URIRef(self.iriSet[0] + "#hasTaskParameter"), parameter))  # task parameter
 
-        ont=reqGraph.serialize(format='xml')
-      #  self.transmit(ont)
+        tosend = self.libbug(timestamp, reqGraph,  iri)  # transmits config solving the rdflib bug of xml:base
+    #    self.transmit(tosend.encode())
         return 1
 
     def transmit(self, data):

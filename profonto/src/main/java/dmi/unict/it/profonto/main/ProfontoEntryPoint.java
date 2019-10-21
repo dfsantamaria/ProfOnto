@@ -248,6 +248,7 @@ public class ProfontoEntryPoint
         return getStringFromOntology(res);
       }
 
+     
     public static int removeConfiguration(String configuration)
       {
         try

@@ -162,7 +162,13 @@ class Decide_Action(Action):
     def execute(self, rdf_source, sock, addr):
        value = profonto.parseRequest(rdf_source())
        #print("Client send request:", value)
+
+       if value == '':
+           print ("Received data from " + str(addr()) + " " + str(sock()))
+           return
+
        g = getGraph(value)
+
        executions=[]
        for execution in g.subjects(RDF.type, URIRef(oasis+"TaskExecution")):
            executions.append((execution, 0))
@@ -171,17 +177,14 @@ class Decide_Action(Action):
           computesDependencies(g,executions)
           executions=sorted(executions, key = lambda x: x[1])
 
-       actcount=0
        for execution, val in executions:
            for executer in g.subjects( URIRef(oasis+"performs"), execution):
               if( retrieveEntityName(executer) == assistant ) :
                 profhome_decide(g,execution)
-                actcount=actcount+1
               else:
                 device_engage(g,execution)
-                actcount=actcount+1
-       if actcount < 1:
-           print ("Received data from " + str(addr()) + " "+ str(sock()) )
+
+
 
 def_vars("rdf_source", "sock", "addr")
 welcome() >> [ show_line("Phidias has been started. Wait for Prof-Onto to start") ]

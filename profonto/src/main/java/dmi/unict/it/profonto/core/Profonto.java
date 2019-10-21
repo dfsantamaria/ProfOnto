@@ -1230,7 +1230,19 @@ public class Profonto extends OntologyCore
         try
           {
             ontology = this.getMainManager().loadOntologyFromOntologyDocument(request);
-
+            boolean[] brequest= {false};
+            ontology.axioms().filter(x->x.isOfType(AxiomType.OBJECT_PROPERTY_ASSERTION)).forEach
+            (
+            element -> { 
+              OWLObjectPropertyAssertionAxiom ax=(OWLObjectPropertyAssertionAxiom) element;
+             if( ax.getProperty().asOWLObjectProperty().toStringID().equals(this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#requests"))
+                brequest[0]= true;
+               }
+             ); 
+             
+            if(brequest[0]==false)
+                return null;           
+            
             //prefix
             String IRIrequest = ontology.getOntologyID().getOntologyIRI().get().toString();
             String prefix = getQueryPrefix(IRIrequest);
@@ -1376,8 +1388,7 @@ public class Profonto extends OntologyCore
             return null;
           }
         
-     this.getMainManager().removeOntology(ontology);
-        
+        this.getMainManager().removeOntology(ontology);        
         if(depends.size()>0)
           {
             OWLAxiom[] depAxioms= new OWLAxiom [depends.size()];
