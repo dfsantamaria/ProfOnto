@@ -40,11 +40,11 @@ import org.semanticweb.HermiT.ReasonerFactory;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
-import org.semanticweb.owlapi.model.OWLIndividual;
 import org.semanticweb.owlapi.model.OWLIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.util.InferredAxiomGenerator;
@@ -73,9 +73,12 @@ public class Profonto extends OntologyCore
     private final HashMap<String, String[]> devConfig; //IDconfig <IDdevice-  IDOntology- IDuser
     private final HashMap<String, String> users; //IDconfig <IDdevice, IDOntology> //IDdevice, IDOntology
     private final HashMap<String, String> queries; //FileName, content
+    private final HashMap<String, String> satellite; //filename, idontology
+    
     private Pair<String, OWLOntology> databehavior;
     private Pair<String, OWLOntology> databelief;
     private Pair<String, OWLOntology> datarequest;
+    
     private final Configuration configuration;
     private final List<InferredAxiomGenerator<? extends OWLAxiom>> generators;
 
@@ -85,12 +88,14 @@ public class Profonto extends OntologyCore
         devices = new HashMap<>();
         devConfig = new HashMap<>();
         users = new HashMap<>();
-        queries=new HashMap<>();
-        int paths = 5;
+        queries=new HashMap<>(); 
+        satellite = new HashMap<>();
+        int paths = 6;
         configuration = new Configuration(paths);
         databehavior = null;
         databelief = null;
         datarequest = null;
+       
         mainAbox=null;        
         generators = new ArrayList<>();
         setDefaultReasonerGenerators(generators);
@@ -204,8 +209,18 @@ public class Profonto extends OntologyCore
       return this.getConfiguration().getPaths()[4];
     }
     
-   
+    public Path getSatellitePath()
+    {
+      return this.getConfiguration().getPaths()[5];
+    }
 
+    public void setSatellitePath(Path path)
+    {
+        this.getConfiguration().getPaths()[5] = path;
+        createFolder(path);
+    }
+   
+  
     /**
      * Creates the folder from the given path if it does not exist
      *
@@ -257,7 +272,7 @@ public class Profonto extends OntologyCore
         datarequest = new Pair(this.getMainOntologiesPath() + File.separator + inputFile.getName(), this.getMainManager().loadOntologyFromOntologyDocument(inputFile));
     }
     
-    
+       
     /**
      * Sets the data-behavior ontology from file
      *
@@ -418,6 +433,7 @@ public class Profonto extends OntologyCore
         return this.datarequest;
     }
     
+        
     /**
      * Returns the data-behavior ontology
      *
@@ -458,6 +474,10 @@ public class Profonto extends OntologyCore
         return users;
     }
 
+    public HashMap getSatellite()
+      {
+        return satellite;
+      }
     /**
      * Adds to the given ontology a set of axioms
      *
@@ -680,7 +700,6 @@ public class Profonto extends OntologyCore
     /**
      * insert a new device given its ontology data
      *
-     * @param ontologyData the device added
      * @return the created ontology
      */
     
@@ -707,11 +726,20 @@ public class Profonto extends OntologyCore
         {
           ontology = this.getMainManager().loadOntologyFromOntologyDocument(ontologyData);
         } 
-        catch (OWLOntologyCreationException ex)
+        
+        catch (OWLOntologyAlreadyExistsException ex)
         {
+          String value= (String) this.getSatellite().get(ex.getOntologyID().getOntologyIRI().get().toString());          
+          ontology= this.getMainManager().getOntology(ex.getOntologyID());
+          if(value!=null)
+              this.moveSatelliteData(ontology, this.getOntologiesDevicesPath().toString());
+          return addDevice(ontology);
+        } 
+        catch (OWLOntologyCreationException ex)
+          {
             Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
             return null;
-        }
+          }        
       return addDevice(ontology);
     }
     
@@ -1215,6 +1243,64 @@ public class Profonto extends OntologyCore
       }
     
     
+    public void moveSatelliteData(OWLOntology ont, String path)
+      {
+        try
+          {
+            String key =ont.getOntologyID().getOntologyIRI().get().toString();
+            String value= (String) this.getSatellite().get(key);
+            if(value==null)
+                return;
+            
+            this.getSatellite().remove(key);
+            String name=value.substring(value.lastIndexOf(File.separator)+1, value.length());
+            File oldfile=new File(this.getSatellitePath() + File.separator + name);            
+            this.getMainManager().removeIRIMapper(new SimpleIRIMapper(ont.getOntologyID().getOntologyIRI().get(),
+                                                  IRI.create(oldfile.getCanonicalFile())));                     
+            oldfile.delete();
+            
+            String filesource = this.getOntologiesDevicesPath()+ "/" + name;
+            File file = new File(filesource);          
+            FileOutputStream outStream = new FileOutputStream(file);
+            this.getMainManager().saveOntology(ont, new OWLXMLDocumentFormat(), outStream);
+            this.getSatellite().put(ont.getOntologyID().getOntologyIRI().get().toString(),filesource);
+            outStream.close();
+          } 
+        catch (IOException | OWLOntologyStorageException ex)
+          {
+            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+          }
+      }
+    
+    
+    public void addSatelliteData(OWLOntology ontology)
+      {       
+        try
+        {            
+            String name=ontology.getOntologyID().getOntologyIRI().get().toString();
+            int ind=name.lastIndexOf("#"); 
+            name=name.substring(name.lastIndexOf("/")+1, (ind >= 0)? ind: name.length());            
+            String filesource = this.getSatellitePath() + File.separator + name;
+            File file = new File(filesource);            
+            this.getMainManager().addIRIMapper(new SimpleIRIMapper(ontology.getOntologyID().getOntologyIRI().get(),
+                                                                   IRI.create(file.getCanonicalFile())));
+            FileOutputStream outStream = new FileOutputStream(file);
+            this.getMainManager().saveOntology(ontology, new OWLXMLDocumentFormat(), outStream);
+            this.getSatellite().put(ontology.getOntologyID().getOntologyIRI().get().toString(), name);
+            outStream.close();
+            
+            System.out.println(ontology.getOntologyID().getOntologyIRI().get().toString() + " "+ name);//
+            
+        } 
+        catch (IOException | OWLOntologyStorageException ex)
+        {
+            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+        }      
+      }
+    
+    
+    
+    
     /**
      * Returns the set of axioms concerning the execution of the given request
      * @param request The ontology of the request     
@@ -1240,8 +1326,11 @@ public class Profonto extends OntologyCore
                }
              ); 
              
-            if(brequest[0]==false)
-                return null;           
+            if(brequest[0]==false)  //satellite
+              {
+                addSatelliteData(ontology);                
+                return null;
+              }           
             
             //prefix
             String IRIrequest = ontology.getOntologyID().getOntologyIRI().get().toString();

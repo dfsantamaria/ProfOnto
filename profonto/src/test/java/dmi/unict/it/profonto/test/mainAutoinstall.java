@@ -94,7 +94,7 @@ public class mainAutoinstall
             ontocore.setMainOntologiesPath(Paths.get("ontologies"+File.separator+"main"));
             ontocore.setOntologiesUsersPath(Paths.get("ontologies"+File.separator+"users"));
             ontocore.setQueryPath(Paths.get("ontologies"+File.separator+"queries"));
-            
+            ontocore.setSatellitePath(Paths.get("ontologies"+File.separator+"satellite"));
             ontocore.setMainOntology(ontoFile); 
             ontocore.setMainAbox(aboxFile);
             
@@ -121,8 +121,8 @@ public class mainAutoinstall
        ontocore.addDevice(assistantData);            
        
        
-       InputStream load=readData("ontologies/test/lightagent-from-template.owl");
-       Stream<OWLAxiom> resload= ontocore.parseRequest(load).axioms();
+       InputStream load=readData("ontologies/test/lightagent.owl");
+       ontocore.parseRequest(load);
        System.out.println("Loaded template");
        InputStream request=readData("ontologies/test/light-installation-request-IRI.owl");
        Stream<OWLAxiom> res= ontocore.parseRequest(request).axioms();
