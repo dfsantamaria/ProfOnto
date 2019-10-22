@@ -134,7 +134,7 @@ class Agent(Thread):
 
     def libbug(self, timestamp, graph, iri):
         tosend=graph.serialize(format='xml').decode()  # transmits template
-        replace = "xml:base=\"" + iri + "\">\n"
+        replace = "   xml:base=\"" + iri + "\"> "
         tosend = self.replacenth(tosend, ">", replace, 2)
         return tosend
 
@@ -175,6 +175,7 @@ class Agent(Thread):
 
         reqGraph.add((URIRef(self.iriSet[0] + "#hasTaskObject"), RDF.type, self.owlobj))
         reqGraph.add((task, URIRef(self.iriSet[0] + "#hasTaskObject"), agent ))  # task object
+        reqGraph.add((agent, URIRef(self.iriSet[0] + "#hasType"), URIRef(self.iriSet[1] + "#device_type") ))  # task object
 
         parameter = URIRef(iri +"parameter")  # the parameter
         reqGraph.add((parameter, RDF.type, URIRef(self.iriSet[0] + "#TaskInputParameter")))
@@ -184,7 +185,7 @@ class Agent(Thread):
         reqGraph.add((parameter, URIRef(self.iriSet[0] + "#hasInformationObjectType"), URIRef(self.iriSet[1] + "#ontology_description_object_type")))
 
         reqGraph.add((URIRef(self.iriSet[0] + "#descriptionProvidedByIRI"), RDF.type, self.owldat))
-        reqGraph.add((parameter, URIRef(self.iriSet[0] + "#descriptionProvidedByIRI"), Literal(iri, datatype=XSD.string)))
+        reqGraph.add((parameter, URIRef(self.iriSet[0] + "#descriptionProvidedByIRI"), Literal(self.iriSet[2], datatype=XSD.string)))
 
         reqGraph.add((URIRef(self.iriSet[0] + "#hasTaskParameter"), RDF.type, self.owlobj))
         reqGraph.add((task, URIRef(self.iriSet[0] + "#hasTaskParameter"), parameter))  # task parameter

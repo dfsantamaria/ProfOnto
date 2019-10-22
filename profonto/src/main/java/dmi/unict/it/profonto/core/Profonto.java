@@ -1347,6 +1347,7 @@ public class Profonto extends OntologyCore
             configs = new ArrayList();           
             while (setIRI.hasNext())
                  {   
+                   
                    QuerySolution qs = setIRI.next();
                    String[] entry=new String[3];
                    entry[0]= qs.getResource("task").getURI();
