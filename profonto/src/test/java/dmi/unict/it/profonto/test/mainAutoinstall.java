@@ -124,7 +124,9 @@ public class mainAutoinstall
        InputStream load=readData("ontologies/test/lightagent.owl");
        ontocore.parseRequest(load);
        System.out.println("Loaded template");
-       InputStream request=readData("ontologies/test/light-installation-request-IRI.owl");
+       //InputStream request=readData("ontologies/test/light-installation-request-IRI.owl");
+       System.out.println("Loading test");
+       InputStream request=readData("ontologies/test/rasb/test.owl");
        Stream<OWLAxiom> res= ontocore.parseRequest(request).axioms();
        System.out.println("Request:");
        if(res!=null)

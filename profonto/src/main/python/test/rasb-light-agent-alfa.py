@@ -183,14 +183,18 @@ class Agent(Thread):
         reqGraph.add((URIRef(self.iriSet[0] + "#hasInformationObjectType"), RDF.type, self.owlobj))
         reqGraph.add((parameter, URIRef(self.iriSet[0] + "#hasInformationObjectType"), URIRef(self.iriSet[1] + "#ontology_description_object_type")))
 
-        reqGraph.add((URIRef(self.iriSet[0] + "#descriptionProvidedByIri"), RDF.type, self.owldat))
+        reqGraph.add((URIRef(self.iriSet[0] + "#descriptionProvidedByIRI"), RDF.type, self.owldat))
         reqGraph.add((parameter, URIRef(self.iriSet[0] + "#descriptionProvidedByIRI"), Literal(iri, datatype=XSD.string)))
 
         reqGraph.add((URIRef(self.iriSet[0] + "#hasTaskParameter"), RDF.type, self.owlobj))
         reqGraph.add((task, URIRef(self.iriSet[0] + "#hasTaskParameter"), parameter))  # task parameter
 
         tosend = self.libbug(timestamp, reqGraph,  iri)  # transmits config solving the rdflib bug of xml:base
-    #    self.transmit(tosend.encode())
+        self.transmit(tosend.encode())
+        file=open("test.owl", "w")
+        file.write(tosend)
+        file.close()
+        print(tosend)
         return 1
 
     def transmit(self, data):

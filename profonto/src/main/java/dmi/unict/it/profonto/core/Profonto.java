@@ -1312,6 +1312,7 @@ public class Profonto extends OntologyCore
         ArrayList<String[]> depends=new ArrayList();
         ArrayList<String[]> configs=null;
         Stream<OWLAxiom> axioms = Stream.of();
+       
         OWLOntology ontology;
         try
           {
@@ -1327,11 +1328,10 @@ public class Profonto extends OntologyCore
              ); 
              
             if(brequest[0]==false)  //satellite
-              {
+              {                 
                 addSatelliteData(ontology);                
                 return null;
-              }           
-            
+              }                       
             //prefix
             String IRIrequest = ontology.getOntologyID().getOntologyIRI().get().toString();
             String prefix = getQueryPrefix(IRIrequest);
@@ -1342,12 +1342,11 @@ public class Profonto extends OntologyCore
             //Filtering configuration            
             String subquery = prefix + this.getQueries().get("body01a.sparql");
             QueryExecution execQ = this.createQuery(ontology, subquery);
-            ResultSet setIRI = execQ.execSelect();
-            
-            
+            ResultSet setIRI = execQ.execSelect();          
+                                 
             configs = new ArrayList();           
             while (setIRI.hasNext())
-                 {
+                 {   
                    QuerySolution qs = setIRI.next();
                    String[] entry=new String[3];
                    entry[0]= qs.getResource("task").getURI();
