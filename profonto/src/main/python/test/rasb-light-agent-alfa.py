@@ -193,10 +193,6 @@ class Agent(Thread):
 
         tosend = self.libbug(timestamp, reqGraph,  iri)  # transmits config solving the rdflib bug of xml:base
         self.transmit(tosend.encode())
-        file=open("test.owl", "w")
-        file.write(tosend)
-        file.close()
-        print(tosend)
         return 1
 
     def transmit(self, data):
@@ -304,7 +300,6 @@ class Console(Thread):
                     print ("not ", end= "")
                 print("active.")
             elif command == "install":
-                 print("TO BE COMPLETED ...... ")
                  if self.checkAgent(agent):
                    if( self.install_device(agent)):
                        print("Device installation request sent")
