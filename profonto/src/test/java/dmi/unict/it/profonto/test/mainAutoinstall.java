@@ -121,11 +121,17 @@ public class mainAutoinstall
        ontocore.addDevice(assistantData);            
        
        
-       InputStream load=readData("ontologies/test/lightagent.owl");
-       ontocore.parseRequest(load);
-       System.out.println("Loaded template");
+      // InputStream load=readData("ontologies/test/lightagent.owl");
+     //  ontocore.parseRequest(load);
+     //  System.out.println("Loaded template");
        //InputStream request=readData("ontologies/test/light-installation-request-IRI.owl");
        System.out.println("Loading test");
+       
+        ontocore.parseRequest(readData("ontologies/test/rasb/lightagent-from-template.owl"));    
+        ontocore.parseRequest( readData("ontologies/test/rasb/rasb-lightagent.owl"));    
+        ontocore.parseRequest(readData("ontologies/test/rasb/rasb-lightagent-config.owl"));
+        
+        
        InputStream request=readData("ontologies/test/rasb/test.owl");
        Stream<OWLAxiom> res= ontocore.parseRequest(request).axioms();
        System.out.println("Request:");

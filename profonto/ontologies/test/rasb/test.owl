@@ -1,58 +1,42 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <rdf:RDF
-   xmlns:ns1="http://www.dmi.unict.it/oasis.owl#"
-   xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
-   xml:base="http://www.dmi.unict.it/lightagent-request1571762863-778358.owl#"> 
-  <rdf:Description rdf:about="http://www.dmi.unict.it/lightagent-request1571762863-778358.owl#parameter">
-    <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#OntologyDescriptionObject"/>
+  xmlns:ns1="http://www.w3.org/2002/07/owl#"
+  xmlns:ns2="http://www.dmi.unict.it/oasis.owl#"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xml:base="http://www.dmi.unict.it/lightagent-request1571848606-875028.owl"> 
+
+  <ns1:ObjectProperty rdf:about="http://www.dmi.unict.it/oasis.owl#requests"/>
+  <ns1:Ontology rdf:about="http://www.dmi.unict.it/lightagent-request1571848606-875028.owl">
+    <ns1:imports rdf:resource="http://www.dmi.unict.it/lightagent-configuration.owl"/>
+    <ns1:imports rdf:resource="http://www.dmi.unict.it/oasis.owl"/>
+    <ns1:imports rdf:resource="http://www.dmi.unict.it/oasis-abox.owl"/>
+  </ns1:Ontology>
+  <ns1:ObjectProperty rdf:about="http://www.dmi.unict.it/oasis.owl#hasTaskInputParameter"/>
+  <ns1:ObjectProperty rdf:about="http://www.dmi.unict.it/oasis.owl#consistsOfGoalDescription"/>
+  <ns1:ObjectProperty rdf:about="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
+  <ns1:ObjectProperty rdf:about="http://www.dmi.unict.it/oasis.owl#hasTaskOperator"/>
+  <ns1:ObjectProperty rdf:about="http://www.dmi.unict.it/oasis.owl#hasInformationObjectType"/>
+  <ns1:DatatypeProperty rdf:about="http://www.dmi.unict.it/oasis.owl#descriptionProvidedByIRI"/>
+  <ns1:ObjectProperty rdf:about="http://www.dmi.unict.it/oasis.owl#consistsOfTaskDescription"/>
+  <ns2:OntologyDescriptionObject rdf:about="http://www.dmi.unict.it/lightagent-request1571848606-875028.owl#parameter">
+    <ns2:hasInformationObjectType rdf:resource="http://www.dmi.unict.it/oasis-abox.owl#ontology_description_object_type"/>
+    <ns2:descriptionProvidedByIRI rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://www.dmi.unict.it/lightagent.owl</ns2:descriptionProvidedByIRI>
     <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskInputParameter"/>
-    <ns1:hasInformationObjectType rdf:resource="http://www.dmi.unict.it/oasis-abox.owl#ontology_description_object_type"/>
-    <ns1:descriptionProvidedByIRI rdf:datatype="http://www.w3.org/2001/XMLSchema#string">http://www.dmi.unict.it/lightagent-request1571762863-778358.owl#</ns1:descriptionProvidedByIRI>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.dmi.unict.it/oasis.owl#hasTaskParameter">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.dmi.unict.it/lightagent-request1571762863-778358.owl#task">
-    <ns1:hasTaskOperator rdf:resource="http://www.dmi.unict.it/oasis-abox.owl#install"/>
-    <ns1:hasTaskParameter rdf:resource="http://www.dmi.unict.it/lightagent-request1571762863-778358.owl#parameter"/>
-    <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskDescription"/>
-    <ns1:hasTaskObject rdf:resource="http://www.dmi.unict.it/lightagent.owl#lightagent"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.dmi.unict.it/lightagent-request1571762863-778358.owl#request">
-    <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#PlanDescription"/>
-    <ns1:consistsOfGoalDescription rdf:resource="http://www.dmi.unict.it/lightagent-request1571762863-778358.owl#goal"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.dmi.unict.it/lightagent-request1571762863-778358.owl#goal">
-    <ns1:consistsOfTaskDescription rdf:resource="http://www.dmi.unict.it/lightagent-request1571762863-778358.owl#task"/>
-    <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#GoalDescription"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.dmi.unict.it/lightagent.owl#lightagent">
-    <ns1:requests rdf:resource="http://www.dmi.unict.it/lightagent-request1571762863-778358.owl#request"/>
-    <ns1:hasType rdf:resource="http://www.dmi.unict.it/oasis-abox.owl#device_type"/>
-    <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#Device"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.dmi.unict.it/oasis.owl#descriptionProvidedByIRI">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#DatatypeProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.dmi.unict.it/oasis.owl#requests">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.dmi.unict.it/oasis.owl#consistsOfTaskDescription">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.dmi.unict.it/oasis.owl#hasInformationObjectType">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.dmi.unict.it/oasis.owl#consistsOfGoalDescription">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.dmi.unict.it/lightagent-request1571762863-778358.owl#">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#Ontology"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.dmi.unict.it/oasis.owl#hasTaskObject">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-  </rdf:Description>
-  <rdf:Description rdf:about="http://www.dmi.unict.it/oasis.owl#hasTaskOperator">
-    <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#ObjectProperty"/>
-  </rdf:Description>
+  </ns2:OntologyDescriptionObject>
+  <ns2:GoalDescription rdf:about="http://www.dmi.unict.it/lightagent-request1571848606-875028.owl#goal">
+    <ns2:consistsOfTaskDescription>
+      <ns2:TaskDescription rdf:about="http://www.dmi.unict.it/lightagent-request1571848606-875028.owl#task">
+        <ns2:hasTaskObject rdf:resource="http://www.dmi.unict.it/lightagent.owl#lightagent"/>
+        <ns2:hasTaskOperator rdf:resource="http://www.dmi.unict.it/oasis-abox.owl#install"/>
+        <ns2:hasTaskInputParameter rdf:resource="http://www.dmi.unict.it/lightagent-request1571848606-875028.owl#parameter"/>
+      </ns2:TaskDescription>
+    </ns2:consistsOfTaskDescription>
+  </ns2:GoalDescription>
+  <ns2:PlanDescription rdf:about="http://www.dmi.unict.it/lightagent-request1571848606-875028.owl#request">
+    <ns2:consistsOfGoalDescription rdf:resource="http://www.dmi.unict.it/lightagent-request1571848606-875028.owl#goal"/>
+  </ns2:PlanDescription>
+  <ns2:Device rdf:about="http://www.dmi.unict.it/lightagent.owl#lightagent">
+    <ns2:hasType rdf:resource="http://www.dmi.unict.it/oasis-abox.owl#device_type"/>
+    <ns2:requests rdf:resource="http://www.dmi.unict.it/lightagent-request1571848606-875028.owl#request"/>
+  </ns2:Device>
 </rdf:RDF>

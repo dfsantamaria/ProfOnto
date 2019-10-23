@@ -707,7 +707,7 @@ public class Profonto extends OntologyCore
     {
         try
         {
-           OWLOntology ontodevice=this.getMainManager().loadOntology(IRI.create(URL));
+           OWLOntology ontodevice=this.getMainManager().loadOntology(IRI.create(URL)); 
            return addDevice(ontodevice);
         }
         catch (OWLOntologyCreationException ex)
@@ -727,14 +727,14 @@ public class Profonto extends OntologyCore
           ontology = this.getMainManager().loadOntologyFromOntologyDocument(ontologyData);
         } 
         
-        catch (OWLOntologyAlreadyExistsException ex)
-        {
-          String value= (String) this.getSatellite().get(ex.getOntologyID().getOntologyIRI().get().toString());          
-          ontology= this.getMainManager().getOntology(ex.getOntologyID());
-          if(value!=null)
-              this.moveSatelliteData(ontology, this.getOntologiesDevicesPath().toString());
-          return addDevice(ontology);
-        } 
+       // catch (OWLOntologyAlreadyExistsException ex)
+       // {
+        //  String value= (String) this.getSatellite().get(ex.getOntologyID().getOntologyIRI().get().toString());          
+       //   ontology= this.getMainManager().getOntology(ex.getOntologyID());
+      //    if(value!=null)
+      //        this.moveSatelliteData(ontology, this.getOntologiesDevicesPath().toString());
+      //    return addDevice(ontology);            
+       // } 
         catch (OWLOntologyCreationException ex)
           {
             Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
@@ -745,11 +745,11 @@ public class Profonto extends OntologyCore
     
     public String addDevice(OWLOntology ontodevice)
     {        
-        String val[]={""};
+        String val[]={""}; 
         try
         {            
-            addImportToOntology(this.getDataBehaviorOntology(), ontodevice.getOntologyID().getOntologyIRI().get());
-            
+            this.moveSatelliteData(ontodevice, this.getOntologiesDevicesPath().toString());
+            addImportToOntology(this.getDataBehaviorOntology(), ontodevice.getOntologyID().getOntologyIRI().get());            
             String deviceclass=this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#Device";
             ontodevice.logicalAxioms().filter(x->x.isOfType(AxiomType.CLASS_ASSERTION)).forEach(
               element -> {
