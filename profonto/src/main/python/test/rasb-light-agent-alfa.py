@@ -133,8 +133,8 @@ class Agent(Thread):
         return newString
 
     def libbug(self, timestamp, graph, iri):
-        tosend=graph.serialize(format='xml').decode()  # transmits template
-        replace = "   xml:base=\"" + iri + "\"> "
+        tosend=graph.serialize(format='pretty-xml').decode()  # transmits template
+        replace = "  xml:base=\"" + iri + "\"> \n"
         tosend = self.replacenth(tosend, ">", replace, 2)
         return tosend
 
@@ -159,7 +159,8 @@ class Agent(Thread):
 
         iri= str(self.iriSet[2]).rsplit('.',1)[0]+"-request"+timestamp+".owl#"
         reqGraph.add((URIRef(iri), RDF.type, OWL.Ontology))
-
+        reqGraph.add((URIRef(iri), OWL.imports, URIRef(self.iriSet[0])))
+        reqGraph.add((URIRef(iri), OWL.imports, URIRef(self.iriSet[1])))
         self.generateRequest(reqGraph, iri)
 
         agent = URIRef(self.iriSet[2] + "#" + self.agentInfo[0])
@@ -187,8 +188,8 @@ class Agent(Thread):
         reqGraph.add((URIRef(self.iriSet[0] + "#descriptionProvidedByIRI"), RDF.type, self.owldat))
         reqGraph.add((parameter, URIRef(self.iriSet[0] + "#descriptionProvidedByIRI"), Literal(self.iriSet[2], datatype=XSD.string)))
 
-        reqGraph.add((URIRef(self.iriSet[0] + "#hasTaskParameter"), RDF.type, self.owlobj))
-        reqGraph.add((task, URIRef(self.iriSet[0] + "#hasTaskParameter"), parameter))  # task parameter
+        reqGraph.add((URIRef(self.iriSet[0] + "#hasTaskInputParameter"), RDF.type, self.owlobj))
+        reqGraph.add((task, URIRef(self.iriSet[0] + "#hasTaskInputParameter"), parameter))  # task parameter
 
         tosend = self.libbug(timestamp, reqGraph,  iri)  # transmits config solving the rdflib bug of xml:base
         self.transmit(tosend.encode())

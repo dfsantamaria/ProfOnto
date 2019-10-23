@@ -98,7 +98,6 @@ def profhome_decide(graph, execution):
     for actions in graph.objects(execution, URIRef(oasis + "hasTaskOperator")):
         if actions == URIRef(oasisabox + "install"):
             file = getOntologyFile(graph, execution)
-            print(execution)
             value = profonto.addDevice(file)  # read the device data
             print("Device", value, "added.")
             break
