@@ -10,14 +10,15 @@ def init_server():
     serversocket.listen(5)
     while 1:
         clients, address = serversocket.accept()
-        client(clients, address)
+        client(clients, address, serversocket)
     return
 
 class client(Thread):
-    def __init__(self, socket, address):
+    def __init__(self, socket, address, serversocket):
         Thread.__init__(self)
         self.sock = socket
         self.addr = address
+        self.serversocket=serversocket
         self.start()
 
     def run(self):
@@ -27,7 +28,9 @@ class client(Thread):
           if not data:
              break
           request+=data
-        print (request, self.sock.getsockname()[1], self.sock.getsockname()[0])
-
+          print (request, self.addr[1], self.addr[0])
+          message = "test"
+          #self.serversocket.connect(( self.addr[0], int(self.addr[1]) ))
+          self.sock.send(message.encode())
 
 init_server()
