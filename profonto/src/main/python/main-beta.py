@@ -37,6 +37,21 @@ def setExecutionStatus(graph):
     for execution, status in graph.subject_objects(predicate=URIRef(oasis + "hasStatus")):
       profonto.setExecutionStatus(execution, status)
 
+def transmitExecutionStatus(execution, status, addr, sock):
+    g=rdflib.Graph()
+    g.add((URIRef(execution),URIRef(oasis + "hasStatus"), URIRef(status)))
+   # transmit(g.serialize(format='pretty-xml'), sock, addr)
+    return
+
+def transmit(data, sock, addr):
+    #print(data)
+    print(sock)
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client_socket.connect( (addr, int(sock)) )
+    client_socket.send(data)
+    client_socket.close()
+    return
+
 def computesDependencies(graph, executions):
       for first, second in graph.subject_objects(predicate=URIRef(oasis + "dependsOn")):
           index=0
@@ -93,7 +108,7 @@ def device_engage(graph,execution):
     client_socket.close()
 
 # Actions that the assistant performs
-def profhome_decide(graph, execution):
+def profhome_decide(graph, execution, addr, sock):
     requester = next(graph.objects(execution, URIRef(oasis + "hasTaskObject")))
     for actions in graph.objects(execution, URIRef(oasis + "hasTaskOperator")):
         if actions == URIRef(oasisabox + "install"):
@@ -113,30 +128,36 @@ def profhome_decide(graph, execution):
                          file = getOntologyFile(graph, execution)
                          value= profonto.addUser(file)
                          profonto.setExecutionStatus(execution, "succeded_status")
+                         transmitExecutionStatus(execution, "succeded_status", addr, sock)
                          print("User", value, "added.")
                      elif actions == URIRef(oasisabox + "remove"):
                           value=profonto.removeUser(retrieveEntityName(requester))
                           profonto.setExecutionStatus(execution, "succeded_status")
+                          transmitExecutionStatus(execution, "succeded_status", addr, sock)
                           print("User", retrieveEntityName(requester), "removed with exit code", value, ".")
                  elif thetype == URIRef(oasisabox + "user_configuration_type"):  # adding or removing user
                      if actions == URIRef(oasisabox + "add"):
                          file = getOntologyFile(graph, execution)
                          value= profonto.addConfiguration(file)
                          profonto.setExecutionStatus(execution, "succeded_status")
+                         transmitExecutionStatus(execution, "succeded_status", addr, sock)
                          print("Configuration added:", value,".")
                      elif actions == URIRef(oasisabox + "remove"):
                          value = profonto.removeConfiguration(retrieveEntityName(requester))
                          profonto.setExecutionStatus(execution, "succeded_status")
+                         transmitExecutionStatus(execution, "succeded_status", addr, sock)
                          print("Configuration", retrieveEntityName(requester), "removed.")
                  elif  thetype == URIRef(oasisabox + "belief_description_object_type"):
                       file = getOntologyFile(graph, execution)
                       if actions == URIRef(oasisabox + "add"):
                          value = profonto.addDataBelief(file)
                          profonto.setExecutionStatus(execution, "succeded_status")
+                         transmitExecutionStatus(execution, "succeded_status", addr, sock)
                          print("Belief  added with exit code", value)
                       elif actions == URIRef(oasisabox + "remove"):
                          value = profonto.removeDataBelief(file)
                          profonto.setExecutionStatus(execution, "succeded_status")
+                         transmitExecutionStatus(execution, "succeded_status", addr, sock)
                          print("Belief removed with exit code", value)
                  break
         elif actions == URIRef(oasisabox + "parse"):
@@ -150,6 +171,7 @@ def profhome_decide(graph, execution):
                     file = getOntologyFile(graph, execution)
                     value = profonto.retrieveDataBelief(file)
                     profonto.setExecutionStatus(execution, "succeded_status")
+                    transmitExecutionStatus(execution, "succeded_status", addr, sock)
                     print("Belief retrieved:\n"+ value)
 
         else:
@@ -161,7 +183,6 @@ class Decide_Action(Action):
     def execute(self, rdf_source, sock, addr):
        value = profonto.parseRequest(rdf_source())
        #print("Client send request:", value)
-
        if value == '':
            print ("Received data from " + str(addr()) + " " + str(sock()))
            return
@@ -179,9 +200,9 @@ class Decide_Action(Action):
        for execution, val in executions:
            for executer in g.subjects( URIRef(oasis+"performs"), execution):
               if( retrieveEntityName(executer) == assistant ) :
-                profhome_decide(g,execution)
+                profhome_decide(g, execution, addr(), sock())
               else:
-                device_engage(g,execution)
+                device_engage(g, execution)
 
 
 
@@ -259,8 +280,8 @@ def init_server():
       serversocket.listen(5)
       print("Prof-Onto Assistant has been started, send requests to:", host, "port ", port)
       while 1:
-          clientsocket, address = serversocket.accept()
-          client(clientsocket, address)
+          clients, address = serversocket.accept()
+          client(clients, address)
       return
 
 PHIDIAS.run()
