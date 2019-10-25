@@ -59,7 +59,12 @@ class Agent(Thread,Utils):
             self.start()
 
         def performRequest(self, request):
-            print(request)
+            g = rdflib.Graph()
+            g.parse(data=request)
+            execution = next(g.subjects(RDF.type, URIRef(oasis + "TaskExecution")))
+            taskObject = next(g.objects(execution, URIRef(oasis + "hasTaskObject")))
+            taskOperator = next(g.objects(execution, URIRef(oasis + "hasTaskOperator")))
+            print("Action ", taskOperator, "on ", taskObject)
             return 1
 
         def run(self):
@@ -304,7 +309,7 @@ class Agent(Thread,Utils):
 ##############################################################################################
 
 def setTestPath(self):
- p = Path(__file__).parents[2]
+ p = Path(__file__).parents[1]
  os.chdir(p)
  return
 
