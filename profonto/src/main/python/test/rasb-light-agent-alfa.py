@@ -10,12 +10,12 @@ import re
 
 
 class Agent(Thread):
-    def __init__(self, path, templates, configuration, iriAgent, iriTemplate, iriConfig):
+    def __init__(self, path, templates, iriAgent, iriTemplate):
         Thread.__init__(self)
         self.alive=True
         #declare class members
-        self.iriSet=['http://www.dmi.unict.it/oasis.owl','http://www.dmi.unict.it/oasis-abox.owl', iriAgent , iriTemplate, iriConfig] #2->agent 3->template 4->config
-        self.graphSet=['','',''] #0->Agent, 1-> agent config, 2->Templates
+        self.iriSet=['http://www.dmi.unict.it/oasis.owl','http://www.dmi.unict.it/oasis-abox.owl', iriAgent , iriTemplate] #2->agent 3->template
+        self.graphSet=['','',''] #0->Agent,  1->Templates
         self.agentInfo=['','',''] #0->short name, 1->host, 2->port
         self.hubInfo=['',''] #0->address, 1-> port
 
@@ -25,11 +25,11 @@ class Agent(Thread):
         #set agent graphs
         self.setAgentTemplates(templates)
         self.setAgentOntology(path)
-        self.setAgentConfiguration(configuration)
+        #self.setAgentConfiguration(configuration)
         self.setAgentIRIs(self.graphSet[0])
         # end set
         #set connection
-        self.setAgentConnectionInfo(self.graphSet[1])
+        self.setAgentConnectionInfo(self.graphSet[0])
         #end set
         self.start()
 
@@ -70,21 +70,21 @@ class Agent(Thread):
         return g
 
     def setAgentTemplates(self, templates):
-        self.graphSet[2]=None
+        self.graphSet[1]=None
         for tem in templates:
-            if(self.graphSet[2]==None):
-               self.graphSet[2]=self.getGraph(self.readOntoFile(tem), self.iriSet[3])
+            if(self.graphSet[1]==None):
+               self.graphSet[1]=self.getGraph(self.readOntoFile(tem), self.iriSet[3])
             else:
-               self.graphSet[2]+= self.getGraph(self.readOntoFile(tem),self.iriSet[3])
+               self.graphSet[1]+= self.getGraph(self.readOntoFile(tem),self.iriSet[3])
         return
 
     def setAgentOntology(self, path):
         self.graphSet[0] = self.getGraph(self.readOntoFile(path),self.iriSet[2])
         return
 
-    def setAgentConfiguration(self, path):
-        self.graphSet[1] = self.getGraph(self.readOntoFile(path),self.iriSet[4])
-        return
+   # def setAgentConfiguration(self, path):
+   #     self.graphSet[1] = self.getGraph(self.readOntoFile(path),self.iriSet[4])
+   #     return
 
     def setAgentConnectionInfo(self, graph):
         for agent, connection in graph.subject_objects(predicate=URIRef(self.iriSet[0] + "#hasConnection")):
@@ -124,6 +124,7 @@ class Agent(Thread):
 
         return
 
+
     def replacenth(self, string, sub, wanted, n):
         where = [m.start() for m in re.finditer(sub, string)][n - 1]
         before = string[:where]
@@ -143,14 +144,14 @@ class Agent(Thread):
            return 0
         timestamp = self.getTimeStamp()
 
-        tosend=self.libbug(timestamp, self.graphSet[2], self.iriSet[3])  # transmits template solving the rdflib bug of xml:base
-        self.transmit(tosend.encode())
+        tosend=self.libbug(timestamp, self.graphSet[1], self.iriSet[3])  # transmits template solving the rdflib bug of xml:base
+        self.transmit(tosend.encode(), False)
 
         tosend = self.libbug(timestamp, self.graphSet[0], self.iriSet[2])  # transmits behavior solving the rdflib bug of xml:base
-        self.transmit(tosend.encode())
+        self.transmit(tosend.encode(), False)
 
-        tosend = self.libbug(timestamp, self.graphSet[1], self.iriSet[4])  # transmits config solving the rdflib bug of xml:base
-        self.transmit(tosend.encode())
+       #tosend = self.libbug(timestamp, self.graphSet[1], self.iriSet[4])  # transmits config solving the rdflib bug of xml:base
+       # self.transmit(tosend.encode(), False)
        # self.transmit(self.graphSet[2].serialize(format='xml'))  # transmits template
        # self.transmit( self.graphSet[0].serialize(format='xml', base=self.iriSet[2])) #transmits behavior
        # self.transmit(self.graphSet[1].serialize(format='xml', base=self.iriset[4]))  # transmits  config
@@ -161,10 +162,8 @@ class Agent(Thread):
         reqGraph.add((URIRef(iri), RDF.type, OWL.Ontology))
         reqGraph.add((URIRef(iri), OWL.imports, URIRef(self.iriSet[0])))
         reqGraph.add((URIRef(iri), OWL.imports, URIRef(self.iriSet[1])))
-        if(self.iriSet[4] != ''):
-            reqGraph.add((URIRef(iri), OWL.imports, URIRef(self.iriSet[4])))
-
-
+        #if(self.iriSet[4] != ''):
+        #    reqGraph.add((URIRef(iri), OWL.imports, URIRef(self.iriSet[4])))
 
         self.generateRequest(reqGraph, iri)
 
@@ -197,17 +196,30 @@ class Agent(Thread):
         reqGraph.add((task, URIRef(self.iriSet[0] + "#hasTaskInputParameter"), parameter))  # task parameter
 
         tosend = self.libbug(timestamp, reqGraph,  iri)  # transmits config solving the rdflib bug of xml:base
-        self.transmit(tosend.encode())
+        self.transmit(tosend.encode(), True)
 
        # f=open("test.owl", "w")
        # f.write(tosend)
         return 1
 
-    def transmit(self, data):
+    def recvall(self, sock):
+        BUFF_SIZE = 1024  # 1 KiB
+        data = b''
+        while True:
+            part = sock.recv(BUFF_SIZE)
+            data += part
+            if len(part) < BUFF_SIZE:
+                # either 0 or end of data
+                break
+        return data
+
+    def transmit(self, data, response):
         #print(data)
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect( (self.hubInfo[0], int(self.hubInfo[1])))
         client_socket.send(data)
+        if(response):
+          self.recvall(client_socket).decode()#manage
         client_socket.close()
         return
 
@@ -261,8 +273,7 @@ class Console(Thread):
 
     def start_command(self):
         return Agent("ontologies/test/rasb/rasb-lightagent.owl", {"ontologies/test/rasb/lightagent-from-template.owl"},
-                     "ontologies/test/rasb/rasb-lightagent-config.owl", "http://www.dmi.unict.it/lightagent.owl", "http://www.dmi.unict.it/lightagent-template.owl",
-                     "http://www.dmi.unict.it/lightagent-configuration.owl")
+                     "http://www.dmi.unict.it/lightagent.owl", "http://www.dmi.unict.it/lightagent-template.owl")
 
     def stop_command(self, agent):
         agent.stop()

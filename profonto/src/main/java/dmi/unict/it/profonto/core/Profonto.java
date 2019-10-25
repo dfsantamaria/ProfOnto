@@ -1259,7 +1259,7 @@ public class Profonto extends OntologyCore
                                                   IRI.create(oldfile.getCanonicalFile())));                     
             oldfile.delete();
             
-            String filesource = this.getOntologiesDevicesPath()+ File.pathSeparator + name;
+            String filesource = this.getOntologiesDevicesPath()+ "/" + name;
             File file = new File(filesource);          
             FileOutputStream outStream = new FileOutputStream(file);
             this.getMainManager().saveOntology(ont, new OWLXMLDocumentFormat(), outStream);
