@@ -110,13 +110,13 @@ def profhome_decide(graph, execution, addr, sock, server_socket):
             file = getOntologyFile(graph, execution)
             value = profonto.addDevice(file)  # read the device data
             print("Device", value, "added.")
-            transmitExecutionStatus(execution, "succeded_status", addr, sock, server_socket)
+            transmitExecutionStatus(execution, URIRef(oasisabox+"succeded_status"), addr, sock, server_socket)
             break
         elif actions == URIRef(oasisabox + "uninstall"):  # uninstallation task
             #requester = next(graph.objects(execution, URIRef(oasis + "hasTaskObject")))
             value = profonto.removeDevice(retrieveEntityName(requester))  # read the device data
             print("Device", retrieveEntityName(requester), "removed with exit code", value,".")
-            transmitExecutionStatus(execution, "succeded_status", addr, sock, server_socket)
+            transmitExecutionStatus(execution, URIRef(oasisabox+"succeded_status"), addr, sock, server_socket)
             break
         elif actions == URIRef(oasisabox + "add") or actions == URIRef(oasisabox + "remove"):  # add user task
              for thetype in graph.objects(requester, URIRef(oasis + "hasType")):
@@ -124,57 +124,57 @@ def profhome_decide(graph, execution, addr, sock, server_socket):
                      if actions == URIRef(oasisabox + "add"):
                          file = getOntologyFile(graph, execution)
                          value= profonto.addUser(file)
-                         profonto.setExecutionStatus(execution, "succeded_status", )
-                         transmitExecutionStatus(execution, "succeded_status", addr, sock,  server_socket)
+                         profonto.setExecutionStatus(execution, URIRef(oasisabox+"succeded_status"), )
+                         transmitExecutionStatus(execution,URIRef(oasisabox+"succeded_status"), addr, sock,  server_socket)
                          print("User", value, "added.")
                      elif actions == URIRef(oasisabox + "remove"):
                           value=profonto.removeUser(retrieveEntityName(requester))
-                          profonto.setExecutionStatus(execution, "succeded_status")
-                          transmitExecutionStatus(execution, "succeded_status", addr, sock,  server_socket)
+                          profonto.setExecutionStatus(execution, URIRef(oasisabox+"succeded_status"))
+                          transmitExecutionStatus(execution, URIRef(oasisabox+"succeded_status"), addr, sock,  server_socket)
                           print("User", retrieveEntityName(requester), "removed with exit code", value, ".")
                  elif thetype == URIRef(oasisabox + "user_configuration_type"):  # adding or removing user
                      if actions == URIRef(oasisabox + "add"):
                          file = getOntologyFile(graph, execution)
                          value= profonto.addConfiguration(file)
-                         profonto.setExecutionStatus(execution, "succeded_status")
+                         profonto.setExecutionStatus(execution, URIRef(oasisabox+"succeded_status"))
                          transmitExecutionStatus(execution, "succeded_status", addr, sock,  server_socket)
                          print("Configuration added:", value,".")
                      elif actions == URIRef(oasisabox + "remove"):
                          value = profonto.removeConfiguration(retrieveEntityName(requester))
-                         profonto.setExecutionStatus(execution, "succeded_status")
-                         transmitExecutionStatus(execution, "succeded_status", addr, sock,  server_socket)
+                         profonto.setExecutionStatus(execution, URIRef(oasisabox+"succeded_status"))
+                         transmitExecutionStatus(execution, URIRef(oasisabox+"succeded_status"), addr, sock,  server_socket)
                          print("Configuration", retrieveEntityName(requester), "removed.")
                  elif  thetype == URIRef(oasisabox + "belief_description_object_type"):
                       file = getOntologyFile(graph, execution)
                       if actions == URIRef(oasisabox + "add"):
                          value = profonto.addDataBelief(file)
-                         profonto.setExecutionStatus(execution, "succeded_status")
-                         transmitExecutionStatus(execution, "succeded_status", addr, sock,  server_socket)
+                         profonto.setExecutionStatus(execution, URIRef(oasisabox+"succeded_status"))
+                         transmitExecutionStatus(execution, URIRef(oasisabox+"succeded_status"), addr, sock,  server_socket)
                          print("Belief  added with exit code", value)
                       elif actions == URIRef(oasisabox + "remove"):
                          value = profonto.removeDataBelief(file)
-                         profonto.setExecutionStatus(execution, "succeded_status")
-                         transmitExecutionStatus(execution, "succeded_status", addr, sock,  server_socket)
+                         profonto.setExecutionStatus(execution, URIRef(oasisabox+"succeded_status"))
+                         transmitExecutionStatus(execution, URIRef(oasisabox+"succeded_status"), addr, sock,  server_socket)
                          print("Belief removed with exit code", value)
                  break
         elif actions == URIRef(oasisabox + "parse"):
             for thetype in graph.objects(requester, URIRef(oasis + "hasType")):
                 if thetype == URIRef(oasisabox + "generalUtterance"):
                     print("General utterances parser is being developed... stay tuned!")
-                    transmitExecutionStatus(execution, "failed_status", addr, sock, server_socket)
+                    transmitExecutionStatus(execution, URIRef(oasisabox+"failed_status"), addr, sock, server_socket)
                     break
         elif actions == URIRef(oasisabox + "retrieve"):
             for thetype in graph.objects(requester, URIRef(oasis + "hasType")):
                 if thetype == URIRef(oasisabox + "belief_description_object_type"):
                     file = getOntologyFile(graph, execution)
                     value = profonto.retrieveDataBelief(file)
-                    profonto.setExecutionStatus(execution, "succeded_status")
-                    transmitExecutionStatus(execution, "succeded_status", addr, sock,  server_socket)
+                    profonto.setExecutionStatus(execution, URIRef(oasisabox+"succeded_status"))
+                    transmitExecutionStatus(execution, URIRef(oasisabox+"succeded_status"), addr, sock,  server_socket)
                     print("Belief retrieved:\n"+ value)
 
         else:
             print("Action", actions, "not supported yet")
-            transmitExecutionStatus(execution, "failed_status", addr, sock, server_socket)
+            transmitExecutionStatus(execution, URIRef(oasisabox+"failed_status"), addr, sock, server_socket)
             break
 
 #Decide which decision has to be taken

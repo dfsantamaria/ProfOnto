@@ -219,7 +219,14 @@ class Agent(Thread):
         client_socket.connect( (self.hubInfo[0], int(self.hubInfo[1])))
         client_socket.send(data)
         if(response):
-          self.recvall(client_socket).decode()#manage
+          received=self.recvall(client_socket).decode()
+          g=rdflib.Graph()
+          g.parse(data=received)
+          for s,b in g.subject_objects(URIRef(self.iriSet[0] + "#hasStatus")):
+             if(str(b)==self.iriSet[1]+"#succeded_status"):
+                 print("Device installation confirmed by the hub")
+             else:
+                 print("Device installation not confirmed by the hub")
         client_socket.close()
         return
 
@@ -321,7 +328,7 @@ class Console(Thread):
             elif command == "install":
                  if self.checkAgent(agent):
                    if( self.install_device(agent)):
-                       print("Device installation request sent")
+                       print("Device installation complete")
                    else:
                        print("Device cannot be installed. Make sure the hub is correctly set.")
 
