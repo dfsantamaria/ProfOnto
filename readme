@@ -71,11 +71,27 @@ Instructions:
          
          Run the file "main-beta.py" and wait for it to load. 
          
-   3.2) Then, run the file "client-test.py" in "target/python/test". It  will add a device, a user, a configuration, request a simple task 
+   3.2.A) Then, run the file "client-test.py" in "target/python/test". It  will add a device, a user, a configuration, request a simple task 
         and then it will remove the device, the configuration,  and the user previously added.
          
-         
-        Stay tuned for updates.
+        Or
+        
+   3.2.B) Run the file "rasb-light-agent-beta.py" in "target/python" that simulate a rasberry PI working with OASIS and type the following 
+          command:
+          
+          -> start           # to start the application that will listen on localhost, port 8000. To change address and port modify the ontology
+                             # rasb-lightagent.owl in "target\ontologies\test\rasb"
+   
+          -> set hub [address] [port] # to specify the address and port of the assistant that by default is set to localhost, 8000
+          -> install                  # to show the behavior of the agent to the assistant
+          
+          From now on, any compatible request will be displayed by the agent with a print.
+          
+          -> uninstall #to remove the behavior of the agent from the assistant knowledge base
+          
+          -> stop   # to disconnect the client.
+          
+<------------------------------------------------------------ Stay tuned for updates ---------------------------------------------------------------->
    
    
 
