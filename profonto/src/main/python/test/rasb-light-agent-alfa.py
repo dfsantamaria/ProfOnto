@@ -9,7 +9,20 @@ import re
 # current date and time
 
 
-class Agent(Thread):
+class Utils():
+    def recvall(self, sock):
+        BUFF_SIZE = 1024  # 1 KiB
+        data = b''
+        while True:
+            part = sock.recv(BUFF_SIZE)
+            data += part
+            if len(part) < BUFF_SIZE:
+                # either 0 or end of data
+                break
+        return data
+
+
+class Agent(Thread,Utils):
     def __init__(self, path, templates, iriAgent, iriTemplate):
         Thread.__init__(self)
         self.alive=True
@@ -38,7 +51,7 @@ class Agent(Thread):
         print("Server is closing. Wait.")
         return
 
-    class ServerManager(Thread):
+    class ServerManager(Thread, Utils):
         def __init__(self, socket, address):
             Thread.__init__(self)
             self.sock = socket
@@ -50,12 +63,7 @@ class Agent(Thread):
             return 1
 
         def run(self):
-            request = ''
-            while 1:
-                data = self.sock.recv(2048).decode()
-                if not data:
-                    break
-                request += data
+            request = self.recvall(self.sock)
             self.performRequest(request)
             return
 
@@ -150,12 +158,6 @@ class Agent(Thread):
         tosend = self.libbug(timestamp, self.graphSet[0], self.iriSet[2])  # transmits behavior solving the rdflib bug of xml:base
         self.transmit(tosend.encode(), False)
 
-       #tosend = self.libbug(timestamp, self.graphSet[1], self.iriSet[4])  # transmits config solving the rdflib bug of xml:base
-       # self.transmit(tosend.encode(), False)
-       # self.transmit(self.graphSet[2].serialize(format='xml'))  # transmits template
-       # self.transmit( self.graphSet[0].serialize(format='xml', base=self.iriSet[2])) #transmits behavior
-       # self.transmit(self.graphSet[1].serialize(format='xml', base=self.iriset[4]))  # transmits  config
-
         reqGraph = rdflib.Graph()
 
         iri= str(self.iriSet[2]).rsplit('.',1)[0]+"-request"+timestamp+".owl"
@@ -196,39 +198,74 @@ class Agent(Thread):
         reqGraph.add((task, URIRef(self.iriSet[0] + "#hasTaskInputParameter"), parameter))  # task parameter
 
         tosend = self.libbug(timestamp, reqGraph,  iri)  # transmits config solving the rdflib bug of xml:base
-        self.transmit(tosend.encode(), True)
-
+        received=self.transmit(tosend.encode(), True)
+        g = rdflib.Graph()
+        g.parse(data=received)
+        for s, b in g.subject_objects(URIRef(self.iriSet[0] + "#hasStatus")):
+            if (str(b) == self.iriSet[1] + "#succeded_status"):
+                print("Device installation confirmed by the hub")
+            else:
+                print("Device installation not confirmed by the hub")
        # f=open("test.owl", "w")
        # f.write(tosend)
         return 1
 
-    def recvall(self, sock):
-        BUFF_SIZE = 1024  # 1 KiB
-        data = b''
-        while True:
-            part = sock.recv(BUFF_SIZE)
-            data += part
-            if len(part) < BUFF_SIZE:
-                # either 0 or end of data
-                break
-        return data
+    def uninstall_device(self):
+        if (self.hubInfo[0] == '' or self.hubInfo[1] == ''):
+            return 0
+        timestamp = self.getTimeStamp()
+
+        reqGraph = rdflib.Graph()
+
+        iri = str(self.iriSet[2]).rsplit('.', 1)[0] + "-request" + timestamp + ".owl"
+        reqGraph.add((URIRef(iri), RDF.type, OWL.Ontology))
+        reqGraph.add((URIRef(iri), OWL.imports, URIRef(self.iriSet[0])))
+        reqGraph.add((URIRef(iri), OWL.imports, URIRef(self.iriSet[1])))
+        # if(self.iriSet[4] != ''):
+        #    reqGraph.add((URIRef(iri), OWL.imports, URIRef(self.iriSet[4])))
+
+        self.generateRequest(reqGraph, iri)
+
+        agent = URIRef(self.iriSet[2] + "#" + self.agentInfo[0])
+        reqGraph.add((agent, RDF.type, URIRef(self.iriSet[0] + "#Device")))  # has request
+
+        request = URIRef(iri + "#request")  # the request
+        reqGraph.add((URIRef(self.iriSet[0] + "#requests"), RDF.type, self.owlobj))
+        reqGraph.add((agent, URIRef(self.iriSet[0] + "#requests"), request))  # has request
+
+        task = URIRef(iri + "#task")  # the task
+        reqGraph.add((URIRef(self.iriSet[0] + "#hasTaskOperator"), RDF.type, self.owlobj))
+        reqGraph.add(
+            (task, URIRef(self.iriSet[0] + "#hasTaskOperator"), URIRef(self.iriSet[1] + "#uninstall")))  # task operator
+
+        reqGraph.add((URIRef(self.iriSet[0] + "#hasTaskObject"), RDF.type, self.owlobj))
+        reqGraph.add((task, URIRef(self.iriSet[0] + "#hasTaskObject"), agent))  # task object
+        reqGraph.add(
+            (agent, URIRef(self.iriSet[0] + "#hasType"), URIRef(self.iriSet[1] + "#device_type")))  # task object
+
+        tosend = self.libbug(timestamp, reqGraph, iri)  # transmits config solving the rdflib bug of xml:base
+        received = self.transmit(tosend.encode(), True)
+        g = rdflib.Graph()
+        g.parse(data=received)
+        for s, b in g.subject_objects(URIRef(self.iriSet[0] + "#hasStatus")):
+            if (str(b) == self.iriSet[1] + "#succeded_status"):
+                print("Device uninstallation confirmed by the hub")
+            else:
+                print("Device uninstallation not confirmed by the hub")
+        # f=open("test.owl", "w")
+        # f.write(tosend)
+        return 1
 
     def transmit(self, data, response):
         #print(data)
+        received=''
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect( (self.hubInfo[0], int(self.hubInfo[1])))
         client_socket.send(data)
         if(response):
           received=self.recvall(client_socket).decode()
-          g=rdflib.Graph()
-          g.parse(data=received)
-          for s,b in g.subject_objects(URIRef(self.iriSet[0] + "#hasStatus")):
-             if(str(b)==self.iriSet[1]+"#succeded_status"):
-                 print("Device installation confirmed by the hub")
-             else:
-                 print("Device installation not confirmed by the hub")
         client_socket.close()
-        return
+        return received
 
     def set_hub(self, host, port):
         self.hubInfo[0]=host
@@ -297,6 +334,9 @@ class Console(Thread):
     def install_device(self, agent):
         return agent.install_device()
 
+    def uninstall_device(self, agent):
+        return agent.uninstall_device()
+
     def set_hub(self, agent, host, port):
         return agent.set_hub(host, port)
 
@@ -331,7 +371,12 @@ class Console(Thread):
                        print("Device installation complete")
                    else:
                        print("Device cannot be installed. Make sure the hub is correctly set.")
-
+            elif command == "uninstall":
+                if self.checkAgent(agent):
+                    if (self.uninstall_device(agent)):
+                        print("Device uninstallation complete")
+                    else:
+                        print("Device cannot be uninstalled. Make sure the hub is correctly set.")
             elif command.startswith("set hub"):
                 if not self.checkAgent(agent):
                    continue
@@ -342,7 +387,7 @@ class Console(Thread):
                    print ("The hub cannot be configured, check the parameters")
             else:
                 print("Unrecognized command")
-                print("Use start | stop | status | install | set hub [localhost] [port]")
+                print("Use start | stop | status | install | uninstall | set hub [localhost] [port]")
             time.sleep(1)
         return
 
