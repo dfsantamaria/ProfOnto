@@ -103,14 +103,15 @@ request = recvall(client_socket).decode()
 print(request)
 client_socket.close()
 
+
+
 #a request
 home=readOntoFile("ontologies/test/user-request-2.owl")
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect(('localhost', 8000))
 client_socket.send(home.encode())
-#client_socket.close()
-request = recvall(client_socket).decode()
-print(request)
+#request = recvall(client_socket).decode()
+#print(request)
 client_socket.close()
 
 #a request
@@ -123,7 +124,6 @@ request = recvall(client_socket).decode()
 print(request)
 client_socket.close()
 
-#Belief
 
 home=readOntoFile("ontologies/test/add-belief-request.owl")
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -190,3 +190,8 @@ client_socket.send(home.encode())
 request = recvall(client_socket).decode()
 print(request)
 client_socket.close()
+
+
+
+
+
