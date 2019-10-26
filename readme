@@ -88,13 +88,18 @@ Instructions:
    
           -> set hub [address] [port] # to specify the address and port of the assistant that by default is set to localhost, 8000
           -> install                  # to show the behavior of the agent to the assistant
+          -> status                   # to know the status of the device
           
           From now on, any compatible request will be displayed by the agent with a print.
+          
+          Run the file "rasb-user-beta.py" which add a user, a configuration, request a simple task and then it will remove the configuration and the user previously added.
           
           -> uninstall #to remove the behavior of the agent from the assistant knowledge base
           
           -> stop   # to disconnect the client.
-          
+     
+     
+     
 <------------------------------------------------------------ Stay tuned for updates ---------------------------------------------------------------->
    
    
