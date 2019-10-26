@@ -637,20 +637,56 @@ public class Profonto extends OntologyCore
         refreshOntology(this.getDataBehaviorOntology());
     }
 
+    
+    
+    
+    
+    
+    
+    public String addUser(String URL)
+    {
+        try
+        {
+           OWLOntology ontouser=this.getMainManager().loadOntology(IRI.create(URL)); 
+           return addUser(ontouser);
+        }
+        catch (OWLOntologyCreationException ex)
+        {
+            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
+       
+    }
+    
+    
+    public String addUser(InputStream ontologyData)
+      {
+        OWLOntology ontouser;
+        try
+          {            
+            ontouser = this.getMainManager().loadOntologyFromOntologyDocument(ontologyData);
+            return addUser(ontouser);
+          }
+        catch (OWLOntologyCreationException ex)
+          {
+            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+          }      
+      }
+    
     /**
      * insert a new user given its ontology data
      *
-     * @param ontologyData the inputstream representing the ontology data
+     * @param ontouser
      * @return the created ontology
      */
-    public String addUser(InputStream ontologyData)
+    public String addUser(OWLOntology ontouser)
     {
-        OWLOntology ontouser = null;
+        
         String val[]=new String[]{""};
         try
-        {
-            
-            ontouser = this.getMainManager().loadOntologyFromOntologyDocument(ontologyData);
+        {            
+            this.deleteSatelliteData(ontouser);
             addImportToOntology(this.getDataBehaviorOntology(), ontouser.getOntologyID().getOntologyIRI().get()); 
             String userclass=this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#User";
             ontouser.logicalAxioms().filter(x->x.isOfType(AxiomType.CLASS_ASSERTION)).forEach(
@@ -732,7 +768,7 @@ public class Profonto extends OntologyCore
         //  String value= (String) this.getSatellite().get(ex.getOntologyID().getOntologyIRI().get().toString());          
        //   ontology= this.getMainManager().getOntology(ex.getOntologyID());
       //    if(value!=null)
-      //        this.moveSatelliteData(ontology, this.getOntologiesDevicesPath().toString());
+      //        this.deleteSatelliteData(ontology, this.getOntologiesDevicesPath().toString());
       //    return addDevice(ontology);            
        // } 
         catch (OWLOntologyCreationException ex)
@@ -748,7 +784,7 @@ public class Profonto extends OntologyCore
         String val[]={""}; 
         try
         {            
-            this.moveSatelliteData(ontodevice, this.getOntologiesDevicesPath().toString());
+            this.deleteSatelliteData(ontodevice);
             addImportToOntology(this.getDataBehaviorOntology(), ontodevice.getOntologyID().getOntologyIRI().get());            
             String deviceclass=this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#Device";
             ontodevice.logicalAxioms().filter(x->x.isOfType(AxiomType.CLASS_ASSERTION)).forEach(
@@ -914,14 +950,43 @@ public class Profonto extends OntologyCore
         return s.substring(s.lastIndexOf("#") + 1);
       }
     
-    public String addDeviceConfiguration(InputStream deviceConfig) throws OWLOntologyCreationException
+    public String addDeviceConfiguration(String URL)
     {
+        try
+        {
+           OWLOntology ontoconf=this.getMainManager().loadOntology(IRI.create(URL)); 
+           return addDeviceConfiguration(ontoconf);
+        }
+        catch (OWLOntologyCreationException ex)
+        {
+            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
        
-      OWLOntology ontodevConf = null;
+    }
+    
+    public String addDeviceConfiguration(InputStream deviceConfig) 
+      {
+         OWLOntology ontodevConf;
+         
+        try
+          {
+            ontodevConf = this.getMainManager().loadOntologyFromOntologyDocument(deviceConfig);
+            return addDeviceConfiguration(ontodevConf);
+          }
+        catch (OWLOntologyCreationException ex)
+          {
+            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+          }
+      }
+    
+    public String addDeviceConfiguration(OWLOntology ontodevConf) throws OWLOntologyCreationException
+    {     
       String []vals=new String[]{"","",""};  
       try
-        {           
-            ontodevConf = this.getMainManager().loadOntologyFromOntologyDocument(deviceConfig);
+        {        
+            this.deleteSatelliteData(ontodevConf);
             String settles=(this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#settles");
             String config=(this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#configurationProvidedBy");
             ontodevConf.logicalAxioms().filter(x->x.isOfType(AxiomType.OBJECT_PROPERTY_ASSERTION)).forEach(
@@ -1243,7 +1308,7 @@ public class Profonto extends OntologyCore
       }
     
     
-    public void moveSatelliteData(OWLOntology ont, String path)
+    public void deleteSatelliteData(OWLOntology ont)
       {
         try
           {
@@ -1259,14 +1324,14 @@ public class Profonto extends OntologyCore
                                                   IRI.create(oldfile.getCanonicalFile())));                     
             oldfile.delete();
             
-            String filesource = this.getOntologiesDevicesPath()+ "/" + name;
-            File file = new File(filesource);          
-            FileOutputStream outStream = new FileOutputStream(file);
-            this.getMainManager().saveOntology(ont, new OWLXMLDocumentFormat(), outStream);
-            this.getSatellite().put(ont.getOntologyID().getOntologyIRI().get().toString(),filesource);
-            outStream.close();
+//            String filesource = path+ "/" + name;
+//            File file = new File(filesource);          
+//            FileOutputStream outStream = new FileOutputStream(file);
+//            this.getMainManager().saveOntology(ont, new OWLXMLDocumentFormat(), outStream);
+//            this.getSatellite().put(ont.getOntologyID().getOntologyIRI().get().toString(),filesource);
+//            outStream.close();
           } 
-        catch (IOException | OWLOntologyStorageException ex)
+        catch (IOException ex)
           {
             Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
           }

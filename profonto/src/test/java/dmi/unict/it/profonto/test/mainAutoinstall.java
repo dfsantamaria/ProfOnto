@@ -129,29 +129,29 @@ public class mainAutoinstall
        
         ontocore.parseRequest(readData("ontologies/test/rasb/lightagent-from-template.owl"));    
         ontocore.parseRequest( readData("ontologies/test/rasb/rasb-lightagent.owl"));    
-        ontocore.parseRequest(readData("ontologies/test/rasb/rasb-lightagent-config.owl"));
+                
         
-        
-       InputStream request=readData("ontologies/test/rasb/test.owl");
-       Stream<OWLAxiom> res= ontocore.parseRequest(request).axioms();
-       System.out.println("Request:");
-       if(res!=null)
-           {
-         res.forEach(System.out::println);        
-        
-         System.out.println();
-         System.out.println("Retrieve data:");
-         res=ontocore.retrieveBeliefAssertions("http://www.dmi.unict.it/light-installation-request.owl#light-installation-req-task");
-                                    
-         res.forEach(System.out::println);
-           }
-         else System.out.println("Request unsatisfiable");              
+  //     InputStream request=readData("ontologies/test/rasb/test.owl");
+ //      Stream<OWLAxiom> res= ontocore.parseRequest(request).axioms();
+//       System.out.println("Request:");
+//       if(res!=null)
+//           {
+//         res.forEach(System.out::println);        
+//        
+//         System.out.println();
+//         System.out.println("Retrieve data:");
+//         res=ontocore.retrieveBeliefAssertions("http://www.dmi.unict.it/light-installation-request.owl#light-installation-req-task");
+//                                    
+//         res.forEach(System.out::println);
+//           }
+//         else System.out.println("Request unsatisfiable");              
        
           
        
        System.out.println("Add user request");
-       request=readData("ontologies/test/add-user-request.owl");         
-       res= ontocore.parseRequest(request).axioms();
+       ontocore.parseRequest(readData("ontologies/test/rasb-user/alan.owl"));
+       InputStream request=readData("ontologies/test/rasb-user/add-user-request.owl");         
+       Stream<OWLAxiom> res= ontocore.parseRequest(request).axioms();
        System.out.println("Request of device:");
        if(res!=null)
            {

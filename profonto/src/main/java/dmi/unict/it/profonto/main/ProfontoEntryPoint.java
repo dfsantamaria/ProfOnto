@@ -106,8 +106,7 @@ public class ProfontoEntryPoint
     {
         if(description.startsWith("http")|| description.startsWith("www"))
             return ontocore.addDevice(description);
-        return ontocore.addDevice(getInputStream(description));
-        
+        return ontocore.addDevice(getInputStream(description));        
     }
 
     public String[] getConnectionInfo(String device)
@@ -123,23 +122,19 @@ public class ProfontoEntryPoint
     
     public static String addUser(String description)
     {
-        return ontocore.addUser(getInputStream(description));
-        
+      if(description.startsWith("http")|| description.startsWith("www"))
+            return ontocore.addUser(description);
+      return ontocore.addUser(getInputStream(description));        
     }
 
     
    public static String addConfiguration(String description)
     {
        String value="";
-        try    
-          {
-            value=ontocore.addDeviceConfiguration(getInputStream(description));
-          } 
-        catch (OWLOntologyCreationException ex)
-          {
-            Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
-            
-          }
+       if(description.startsWith("http")|| description.startsWith("www"))
+           value=ontocore.addDeviceConfiguration(description);
+        else
+           value=ontocore.addDeviceConfiguration(getInputStream(description));                 
         return value;
     }
     

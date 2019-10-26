@@ -130,15 +130,10 @@ public class mainTest
         InputStream ontologyData=readData("ontologies/test/lightagent-from-template.owl");        
         id=ontocore.addDevice(ontologyData);             
        
-        try
-          {                     
-            String conf=ontocore.addDeviceConfiguration(readData("ontologies/test/alan-config.owl"));            
-            //ontocore.removePermanentConfigurationFromDevice(conf);
-          } 
-        catch (OWLOntologyCreationException ex)
-          {
-            Logger.getLogger(mainAutoinstall.class.getName()).log(Level.SEVERE, null, ex);
-          } 
+                            
+        String conf=ontocore.addDeviceConfiguration(readData("ontologies/test/alan-config.owl"));            
+        //ontocore.removePermanentConfigurationFromDevice(conf);
+        
        
         // InputStream deviceConfig=readData("ontologies/test/alan-config.owl");
         // ontocore.addDeviceConfiguration(deviceConfig, id, id+"Conf-1","ALAN");

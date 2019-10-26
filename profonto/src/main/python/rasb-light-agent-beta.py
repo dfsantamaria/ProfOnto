@@ -61,10 +61,11 @@ class Agent(Thread,Utils):
         def performRequest(self, request):
             g = rdflib.Graph()
             g.parse(data=request)
-            execution = next(g.subjects(RDF.type, URIRef(oasis + "TaskExecution")))
-            taskObject = next(g.objects(execution, URIRef(oasis + "hasTaskObject")))
-            taskOperator = next(g.objects(execution, URIRef(oasis + "hasTaskOperator")))
-            print("Action ", taskOperator, "on ", taskObject)
+            execution = next(g.subjects(RDF.type, URIRef("http://www.dmi.unict.it/oasis.owl" + "#TaskExecution")))
+            taskObject = next(g.objects(execution, URIRef("http://www.dmi.unict.it/oasis.owl" + "#hasTaskObject")))
+            taskOperator = next(g.objects(execution, URIRef("http://www.dmi.unict.it/oasis.owl" + "#hasTaskOperator")))
+            print("\n Action ", taskOperator, "on ", taskObject)
+            print("---> ", end='')
             return 1
 
         def run(self):

@@ -146,7 +146,7 @@ def createRequest(graph,execution):
     request.add((execution, URIRef(oasis + "hasTaskOperator"), taskOperator))
     return request
 
-def device_engage(graph,execution, addr, sock, server_socket):
+def device_engage(graph,execution):
     #for s,p,o in graph.triples( (None,None,None) ):
     #    print(s,p,o)
     taskObject = next(graph.objects(execution, URIRef(oasis + "hasTaskObject")))
@@ -156,7 +156,10 @@ def device_engage(graph,execution, addr, sock, server_socket):
     devport=next(graph.objects(subject=None, predicate=URIRef(oasis + "hasPortNumber")))
     print("To engage:", performer, taskObject, taskOperator, devip, devport)
     toreturn = createRequest(graph,execution).serialize(format='xml')
-    transmit(toreturn, addr, sock, server_socket)
+    client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    client_socket.connect((devip, int(devport)))
+    client_socket.send(toreturn)
+    client_socket.close()
 
 
 # Actions that the assistant performs
@@ -258,7 +261,7 @@ class Decide_Action(Action):
               if( retrieveEntityName(executer) == assistant ) :
                 profhome_decide(g, execution, addr(), sock(), server_socket())
               else:
-                device_engage(g, execution, addr(), sock(), server_socket())
+                device_engage(g, execution)
 
 
 
