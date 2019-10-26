@@ -78,16 +78,16 @@
         <Class IRI="#TaskEntrustment"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#timeSpan"/>
-    </Declaration>
-    <Declaration>
         <ObjectProperty IRI="#hasAppellation"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Scheduling"/>
+        <NamedIndividual IRI="#timeSpan"/>
     </Declaration>
     <Declaration>
         <Class IRI="#PermanentStatus"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Scheduling"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#exploits"/>
@@ -123,19 +123,19 @@
         <Class IRI="#ConnectionEntry"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasTaskOutputParameter"/>
+        <ObjectProperty IRI="#hasGoalExecution"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasGoalExecution"/>
+        <ObjectProperty IRI="#hasTaskOutputParameter"/>
     </Declaration>
     <Declaration>
         <Class IRI="#TemporaryStatus"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasTimeSpan"/>
+        <Class IRI="#Activity"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Activity"/>
+        <ObjectProperty IRI="#hasTimeSpan"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasConditionalThing"/>
@@ -180,10 +180,10 @@
         <Class IRI="#PlanDescription"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasConditionalAtom"/>
+        <ObjectProperty IRI="#deliversMessage"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#deliversMessage"/>
+        <ObjectProperty IRI="#hasConditionalAtom"/>
     </Declaration>
     <Declaration>
         <Class IRI="#VirtualSpace"/>
@@ -198,10 +198,10 @@
         <Class IRI="#TaskInputParameter"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ConditionalAtom"/>
+        <ObjectProperty IRI="#hasSmartContractEntry"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasSmartContractEntry"/>
+        <Class IRI="#ConditionalAtom"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ConnectionThing"/>
@@ -261,16 +261,16 @@
         <Class IRI="#SpaceType"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasTaskParameter"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="#TaskOperator"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasStatus"/>
+        <ObjectProperty IRI="#hasTaskParameter"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Connection"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasStatus"/>
     </Declaration>
     <Declaration>
         <Class IRI="#SuccededStatus"/>
@@ -288,10 +288,10 @@
         <ObjectProperty IRI="#consistsOfTaskDescription"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#MessageDescriptor"/>
+        <ObjectProperty IRI="#hasTaskOutputParameterTemplate"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasTaskOutputParameterTemplate"/>
+        <Class IRI="#MessageDescriptor"/>
     </Declaration>
     <Declaration>
         <Class IRI="#PlanEntrustment"/>
@@ -342,10 +342,10 @@
         <Class IRI="#Action"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ConfiguredAgent"/>
+        <ObjectProperty IRI="#descriptionProvidedByEntity"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#descriptionProvidedByEntity"/>
+        <Class IRI="#ConfiguredAgent"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ConditionalSubject"/>
@@ -355,6 +355,9 @@
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasSystemType"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#Conditional"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#hasScheduleRepetition"/>
@@ -369,10 +372,10 @@
         <ObjectProperty IRI="#hasService"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#TaskParameterTemplate"/>
+        <ObjectProperty IRI="#hasGeometricExtension"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasGeometricExtension"/>
+        <Class IRI="#TaskParameterTemplate"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasOpportunityValue"/>
@@ -453,6 +456,9 @@
         <Class IRI="#DeactiveStatus"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#PrivateBehavior"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#ConditionalHeadAtom"/>
     </Declaration>
     <Declaration>
@@ -462,19 +468,19 @@
         <ObjectProperty IRI="#hasConditionalRuleThing"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#TemperatureValue"/>
+        <ObjectProperty IRI="#hasConditionalBodyAtom"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasConditionalBodyAtom"/>
+        <Class IRI="#TemperatureValue"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasObjectType"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#consistsOfSmartContractEntry"/>
+        <ObjectProperty IRI="#hasTaskExecution"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasTaskExecution"/>
+        <ObjectProperty IRI="#consistsOfSmartContractEntry"/>
     </Declaration>
     <Declaration>
         <Class IRI="#SmartContractEntryType"/>
@@ -495,10 +501,10 @@
         <Class IRI="#ActionThing"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#EdgeDevice"/>
+        <Class IRI="#Actuator"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Actuator"/>
+        <Class IRI="#EdgeDevice"/>
     </Declaration>
     <Declaration>
         <Class IRI="#HumanAgentBehaviorTemplate"/>
@@ -519,10 +525,10 @@
         <Class IRI="#TaskParameter"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasType"/>
+        <Class IRI="#Device"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Device"/>
+        <ObjectProperty IRI="#hasType"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#implements"/>
@@ -543,19 +549,22 @@
         <ObjectProperty IRI="#consistsOfEntry"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#failed_status"/>
-    </Declaration>
-    <Declaration>
         <ObjectProperty IRI="#consistsOf"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#isInvolvedInEntrustmentWith"/>
+        <NamedIndividual IRI="#failed_status"/>
     </Declaration>
     <Declaration>
         <Class IRI="#SoftwareAgent"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ActionStatus"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#isInvolvedInEntrustmentWith"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#PublicBehavior"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Status"/>
@@ -576,10 +585,10 @@
         <ObjectProperty IRI="#hasComponentType"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#greatherEqual"/>
+        <Class IRI="#ConditionalHead"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ConditionalHead"/>
+        <NamedIndividual IRI="#greatherEqual"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#hasConditionDataValue"/>
@@ -606,19 +615,19 @@
         <ObjectProperty IRI="#hasConditionalObject"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#TaskObject"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#fallsWithin"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasTaskOperator"/>
+        <Class IRI="#InformationObject"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ConditionalSet"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#InformationObject"/>
+        <ObjectProperty IRI="#fallsWithin"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TaskObject"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasTaskOperator"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ConditionalBodyAtom"/>
@@ -678,10 +687,10 @@
         <Class IRI="#SensorComponent"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasTemplate"/>
+        <ObjectProperty IRI="#hasImplementation"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasImplementation"/>
+        <ObjectProperty IRI="#hasTemplate"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ConfigurationType"/>
@@ -720,10 +729,10 @@
         <Class IRI="#AgentConfiguration"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#SensorComponentType"/>
+        <Class IRI="#Implementation"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Implementation"/>
+        <Class IRI="#SensorComponentType"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasExecutionObject"/>
@@ -738,10 +747,10 @@
         <ObjectProperty IRI="#hasSpaceSpan"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#spaceSpan"/>
+        <ObjectProperty IRI="#consistsOfConnectionEntry"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#consistsOfConnectionEntry"/>
+        <NamedIndividual IRI="#spaceSpan"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#implementsTaskParameter"/>
@@ -804,10 +813,10 @@
         <ObjectProperty IRI="#hasBehavior"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#definesSmartContractEntryType"/>
+        <Class IRI="#InformationObjectType"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#InformationObjectType"/>
+        <ObjectProperty IRI="#definesSmartContractEntryType"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#overrides"/>
@@ -825,10 +834,10 @@
         <AnnotationProperty IRI="#beliefProvidedBy"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasConditionalHeadAtom"/>
+        <Class IRI="#MessageThing"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#MessageThing"/>
+        <ObjectProperty IRI="#hasConditionalHeadAtom"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#consistsOfDescription"/>
@@ -858,10 +867,10 @@
         <ObjectProperty IRI="#hasConfiguration"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#consistsOfEntrustment"/>
+        <DataProperty IRI="#hasPortNumber"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#hasPortNumber"/>
+        <ObjectProperty IRI="#consistsOfEntrustment"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ExistentialOperator"/>
@@ -898,9 +907,6 @@
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#consistsOfExecution"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Conditional"/>
     </Declaration>
     <SubClassOf>
         <Class IRI="#Action"/>
@@ -1261,6 +1267,14 @@
     <SubClassOf>
         <Class IRI="#PlanThing"/>
         <Class IRI="#BehaviorThing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PrivateBehavior"/>
+        <Class IRI="#Behavior"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#PublicBehavior"/>
+        <Class IRI="#Behavior"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#RequestDescriptionObject"/>
@@ -2569,7 +2583,7 @@
     </ObjectPropertyRange>
     <SubDataPropertyOf>
         <DataProperty IRI="#descriptionProvidedByEntityIRI"/>
-        <DataProperty IRI="#descriptionProvidedByIRI"/>
+        <DataProperty IRI="#descriptionProvidedByLiteral"/>
     </SubDataPropertyOf>
     <SubDataPropertyOf>
         <DataProperty IRI="#descriptionProvidedByIRI"/>
@@ -2577,7 +2591,7 @@
     </SubDataPropertyOf>
     <SubDataPropertyOf>
         <DataProperty IRI="#descriptionProvidedByURL"/>
-        <DataProperty IRI="#descriptionProvidedByIRI"/>
+        <DataProperty IRI="#descriptionProvidedByLiteral"/>
     </SubDataPropertyOf>
     <SubDataPropertyOf>
         <DataProperty IRI="#hasIPAddress"/>

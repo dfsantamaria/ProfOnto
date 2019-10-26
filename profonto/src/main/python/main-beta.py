@@ -13,7 +13,7 @@ from threading import *
 from phidias.Types  import *
 from phidias.Main import *
 from phidias.Lib import *
-
+from datetime import datetime
 
 profonto = ''
 oasis = 'http://www.dmi.unict.it/oasis.owl#'
@@ -21,6 +21,8 @@ oasisabox = 'http://www.dmi.unict.it/oasis-abox.owl#'
 assistant=''
 host = None
 port = None
+owlobj=URIRef("http://www.w3.org/2002/07/owl#ObjectProperty")
+owldat=URIRef("http://www.w3.org/2002/07/owl#DatatypeProperty")
 #################################################PHIDIAS PART ##############################
 
 class welcome(Procedure): pass
@@ -38,7 +40,39 @@ def setExecutionStatus(graph):
       profonto.setExecutionStatus(execution, status)
 
 def transmitExecutionStatus(execution, status, addr, sock,  server_socket):
-    g=rdflib.Graph()
+    g=Graph()
+    iri=retrieveURI(execution).replace(".owl","-response.owl")
+    generateRequest(g, iri)
+    iriassist="http://www.dmi.unict.it/profonto-home.owl#"+assistant
+
+    g.add((URIRef(iriassist), RDF.type, URIRef(oasis + "Device")))  # has request
+    g.add((URIRef(iriassist), URIRef(oasis + "requests"), URIRef(iri + "#request")))
+
+    task = URIRef(iri + "#task")
+    g.add((URIRef(oasis + "hasTaskOperator"), RDF.type, owlobj))
+    g.add((task, URIRef(oasis + "hasTaskOperator"), URIRef(oasis + "add")))  # task operator
+
+    g.add((URIRef(oasis + "hasTaskObject"), RDF.type, owlobj))
+    g.add((task, URIRef(oasis + "hasTaskObject"), URIRef(iriassist)))  # task object
+    g.add((URIRef(iriassist), URIRef(oasis + "hasType"), URIRef(oasisabox + "belief_description_object_type")))  # task object
+
+    parameter = URIRef(iri + "#parameter")  # the parameter
+    g.add((parameter, RDF.type, URIRef(oasis + "TaskInputParameter")))
+    g.add((parameter, RDF.type, URIRef(oasis + "OntologyDescriptionObject")))
+
+    g.add((URIRef(oasis+ "hasInformationObjectType"), RDF.type, owlobj))
+    g.add((parameter, URIRef(oasis + "hasInformationObjectType"),URIRef(oasisabox + "ontology_description_object_type")))
+
+    g.add((URIRef(oasis + "descriptionProvidedByIRI"), RDF.type, owldat))
+    g.add((parameter, URIRef(oasis + "descriptionProvidedByIRI"), Literal(iri, datatype=XSD.string)))
+
+    g.add((URIRef(oasis + "refersTo"), RDF.type, owlobj))
+    g.add((parameter, URIRef(oasis + "refersTo"), URIRef(execution)))
+
+    g.add((URIRef(oasis + "hasTaskInputParameter"), RDF.type, owlobj))
+    g.add((task, URIRef(oasis + "hasTaskInputParameter"), parameter))  # task parameter
+
+    g.add((URIRef(oasis + "hasStatus"), RDF.type, owlobj))
     g.add((URIRef(execution),URIRef(oasis + "hasStatus"), URIRef(status)))
     transmit(g.serialize(format='pretty-xml'), sock, addr,  server_socket)
     return
@@ -47,6 +81,25 @@ def transmit(data, sock, addr, server_socket):
     print("Sending response to: ", addr, "port ", sock)
     server_socket.send(data)
     #server_socket.close()
+    return
+
+
+def generateRequest(reqGraph, iri):
+
+    request = URIRef(iri+"#request")             #the request
+    reqGraph.add(( request, RDF.type, URIRef(oasis+"PlanDescription")))  # request type
+
+    goal = URIRef(iri + "#goal")  # the goal
+    reqGraph.add((goal, RDF.type, URIRef(oasis + "GoalDescription")))  # goal type
+
+    task = URIRef(iri + "#task")  # the task
+    reqGraph.add((task, RDF.type, URIRef(oasis + "TaskDescription")))  # task type
+
+    reqGraph.add((URIRef(oasis + "consistsOfGoalDescription"), RDF.type, owlobj))
+    reqGraph.add((request, URIRef(oasis + "consistsOfGoalDescription"), goal))  # has goal
+
+    reqGraph.add((URIRef(oasis + "consistsOfTaskDescription"), RDF.type, owlobj))
+    reqGraph.add((goal, URIRef(oasis + "consistsOfTaskDescription"), task))  # has goal
     return
 
 def computesDependencies(graph, executions):
@@ -69,6 +122,10 @@ def getOntologyFile(graph, execution):
          if (s is not None):
              file=s
              return s
+
+
+def getTimeStamp():
+    return  (str(datetime.timestamp(datetime.now()))).replace(".", "-")
 
 def createRequest(graph,execution):
     request=Graph()

@@ -32,7 +32,7 @@ class Agent(Thread,Utils):
         self.agentInfo=['','',''] #0->short name, 1->host, 2->port
         self.hubInfo=['',''] #0->address, 1-> port
 
-        self.owlobj=URIRef("http://www.w3.org/2002/07/owl#ObjectProperty");
+        self.owlobj=URIRef("http://www.w3.org/2002/07/owl#ObjectProperty")
         self.owldat=URIRef("http://www.w3.org/2002/07/owl#DatatypeProperty")
         #end declare
         #set agent graphs
@@ -211,8 +211,8 @@ class Agent(Thread,Utils):
                 print("Device installation confirmed by the hub")
             else:
                 print("Device installation not confirmed by the hub")
-       # f=open("test.owl", "w")
-       # f.write(tosend)
+        #f=open("test.owl", "w")
+        #f.write(g.serialize(format="pretty-xml").decode())
         return 1
 
     def uninstall_device(self):
@@ -357,7 +357,7 @@ class Console(Thread):
         exec_status = True
         while (exec_status):
             print("Enter a command:")
-            command = input(" ---> ")
+            command = input(" ---> ").strip()
             if command == "start":
                 agent = self.start_command()
             elif command == "stop":
