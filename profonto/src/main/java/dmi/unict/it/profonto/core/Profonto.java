@@ -1371,7 +1371,7 @@ public class Profonto extends OntologyCore
      * @param request The ontology of the request     
      * @return the set of axioms representing the execution of the given request
      */
-    public OWLOntology parseRequest(InputStream request)
+    public Object[] parseRequest(InputStream request)
       {
         OntologyModel res = null;
         ArrayList<String[]> depends=new ArrayList();
@@ -1395,7 +1395,7 @@ public class Profonto extends OntologyCore
             if(brequest[0]==false)  //satellite
               {                 
                 addSatelliteData(ontology);                
-                return null;
+                return new Object[]{null,null};
               }                       
             //prefix
             String IRIrequest = ontology.getOntologyID().getOntologyIRI().get().toString();
@@ -1521,7 +1521,7 @@ public class Profonto extends OntologyCore
                 //res.axioms().forEach(System.out::println);    
           if (res.axioms().count() == 0)
           {
-            return null;
+            return new Object[]{null,null};
           }
         axioms = Stream.concat(res.axioms(), axioms);
         String[] conn=new String[]{""};
@@ -1539,7 +1539,7 @@ public class Profonto extends OntologyCore
       catch (Exception ex)
           {
             Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
+            return new Object[]{null,null};
           }
         
         this.getMainManager().removeOntology(ontology);        
@@ -1564,10 +1564,9 @@ public class Profonto extends OntologyCore
         catch (OWLOntologyCreationException ex)
           {
             Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
+            return new Object[]{null,null};
           }
-        return out;
-
+        return new Object[]{out,null};
       }
     
     

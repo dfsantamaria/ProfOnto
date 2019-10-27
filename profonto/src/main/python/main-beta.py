@@ -240,9 +240,9 @@ def profhome_decide(graph, execution, addr, sock, server_socket):
 #Decide which decision has to be taken
 class Decide_Action(Action):
     def execute(self, rdf_source, sock, addr, server_socket):
-       value = profonto.parseRequest(rdf_source())
+       value = profonto.parseRequest(rdf_source())[0]
        #print("Client send request:", value)
-       if value == '':
+       if value == '' or value==None:
            print ("Received data from " + str(addr()) + " " + str(sock()))
            return
 

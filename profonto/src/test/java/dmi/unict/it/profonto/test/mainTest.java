@@ -167,7 +167,7 @@ public class mainTest
          
          request=readData("ontologies/test/user-request-2.owl");   
          System.out.println("Parse user request:");
-         OWLOntology out=ontocore.parseRequest(request);          
+         OWLOntology out=((OWLOntology) ontocore.parseRequest(request)[0]);          
          res= out.axioms();         
          res.forEach(System.out::println);   
 
@@ -184,7 +184,7 @@ public class mainTest
           }
           
        request=readData("ontologies/test/interpretation-request.owl");
-       res= ontocore.parseRequest(request).axioms();
+       res= ((OWLOntology) ontocore.parseRequest(request)[0]).axioms();
        System.out.println("Request of device:");
        if(res!=null)
            {

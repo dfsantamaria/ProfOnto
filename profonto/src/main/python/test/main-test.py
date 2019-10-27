@@ -61,24 +61,24 @@ value=""
 
 print("Testing parseRequest step 1...")
 request=readOntoFile("ontologies/test/user-request.owl")
-value=profonto.parseRequest(request)
+value=profonto.parseRequest(request)[0]
 print ("Request:", value)
 
 
 print("Testing parseRequest step 2 Add belief...")
 request=readOntoFile("ontologies/test/add-belief-request.owl")
-value=profonto.parseRequest(request)
+value=profonto.parseRequest(request)[0]
 print ("Request:", value)
 
 
 print("Testing parseRequest step 3 Retrieve belief...")
 request=readOntoFile("ontologies/test/retrieve-belief-request.owl")
-value=profonto.parseRequest(request)
+value=profonto.parseRequest(request)[0]
 print ("Request:", value)
 
 print("Testing parseRequest step 4 Remove belief...")
 request=readOntoFile("ontologies/test/remove-belief-request.owl")
-value=profonto.parseRequest(request)
+value=profonto.parseRequest(request)[0]
 print ("Request:", value)
 
 value=profonto.removeUser("Alan")  #remove user

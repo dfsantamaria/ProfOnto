@@ -64,7 +64,7 @@ value=""
 
 print("Testing parseRequest step 1...")
 request=readOntoFile("ontologies/test/user-request.owl")
-value=profonto.parseRequest(request)
+value=profonto.parseRequest(request)[0]
 print ("Request:", value)
 
 value=profonto.removeUser("Alan")  #remove user
@@ -78,7 +78,7 @@ print("Testing parseRequest step 2...")
 
 request=readOntoFile("ontologies/test/light-uninstallation-request.owl")
 print("Request red...")
-value=profonto.parseRequest(request)
+value=profonto.parseRequest(request)[0]
 print("Printing request")
 print ("Request:", value)
 

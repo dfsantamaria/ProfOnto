@@ -151,7 +151,7 @@ public class mainAutoinstall
        System.out.println("Add user request");
        ontocore.parseRequest(readData("ontologies/test/rasb-user/alan.owl"));
        InputStream request=readData("ontologies/test/rasb-user/add-user-request.owl");         
-       Stream<OWLAxiom> res= ontocore.parseRequest(request).axioms();
+       Stream<OWLAxiom> res= ( (OWLOntology) ontocore.parseRequest(request)[0]).axioms();
        System.out.println("Request of device:");
        if(res!=null)
            {
@@ -160,7 +160,7 @@ public class mainAutoinstall
        
        System.out.println("Add user configuration request");
        request=readData("ontologies/test/add-user-configuration-request.owl");         
-       OWLOntology g=ontocore.parseRequest(request);
+       OWLOntology g= ((OWLOntology)ontocore.parseRequest(request)[0]);
        res= g.axioms();
        System.out.println("Request of device:");
        if(res!=null)
@@ -171,7 +171,7 @@ public class mainAutoinstall
        
        System.out.println("Remove user configuration request");
        request=readData("ontologies/test/remove-user-configuration-request.owl");         
-       g=ontocore.parseRequest(request);
+       g= (OWLOntology) ontocore.parseRequest(request)[0];
        res= g.axioms();
        System.out.println("Request of device:");
        if(res!=null)
@@ -182,7 +182,7 @@ public class mainAutoinstall
        
        System.out.println("Add belief request");
        request=readData("ontologies/test/add-belief-request.owl");         
-       res= ontocore.parseRequest(request).axioms();
+       res= ((OWLOntology)ontocore.parseRequest(request)[0]).axioms();
        System.out.println("Request of device:");
        if(res!=null)
            {
@@ -191,7 +191,7 @@ public class mainAutoinstall
        
        System.out.println("Retrieve belief request");
        request=readData("ontologies/test/retrieve-belief-request.owl");         
-       res= ontocore.parseRequest(request).axioms();
+       res= ((OWLOntology)ontocore.parseRequest(request)[0]).axioms();
        System.out.println("Request of device:");
        if(res!=null)
            {
@@ -200,7 +200,7 @@ public class mainAutoinstall
        
        System.out.println("Remove belief request");
        request=readData("ontologies/test/remove-belief-request.owl");         
-       res= ontocore.parseRequest(request).axioms();
+       res= ((OWLOntology)ontocore.parseRequest(request)[0]).axioms();
        System.out.println("Request of device:");
        if(res!=null)
            {
@@ -209,7 +209,7 @@ public class mainAutoinstall
               
        System.out.println("Remove user request");
        request=readData("ontologies/test/remove-user-request.owl");         
-       res= ontocore.parseRequest(request).axioms();
+       res= ((OWLOntology) ontocore.parseRequest(request)[0]).axioms();
        System.out.println("Request of device:");
        if(res!=null)
            {

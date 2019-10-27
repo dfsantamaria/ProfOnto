@@ -238,10 +238,20 @@ public class ProfontoEntryPoint
 //       return out.toString();
 //    }
     
-    public static String parseRequest(String request)
+    public static String[] parseRequest(String request)
       {
-        OWLOntology res= ontocore.parseRequest(getInputStream(request));
-        return getStringFromOntology(res);
+        Object[] out=ontocore.parseRequest(getInputStream(request));
+        String[] ret=new String[out.length];               
+        for(int i=0;i<ret.length;i++)  
+        {
+            if(out[i]!=null)
+            {
+                OWLOntology res = (OWLOntology) out[i];
+                ret[i]=getStringFromOntology(res); 
+            }
+            else ret[i]=null;
+        }        
+        return ret;
       }
 
      
