@@ -179,6 +179,11 @@ public class mainAutoinstall
               res.forEach(System.out::println);                 
            } 
        
+       System.out.println("Testing belief with referTo object-property");
+       request=readData("ontologies/test/add-belief-refers.owl"); 
+       res= ((OWLOntology)ontocore.parseRequest(request)[1]).axioms();
+       res.forEach(System.out::println);
+       
        
        System.out.println("Add belief request");
        request=readData("ontologies/test/add-belief-request.owl");         

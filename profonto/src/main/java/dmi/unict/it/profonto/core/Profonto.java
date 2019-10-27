@@ -1377,7 +1377,7 @@ public class Profonto extends OntologyCore
         ArrayList<String[]> depends=new ArrayList();
         ArrayList<String[]> configs=null;
         Stream<OWLAxiom> axioms = Stream.of();
-       
+        Object[] toreturn = new Object[]{null,null};
         OWLOntology ontology;
         try
           {
@@ -1395,7 +1395,7 @@ public class Profonto extends OntologyCore
             if(brequest[0]==false)  //satellite
               {                 
                 addSatelliteData(ontology);                
-                return new Object[]{null,null};
+                return toreturn; //all null values
               }                       
             //prefix
             String IRIrequest = ontology.getOntologyID().getOntologyIRI().get().toString();
@@ -1468,6 +1468,15 @@ public class Profonto extends OntologyCore
                 {
                   subqueryParam[5]=r.getURI();
                 }
+               
+                r=qs.getResource("thecontent"); //case of belief with refersTo                
+                if(r!=null)
+                {
+                  String val=r.getURI();
+                  OWLOntology belief= this.getMainManager().createOntology(this.retrieveAssertions(val, ontology.axioms()));
+                  toreturn[1]=belief;
+                  this.getMainManager().removeOntology(belief);
+                }
                 
                 query += "CONSTRUCT {\n";
 
@@ -1521,7 +1530,7 @@ public class Profonto extends OntologyCore
                 //res.axioms().forEach(System.out::println);    
           if (res.axioms().count() == 0)
           {
-            return new Object[]{null,null};
+            return toreturn; //all new values
           }
         axioms = Stream.concat(res.axioms(), axioms);
         String[] conn=new String[]{""};
@@ -1539,7 +1548,7 @@ public class Profonto extends OntologyCore
       catch (Exception ex)
           {
             Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
-            return new Object[]{null,null};
+            return toreturn; //all values null
           }
         
         this.getMainManager().removeOntology(ontology);        
@@ -1564,9 +1573,10 @@ public class Profonto extends OntologyCore
         catch (OWLOntologyCreationException ex)
           {
             Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
-            return new Object[]{null,null};
+            return toreturn; //all values null
           }
-        return new Object[]{out,null};
+        toreturn[0]=out;
+        return toreturn;
       }
     
     
