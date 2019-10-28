@@ -267,7 +267,7 @@ class Decide_Action(Action):
                   transmit(message,sock(),addr(),server_socket())
                   belief=profonto.parseRequest(message.decode())[1]
                   profonto.addDataBelief(belief)
-                  print(belief)
+                  #print(belief)
 
 
 def_vars("rdf_source", "sock", "addr", "server_socket")

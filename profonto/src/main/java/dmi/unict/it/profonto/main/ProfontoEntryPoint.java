@@ -242,7 +242,8 @@ public class ProfontoEntryPoint
             if(out[i]!=null)
             {
                 OWLOntology res = (OWLOntology) out[i];
-                ret[i]=getStringFromOntology(res); 
+                ret[i]=getStringFromOntology(res);
+                ontocore.getMainManager().removeOntology(res);
             }
             else ret[i]=null;
         }        

@@ -13,6 +13,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -45,6 +46,7 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
+import org.semanticweb.owlapi.model.OWLOntologyRenameException;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.util.InferredAxiomGenerator;
@@ -486,16 +488,17 @@ public class Profonto extends OntologyCore
      * @return the extended ontology
      * @throws org.semanticweb.owlapi.model.OWLOntologyCreationException
      */
-    public int addAxiomsToOntology(OWLOntology ontology, Stream<OWLAxiom> axioms) throws OWLOntologyCreationException
+    public int addAxiomsToOntology(OWLOntology ontology, Stream<OWLAxiom> axioms)
     {
         ChangeApplied changes = ontology.addAxioms(axioms);
         try
         {            
             this.getMainManager().saveOntology(ontology);
-            this.getMainManager().loadOntology(ontology.getOntologyID().getOntologyIRI().get());
-        } catch (OWLOntologyStorageException ex)
+           // this.getMainManager().loadOntology(ontology.getOntologyID().getOntologyIRI().get());
+        } 
+        catch (OWLOntologyStorageException ex)
         {
-            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
         }
         if(changes.equals(ChangeApplied.SUCCESSFULLY))
@@ -553,20 +556,13 @@ public class Profonto extends OntologyCore
         {
             ontology=this.getMainManager().getOntology(ex.getOntologyID());
         } 
-        catch (OWLOntologyCreationException ex) {}        
-        int r=0;
-        try
+        catch (OWLOntologyCreationException ex )                
         {
-            // if(checkHasExecutionStatutInfo(ontology))
-            // r=addAxiomsToOntology(this.getDataRequestOntology(), ontology.axioms());
-            //else
-            r=addAxiomsToOntology(this.getDataBeliefOntology(), ontology.axioms());
-        } 
-        catch (OWLOntologyCreationException ex)
-        {
-            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        this.getMainManager().removeOntology(ontology);
+         //   Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+        }        
+        int r=0;        
+        r=addAxiomsToOntology(this.getDataBeliefOntology(), ontology.axioms());
+        this.getMainManager().removeOntology(ontology);                
         return r;
     }
     
@@ -582,10 +578,10 @@ public class Profonto extends OntologyCore
         return r;
     }
     
-    public void addDataToDataBelief(Stream<OWLAxiom> axioms) throws OWLOntologyCreationException
-    {
-        addAxiomsToOntology(this.getDataBeliefOntology(), axioms);
-    }
+//    public void addDataToDataBelief(Stream<OWLAxiom> axioms)
+//    {        
+//        addAxiomsToOntology(this.getDataBeliefOntology(), axioms); // Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+//    }
 
     public void addDataToDataRequest(Stream<OWLAxiom> axioms) throws OWLOntologyCreationException
     {
@@ -1491,7 +1487,17 @@ public class Profonto extends OntologyCore
                 if(r!=null)
                 {
                   String val=r.getURI();
-                  OWLOntology belief= this.getMainManager().createOntology(this.retrieveRefersToAssertions(val, copyOnto));
+                  Stream<OWLAxiom> beliefax=this.retrieveRefersToAssertions(val, copyOnto);
+                  OWLOntology belief=null;
+                  try
+                  {
+                      Timestamp t= new Timestamp(System.currentTimeMillis());
+                      belief= this.getMainManager().createOntology(beliefax); 
+                  }
+                  catch (OWLOntologyAlreadyExistsException ex)
+                  {
+                      belief=this.getMainManager().loadOntology(ex.getDocumentIRI());
+                  }
                   toreturn[1]=belief;
                   //this.getMainManager().removeOntology(belief);
                 }
