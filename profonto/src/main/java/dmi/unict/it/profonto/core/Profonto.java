@@ -1420,6 +1420,8 @@ public class Profonto extends OntologyCore
             //dependencies
             depends= retrieveDependencies(ontology, prefix);
             
+            Stream<OWLAxiom> copyOnto=ontology.axioms();
+            
             //Filtering configuration            
             String subquery = prefix + this.getQueries().get("body01a.sparql");
             QueryExecution execQ = this.createQuery(ontology, subquery);
@@ -1489,7 +1491,7 @@ public class Profonto extends OntologyCore
                 if(r!=null)
                 {
                   String val=r.getURI();
-                  OWLOntology belief= this.getMainManager().createOntology(this.retrieveAssertions(val, ontology.axioms()));
+                  OWLOntology belief= this.getMainManager().createOntology(this.retrieveRefersToAssertions(val, copyOnto));
                   toreturn[1]=belief;
                   //this.getMainManager().removeOntology(belief);
                 }
@@ -1620,6 +1622,7 @@ public class Profonto extends OntologyCore
       return axioms;
     }
     
+         
     private Stream<OWLAxiom> retrieveAssertions(String iriInd, Stream<OWLAxiom> ontology)
       {     
          
@@ -1629,7 +1632,19 @@ public class Profonto extends OntologyCore
                                               .filter(x->x.containsEntityInSignature(individual));
          return axioms;        
       }
-         
+      
+     private Stream<OWLAxiom> retrieveRefersToAssertions(String iriInd, Stream<OWLAxiom> ontology)
+      {     
+         String prop=this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#refersTo";
+         OWLNamedIndividual individual=this.getMainManager().getOWLDataFactory().getOWLNamedIndividual(iriInd);         
+         Stream<OWLAxiom> axioms=ontology.filter( x-> ( ( (x.individualsInSignature().filter(val-> val.toStringID().equals(iriInd)).count()) > 0) &&
+                                                           (( x.isOfType(AxiomType.OBJECT_PROPERTY_ASSERTION) &&
+                                                           !((OWLObjectPropertyAssertionAxiom) x).getProperty().asOWLObjectProperty().toStringID().equals(prop))
+                                                             || x.isOfType(AxiomType.DATA_PROPERTY_ASSERTION))));                  
+        return axioms;        
+      }
+    
+     
     public void setExecutionStatus (String execution, String status) throws OWLOntologyStorageException
       {
         OWLNamedIndividual individual=this.getMainManager().getOWLDataFactory().getOWLNamedIndividual(execution);
@@ -1637,7 +1652,6 @@ public class Profonto extends OntologyCore
         OWLObjectProperty property=this.getMainManager().getOWLDataFactory().getOWLObjectProperty(this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#hasStatus");
         this.getDataRequestOntology().addAxiom(this.getMainManager().getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(
                 property, individual, indstatus));
-        this.getMainManager().saveOntology(this.getDataRequestOntology());
-      
+        this.getMainManager().saveOntology(this.getDataRequestOntology());      
       }
 }
