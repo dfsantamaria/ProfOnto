@@ -45,6 +45,8 @@ class client(Thread):
       taskObject = next(g.objects(execution, URIRef(oasis + "hasTaskObject")))
       taskOperator = next(g.objects(execution, URIRef(oasis + "hasTaskOperator")))
       print("Action ", taskOperator, "on ", taskObject)
+      message=readOntoFile("ontologies/test/add-belief-refers.owl")
+      self.sock.send(message.encode())
       return
 
  def run(self):
@@ -110,8 +112,8 @@ home=readOntoFile("ontologies/test/user-request-2.owl")
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect(('localhost', 8000))
 client_socket.send(home.encode())
-#request = recvall(client_socket).decode()
-#print(request)
+request = recvall(client_socket).decode()
+print(request)
 client_socket.close()
 
 #a request

@@ -15,10 +15,12 @@ import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
+import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
+import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import py4j.GatewayServer;
 
@@ -171,15 +173,8 @@ public class ProfontoEntryPoint
     }
 
     public static int addDataBelief(String input)
-    {
-        try
-        {
-            return ontocore.addDataToDataBelief(getInputStream(input));
-        } catch (OWLOntologyCreationException ex)
-        {
-            Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
-            return -1;
-        }
+    {      
+      return ontocore.addDataToDataBelief(getInputStream(input));
     }
     
     public static int removeDataBelief(String input)

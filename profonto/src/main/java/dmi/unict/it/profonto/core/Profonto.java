@@ -542,14 +542,30 @@ public class Profonto extends OntologyCore
         return res;
       }
     
-    public int addDataToDataBelief(InputStream ontologystring) throws OWLOntologyCreationException
+    public int addDataToDataBelief(InputStream ontologystring) 
     {
-        OWLOntology ontology=this.getMainManager().loadOntologyFromOntologyDocument(ontologystring);
+        OWLOntology ontology=null;
+        try
+        {
+            ontology = this.getMainManager().loadOntologyFromOntologyDocument(ontologystring);
+        } 
+        catch (OWLOntologyAlreadyExistsException ex)
+        {
+            ontology=this.getMainManager().getOntology(ex.getOntologyID());
+        } 
+        catch (OWLOntologyCreationException ex) {}        
         int r=0;
-       // if(checkHasExecutionStatutInfo(ontology))
-        // r=addAxiomsToOntology(this.getDataRequestOntology(), ontology.axioms()); 
-        //else
-        r=addAxiomsToOntology(this.getDataBeliefOntology(), ontology.axioms());   
+        try
+        {
+            // if(checkHasExecutionStatutInfo(ontology))
+            // r=addAxiomsToOntology(this.getDataRequestOntology(), ontology.axioms());
+            //else
+            r=addAxiomsToOntology(this.getDataBeliefOntology(), ontology.axioms());
+        } 
+        catch (OWLOntologyCreationException ex)
+        {
+            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+        }
         this.getMainManager().removeOntology(ontology);
         return r;
     }
@@ -1475,7 +1491,7 @@ public class Profonto extends OntologyCore
                   String val=r.getURI();
                   OWLOntology belief= this.getMainManager().createOntology(this.retrieveAssertions(val, ontology.axioms()));
                   toreturn[1]=belief;
-                  this.getMainManager().removeOntology(belief);
+                  //this.getMainManager().removeOntology(belief);
                 }
                 
                 query += "CONSTRUCT {\n";
@@ -1613,7 +1629,7 @@ public class Profonto extends OntologyCore
                                               .filter(x->x.containsEntityInSignature(individual));
          return axioms;        
       }
-    
+         
     public void setExecutionStatus (String execution, String status) throws OWLOntologyStorageException
       {
         OWLNamedIndividual individual=this.getMainManager().getOWLDataFactory().getOWLNamedIndividual(execution);

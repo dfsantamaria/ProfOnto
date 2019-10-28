@@ -159,7 +159,9 @@ def device_engage(graph,execution):
     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
     client_socket.connect((devip, int(devport)))
     client_socket.send(toreturn)
+    message = recvall(client_socket)
     client_socket.close()
+    return message
 
 
 # Actions that the assistant performs
@@ -261,9 +263,11 @@ class Decide_Action(Action):
               if( retrieveEntityName(executer) == assistant ) :
                 profhome_decide(g, execution, addr(), sock(), server_socket())
               else:
-                device_engage(g, execution)
-
-
+                  message = device_engage(g, execution)
+                  transmit(message,sock(),addr(),server_socket())
+                  belief=profonto.parseRequest(message.decode())[1]
+                  profonto.addDataBelief(belief)
+                  print(belief)
 
 
 def_vars("rdf_source", "sock", "addr", "server_socket")
