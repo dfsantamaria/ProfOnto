@@ -92,7 +92,8 @@ Instructions:
           
           From now on, any compatible request will be displayed by the agent with a print.
           
-          Run the file "rasb-user-beta.py" which add a user, a configuration, request a simple task and then it will remove the configuration and the user previously added.
+          Run the file "rasb-user-beta.py" which add a user, a configuration, request a simple task and then it will remove the configuration and 
+          the user previously added.
           
           -> uninstall #to remove the behavior of the agent from the assistant knowledge base
           
@@ -100,7 +101,7 @@ Instructions:
      
      
      
-<------------------------------------------------------------ Stay tuned for updates ---------------------------------------------------------------->
+<------------------------------------------------------------ Stay tuned for updates ---------------------------------------------------------->
    
    
 
