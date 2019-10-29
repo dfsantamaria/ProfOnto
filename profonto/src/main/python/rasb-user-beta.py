@@ -13,7 +13,8 @@ oasisabox = 'http://www.dmi.unict.it/oasis-abox.owl#'
 def recvall(sock):
     BUFF_SIZE = 1024 # 1 KiB
     data = b''
-    while True:
+    timeout = time.time() + 60
+    while time.time() < timeout:
         part = sock.recv(BUFF_SIZE)
         data += part
         if len(part) < BUFF_SIZE:
@@ -60,8 +61,8 @@ file=readOntoFile("ontologies/test/rasb-user/add-user-request.owl")
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect(('localhost', 8000))
 client_socket.send(file.encode())
-request = recvall(client_socket).decode()
-print(request)
+#request = recvall(client_socket).decode()
+#print(request)
 client_socket.close()
 
 

@@ -312,7 +312,8 @@ def getProcessOut(process):
 def recvall(sock):
     BUFF_SIZE = 1024 # 1 KiB
     data = b''
-    while True:
+    timeout = time.time() + 60
+    while time.time() < timeout:
         part = sock.recv(BUFF_SIZE)
         data += part
         if len(part) < BUFF_SIZE:

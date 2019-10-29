@@ -121,11 +121,11 @@ class Utils():
     def recvall(self, sock):
         BUFF_SIZE = 1024  # 1 KiB
         data = b''
-        while True:
+        timeout = time.time() + 60
+        while time.time() < timeout:
             part = sock.recv(BUFF_SIZE)
             data += part
             if len(part) < BUFF_SIZE:
-                # either 0 or end of data
                 break
         return data
 
@@ -163,7 +163,7 @@ class Utils():
         return received
 
 class Agent(Thread):
-    def __init__(self, path, templates, iriAgent, iriTemplate):
+    def __init__(self, address, port, path, templates, iriAgent, iriTemplate):
         Thread.__init__(self)
         self.alive=True
         #declare class members
@@ -181,7 +181,7 @@ class Agent(Thread):
         self.setAgentIRIs(self.graphSet[0])
         # end set
         #set connection
-        self.setAgentConnectionInfo(self.graphSet[0])
+        self.setAgentConnectionInfo(address, port, self.graphSet[0])
         #end set
         self.start()
 
@@ -208,13 +208,20 @@ class Agent(Thread):
    #     self.graphSet[1] = self.getGraph(self.readOntoFile(path),self.iriSet[4])
    #     return
 
-    def setAgentConnectionInfo(self, graph):
+    def setAgentConnectionInfo(self, address, port, graph):
+        the_port=''
+        the_address=''
         for agent, connection in graph.subject_objects(predicate=URIRef(self.iriSet[0] + "#hasConnection")):
            for property, data in graph.predicate_objects(subject=connection):
               if property == URIRef(self.iriSet[0]+"#hasIPAddress"):
-                  self.agentInfo[1]=data
+                  the_address=data
               elif property== URIRef(self.iriSet[0]+"#hasPortNumber"):
-                  self.agentInfo[2]=data
+                  the_port=data
+        if port!=None and address !=None:
+           print("Not yet available")
+        else:
+           self.agentInfo[1]=the_address
+           self.agentInfo[2]=the_port
         return
 
     def setAgentIRIs(self, graph):
@@ -339,6 +346,10 @@ class Agent(Thread):
         self.hubInfo[1]=port
         return 1
 
+    def set_connection(self, host, port):
+        #to_do
+        return 1
+
     def printGraph (self, graph):
         print("--- printing raw triples ---")
         for s, p, o in graph:
@@ -380,8 +391,8 @@ class Console(Thread):
         self.start()
         return
 
-    def start_command(self):
-        return Agent("ontologies/test/rasb/rasb-lightagent.owl",
+    def start_command(self, address, port):
+        return Agent(address, port, "ontologies/test/rasb/rasb-lightagent.owl",
                         {"ontologies/test/rasb/lightagent-from-template.owl"},
                          "http://www.dmi.unict.it/lightagent.owl", "http://www.dmi.unict.it/lightagent-template.owl")
 
@@ -406,6 +417,9 @@ class Console(Thread):
     def set_hub(self, agent, host, port):
         return agent.set_hub(host, port)
 
+    def set_connection(self, agent, host, port):
+        return agent.set_connection(host, port)
+
     def checkAgent(self, agent):
         if(agent == None):
             print("Agent not started. Please start the agent first")
@@ -419,8 +433,12 @@ class Console(Thread):
         while (exec_status):
             print("Enter a command:")
             command = input(" ---> ").strip()
-            if command == "start":
-                agent = self.start_command()
+            if command.startswith("start"):
+                parms = command.split();
+                if(len(parms)>1):
+                  agent = self.start_command(parms[1], parms[2])
+                else:
+                  agent = self.start_command(None, None)
             elif command == "stop":
                 self.stop_command(agent)
             elif command == "exit":
@@ -451,9 +469,17 @@ class Console(Thread):
                    print("The hub is located at address ", parms[2], "port ", parms[3])
                 else:
                    print ("The hub cannot be configured, check the parameters")
+            elif command.startswith("set connection"):
+                if not self.checkAgent(agent):
+                    continue
+                parms = command.split();
+                if self.set_connection(agent, parms[2], parms[3]):
+                   print("Not working yet")
+                else:
+                    print ("The agent cannot be configured, check the parameters")
             else:
                 print("Unrecognized command")
-                print("Use start | stop | status | install | uninstall | set hub [localhost] [port]")
+                print("Use start | stop | status | install | uninstall | set hub [address] [port] | set connection [address] [port]")
             time.sleep(1)
         return
 
