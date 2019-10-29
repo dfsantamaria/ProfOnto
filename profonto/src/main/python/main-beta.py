@@ -52,9 +52,13 @@ def transmitExecutionStatus(execution, status, addr, sock,  server_socket):
     g.add((URIRef(oasis + "hasTaskOperator"), RDF.type, owlobj))
     g.add((task, URIRef(oasis + "hasTaskOperator"), URIRef(oasis + "add")))  # task operator
 
+    object = URIRef(iri + "#belief-data")  # the obj
     g.add((URIRef(oasis + "hasTaskObject"), RDF.type, owlobj))
-    g.add((task, URIRef(oasis + "hasTaskObject"), URIRef(iriassist)))  # task object
-    g.add((URIRef(iriassist), URIRef(oasis + "hasType"), URIRef(oasisabox + "belief_description_object_type")))  # task object
+    g.add((object, RDF.type, URIRef(oasis + "TaskObject")))
+    g.add((URIRef(oasis + "hasInformationObjectType"), RDF.type, owlobj))
+    g.add((object, URIRef(oasis + "hasInformationObjectType"),
+                  URIRef(oasisabox + "belief_description_object_type")))
+    g.add((task, URIRef(oasis + "hasTaskObject"), object))  # task object
 
     parameter = URIRef(iri + "#parameter")  # the parameter
     g.add((parameter, RDF.type, URIRef(oasis + "TaskInputParameter")))
@@ -74,6 +78,10 @@ def transmitExecutionStatus(execution, status, addr, sock,  server_socket):
 
     g.add((URIRef(oasis + "hasStatus"), RDF.type, owlobj))
     g.add((URIRef(execution),URIRef(oasis + "hasStatus"), URIRef(status)))
+
+   # f=open("test.owl", "w")
+   # f.write(g.serialize(format="pretty-xml").decode())
+
     transmit(g.serialize(format='pretty-xml'), sock, addr,  server_socket)
     return
 
