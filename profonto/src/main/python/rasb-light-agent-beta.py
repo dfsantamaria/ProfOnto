@@ -211,18 +211,25 @@ class Agent(Thread):
     def setAgentConnectionInfo(self, address, port, graph):
         the_port=''
         the_address=''
+        the_connection=None
         for agent, connection in graph.subject_objects(predicate=URIRef(self.iriSet[0] + "#hasConnection")):
            for property, data in graph.predicate_objects(subject=connection):
               if property == URIRef(self.iriSet[0]+"#hasIPAddress"):
                   the_address=data
               elif property== URIRef(self.iriSet[0]+"#hasPortNumber"):
                   the_port=data
-        if port!=None and address !=None:
-           print("Not yet available")
+              the_connection=connection
+        if port!='' and address !='':
+           graph.remove((the_connection, URIRef(self.iriSet[0] + "#hasPortNumber"), None))
+           graph.remove((the_connection, URIRef(self.iriSet[0] + "#hasIPAddress"), None))
+           graph.add((the_connection, URIRef(self.iriSet[0] + "#hasIPAddress"),  Literal(address, datatype=XSD.string)))
+           graph.add((the_connection, URIRef(self.iriSet[0] + "#hasPortNumber"),  Literal(port, datatype=XSD.integer)))
+           self.agentInfo[1] = address
+           self.agentInfo[2] = port
         else:
            self.agentInfo[1]=the_address
            self.agentInfo[2]=the_port
-        return
+        return 1
 
     def setAgentIRIs(self, graph):
         for agent in graph.subjects(predicate=RDF.type,  object=URIRef(self.iriSet[0]+'#Device')):
@@ -469,17 +476,9 @@ class Console(Thread):
                    print("The hub is located at address ", parms[2], "port ", parms[3])
                 else:
                    print ("The hub cannot be configured, check the parameters")
-            elif command.startswith("set connection"):
-                if not self.checkAgent(agent):
-                    continue
-                parms = command.split();
-                if self.set_connection(agent, parms[2], parms[3]):
-                   print("Not working yet")
-                else:
-                    print ("The agent cannot be configured, check the parameters")
             else:
                 print("Unrecognized command")
-                print("Use start | stop | status | install | uninstall | set hub [address] [port] | set connection [address] [port]")
+                print("Use start | start [address] [port] | stop | status | install | uninstall | set hub [address] [port]")
             time.sleep(1)
         return
 
