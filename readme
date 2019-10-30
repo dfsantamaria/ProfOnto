@@ -83,8 +83,13 @@ Instructions:
    3.2.B) Run the file "rasb-light-agent-beta.py" in "target/python" that simulate a rasberry PI working with OASIS and type the following 
           command:
           
-          -> start           # to start the application that will listen on localhost, port 8000. To change address and port modify the ontology
-                             # rasb-lightagent.owl in "target\ontologies\test\rasb"
+          -> start           # to start the application that will listen on localhost, port 8000. 
+          
+          # To change the address and port modify the ontology rasb-lightagent.owl in "target\ontologies\test\rasb" or type 
+          
+          -> start [address] [port]
+                           
+          Then, type
    
           -> set hub [address] [port] # to specify the address and port of the assistant that by default is set to localhost, 8000
           -> install                  # to show the behavior of the agent to the assistant
