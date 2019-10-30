@@ -145,6 +145,38 @@ public class Profonto extends OntologyCore
         createFolder(path);
     }
 
+    public OWLOntology secureLoadOntology(InputStream input)
+    {
+      try
+      {
+        return this.getMainManager().loadOntologyFromOntologyDocument(input);
+      }     
+      catch(OWLOntologyAlreadyExistsException ex)
+      {
+        return this.getMainManager().getOntology(ex.getDocumentIRI());      
+      }
+      catch (OWLOntologyCreationException ex)
+      {
+         return null;   
+      }
+    }
+    
+    public OWLOntology secureLoadOntology(File input)
+    {
+      try
+      {
+        return this.getMainManager().loadOntologyFromOntologyDocument(input);
+      }     
+      catch(OWLOntologyAlreadyExistsException ex)
+      {        
+         return this.getMainManager().getOntology(ex.getDocumentIRI());
+      }
+      catch (OWLOntologyCreationException ex)
+      {
+         return null;   
+      }
+    }
+    
     public Path getMainOntologiesPath()
     {
         return this.getConfiguration().getPaths()[0];
@@ -568,7 +600,9 @@ public class Profonto extends OntologyCore
     
     public int removeDataFromDataBelief(InputStream ontologystring) throws OWLOntologyCreationException
     {
-        OWLOntology ontology=this.getMainManager().loadOntologyFromOntologyDocument(ontologystring);
+        OWLOntology ontology=this.secureLoadOntology(ontologystring);
+        if(ontology==null)
+            return -1;
         int r=0;
        // if(checkHasExecutionStatutInfo(ontology))
        //  r= removeAxiomsFromOntology(this.getDataRequestOntology(), ontology.axioms()); 
@@ -673,17 +707,10 @@ public class Profonto extends OntologyCore
     
     public String addUser(InputStream ontologyData)
       {
-        OWLOntology ontouser;
-        try
-          {            
-            ontouser = this.getMainManager().loadOntologyFromOntologyDocument(ontologyData);
-            return addUser(ontouser);
-          }
-        catch (OWLOntologyCreationException ex)
-          {
-            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+        OWLOntology ontouser = this.secureLoadOntology(ontologyData);
+        if(ontouser==null)
             return null;
-          }      
+        return addUser(ontouser);                     
       }
     
     /**
@@ -769,25 +796,9 @@ public class Profonto extends OntologyCore
     
     public String addDevice(InputStream ontologyData)
     {
-      OWLOntology ontology;
-        try
-        {
-          ontology = this.getMainManager().loadOntologyFromOntologyDocument(ontologyData);
-        } 
-        
-       // catch (OWLOntologyAlreadyExistsException ex)
-       // {
-        //  String value= (String) this.getSatellite().get(ex.getOntologyID().getOntologyIRI().get().toString());          
-       //   ontology= this.getMainManager().getOntology(ex.getOntologyID());
-      //    if(value!=null)
-      //        this.deleteSatelliteData(ontology, this.getOntologiesDevicesPath().toString());
-      //    return addDevice(ontology);            
-       // } 
-        catch (OWLOntologyCreationException ex)
-          {
-            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-          }        
+      OWLOntology ontology = this.secureLoadOntology(ontologyData);
+      if(ontology==null)
+          return null;
       return addDevice(ontology);
     }
     
@@ -917,7 +928,9 @@ public class Profonto extends OntologyCore
                 try {
                     String name = files[i].getName();
                     
-                    OWLOntology ontology = this.getMainManager().loadOntologyFromOntologyDocument(files[i]);
+                    OWLOntology ontology = this.secureLoadOntology(files[i]);
+                    if(ontology==null)
+                        return;
                     this.getDevices().put(name, new Pair(ontology.getOntologyID().getOntologyIRI().get().toString(), files[i]));
                     if (toimport)
                       {
@@ -933,7 +946,7 @@ public class Profonto extends OntologyCore
                         File[] confs = confFolder.listFiles();
                         for (int j = 0; j < confs.length; j++)
                           {
-                            ontology = this.getMainManager().loadOntologyFromOntologyDocument(confs[j]);//IDconfig <IDdevice, IDOntology>
+                            ontology = this.secureLoadOntology(confs[j]);//IDconfig <IDdevice, IDOntology>
                             /*attention here - need to be modified since the user is not got from the ontology*/
                             this.getDeviceConfigurations().put(confs[j].getName(), new String[]
                               {
@@ -947,7 +960,8 @@ public class Profonto extends OntologyCore
                               }
                           }
                       } 
-                   } catch (OWLOntologyCreationException ex) 
+                   } 
+                   catch (OWLOntologyCreationException ex) 
                      {
                       Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
                      }
@@ -979,21 +993,14 @@ public class Profonto extends OntologyCore
     
     public String addDeviceConfiguration(InputStream deviceConfig) 
       {
-         OWLOntology ontodevConf;
-         
-        try
-          {
-            ontodevConf = this.getMainManager().loadOntologyFromOntologyDocument(deviceConfig);
-            return addDeviceConfiguration(ontodevConf);
-          }
-        catch (OWLOntologyCreationException ex)
-          {
-            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
-          }
+         OWLOntology ontodevConf = this.secureLoadOntology(deviceConfig);
+         if(ontodevConf==null)
+             return null;
+         return addDeviceConfiguration(ontodevConf);
+        
       }
     
-    public String addDeviceConfiguration(OWLOntology ontodevConf) throws OWLOntologyCreationException
+    public String addDeviceConfiguration(OWLOntology ontodevConf)
     {     
       String []vals=new String[]{"","",""};  
       try
@@ -1035,9 +1042,11 @@ public class Profonto extends OntologyCore
             outStream.close();
             //    this.syncReasonerDataBehavior();
 
-        } catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
+        } 
+      catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
         {
             Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
         }
         return vals[1];      
     }
@@ -1393,7 +1402,9 @@ public class Profonto extends OntologyCore
         OWLOntology ontology;
         try
           {
-            ontology = this.getMainManager().loadOntologyFromOntologyDocument(request);
+            ontology = this.secureLoadOntology(request);
+            if(ontology==null)
+                return toreturn;
             boolean[] brequest= {false};
             ontology.axioms().filter(x->x.isOfType(AxiomType.OBJECT_PROPERTY_ASSERTION)).forEach
             (
@@ -1496,7 +1507,7 @@ public class Profonto extends OntologyCore
                   }
                   catch (OWLOntologyAlreadyExistsException ex)
                   {
-                      belief=this.getMainManager().loadOntology(ex.getDocumentIRI());
+                      belief=this.getMainManager().getOntology(ex.getDocumentIRI());
                   }
                   toreturn[1]=belief;
                   //this.getMainManager().removeOntology(belief);
@@ -1569,7 +1580,7 @@ public class Profonto extends OntologyCore
         axioms = Stream.concat(retrieveAssertions(conn[0], ontology.axioms()), axioms);
           }    
       } 
-      catch (Exception ex)
+      catch (OWLOntologyCreationException | OWLOntologyStorageException ex)
           {
             Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
             return toreturn; //all values null
@@ -1613,7 +1624,9 @@ public class Profonto extends OntologyCore
     
     public Stream<OWLAxiom> retrieveDataBelief(InputStream input) throws OWLOntologyCreationException
     {
-      OWLOntology ontology=this.getMainManager().loadOntologyFromOntologyDocument(input);
+      OWLOntology ontology=this.secureLoadOntology(input);
+      if(ontology==null)
+          return null;
       Stream<OWLAxiom> axioms=Stream.empty();
       Iterator<OWLNamedIndividual> iterator=ontology.individualsInSignature().iterator();
       while(iterator.hasNext())

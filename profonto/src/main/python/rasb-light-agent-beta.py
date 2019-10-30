@@ -219,7 +219,7 @@ class Agent(Thread):
               elif property== URIRef(self.iriSet[0]+"#hasPortNumber"):
                   the_port=data
               the_connection=connection
-        if port!='' and address !='':
+        if port!=None and address !=None:
            graph.remove((the_connection, URIRef(self.iriSet[0] + "#hasPortNumber"), None))
            graph.remove((the_connection, URIRef(self.iriSet[0] + "#hasIPAddress"), None))
            graph.add((the_connection, URIRef(self.iriSet[0] + "#hasIPAddress"),  Literal(address, datatype=XSD.string)))
