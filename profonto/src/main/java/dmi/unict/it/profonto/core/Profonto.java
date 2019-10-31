@@ -534,7 +534,7 @@ public class Profonto extends OntologyCore
             return -1;
         }
         if(changes.equals(ChangeApplied.SUCCESSFULLY))
-                return 0;
+                return 1;
         return -1;
     }
 
@@ -545,13 +545,14 @@ public class Profonto extends OntologyCore
         {            
             this.getMainManager().saveOntology(ontology);
             this.getMainManager().loadOntology(ontology.getOntologyID().getOntologyIRI().get());
-        } catch (OWLOntologyStorageException ex)
+        } 
+        catch (OWLOntologyStorageException ex)
         {
             Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
         }
         if(changes.equals(ChangeApplied.SUCCESSFULLY))
-                return 0;
+           return 1;
         return -1;
     }
     
@@ -592,7 +593,7 @@ public class Profonto extends OntologyCore
         {
          //   Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
         }        
-        int r=0;        
+        int r=-1;        
         r=addAxiomsToOntology(this.getDataBeliefOntology(), ontology.axioms());
         this.getMainManager().removeOntology(ontology);                
         return r;
@@ -603,7 +604,7 @@ public class Profonto extends OntologyCore
         OWLOntology ontology=this.secureLoadOntology(ontologystring);
         if(ontology==null)
             return -1;
-        int r=0;
+        int r=-1;
        // if(checkHasExecutionStatutInfo(ontology))
        //  r= removeAxiomsFromOntology(this.getDataRequestOntology(), ontology.axioms()); 
        // else

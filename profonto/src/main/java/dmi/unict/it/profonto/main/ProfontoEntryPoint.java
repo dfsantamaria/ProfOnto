@@ -132,7 +132,7 @@ public class ProfontoEntryPoint
     
    public static String addConfiguration(String description)
     {
-       String value="";
+       String value=null;
        if(description.startsWith("http")|| description.startsWith("www"))
            value=ontocore.addDeviceConfiguration(description);
         else
@@ -151,12 +151,13 @@ public class ProfontoEntryPoint
         try
         {
             ontocore.removePermanentUser(id);
-        } catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex)
+        } 
+        catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex)
         {
             Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
         }
-        return 0;
+        return 1;
     }
 
     public static int removeDevice(String id)
@@ -164,12 +165,13 @@ public class ProfontoEntryPoint
         try
         {
             ontocore.removePermanentDevice(id);
-        } catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex)
+        } 
+        catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex)
         {
             Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
         }
-        return 0;
+        return 1;
     }
 
     public static int addDataBelief(String input)
@@ -201,12 +203,12 @@ public class ProfontoEntryPoint
                 res.forEach(x->out.append(x.toString()).append("\n"));
                 return out.toString();
             }
-            return "";
+            return null;
         }
         catch (OWLOntologyCreationException ex)
         {
             Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
-            return "";
+            return null;
         }
     }
     
@@ -221,7 +223,7 @@ public class ProfontoEntryPoint
             Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
         }
-        return 0;
+        return 1;
     }
 
 //    public static String acceptUserRequest(String request, String IRItask, String IRIUser, String IRIExec, String IRIgoalexec)
@@ -262,7 +264,7 @@ public class ProfontoEntryPoint
             Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
           }
-        return 0;
+        return 1;
       }
     
     public static String retrieveAssertions(String individual)
@@ -282,7 +284,7 @@ public class ProfontoEntryPoint
         try
         {
             ontocore.emptyRequestOntology();
-            return 0;
+            return 1;
         } catch (OWLOntologyCreationException | OWLOntologyStorageException | IOException ex)
         {
             Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
@@ -295,11 +297,12 @@ public class ProfontoEntryPoint
         try
           {
             ontocore.setExecutionStatus(execution, status);
-          } catch (OWLOntologyStorageException ex)
+          } 
+        catch (OWLOntologyStorageException ex)
           {            
             Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
           }
-        return 0;
+        return 1;
       }
 }

@@ -15,7 +15,7 @@ from phidias.Main import *
 from phidias.Lib import *
 from datetime import datetime
 
-profonto = ''
+profonto = None
 oasis = 'http://www.dmi.unict.it/oasis.owl#'
 oasisabox = 'http://www.dmi.unict.it/oasis-abox.owl#'
 assistant=''
@@ -37,7 +37,9 @@ def getGraph(value):
 
 def setExecutionStatus(graph):
     for execution, status in graph.subject_objects(predicate=URIRef(oasis + "hasStatus")):
-      profonto.setExecutionStatus(execution, status)
+      ret=profonto.setExecutionStatus(execution, status)
+      if ret<1:
+          print("Execution status of " + execution + "cannot be updated")
 
 def transmitExecutionStatus(execution, status, addr, sock,  server_socket):
     g=Graph()
@@ -82,14 +84,19 @@ def transmitExecutionStatus(execution, status, addr, sock,  server_socket):
    # f=open("test.owl", "w")
    # f.write(g.serialize(format="pretty-xml").decode())
 
-    transmit(g.serialize(format='pretty-xml'), sock, addr,  server_socket)
-    return
+    res=transmit(g.serialize(format='pretty-xml'), sock, addr,  server_socket)
+    server_socket.close()
+    return res
 
 def transmit(data, sock, addr, server_socket):
     print("Sending response to: ", addr, "port ", sock)
-    server_socket.send(data)
+    try:
+        server_socket.send(data)
+    except socket.error:
+        return 0
     #server_socket.close()
-    return
+    else:
+        return 1
 
 
 def generateRequest(reqGraph, iri):
@@ -176,85 +183,130 @@ def device_engage(graph,execution):
 def profhome_decide(graph, execution, addr, sock, server_socket):
     requester = next(graph.objects(execution, URIRef(oasis + "hasTaskObject")))
     for actions in graph.objects(execution, URIRef(oasis + "hasTaskOperator")):
+        res=0
         if actions == URIRef(oasisabox + "install"):
             file = getOntologyFile(graph, execution)
             value = profonto.addDevice(file)  # read the device data
-            print("Device", value, "added.")
-            transmitExecutionStatus(execution, URIRef(oasisabox+"succeded_status"), addr, sock, server_socket)
-            break
+            if value == None:
+                print ("A device cannot be added")
+                res=transmitExecutionStatus(execution, URIRef(oasisabox + "failed_status"), addr, sock, server_socket)
+            else:
+                print("Device", value, "added.")
+                res=transmitExecutionStatus(execution, URIRef(oasisabox+"succeded_status"), addr, sock, server_socket)
+
         elif actions == URIRef(oasisabox + "uninstall"):  # uninstallation task
             #requester = next(graph.objects(execution, URIRef(oasis + "hasTaskObject")))
             value = profonto.removeDevice(retrieveEntityName(requester))  # read the device data
-            print("Device", retrieveEntityName(requester), "removed with exit code", value,".")
-            transmitExecutionStatus(execution, URIRef(oasisabox+"succeded_status"), addr, sock, server_socket)
-            break
+            if int(value) < 1:
+                print("Device", retrieveEntityName(requester)+ " cannot be removed")
+                res=transmitExecutionStatus(execution, URIRef(oasisabox + "failed_status"), addr, sock, server_socket)
+            else:
+                print("Device", retrieveEntityName(requester), "correctly removed")
+                res=transmitExecutionStatus(execution, URIRef(oasisabox+"succeded_status"), addr, sock, server_socket)
+
         elif actions == URIRef(oasisabox + "add") or actions == URIRef(oasisabox + "remove"):  # add user task
              for thetype in graph.objects(requester, URIRef(oasis + "hasType")):
                  if thetype== URIRef(oasisabox + "user_type"): #adding or removing user
                      if actions == URIRef(oasisabox + "add"):
                          file = getOntologyFile(graph, execution)
                          value= profonto.addUser(file)
-                         profonto.setExecutionStatus(execution, URIRef(oasisabox+"succeded_status"), )
-                         transmitExecutionStatus(execution,URIRef(oasisabox+"succeded_status"), addr, sock,  server_socket)
-                         print("User", value, "added.")
+                         if value==None:
+                             print ("A user cannot be added")
+                             res=transmitExecutionStatus(execution, URIRef(oasisabox + "failed_status"), addr, sock,
+                                                     server_socket)
+                         else:
+                            profonto.setExecutionStatus(execution, URIRef(oasisabox+"succeded_status"), )
+                            res=transmitExecutionStatus(execution,URIRef(oasisabox+"succeded_status"), addr, sock,  server_socket)
+                            print("User", value, "added.")
                      elif actions == URIRef(oasisabox + "remove"):
                           value=profonto.removeUser(retrieveEntityName(requester))
-                          profonto.setExecutionStatus(execution, URIRef(oasisabox+"succeded_status"))
-                          transmitExecutionStatus(execution, URIRef(oasisabox+"succeded_status"), addr, sock,  server_socket)
-                          print("User", retrieveEntityName(requester), "removed with exit code", value, ".")
+                          if int(value) < 1:
+                              print("User " + retrieveEntityName(requester)+ " cannot be removed")
+                              res=transmitExecutionStatus(execution, URIRef(oasisabox + "failed_status"), addr, sock,
+                                                      server_socket)
+                          else:
+                             profonto.setExecutionStatus(execution, URIRef(oasisabox+"succeded_status"))
+                             res=transmitExecutionStatus(execution, URIRef(oasisabox+"succeded_status"), addr, sock,  server_socket)
+                             print("User", retrieveEntityName(requester), "correctly removed")
                  elif thetype == URIRef(oasisabox + "user_configuration_type"):  # adding or removing user
                      if actions == URIRef(oasisabox + "add"):
                          file = getOntologyFile(graph, execution)
                          value= profonto.addConfiguration(file)
-                         profonto.setExecutionStatus(execution, URIRef(oasisabox+"succeded_status"))
-                         transmitExecutionStatus(execution, "succeded_status", addr, sock,  server_socket)
-                         print("Configuration added:", value,".")
+                         if value== None:
+                             print("A configuration cannot be added")
+                             res=transmitExecutionStatus(execution, URIRef(oasisabox + "failed_status"), addr, sock,
+                                                     server_socket)
+                         else:
+                             profonto.setExecutionStatus(execution, URIRef(oasisabox+"succeded_status"))
+                             res=transmitExecutionStatus(execution, "succeded_status", addr, sock,  server_socket)
+                             print("Configuration added:", value,".")
                      elif actions == URIRef(oasisabox + "remove"):
                          value = profonto.removeConfiguration(retrieveEntityName(requester))
-                         profonto.setExecutionStatus(execution, URIRef(oasisabox+"succeded_status"))
-                         transmitExecutionStatus(execution, URIRef(oasisabox+"succeded_status"), addr, sock,  server_socket)
-                         print("Configuration", retrieveEntityName(requester), "removed.")
+                         if int(value) < 1:
+                             print("A configuration cannot be removed")
+                             res=transmitExecutionStatus(execution, URIRef(oasisabox + "failed_status"), addr, sock,
+                                                     server_socket)
+                         else:
+                             profonto.setExecutionStatus(execution, URIRef(oasisabox+"succeded_status"))
+                             res=transmitExecutionStatus(execution, URIRef(oasisabox+"succeded_status"), addr, sock,  server_socket)
+                             print("Configuration", retrieveEntityName(requester), "correctly removed.")
                  elif  thetype == URIRef(oasisabox + "belief_description_object_type"):
                       file = getOntologyFile(graph, execution)
                       if actions == URIRef(oasisabox + "add"):
                          value = profonto.addDataBelief(file)
-                         profonto.setExecutionStatus(execution, URIRef(oasisabox+"succeded_status"))
-                         transmitExecutionStatus(execution, URIRef(oasisabox+"succeded_status"), addr, sock,  server_socket)
-                         print("Belief  added with exit code", value)
+                         if int(value) < 1:
+                             print("Data belief cannot be added")
+                             res=transmitExecutionStatus(execution, URIRef(oasisabox + "failed_status"), addr, sock,
+                                                     server_socket)
+                         else:
+                             profonto.setExecutionStatus(execution, URIRef(oasisabox+"succeded_status"))
+                             res=transmitExecutionStatus(execution, URIRef(oasisabox+"succeded_status"), addr, sock,  server_socket)
+                             print("Belief  correctly added")
                       elif actions == URIRef(oasisabox + "remove"):
                          value = profonto.removeDataBelief(file)
-                         profonto.setExecutionStatus(execution, URIRef(oasisabox+"succeded_status"))
-                         transmitExecutionStatus(execution, URIRef(oasisabox+"succeded_status"), addr, sock,  server_socket)
-                         print("Belief removed with exit code", value)
-                 break
+                         if int(value) < 1:
+                             print("Belief cannot be removed")
+                             res=transmitExecutionStatus(execution, URIRef(oasisabox + "failed_status"), addr, sock,
+                                                     server_socket)
+                         else:
+                             profonto.setExecutionStatus(execution, URIRef(oasisabox+"succeded_status"))
+                             res=transmitExecutionStatus(execution, URIRef(oasisabox+"succeded_status"), addr, sock,  server_socket)
+                             print("Belief correctly removed")
+
         elif actions == URIRef(oasisabox + "parse"):
             for thetype in graph.objects(requester, URIRef(oasis + "hasType")):
                 if thetype == URIRef(oasisabox + "generalUtterance"):
                     print("General utterances parser is being developed... stay tuned!")
-                    transmitExecutionStatus(execution, URIRef(oasisabox+"failed_status"), addr, sock, server_socket)
-                    break
+                    res=transmitExecutionStatus(execution, URIRef(oasisabox+"failed_status"), addr, sock, server_socket)
+
         elif actions == URIRef(oasisabox + "retrieve"):
             for thetype in graph.objects(requester, URIRef(oasis + "hasType")):
                 if thetype == URIRef(oasisabox + "belief_description_object_type"):
                     file = getOntologyFile(graph, execution)
                     value = profonto.retrieveDataBelief(file)
-                    profonto.setExecutionStatus(execution, URIRef(oasisabox+"succeded_status"))
-                    transmitExecutionStatus(execution, URIRef(oasisabox+"succeded_status"), addr, sock,  server_socket)
-                    print("Belief retrieved:\n"+ value)
+                    if value == None:
+                        print ("Belief cannot be retrieved")
+                        res=transmitExecutionStatus(execution, URIRef(oasisabox + "failed_status"), addr, sock,
+                                                server_socket)
+                    else:
+                        profonto.setExecutionStatus(execution, URIRef(oasisabox+"succeded_status"))
+                        res=transmitExecutionStatus(execution, URIRef(oasisabox+"succeded_status"), addr, sock,  server_socket)
+                        print("Belief retrieved:\n"+ value)
 
         else:
             print("Action", actions, "not supported yet")
-            transmitExecutionStatus(execution, URIRef(oasisabox+"failed_status"), addr, sock, server_socket)
-            break
+            res=transmitExecutionStatus(execution, URIRef(oasisabox+"failed_status"), addr, sock, server_socket)
 
+        if res < 1:
+            print("Execution status cannot be transmitted")
 #Decide which decision has to be taken
 class Decide_Action(Action):
     def execute(self, rdf_source, sock, addr, server_socket):
        value = profonto.parseRequest(rdf_source())[0]
        #print("Client send request:", value)
-       if value == '' or value==None:
-           print ("Received data from " + str(addr()) + " " + str(sock()))
-           return
+       if value==None:
+          print ("Received data from " + str(addr()) + " " + str(sock()))
+          return
 
        g = getGraph(value)
 
@@ -274,7 +326,10 @@ class Decide_Action(Action):
                   message = device_engage(g, execution)
                   transmit(message,sock(),addr(),server_socket())
                   belief=profonto.parseRequest(message.decode())[1]
-                  profonto.addDataBelief(belief)
+                  if belief == None:
+                      print("A belief from "+ execution+" cannot be added")
+                  else:
+                      profonto.addDataBelief(belief)
                   #print(belief)
 
 
@@ -372,12 +427,14 @@ print(open("amens/logo.txt", "r").read())
 #Adding HomeAssistant
 home=readOntoFile("ontologies/test/homeassistant.owl")
 assistant = profonto.addDevice(home)  #read the device data
-sarray = profonto.getConnectionInfo(assistant)
-host = sarray[0]
-port = sarray[1]
-
-print("Home assistant added:", assistant, "at ", host, port)
+if assistant==None:
+    print("The assistant cannot be started")
+else:
+    sarray = profonto.getConnectionInfo(assistant)
+    host = sarray[0]
+    port = sarray[1]
+    print("Home assistant added:", assistant, "at ", host, port)
 ###
 
-init_server()
+    init_server()
 
