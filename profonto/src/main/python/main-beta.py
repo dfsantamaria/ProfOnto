@@ -272,12 +272,18 @@ def profhome_decide(graph, execution, addr, sock, server_socket):
                              profonto.setExecutionStatus(execution, URIRef(oasisabox+"succeded_status"))
                              res=transmitExecutionStatus(execution, URIRef(oasisabox+"succeded_status"), addr, sock,  server_socket)
                              print("Belief correctly removed")
+                 else:
+                     res = transmitExecutionStatus(execution, URIRef(oasisabox + "failed_status"), addr, sock,
+                                                   server_socket)
 
         elif actions == URIRef(oasisabox + "parse"):
             for thetype in graph.objects(requester, URIRef(oasis + "hasType")):
                 if thetype == URIRef(oasisabox + "generalUtterance"):
                     print("General utterances parser is being developed... stay tuned!")
                     res=transmitExecutionStatus(execution, URIRef(oasisabox+"failed_status"), addr, sock, server_socket)
+                else:
+                    res = transmitExecutionStatus(execution, URIRef(oasisabox + "failed_status"), addr, sock,
+                                                  server_socket)
 
         elif actions == URIRef(oasisabox + "retrieve"):
             for thetype in graph.objects(requester, URIRef(oasis + "hasType")):
@@ -292,7 +298,18 @@ def profhome_decide(graph, execution, addr, sock, server_socket):
                         profonto.setExecutionStatus(execution, URIRef(oasisabox+"succeded_status"))
                         res=transmitExecutionStatus(execution, URIRef(oasisabox+"succeded_status"), addr, sock,  server_socket)
                         print("Belief retrieved:\n"+ value)
-
+                else:
+                    res = transmitExecutionStatus(execution, URIRef(oasisabox + "failed_status"), addr, sock,
+                                              server_socket)
+        elif actions == URIRef(oasisabox + "check"):
+            for argument in graph.objects(execution, URIRef(oasis + "hasOperatorArgument")):
+                if argument == URIRef(oasisabox + "installation"):
+                    print("Checking for the presence of ", requester)
+                    res = transmitExecutionStatus(execution, URIRef(oasisabox + "failed_status"), addr, sock,
+                                                  server_socket)
+                else:
+                    res = transmitExecutionStatus(execution, URIRef(oasisabox + "failed_status"), addr, sock,
+                                                  server_socket)
         else:
             print("Action", actions, "not supported yet")
             res=transmitExecutionStatus(execution, URIRef(oasisabox+"failed_status"), addr, sock, server_socket)
