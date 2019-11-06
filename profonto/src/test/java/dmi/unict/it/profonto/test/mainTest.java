@@ -163,11 +163,17 @@ public class mainTest
 //          {
 //            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
 //          }
+
+         request=readData("ontologies/test/light-check-install-request.owl");   
+         System.out.println("Check install request:");
+         OWLOntology out=((OWLOntology) ontocore.parseRequest(request)[0]);          
+         res= out.axioms();         
+         res.forEach(System.out::println);   
         
          
          request=readData("ontologies/test/user-request-2.owl");   
          System.out.println("Parse user request:");
-         OWLOntology out=((OWLOntology) ontocore.parseRequest(request)[0]);          
+         out=((OWLOntology) ontocore.parseRequest(request)[0]);          
          res= out.axioms();         
          res.forEach(System.out::println);   
 

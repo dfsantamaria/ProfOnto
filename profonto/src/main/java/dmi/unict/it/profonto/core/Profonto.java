@@ -1472,6 +1472,7 @@ public class Profonto extends OntologyCore
                     qs.getResource("device_object").getURI(),
                     null, //qs.getResource("obtype").getURI(),
                     //qs.getResource("hasTask").getURI(),  
+                    null,
                     null
                   };                
 
@@ -1514,6 +1515,11 @@ public class Profonto extends OntologyCore
                   //this.getMainManager().removeOntology(belief);
                 }
                 
+                r=qs.getResource("argument"); //case of operator argument              
+                if(r!=null)
+                {
+                  subqueryParam[6]=r.getURI();
+                }
                 query += "CONSTRUCT {\n";
 
                 for (String s : subqueryParam)
@@ -1530,6 +1536,11 @@ public class Profonto extends OntologyCore
                     query += taskExec + " prof:hasTaskInputParameter " + " <" + subqueryParam[4] + "> .";
                   }                            
 
+                if(subqueryParam[6]!=null)
+                  {
+                   query += taskExec + " prof:hasOperatorArgument " + " <" + subqueryParam[6] + "> .";
+                  }
+                
                 query += this.getQueries().get("construct01.sparql").replaceAll("//taskexec//", " " + taskExec + " ")
                         .replaceAll("//param1//", " <" + subqueryParam[1] + "> ")
                         .replaceAll("//param2//", " <" + subqueryParam[2] + "> ")
@@ -1540,10 +1551,17 @@ public class Profonto extends OntologyCore
                 query += this.getQueries().get("body02c.sparql").replaceAll("//operation//", "<" + subqueryParam[2] + ">")
                         .replaceAll("//taskrequest//", " <" + subqueryParam[3] + "> ");
 
-                if(subqueryParam[5] != null )
+                if(subqueryParam[5] != null)
                  {                     
-                    query+=this.getQueries().get("body02e.sparql").replaceAll("//paramt//", " <"+ subqueryParam[5]+"> ");
+                    query+=this.getQueries().get("body02e.sparql").replaceAll("//paramt//", " <"+ subqueryParam[5]+"> \n");
                  }
+                
+                if(subqueryParam[6] != null)
+                 {                     
+                    query+="?task prof:hasOperatorArgument <"+subqueryParam[6]+"> .\n";
+                 }
+                
+                
                 
                 if (configs.size() > 0)
                   {

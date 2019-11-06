@@ -1,4 +1,4 @@
-SELECT ?selected_device ?task ?operation ?device_object ?tparameter ?obtype ?paramtype ?thecontent
+SELECT ?selected_device ?task ?operation ?device_object ?tparameter ?obtype ?paramtype ?thecontent ?argument
 WHERE
  { 
 ?selected_device prof:requests ?plan .
@@ -11,4 +11,5 @@ OPTIONAL { ?task prof:hasTaskInputParameter ?tparameter .
            OPTIONAL { ?tparameter prof:hasType ?paramtype . } 
            OPTIONAL { ?tparameter prof:refersTo ?thecontent . }
          }
+OPTIONAL { ?task prof:hasOperatorArgument ?argument .}         
 }
