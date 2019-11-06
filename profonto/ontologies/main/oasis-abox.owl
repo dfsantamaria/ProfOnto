@@ -14,10 +14,16 @@
     <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
     <Import>http://www.dmi.unict.it/oasis.owl/0.0.1</Import>
     <Declaration>
+        <Class IRI="#OperatorArgumentType"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="#add"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#belief_description_object_type"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#check"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#device_configuration_type"/>
@@ -39,6 +45,9 @@
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#install"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="#installation"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#light_component_type"/>
@@ -67,6 +76,10 @@
     <Declaration>
         <NamedIndividual IRI="#user_type"/>
     </Declaration>
+    <SubClassOf>
+        <Class IRI="#OperatorArgumentType"/>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#Type"/>
+    </SubClassOf>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
         <NamedIndividual IRI="#add"/>
@@ -74,6 +87,10 @@
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#InformationObjectType"/>
         <NamedIndividual IRI="#belief_description_object_type"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
+        <NamedIndividual IRI="#check"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#ConfigurationType"/>
@@ -102,6 +119,10 @@
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
         <NamedIndividual IRI="#install"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#OperatorArgument"/>
+        <NamedIndividual IRI="#installation"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#LightComponentType"/>
