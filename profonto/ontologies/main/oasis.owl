@@ -1241,6 +1241,10 @@
         <Class IRI="#MessageDescriptor"/>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#MessageOperator"/>
+        <Class IRI="#Operator"/>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#MessageOperatorArgument"/>
         <Class IRI="#OperatorArgument"/>
     </SubClassOf>
