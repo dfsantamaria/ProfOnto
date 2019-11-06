@@ -15,12 +15,10 @@ import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
-import org.semanticweb.owlapi.apibinding.OWLManager;
 import org.semanticweb.owlapi.formats.RDFXMLDocumentFormat;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
-import org.semanticweb.owlapi.model.OWLOntologyManager;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 import py4j.GatewayServer;
 
@@ -90,6 +88,12 @@ public class ProfontoEntryPoint
         }
     }
 
+    
+    public static int checkDevice(String uridevice)
+    {
+      return ontocore.checkDeviceInstallation(uridevice);
+    }
+    
     public static InputStream getInputStream(String description)
     {
         InputStream inputstream = null;

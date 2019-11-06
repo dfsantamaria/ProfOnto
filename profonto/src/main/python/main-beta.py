@@ -305,8 +305,15 @@ def profhome_decide(graph, execution, addr, sock, server_socket):
             for argument in graph.objects(execution, URIRef(oasis + "hasOperatorArgument")):
                 if argument == URIRef(oasisabox + "installation"):
                     print("Checking for the presence of ", requester)
-                    res = transmitExecutionStatus(execution, URIRef(oasisabox + "failed_status"), addr, sock,
+                    isPresent=profonto.checkDevice(requester)
+                    if isPresent == 1:
+                        res = transmitExecutionStatus(execution, URIRef(oasisabox + "succeded_status"), addr, sock,
+                                                      server_socket)
+                        print("Device ", requester, " is installed")
+                    else:
+                        res = transmitExecutionStatus(execution, URIRef(oasisabox + "failed_status"), addr, sock,
                                                   server_socket)
+                        print("Device ", requester, " is not installed")
                 else:
                     res = transmitExecutionStatus(execution, URIRef(oasisabox + "failed_status"), addr, sock,
                                                   server_socket)

@@ -169,7 +169,7 @@ public class mainTest
          OWLOntology out=((OWLOntology) ontocore.parseRequest(request)[0]);          
          res= out.axioms();         
          res.forEach(System.out::println);   
-        
+          System.out.println(ontocore.checkDeviceInstallation("http://www.dmi.unict.it/lightagent.owl#light-device"));
          
          request=readData("ontologies/test/user-request-2.owl");   
          System.out.println("Parse user request:");
@@ -208,16 +208,21 @@ public class mainTest
         try
         {
             ontocore.emptyRequestOntology();
-         } catch (OWLOntologyCreationException ex)
+         }
+        catch (OWLOntologyCreationException | OWLOntologyStorageException | IOException ex)
         {
             Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (OWLOntologyStorageException ex)
-        {
-            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex)
-        {
-            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
-        }     
+        }
+//        try
+//          {
+//            ontocore.removePermanentDevice(id);
+//
+//          }
+//        catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex)
+//          {
+//            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
+//          }
+             
             
             
 //        try

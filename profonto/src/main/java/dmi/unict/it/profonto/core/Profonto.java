@@ -773,6 +773,15 @@ public class Profonto extends OntologyCore
     return value;
     }
     
+    
+    public int checkDeviceInstallation(String uridevice)
+      {       
+        for (Map.Entry pair : devices.entrySet())          
+         if((((String)pair.getValue())+"#"+((String)pair.getKey())).equals(uridevice))                    
+                return 1;                   
+        return 0;
+      }
+    
     /**
      * insert a new device given its ontology data
      *
