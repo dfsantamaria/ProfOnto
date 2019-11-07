@@ -1472,6 +1472,8 @@ public class Profonto extends OntologyCore
             while (setIRI.hasNext())
               {                
                 String query = prefix;
+                String querytail="";
+                String querybody="";
                 QuerySolution qs = setIRI.next();
                 String[] subqueryParam =
                   {
@@ -1493,18 +1495,23 @@ public class Profonto extends OntologyCore
                     theobject = " ?device_object ";
                   }
                 
+                String taskExec = "<" + subqueryParam[1] + "_execution>";
+                 
                 Resource r = qs.getResource("tparameter");
                 if (r != null)
                   {
                     subqueryParam[4] = r.getURI();
                     axioms = retrieveAssertions(subqueryParam[4], ontology.axioms());
+                    querybody += taskExec + " prof:hasTaskInputParameter " + " <" + subqueryParam[4] + "> .";
                   }
                 r=qs.getResource("paramtype");
                 if(r!=null)
                 {
                   subqueryParam[5]=r.getURI();
+                  querytail+=this.getQueries().get("body02e.sparql").replaceAll("//paramt//", " <"+ subqueryParam[5]+"> \n");
                 }
                
+                         
                 r=qs.getResource("thecontent"); //case of belief with refersTo                
                 if(r!=null)
                 {
@@ -1523,12 +1530,17 @@ public class Profonto extends OntologyCore
                   toreturn[1]=belief;
                   //this.getMainManager().removeOntology(belief);
                 }
-                
+               
                 r=qs.getResource("argument"); //case of operator argument              
                 if(r!=null)
                 {
                   subqueryParam[6]=r.getURI();
+                  querytail+="?task prof:hasOperatorArgument <"+subqueryParam[6]+"> .\n";
+                  querybody += taskExec + " prof:hasOperatorArgument " + " <" + subqueryParam[6] + "> .";
+                
                 }
+                                                                           
+                
                 query += "CONSTRUCT {\n";
 
                 for (String s : subqueryParam)
@@ -1538,17 +1550,8 @@ public class Profonto extends OntologyCore
                         query += "<" + s + "> " + "rdf:type owl:NamedIndividual. \n";
                       }
                   }
-
-                String taskExec = "<" + subqueryParam[1] + "_execution>";
-                if (subqueryParam[4] != null)
-                  {
-                    query += taskExec + " prof:hasTaskInputParameter " + " <" + subqueryParam[4] + "> .";
-                  }                            
-
-                if(subqueryParam[6]!=null)
-                  {
-                   query += taskExec + " prof:hasOperatorArgument " + " <" + subqueryParam[6] + "> .";
-                  }
+                
+                query+=querybody;
                 
                 query += this.getQueries().get("construct01.sparql").replaceAll("//taskexec//", " " + taskExec + " ")
                         .replaceAll("//param1//", " <" + subqueryParam[1] + "> ")
@@ -1560,16 +1563,8 @@ public class Profonto extends OntologyCore
                 query += this.getQueries().get("body02c.sparql").replaceAll("//operation//", "<" + subqueryParam[2] + ">")
                         .replaceAll("//taskrequest//", " <" + subqueryParam[3] + "> ");
 
-                if(subqueryParam[5] != null)
-                 {                     
-                    query+=this.getQueries().get("body02e.sparql").replaceAll("//paramt//", " <"+ subqueryParam[5]+"> \n");
-                 }
-                
-                if(subqueryParam[6] != null)
-                 {                     
-                    query+="?task prof:hasOperatorArgument <"+subqueryParam[6]+"> .\n";
-                 }
-                
+                                     
+                query+=querytail;           
                 
                 
                 if (configs.size() > 0)
