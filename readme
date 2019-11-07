@@ -68,6 +68,7 @@ Instructions:
         
    3.1) The file "main-beta.py" in the folder "target/python" runs a beta version of the domotic assistant. Currently it can 
          - install and uninistall devices;
+         - check for devices installation;
          - add and remove users;
          - add and remove configurations.
          - add, remove, and retrieve believes.
@@ -92,8 +93,9 @@ Instructions:
           Then, type
    
           -> set hub [address] [port] # to specify the address and port of the assistant that by default is set to localhost, 8000
-          -> install                  # to show the behavior of the agent to the assistant
+          -> install                  # to transmit the behavior of the agent to the assistant
           -> status                   # to know the status of the device
+          -> check install            # to verify that the device has been recognized by the assistant
           
           From now on, any compatible request will be displayed by the agent with a print.
           
