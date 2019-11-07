@@ -248,6 +248,47 @@ class Agent(Thread):
         return
 
 
+    def check_install(self):
+        if(self.hubInfo[0]=='' or self.hubInfo[1]==''):
+           return 0
+        timestamp = Utils.getTimeStamp(Utils)
+        reqGraph = rdflib.Graph()
+        iri= str(self.iriSet[2]).rsplit('.',1)[0]+"-request"+timestamp+".owl"
+        reqGraph.add((URIRef(iri), RDF.type, OWL.Ontology))
+        reqGraph.add((URIRef(iri), OWL.imports, URIRef(self.iriSet[0])))
+        reqGraph.add((URIRef(iri), OWL.imports, URIRef(self.iriSet[1])))
+
+        Utils.generateRequest(Utils,reqGraph, iri, self.iriSet)
+
+        agent = URIRef(self.iriSet[2] + "#" + self.agentInfo[0])
+        reqGraph.add((agent, RDF.type, URIRef(self.iriSet[0] + "#Device")))  # has request
+
+        request = URIRef(iri + "#request")  # the request
+        reqGraph.add((URIRef(self.iriSet[0] + "#requests"), RDF.type, Utils.owlobj))
+        reqGraph.add((agent, URIRef(self.iriSet[0] + "#requests"), request))  # has request
+
+        task = URIRef(iri+ "#task")  # the task
+        reqGraph.add((URIRef(self.iriSet[0] + "#hasTaskOperator"), RDF.type, Utils.owlobj))
+        reqGraph.add((task, URIRef(self.iriSet[0] + "#hasTaskOperator"), URIRef(self.iriSet[1] + "#check")))  # task operator
+
+        reqGraph.add((URIRef(self.iriSet[0] + "#hasTaskObject"), RDF.type, Utils.owlobj))
+        reqGraph.add((task, URIRef(self.iriSet[0] + "#hasTaskObject"), agent ))  # task object
+        reqGraph.add((agent, URIRef(self.iriSet[0] + "#hasType"), URIRef(self.iriSet[1] + "#device_type") ))  # task object
+
+        reqGraph.add((URIRef(self.iriSet[0] + "#hasOperatorArgument"), RDF.type, Utils.owlobj))
+        reqGraph.add((task, URIRef(self.iriSet[0] + "#hasOperatorArgument"), URIRef(self.iriSet[1] + "#installation")))  # argument
+
+        tosend = Utils.libbug(Utils,timestamp, reqGraph,  iri)  # transmits config solving the rdflib bug of xml:base
+        received= Utils.transmit(Utils,tosend.encode(), True, self.hubInfo)
+        if received == None:
+           return 0
+        g = rdflib.Graph()
+        g.parse(data=received)
+        for s, b in g.subject_objects(URIRef(self.iriSet[0] + "#hasStatus")):
+            if str(b) == self.iriSet[1] + "#succeded_status":
+               return 1
+        return 0
+
     def install_device(self):
         if(self.hubInfo[0]=='' or self.hubInfo[1]==''):
            return 0
@@ -434,6 +475,9 @@ class Console(Thread):
     def install_device(self, agent):
         return agent.install_device()
 
+    def check_install(self, agent):
+        return agent.check_install()
+
     def uninstall_device(self, agent):
         return agent.uninstall_device()
 
@@ -477,13 +521,13 @@ class Console(Thread):
                    if( self.install_device(agent)):
                        print("Device installation complete")
                    else:
-                       print("Device cannot be installed. Make sure the hub is correctly set.")
+                       print("Device cannot be installed. Make sure the hub is correctly set")
             elif command == "uninstall":
                 if self.checkAgent(agent):
                     if (self.uninstall_device(agent)):
                         print("Device uninstallation complete")
                     else:
-                        print("Device cannot be uninstalled. Make sure the hub is correctly set.")
+                        print("Device cannot be uninstalled. Make sure the hub is correctly set")
             elif command.startswith("set hub"):
                 if not self.checkAgent(agent):
                    continue
@@ -492,9 +536,16 @@ class Console(Thread):
                    print("The hub is located at address ", parms[2], "port ", parms[3])
                 else:
                    print ("The hub cannot be configured, check the parameters")
+
+            elif command == "check install":
+                if self.checkAgent(agent):
+                    if (self.check_install(agent)):
+                        print("The device is installed")
+                    else:
+                        print("The device is not installed")
             else:
                 print("Unrecognized command")
-                print("Use start | start [address] [port] | stop | status | install | uninstall | set hub [address] [port]")
+                print("Use start | start [address] [port] | stop | status | install | uninstall | set hub [address] [port] | check install")
             time.sleep(1)
         return
 
