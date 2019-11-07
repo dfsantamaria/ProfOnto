@@ -39,7 +39,7 @@ class ServerManager(Thread):
 
         task = URIRef(iri + "#task")  # the task
         object = URIRef(iri + "#belief-data")  # the task
-        Utils.generateRequest(None, reqGraph, iri, self.agent.iriSet, task, object, URIRef(self.agent.iriSet[1] + "#add"), None)
+        Utils.generateRequest(None, reqGraph, iri, self.agent.iriSet, task, object, URIRef(self.agent.iriSet[1] + "#add"), None, None)
 
         agent = URIRef(self.agent.iriSet[2] + "#" + self.agent.agentInfo[0])
         reqGraph.add((agent, RDF.type, URIRef(self.agent.iriSet[0] + "#Device")))  # has request
@@ -127,14 +127,13 @@ class Utils():
     def getTimeStamp(self):
         return  (str(datetime.timestamp(datetime.now()))).replace(".", "-")
 
-    def generateRequest(self, reqGraph, iri, iriSet, task, object, operator, parameter):
+    def generateRequest(self, reqGraph, iri, iriSet, task, object, operator, argument, parameter):
 
         request = URIRef(iri+"#request")             #the request
         reqGraph.add(( request, RDF.type, URIRef(iriSet[0]+"#PlanDescription")))  # request type
 
         goal = URIRef(iri + "#goal")  # the goal
         reqGraph.add((goal, RDF.type, URIRef(iriSet[0] + "#GoalDescription")))  # goal type
-
 
         reqGraph.add((task, RDF.type, URIRef(iriSet[0] + "#TaskDescription")))  # task type
 
@@ -156,7 +155,14 @@ class Utils():
            reqGraph.add((parameter, RDF.type, URIRef(iriSet[0] + "#TaskInputParameter")))
            reqGraph.add((URIRef(iriSet[0] + "#hasTaskInputParameter"), RDF.type, Utils.owlobj))
            reqGraph.add((task, URIRef(iriSet[0] + "#hasTaskInputParameter"), parameter))  # task parameter
+
+
+        if argument is not None:
+            reqGraph.add((URIRef(iriSet[0] + "#hasOperatorArgument"), RDF.type, Utils.owlobj))
+            reqGraph.add((task, URIRef(iriSet[0] + "#hasOperatorArgument"), argument))  # argument
+
         return
+
 
     def transmit(self, data, response, hubInfo):
         # print(data)
@@ -264,7 +270,8 @@ class Agent(Thread):
         task = URIRef(iri + "#task")  # the task
         agent = URIRef(self.iriSet[2] + "#" + self.agentInfo[0])
         reqGraph.add((agent, URIRef(self.iriSet[0] + "#hasType"), URIRef(self.iriSet[1] + "#device_type") ))  # task object
-        Utils.generateRequest(Utils,reqGraph, iri, self.iriSet, task, agent, URIRef(self.iriSet[1] + "#check"), None)
+
+        Utils.generateRequest(Utils,reqGraph, iri, self.iriSet, task, agent, URIRef(self.iriSet[1] + "#check"), URIRef(self.iriSet[1] + "#installation"), None)
 
         agent = URIRef(self.iriSet[2] + "#" + self.agentInfo[0])
         reqGraph.add((agent, RDF.type, URIRef(self.iriSet[0] + "#Device")))  # has request
@@ -272,9 +279,6 @@ class Agent(Thread):
         request = URIRef(iri + "#request")  # the request
         reqGraph.add((URIRef(self.iriSet[0] + "#requests"), RDF.type, Utils.owlobj))
         reqGraph.add((agent, URIRef(self.iriSet[0] + "#requests"), request))  # has request
-
-        reqGraph.add((URIRef(self.iriSet[0] + "#hasOperatorArgument"), RDF.type, Utils.owlobj))
-        reqGraph.add((task, URIRef(self.iriSet[0] + "#hasOperatorArgument"), URIRef(self.iriSet[1] + "#installation")))  # argument
 
         tosend = Utils.libbug(Utils,timestamp, reqGraph,  iri)  # transmits config solving the rdflib bug of xml:base
         received= Utils.transmit(Utils,tosend.encode(), True, self.hubInfo)
@@ -315,7 +319,7 @@ class Agent(Thread):
         reqGraph.add(
             (agent, URIRef(self.iriSet[0] + "#hasType"), URIRef(self.iriSet[1] + "#device_type")))  # task object
         parameter = URIRef(iri +"#parameter")  # the parameter
-        Utils.generateRequest(Utils,reqGraph, iri, self.iriSet, task, agent,URIRef(self.iriSet[1] + "#install"), parameter )
+        Utils.generateRequest(Utils,reqGraph, iri, self.iriSet, task, agent,URIRef(self.iriSet[1] + "#install"), None, parameter )
 
         agent = URIRef(self.iriSet[2] + "#" + self.agentInfo[0])
         reqGraph.add((agent, RDF.type, URIRef(self.iriSet[0] + "#Device")))  # has request
@@ -362,7 +366,7 @@ class Agent(Thread):
         #    reqGraph.add((URIRef(iri), OWL.imports, URIRef(self.iriSet[4])))
         task = URIRef(iri + "#task")  # the task
         agent = URIRef(self.iriSet[2] + "#" + self.agentInfo[0])
-        Utils.generateRequest(Utils, reqGraph, iri, self.iriSet, task, agent, URIRef(self.iriSet[1] + "#uninstall"), None)
+        Utils.generateRequest(Utils, reqGraph, iri, self.iriSet, task, agent, URIRef(self.iriSet[1] + "#uninstall"), None, None)
 
         agent = URIRef(self.iriSet[2] + "#" + self.agentInfo[0])
         reqGraph.add(
