@@ -490,10 +490,12 @@ class Console(Thread):
             command = input(" ---> ").strip()
             if command.startswith("start"):
                 parms = command.split();
-                if(len(parms)>1):
+                if( len(parms)==1):
+                  agent = self.start_command(None, None) #default address, port
+                elif(len(parms)==3):
                   agent = self.start_command(parms[1], parms[2])
                 else:
-                  agent = self.start_command(None, None)
+                  print("Use: start | start address port")
             elif command == "stop":
                 self.stop_command(agent)
             elif command == "exit":
@@ -520,11 +522,13 @@ class Console(Thread):
                 if not self.checkAgent(agent):
                    continue
                 parms=command.split();
-                if self.set_hub(agent, parms[2], parms[3]):
-                   print("The hub is located at address ", parms[2], "port ", parms[3])
-                else:
+                if len(parms)==4:
+                  if self.set_hub(agent, parms[2], parms[3]):
+                    print("The hub is located at address ", parms[2], "port ", parms[3])
+                  else:
                    print ("The hub cannot be configured, check the parameters")
-
+                else:
+                    print("Use: set hub address port")
             elif command == "check install":
                 if self.checkAgent(agent):
                     if (self.check_install(agent)):
