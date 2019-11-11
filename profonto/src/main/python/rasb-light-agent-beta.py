@@ -430,11 +430,6 @@ class Agent(Thread):
 
     #############################################################################################
 
-def setTestPath(self):
-    p = Path(__file__).parents[1]
-    os.chdir(p)
-    return
-
 
 
 class Console(Thread):
@@ -481,8 +476,13 @@ class Console(Thread):
             return 0
         return 1
 
+    def setTestPath(self):
+        p = Path(__file__).parents[1]
+        os.chdir(p)
+        return
 
     def run(self):
+        self.setTestPath()
         agent = None
         exec_status = True
         while (exec_status):
@@ -537,12 +537,11 @@ class Console(Thread):
                         print("The device is not installed")
             else:
                 print("Unrecognized command")
-                print("Use start | start [address] [port] | stop | status | install | uninstall | set hub [address] [port] | check install")
+                print("Use start | start [address] [port] | stop | exit | status | install | uninstall | set hub [address] [port] | check install")
             time.sleep(1)
         return
 
 def main():
-     setTestPath('')
      Console()
 
 if __name__ == '__main__':

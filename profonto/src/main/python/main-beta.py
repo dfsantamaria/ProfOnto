@@ -13,30 +13,36 @@ from threading import *
 from datetime import datetime
 
 
-class client(Thread):
-    def __init__(self, prof, socket, address, server_socket):
-        Thread.__init__(self)
-        self.sock = socket
-        self.addr = address
-        self.server_socket = server_socket
-        self.prof = prof
-        self.start()
-
-    def run(self):
-        request = Utils.recvall(Utils, self.sock).decode()
-        self.prof.decide(request, self.addr[1], self.addr[0], self.sock)
+# class client(Thread):
+#     def __init__(self, prof, socket, address, server_socket):
+#         Thread.__init__(self)
+#         self.sock = socket
+#         self.addr = address
+#         self.server_socket = server_socket
+#         self.prof = prof
+#         self.start()
+#
+#     def run(self):
+#         request = Utils.recvall(Utils, self.sock).decode()
+#         self.prof.decide(request, self.addr[1], self.addr[0], self.sock)
 
 
 class ProfOnto (Thread):
-    def __init__(self):
+    def __init__(self, oasis, oasiabox):
+        Thread.__init__(self)
         self.profonto = None
-        self.oasis = 'http://www.dmi.unict.it/oasis.owl#'
-        self.oasisabox = 'http://www.dmi.unict.it/oasis-abox.owl#'
+        self.oasis = oasis
+        self.oasisabox = oasiabox
         self.assistant=''
         self.host = None
         self.port = None
         self.owlobj=URIRef("http://www.w3.org/2002/07/owl#ObjectProperty")
         self.owldat=URIRef("http://www.w3.org/2002/07/owl#DatatypeProperty")
+        self.alive=True
+        self.start()
+
+
+    def run(self):
         self.init_gateway()
         print(open("amens/logo.txt", "r").read())
         # Adding HomeAssistant
@@ -45,20 +51,25 @@ class ProfOnto (Thread):
         if self.assistant == None:
             print("The assistant cannot be started")
             return
-
         sarray = self.profonto.getConnectionInfo(self.assistant)
         self.host = sarray[0]
         self.port = sarray[1]
         print("Home assistant added:", self.assistant, "at ", self.host, self.port)
         self.init_server(self.host, self.port)
 
+    def stop(self):
+        self.alive=False
+        print("Server is closing. Wait.")
+        self.profontoGateWay.close()
+        self.profontoGateWay.shutdown()
+        return
 
     def init_server(self, host, port):
         serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         serversocket.bind((host, int(port)))
         serversocket.listen(5)
         print("Prof-Onto Assistant has been started, send requests to:", self.host, "port ", self.port)
-        while 1:
+        while self.alive:
             clients, address = serversocket.accept()
             request = Utils.recvall(Utils, clients).decode()
             self.decide(request, address[1], address[0], clients)
@@ -394,8 +405,8 @@ class ProfOnto (Thread):
 
 
     def init_gateway(self):
-        p = Path(__file__).parents[1]
-        os.chdir(p)
+        #p = Path(__file__).parents[1]
+        #os.chdir(p)
         folder = 'ontologies/devices'
         for the_file in os.listdir(folder):
             file_path = os.path.join(folder, the_file)
@@ -453,5 +464,61 @@ class Utils():
 
 ###
 
-ProfOnto()
+class Console(Thread):
+    def __init__(self):
+        Thread.__init__(self)
+        self.start()
+        return
+
+    def start_command(self, address, port):
+        return ProfOnto('http://www.dmi.unict.it/oasis.owl#', 'http://www.dmi.unict.it/oasis-abox.owl#')
+
+    def stop_command(self, agent):
+        agent.stop()
+        return True
+
+    def exit_command(self, agent):
+        self.stop_command(agent)
+        print("Console closing. Goodbye.")
+        return False
+
+    def setTestPath(self):
+        p = Path(__file__).parents[1]
+        os.chdir(p)
+        return
+
+    def run(self):
+        self.setTestPath()
+        agent = None
+        exec_status = True
+        while (exec_status):
+            print("Enter a command:")
+            command = input(" ---> ").strip()
+            if command.startswith("start"):
+                parms = command.split();
+                if( len(parms)==1):
+                  agent = self.start_command(None, None) #default address, port
+               # elif(len(parms)==3):
+               #   agent = self.start_command(parms[1], parms[2])
+                else:
+                  print("Use: start | start address port")
+            elif command == "stop":
+                self.stop_command(agent)
+            elif command == "exit":
+                exec_status = self.exit_command(agent)
+            else:
+                print("Unrecognized command")
+                print("Use start | stop | exit")
+            time.sleep(2)
+        return
+
+
+
+
+def main():
+     Console()
+
+if __name__ == '__main__':
+    main()
+
 
