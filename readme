@@ -75,7 +75,14 @@ Instructions:
          - add, remove, and retrieve believes.
          - simulate the execution of simple requests.
          
-         Run the file "main-beta.py" and wait for it to load. 
+         Run the file "main-beta.py" and  type:
+         
+         -> start    # to start the application that will listen on localhost, port 8080. 
+         
+         Wait for it to load. When finished, you can type:
+         
+         -> stop  #stop the assistant
+         -> exit  #terminate the assistant
          
    3.2.A) Then, run the file "client-test.py" in "target/python/test". It  will add a device, a user, a configuration, request a simple task 
         and then it will remove the device, the configuration,  and the user previously added.
@@ -85,7 +92,7 @@ Instructions:
    3.2.B) Run the file "rasb-light-agent-beta.py" in "target/python" that simulate a rasberry PI working with OASIS and type the following 
           command:
           
-          -> start           # to start the application that will listen on localhost, port 8000. 
+          -> start           # to start the application that will listen on localhost, port 8087. 
           
           # To change the address and port modify the ontology rasb-lightagent.owl in "target\ontologies\test\rasb" or type 
           
