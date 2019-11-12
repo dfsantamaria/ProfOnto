@@ -13,10 +13,10 @@ Prof-Onto is a domotic system based on the ontology OASIS - an Ontology for Agen
 (http://www.dmi.unict.it/~santamaria/projects/oasis/oasis.php).
 
 
-Version 0.3 Prof-Onto does not more depend on PHIDIAS.
+Version 0.3 Prof-Onto does no more depend on PHIDIAS.
 
 Version 0.2. This is a preliminary version for testing the ontological-based communication protocol. Even if physical devices can be
-connected, the software is in alpha yet. Bu sure to understand the consequences.
+connected, the software is in beta yet. Be sure to understand the consequences.
 
 Version 0.1. In the current version, Prof-Onto is a domotic simulation enviroment, i.e, no physical devices can be actually connected but
 communications are emulated via OWL serialized files.
@@ -77,7 +77,11 @@ Instructions:
          
          Run the file "main-beta.py" and  type:
          
-         -> start    # to start the application that will listen on localhost, port 8080. 
+         -> start [address] [port]   # to start the application. By default it will listen on localhost, port 8080.          
+         
+         You can change the listening address and port by typing:
+         
+         ->set address port
          
          Wait for it to load. When finished, you can type:
          
