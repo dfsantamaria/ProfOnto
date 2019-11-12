@@ -120,6 +120,8 @@ public class mainAutoinstall
        InputStream assistantData=readData("ontologies/test/homeassistant.owl"); 
        ontocore.addDevice(assistantData);            
        
+      
+    
        
       // InputStream load=readData("ontologies/test/lightagent.owl");
      //  ontocore.parseRequest(load);

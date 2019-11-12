@@ -178,6 +178,12 @@ public class ProfontoEntryPoint
         return 1;
     }
 
+    
+    public static int modifyConnection(String iri, String address, String port)
+      {
+         return ontocore.modifyConnection(iri, address,  port);
+      }
+    
     public static int addDataBelief(String input)
     {      
       return ontocore.addDataToDataBelief(getInputStream(input));

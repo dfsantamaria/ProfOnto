@@ -46,7 +46,7 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
-import org.semanticweb.owlapi.model.OWLOntologyRenameException;
+import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.util.InferredAxiomGenerator;
@@ -62,6 +62,7 @@ import org.semanticweb.owlapi.util.InferredSubClassAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredSubDataPropertyAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredSubObjectPropertyAxiomGenerator;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
+import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import ru.avicomp.ontapi.OntologyModel;
 
 /**
@@ -176,6 +177,23 @@ public class Profonto extends OntologyCore
          return null;   
       }
     }
+    
+    public OWLOntology secureLoadOntology(String input)
+    {
+      try
+      {
+        return this.getMainManager().loadOntologyFromOntologyDocument(IRI.create(input));
+      }     
+      catch(OWLOntologyAlreadyExistsException ex)
+      {        
+         return this.getMainManager().getOntology(ex.getDocumentIRI());
+      }
+      catch (OWLOntologyCreationException ex)
+      {
+         return null;   
+      }
+    }
+    
     
     public Path getMainOntologiesPath()
     {
@@ -1695,5 +1713,72 @@ public class Profonto extends OntologyCore
         this.getDataRequestOntology().addAxiom(this.getMainManager().getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(
                 property, individual, indstatus));
         this.getMainManager().saveOntology(this.getDataRequestOntology());      
+      }
+
+    
+     //  System.out.println("Modify connection: "+ ontocore.modifyConnection("http://www.dmi.unict.it/profonto-home.owl",
+    //                              "192.168.0.1", "8087"));
+    public int modifyConnection(String iri, String address, String port) //to do
+      {
+        if(true)
+         throw  new UnsupportedOperationException("To be implemented");
+        else{
+         String portProp=this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#hasPortNumber";
+         String addrProp=this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#hasIPAddress";
+         String connInf=this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#hasConnectionInfo";
+         OWLOntology ontology=this.getMainManager().getOntology(IRI.create(iri));
+         if(ontology==null)
+             return 0;
+         
+         List<OWLNamedIndividual> conn= new ArrayList<>();
+         List<OWLAxiom> assertions= new ArrayList<>();
+         ontology.axioms().filter(x->x.isOfType(AxiomType.DATA_PROPERTY_ASSERTION)).forEach( ax->
+                          {                             
+                            OWLDataPropertyAssertionAxiom cl= (OWLDataPropertyAssertionAxiom) ax;
+                            if(cl.getProperty().asOWLDataProperty().toStringID().equals(portProp) 
+                                    || (cl.getProperty().asOWLDataProperty().toStringID().equals(addrProp))
+                                    || (cl.getProperty().asOWLDataProperty().toStringID().equals(connInf)))
+                              {
+                                conn.add(cl.getSubject().asOWLNamedIndividual());
+                                assertions.add(cl);                                
+                              }                           
+                          });
+         
+         
+        if(conn.isEmpty() || assertions.isEmpty())
+            return 0;
+        
+       assertions.forEach(x-> {  ontology.removeAxiom(x); });
+        
+        ontology.addAxiom(this.getMainManager().getOWLDataFactory()
+                             .getOWLDataPropertyAssertionAxiom(
+                                     this.getMainManager().getOWLDataFactory().getOWLDataProperty(IRI.create(portProp)),
+                                     conn.get(0), 
+                                      this.getMainManager().getOWLDataFactory().getOWLLiteral(port, OWL2Datatype.XSD_INT)));
+        
+        ontology.addAxiom(this.getMainManager().getOWLDataFactory()
+                             .getOWLDataPropertyAssertionAxiom(
+                                     this.getMainManager().getOWLDataFactory().getOWLDataProperty(IRI.create(addrProp)),
+                                     conn.get(0), 
+                                      this.getMainManager().getOWLDataFactory().getOWLLiteral(address)));                                        
+        
+        List<IRI> iris= new ArrayList<>();
+        this.getMainManager().getIRIMappers().forEach(a->{
+                                                           iris.add(a.getDocumentIRI(ontology.getOntologyID().getOntologyIRI().get())); 
+        });
+              
+         
+        try
+          { 
+            syncReasoner(ontology, iris.get(0).toString());
+            this.getMainManager().saveOntology(ontology, iris.get(0));
+          } 
+        catch (OWLOntologyStorageException ex)
+          {
+              System.out.println(ex.toString());
+            return 0;
+          }
+        return 1;                              
+        } 
       }
 }
