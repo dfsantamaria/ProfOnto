@@ -95,6 +95,7 @@ public class mainAutoinstall
             ontocore.setOntologiesUsersPath(Paths.get("ontologies"+File.separator+"users"));
             ontocore.setQueryPath(Paths.get("ontologies"+File.separator+"queries"));
             ontocore.setSatellitePath(Paths.get("ontologies"+File.separator+"satellite"));
+            ontocore.setBackupPath(Paths.get("ontologies"+File.separator+"backup"));
             ontocore.setMainOntology(ontoFile); 
             ontocore.setMainAbox(aboxFile);
             
@@ -120,7 +121,8 @@ public class mainAutoinstall
        InputStream assistantData=readData("ontologies/test/homeassistant.owl"); 
        ontocore.addDevice(assistantData);            
        
-      
+       System.out.println("Modify connection: "+ ontocore.modifyConnection("http://www.dmi.unict.it/profonto-home.owl",
+                                  "192.168.0.1", "8087"));
     
        
       // InputStream load=readData("ontologies/test/lightagent.owl");

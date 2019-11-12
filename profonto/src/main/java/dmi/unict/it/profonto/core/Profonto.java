@@ -93,7 +93,7 @@ public class Profonto extends OntologyCore
         users = new HashMap<>();
         queries=new HashMap<>(); 
         satellite = new HashMap<>();
-        int paths = 6;
+        int paths = 7;
         configuration = new Configuration(paths);
         databehavior = null;
         databelief = null;
@@ -103,6 +103,8 @@ public class Profonto extends OntologyCore
         generators = new ArrayList<>();
         setDefaultReasonerGenerators(generators);
     }
+
+     
 
     public void setMainAbox(File inputFile) throws OWLOntologyCreationException 
       {        
@@ -272,7 +274,17 @@ public class Profonto extends OntologyCore
         createFolder(path);
     }
    
-  
+    public void setBackupPath(Path path)
+    {
+        this.getConfiguration().getPaths()[6] = path;
+        createFolder(path);
+    }
+    
+    public Path getBackupPath()
+    {
+      return this.getConfiguration().getPaths()[6];
+    }
+    
     /**
      * Creates the folder from the given path if it does not exist
      *
@@ -848,6 +860,8 @@ public class Profonto extends OntologyCore
             String filesource = this.getOntologiesDevicesPath() + File.separator + val[0] + ".owl";
             File file = new File(filesource);
 
+            this.getMainManager().saveOntology(ontodevice, IRI.create(new File( this.getBackupPath() + File.separator + val[0] + ".owl")));
+            
             this.getMainManager().getIRIMappers().add(new SimpleIRIMapper(ontodevice.getOntologyID().getOntologyIRI().get(),
                     IRI.create(file.getCanonicalFile())));
 
@@ -940,8 +954,8 @@ public class Profonto extends OntologyCore
                 IRI.create(f.getCanonicalFile())));
 
         f.delete(); //always be sure to close all the open streams
+        new File(this.getBackupPath() + File.separator + id + ".owl").delete();
         removePermanentConfigurationsFromDevice(id);
-
     }
 
     public void loadDevicesFromPath(boolean toimport) throws OWLOntologyStorageException, IOException
@@ -1716,13 +1730,12 @@ public class Profonto extends OntologyCore
       }
 
     
-     //  System.out.println("Modify connection: "+ ontocore.modifyConnection("http://www.dmi.unict.it/profonto-home.owl",
-    //                              "192.168.0.1", "8087"));
+  
     public int modifyConnection(String iri, String address, String port) //to do
       {
-        if(true)
-         throw  new UnsupportedOperationException("To be implemented");
-        else{
+       
+         if( restoreFromBackup(iri) ==0)
+             return 0;
          String portProp=this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#hasPortNumber";
          String addrProp=this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#hasIPAddress";
          String connInf=this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#hasConnectionInfo";
@@ -1767,18 +1780,57 @@ public class Profonto extends OntologyCore
                                                            iris.add(a.getDocumentIRI(ontology.getOntologyID().getOntologyIRI().get())); 
         });
               
-         
+        updateBackup(iris.get(0).getShortForm(), ontology);
+        
         try
           { 
-            syncReasoner(ontology, iris.get(0).toString());
+            String thef=iris.get(0).toString();
+            thef=thef.substring(6,thef.length());            
+            syncReasoner(ontology, thef);
             this.getMainManager().saveOntology(ontology, iris.get(0));
           } 
         catch (OWLOntologyStorageException ex)
-          {
-              System.out.println(ex.toString());
+          {            
             return 0;
           }
-        return 1;                              
-        } 
+        return 1;                             
+         
       }
+    
+    private int restoreFromBackup(String iri)
+      {
+        OWLOntology ontology=this.getMainManager().getOntology(IRI.create(iri));
+        if(ontology==null)
+            return 0;
+        List<IRI> iris= new ArrayList<>();
+        this.getMainManager().getIRIMappers().forEach(a->{
+                                                           iris.add(a.getDocumentIRI(ontology.getOntologyID().getOntologyIRI().get())); 
+        });       
+        File f=new File(this.getBackupPath() + File.separator +iris.get(0).getShortForm());
+        this.getMainManager().removeOntology(ontology);
+        try
+          {
+            OWLOntology g=this.getMainManager().loadOntology(IRI.create(f));
+            g.saveOntology(IRI.create(f));            
+          } 
+        catch (OWLOntologyCreationException | OWLOntologyStorageException ex)
+          {
+            return 0;
+          }
+        return 1;
+      }
+    
+      private int updateBackup( String name, OWLOntology ontology)
+      {        
+        try
+          {
+            this.getMainManager().saveOntology(ontology, IRI.create(new File(this.getBackupPath() + File.separator + name)));
+          } 
+        catch (OWLOntologyStorageException ex)
+          {
+            return 0;
+          }
+        return 1;
+      }
+
 }

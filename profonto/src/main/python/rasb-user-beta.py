@@ -10,6 +10,8 @@ import re
 oasis = 'http://www.dmi.unict.it/oasis.owl#'
 oasisabox = 'http://www.dmi.unict.it/oasis-abox.owl#'
 
+port=8000
+
 def recvall(sock):
     BUFF_SIZE = 1024 # 1 KiB
     data = b''
@@ -53,13 +55,13 @@ iri="http://www.dmi.unict.it/ontoas/alan.owl"
 g=rdflib.Graph();
 tosend=libbug(getTimeStamp(), g.parse(data=file), iri)
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client_socket.connect(('localhost', 8000))
+client_socket.connect(('localhost', port))
 client_socket.send(tosend.encode())
 client_socket.close()
 
 file=readOntoFile("ontologies/test/rasb-user/add-user-request.owl")
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client_socket.connect(('localhost', 8000))
+client_socket.connect(('localhost', port))
 client_socket.send(file.encode())
 #request = recvall(client_socket).decode()
 #print(request)
@@ -71,7 +73,7 @@ iri="http://www.dmi.unict.it/alan-config.owl"
 g=rdflib.Graph();
 tosend=libbug(getTimeStamp(), g.parse(data=file), iri)
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client_socket.connect(('localhost', 8000))
+client_socket.connect(('localhost', port))
 client_socket.send(tosend.encode())
 client_socket.close()
 
@@ -79,7 +81,7 @@ client_socket.close()
 #adding configuration
 file=readOntoFile("ontologies/test/rasb-user/add-user-configuration-request.owl")
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client_socket.connect(('localhost', 8000))
+client_socket.connect(('localhost', port))
 client_socket.send(file.encode())
 request = recvall(client_socket).decode()
 print(request)
@@ -87,7 +89,7 @@ client_socket.close()
 # #
 file=readOntoFile("ontologies/test/rasb-user/user-request.owl")
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client_socket.connect(('localhost', 8000))
+client_socket.connect(('localhost', port))
 client_socket.send(file.encode())
 #request = recvall(client_socket).decode()
 #print(request)
@@ -97,7 +99,7 @@ client_socket.send(file.encode())
 #removing configuration
 file=readOntoFile("ontologies/test/rasb-user/remove-user-configuration-request.owl")
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client_socket.connect(('localhost', 8000))
+client_socket.connect(('localhost', port))
 client_socket.send(file.encode())
 request = recvall(client_socket).decode()
 print(request)
@@ -107,7 +109,7 @@ client_socket.close()
 # #
 file=readOntoFile("ontologies/test/rasb-user/remove-user-request.owl")
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-client_socket.connect(('localhost', 8000))
+client_socket.connect(('localhost', port))
 client_socket.send(file.encode())
 request = recvall(client_socket).decode()
 print(request)

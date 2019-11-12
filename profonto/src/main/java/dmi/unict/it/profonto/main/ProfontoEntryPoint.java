@@ -73,6 +73,7 @@ public class ProfontoEntryPoint
             ontocore.setOntologiesUsersPath(Paths.get("ontologies" + File.separator + "users"));
             ontocore.setQueryPath(Paths.get("ontologies"+File.separator+"queries"));
             ontocore.setSatellitePath(Paths.get("ontologies"+File.separator+"satellite"));
+            ontocore.setBackupPath(Paths.get("ontologies"+File.separator+"backup"));
              
             ontocore.setMainOntology(ontoFile);
             ontocore.setMainAbox(aboxFile);

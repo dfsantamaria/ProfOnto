@@ -72,7 +72,7 @@ class ServerManager(Thread):
         reqGraph.add((URIRef(self.agent.iriSet[0] + "#hasTaskInputParameter"), RDF.type, Utils.owlobj))
         reqGraph.add((task, URIRef(self.agent.iriSet[0] + "#hasTaskInputParameter"), parameter))  # task parameter
 
-        tosend = Utils.libbug(self, timestamp, reqGraph, iri)
+        tosend = Utils.libbug(Utils, reqGraph, iri)
         # f=open("test.owl", "w")
         # f.write(tosend)
 
@@ -107,10 +107,10 @@ class Utils():
         newString = before + after
         return newString
 
-    def libbug(self, timestamp, graph, iri):
+    def libbug(self, graph, iri):
         tosend=graph.serialize(format='pretty-xml').decode()  # transmits template
         replace = "  xml:base=\"" + iri + "\"> \n"
-        tosend = Utils.replacenth(self, tosend, ">", replace, 2)
+        tosend = self.replacenth(self, tosend, ">", replace, 2)
         return tosend
 
     def recvall(self, sock):
@@ -184,6 +184,8 @@ class Agent(Thread):
     def __init__(self, address, port, path, templates, iriAgent, iriTemplate):
         Thread.__init__(self)
         self.alive=True
+        self.restart = True
+        self.serversocket = None
         #declare class members
         self.graphSet=['','']
         self.iriSet=['http://www.dmi.unict.it/oasis.owl','http://www.dmi.unict.it/oasis-abox.owl', iriAgent , iriTemplate] #2->agent 3->template
@@ -205,6 +207,8 @@ class Agent(Thread):
 
     def stop(self):
         self.alive=False
+        self.restart=False
+        self.serversocket.close()
         print("Server is closing. Wait.")
         return
 
@@ -280,7 +284,7 @@ class Agent(Thread):
         reqGraph.add((URIRef(self.iriSet[0] + "#requests"), RDF.type, Utils.owlobj))
         reqGraph.add((agent, URIRef(self.iriSet[0] + "#requests"), request))  # has request
 
-        tosend = Utils.libbug(Utils,timestamp, reqGraph,  iri)  # transmits config solving the rdflib bug of xml:base
+        tosend = Utils.libbug(Utils, reqGraph,  iri)  # transmits config solving the rdflib bug of xml:base
         received= Utils.transmit(Utils,tosend.encode(), True, self.hubInfo)
         if received == None:
            return 0
@@ -296,12 +300,12 @@ class Agent(Thread):
            return 0
         timestamp = Utils.getTimeStamp(Utils)
 
-        tosend=Utils.libbug(Utils, timestamp, self.graphSet[1], self.iriSet[3])  # transmits template solving the rdflib bug of xml:base
+        tosend=Utils.libbug(Utils, self.graphSet[1], self.iriSet[3])  # transmits template solving the rdflib bug of xml:base
         state=Utils.transmit(Utils, tosend.encode(), False, self.hubInfo)
         if state == None:
             return 0
 
-        tosend = Utils.libbug(Utils, timestamp, self.graphSet[0], self.iriSet[2])  # transmits behavior solving the rdflib bug of xml:base
+        tosend = Utils.libbug(Utils, self.graphSet[0], self.iriSet[2])  # transmits behavior solving the rdflib bug of xml:base
         state=Utils.transmit(Utils, tosend.encode(), False, self.hubInfo)
         if state == None:
             return 0
@@ -336,7 +340,7 @@ class Agent(Thread):
         reqGraph.add((URIRef(self.iriSet[0] + "#descriptionProvidedByIRI"), RDF.type, Utils.owldat))
         reqGraph.add((parameter, URIRef(self.iriSet[0] + "#descriptionProvidedByIRI"), Literal(self.iriSet[2], datatype=XSD.string)))
 
-        tosend = Utils.libbug(Utils,timestamp, reqGraph,  iri)  # transmits config solving the rdflib bug of xml:base
+        tosend = Utils.libbug(Utils, reqGraph,  iri)  # transmits config solving the rdflib bug of xml:base
         received= Utils.transmit(Utils,tosend.encode(), True, self.hubInfo)
         if received == None:
            return 0
@@ -378,7 +382,7 @@ class Agent(Thread):
         reqGraph.add((agent, URIRef(self.iriSet[0] + "#requests"), request))  # has request
 
 
-        tosend = Utils.libbug(Utils,timestamp, reqGraph, iri)  # transmits config solving the rdflib bug of xml:base
+        tosend = Utils.libbug(Utils, reqGraph, iri)  # transmits config solving the rdflib bug of xml:base
         received = Utils.transmit(Utils, tosend.encode(), True, self.hubInfo)
         if (received == None):
             return 0
@@ -412,20 +416,19 @@ class Agent(Thread):
         return iri[start+1:]
 
     def run(self):
-        serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        serversocket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
-        serversocket.bind((self.agentInfo[1], int(self.agentInfo[2])))
-        serversocket.listen(5)
-        print("Client started at", self.agentInfo[1], "port", self.agentInfo[2])
-        # print(self.iriSet[0],' ', self.iriSet[1], ' ', self.iriSet[2])
-        # self.printGraph(self.graphSet[0])
-        # self.printGraph(self.graphSet[1])
-        # self.printGraph(self.graphSet[2])
-        while self.alive:
-            clientsocket, address = serversocket.accept()
-            ServerManager(clientsocket, address, self)
+        while(self.restart):
+          self.serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+          self.serversocket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+          self.serversocket.bind((self.agentInfo[1], int(self.agentInfo[2])))
+          self.serversocket.listen(5)
+          print("Client listening on", self.agentInfo[1], "port", self.agentInfo[2])
+          while self.alive:
+              try:
+                clientsocket, address = self.serversocket.accept()
+                ServerManager(clientsocket, address, self)
+              except Exception as e:
+                  break
         print("Server stopped. Goodbye.")
-        serversocket.close()
         return
 
     #############################################################################################

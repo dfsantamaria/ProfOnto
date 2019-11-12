@@ -11,7 +11,7 @@ from rdflib import *
 from pathlib import Path
 from threading import *
 from datetime import datetime
-
+import re
 
 # class client(Thread):
 #     def __init__(self, prof, socket, address, server_socket):
@@ -28,17 +28,19 @@ from datetime import datetime
 
 
 class ProfOnto (Thread):
-    def __init__(self, oasis, oasiabox):
+    def __init__(self, oasis, oasisabox, assistant, address, port):
         Thread.__init__(self)
         self.profonto = None
         self.oasis = oasis
-        self.oasisabox = oasiabox
+        self.oasisabox = oasisabox
         self.assistant=''
-        self.host = None
-        self.port = None
+        self.host = address
+        self.port = port
         self.owlobj=URIRef("http://www.w3.org/2002/07/owl#ObjectProperty")
         self.owldat=URIRef("http://www.w3.org/2002/07/owl#DatatypeProperty")
         self.alive=True
+        self.restart=True
+        self.iriassistant=assistant
         self.start()
 
 
@@ -47,6 +49,8 @@ class ProfOnto (Thread):
         print(open("amens/logo.txt", "r").read())
         # Adding HomeAssistant
         self.home = Utils.readOntoFile(Utils, "ontologies/test/homeassistant.owl")
+        if self.host != None and self.port != None:
+            self.home=self.modifyConnection(self.home, self.host, self.port)
         self.assistant = self.profonto.addDevice(self.home)  # read the device data
         if self.assistant == None:
             print("The assistant cannot be started")
@@ -55,32 +59,58 @@ class ProfOnto (Thread):
         self.host = sarray[0]
         self.port = sarray[1]
         print("Home assistant added:", self.assistant, "at ", self.host, self.port)
-        self.init_server(self.host, self.port)
+        self.init_server()
+
+    def modifyConnection(self, home, host, port):
+        g= Utils.getGraph(Utils, home)
+        for s,o in g.subject_objects(predicate=URIRef( self.oasis + "hasPortNumber")):
+            g.remove((s,URIRef( self.oasis + "hasPortNumber"), o))
+            g.add((s, URIRef( self.oasis + "hasPortNumber"), Literal(port, datatype=XSD.integer)))
+
+        for s, o in g.subject_objects(predicate=URIRef(self.oasis + "hasIPAddress")):
+            g.remove((s, URIRef(self.oasis + "hasIPAddress"), o))
+            g.add((s, URIRef(self.oasis + "hasIPAddress"), Literal(host, datatype=XSD.string)))
+        return Utils.libbug(Utils, g, self.assistant)
+
+    def setConnection(self, host, port):
+        if self.profonto.modifyConnection(self.iriassistant, host, port) == 1 :
+            self.host=host
+            self.port=port
+            self.alive=False
+            #self.serversocket.shutdown(socket.SHUT_WR)
+            self.serversocket.close()
+            time.sleep(2)
+            return 1
+        else:
+            return 0
 
     def stop(self):
         self.alive=False
+        self.restart=False
+        self.serversocket.close()
         print("Server is closing. Wait.")
         self.profontoGateWay.close()
         self.profontoGateWay.shutdown()
         return
 
-    def init_server(self, host, port):
-        serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-        serversocket.bind((host, int(port)))
-        serversocket.listen(5)
-        print("Prof-Onto Assistant has been started, send requests to:", self.host, "port ", self.port)
-        while self.alive:
-            clients, address = serversocket.accept()
-            request = Utils.recvall(Utils, clients).decode()
-            self.decide(request, address[1], address[0], clients)
-            #client(self, clients, address, serversocket)
+    def init_server(self):
+        print("Prof-Onto Assistant has been started")
+        while self.restart:
+          print("Prof-Onto Assistant is listening:", self.host, "port ", self.port)
+          self.serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+          self.serversocket.bind((self.host, int(self.port)))
+          self.serversocket.listen(5)
+          self.alive=True
+          while self.alive:
+              try:
+                  clients, address = self.serversocket.accept()
+                  request = Utils.recvall(Utils, clients).decode()
+                  self.decide(request, address[1], address[0], clients)
+              except Exception as e:
+                  break
+             #client(self, clients, address, serversocket)
         return
 
-
-    def getGraph(self, value):
-        g = rdflib.Graph()
-        g.parse(data=value)
-        return g
 
     def setExecutionStatus(self, graph):
         for execution, status in graph.subject_objects(predicate=URIRef( self.oasis + "hasStatus")):
@@ -92,7 +122,7 @@ class ProfOnto (Thread):
         g=Graph()
         iri=Utils.retrieveURI(Utils, execution).replace(".owl","-response.owl")
         self.generateRequest(g, iri)
-        iriassist="http://www.dmi.unict.it/profonto-home.owl#"+self.assistant
+        iriassist=self.iriassistant+'#'+self.assistant
 
         g.add((URIRef(iriassist), RDF.type, URIRef( self.oasis + "Device")))  # has request
         g.add((URIRef(iriassist), URIRef( self.oasis + "requests"), URIRef(iri + "#request")))
@@ -377,7 +407,8 @@ class ProfOnto (Thread):
             print ("Received data from " + str(addr) + " " + str(sock))
             return
 
-        g = self.getGraph(value)
+        g = Utils.getGraph(Utils, value)
+
 
         executions = []
         for execution in g.subjects(RDF.type, URIRef( self.oasis + "TaskExecution")):
@@ -462,6 +493,25 @@ class Utils():
         f = open(file, "r")
         return f.read()
 
+
+    def getGraph(self, value):
+        g = rdflib.Graph()
+        g.parse(data=value)
+        return g
+
+    def replacenth(self, string, sub, wanted, n):
+        where = [m.start() for m in re.finditer(sub, string)][n - 1]
+        before = string[:where]
+        after = string[where:]
+        after = after.replace(sub, wanted, 1)
+        newString = before + after
+        return newString
+
+    def libbug(self, graph, iri):
+        tosend = graph.serialize(format='pretty-xml').decode()  # transmits template
+        replace = "  xml:base=\"" + iri + "\"> \n"
+        tosend = self.replacenth(self, tosend, ">", replace, 2)
+        return tosend
 ###
 
 class Console(Thread):
@@ -471,7 +521,7 @@ class Console(Thread):
         return
 
     def start_command(self, address, port):
-        return ProfOnto('http://www.dmi.unict.it/oasis.owl#', 'http://www.dmi.unict.it/oasis-abox.owl#')
+        return ProfOnto('http://www.dmi.unict.it/oasis.owl#', 'http://www.dmi.unict.it/oasis-abox.owl#', 'http://www.dmi.unict.it/profonto-home.owl', address, port)
 
     def stop_command(self, agent):
         agent.stop()
@@ -487,6 +537,10 @@ class Console(Thread):
         os.chdir(p)
         return
 
+    def set_connection(self, agent, host, port):
+        return agent.setConnection(host, port)
+
+
     def run(self):
         self.setTestPath()
         agent = None
@@ -498,17 +552,30 @@ class Console(Thread):
                 parms = command.split();
                 if( len(parms)==1):
                   agent = self.start_command(None, None) #default address, port
-               # elif(len(parms)==3):
-               #   agent = self.start_command(parms[1], parms[2])
+                elif(len(parms)==3):
+                  agent = self.start_command(parms[1], parms[2])
                 else:
                   print("Use: start | start address port")
-            elif command == "stop":
-                self.stop_command(agent)
-            elif command == "exit":
-                exec_status = self.exit_command(agent)
+            elif agent !=None:
+                if command == "stop":
+                   self.stop_command(agent)
+                elif command == "exit":
+                   exec_status = self.exit_command(agent)
+                elif command.startswith("set"):
+                   parms = command.split();
+                   if len(parms) == 3 :
+                     exec_status = self.set_connection(agent, parms[1], parms[2])
+                     if exec_status == 1:
+                         print("Connection successifully modified")
+                     else:
+                         print("Connection cannot be modified")
+                   else:
+                      print("Use: set address port")
+                else:
+                   print("Unrecognized command")
+                   print("Use start [address] [port] | stop | exit | set address port")
             else:
-                print("Unrecognized command")
-                print("Use start | stop | exit")
+                print("Start the agent first. Use: start | start address port")
             time.sleep(2)
         return
 
