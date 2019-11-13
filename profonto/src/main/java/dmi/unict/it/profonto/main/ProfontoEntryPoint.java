@@ -116,6 +116,14 @@ public class ProfontoEntryPoint
         return ontocore.addDevice(getInputStream(description));        
     }
 
+    
+    public static String modifyDevice(String description)
+    {
+       if(description.startsWith("http")|| description.startsWith("www"))
+            return ontocore.updateOntology(description);
+        return null;        
+    }
+    
     public String[] getConnectionInfo(String device)
     {
       return ontocore.getConnectionInfo(device);

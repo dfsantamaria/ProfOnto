@@ -124,6 +124,9 @@ public class mainAutoinstall
        System.out.println("Modify connection: "+ ontocore.modifyConnection("http://www.dmi.unict.it/profonto-home.owl",
                                   "192.168.0.1", "8087"));
     
+        System.out.println(ontocore.updateOntology("http://www.dmi.unict.it/profonto-home.owl"));
+           
+       
        
       // InputStream load=readData("ontologies/test/lightagent.owl");
      //  ontocore.parseRequest(load);

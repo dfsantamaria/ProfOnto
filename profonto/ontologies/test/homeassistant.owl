@@ -284,7 +284,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/profonto-home.owl#goal-profHomeCheckAgentInstallation">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#GoalDescription"/>
-        <oasis:consistsOfTaskDescription rdf:resource="http://www.dmi.unict.it/profonto-home.owl#task-profHomeChechAgentInstallation"/>
+        <oasis:consistsOfTaskDescription rdf:resource="http://www.dmi.unict.it/profonto-home.owl#task-profHomeCheckAgentInstallation"/>
     </owl:NamedIndividual>
     
 
@@ -357,6 +357,15 @@
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/profonto-home.owl#goal-profHomeUninstallDevice">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#GoalDescription"/>
         <oasis:consistsOfTaskDescription rdf:resource="http://www.dmi.unict.it/profonto-home.owl#task-profHomeUninstallDevice"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/profonto-home.owl#goal-profHomeUpdateDevice -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/profonto-home.owl#goal-profHomeUpdateDevice">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#GoalDescription"/>
+        <oasis:consistsOfTaskDescription rdf:resource="http://www.dmi.unict.it/profonto-home.owl#task-profHomeUpdateDevice"/>
     </owl:NamedIndividual>
     
 
@@ -480,6 +489,15 @@
     
 
 
+    <!-- http://www.dmi.unict.it/profonto-home.owl#profHomeUpdateDevice -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/profonto-home.owl#profHomeUpdateDevice">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#Behavior"/>
+        <oasis:consistsOfGoalDescription rdf:resource="http://www.dmi.unict.it/profonto-home.owl#goal-profHomeUpdateDevice"/>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.dmi.unict.it/profonto-home.owl#profonto-home -->
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/profonto-home.owl#profonto-home">
@@ -574,9 +592,9 @@
     
 
 
-    <!-- http://www.dmi.unict.it/profonto-home.owl#task-profHomeChechAgentInstallation -->
+    <!-- http://www.dmi.unict.it/profonto-home.owl#task-profHomeCheckAgentInstallation -->
 
-    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/profonto-home.owl#task-profHomeChechAgentInstallation">
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/profonto-home.owl#task-profHomeCheckAgentInstallation">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskDescription"/>
         <oasis:hasTaskObjectTemplate rdf:resource="http://www.dmi.unict.it/profonto-home.owl#profHomeDeviceInstallationObject"/>
         <oasis:hasTaskOperator rdf:resource="http://www.dmi.unict.it/oasis-abox.owl#check"/>
@@ -655,6 +673,17 @@
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskDescription"/>
         <oasis:hasTaskObjectTemplate rdf:resource="http://www.dmi.unict.it/profonto-home.owl#profHomeDeviceInstallationObject"/>
         <oasis:hasTaskOperator rdf:resource="http://www.dmi.unict.it/oasis-abox.owl#uninstall"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/profonto-home.owl#task-profHomeUpdateDevice -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/profonto-home.owl#task-profHomeUpdateDevice">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskDescription"/>
+        <oasis:hasTaskInputParameterTemplate rdf:resource="http://www.dmi.unict.it/profonto-home.owl#install-device-parameter"/>
+        <oasis:hasTaskObjectTemplate rdf:resource="http://www.dmi.unict.it/profonto-home.owl#profHomeDeviceInstallationObject"/>
+        <oasis:hasTaskOperator rdf:resource="http://www.dmi.unict.it/oasis-abox.owl#update"/>
     </owl:NamedIndividual>
     
 
