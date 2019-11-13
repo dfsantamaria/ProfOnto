@@ -98,6 +98,18 @@ request = recvall(client_socket).decode()
 print(request)
 client_socket.close()
 
+
+#check installing device
+home=readOntoFile("ontologies/test/light-update-request.owl")
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+client_socket.connect(('localhost', port))
+client_socket.sendall(home.encode())
+request = ''
+request = recvall(client_socket).decode()
+print(request)
+client_socket.close()
+
+
 home=readOntoFile("ontologies/test/add-user-request.owl")
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 client_socket.connect(('localhost', port))

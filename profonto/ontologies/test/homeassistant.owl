@@ -525,6 +525,7 @@
         <oasis:hasBehavior rdf:resource="http://www.dmi.unict.it/profonto-home.owl#profHomeRemoveUserConfiguration"/>
         <oasis:hasBehavior rdf:resource="http://www.dmi.unict.it/profonto-home.owl#profHomeRetrieveBelief"/>
         <oasis:hasBehavior rdf:resource="http://www.dmi.unict.it/profonto-home.owl#profHomeUninstallDevice"/>
+        <oasis:hasBehavior rdf:resource="http://www.dmi.unict.it/profonto-home.owl#profHomeUpdateDevice"/>
     </owl:NamedIndividual>
     
 

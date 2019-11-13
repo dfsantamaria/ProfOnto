@@ -269,6 +269,16 @@ class ProfOnto (Thread):
                     print("Device", value, "added.")
                     res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox+"succeded_status"), addr, sock, server_socket)
 
+            elif actions == URIRef(self.oasisabox + "update"):
+                file =  self.getOntologyFile(graph, execution)
+                value =  self.profonto.modifyDevice(file)  # read the device data
+                if value == None:
+                    print ("A device cannot be updated")
+                    res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox + "failed_status"), addr, sock, server_socket)
+                else:
+                    print("Device", value, "updated.")
+                    res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox+"succeded_status"), addr, sock, server_socket)
+
             elif actions == URIRef(self.oasisabox + "uninstall"):  # uninstallation task
                 #requester = next(graph.objects(execution, URIRef(oasis + "hasTaskObject")))
                 value =  self.profonto.removeDevice(Utils.retrieveEntityName(Utils, requester))  # read the device data

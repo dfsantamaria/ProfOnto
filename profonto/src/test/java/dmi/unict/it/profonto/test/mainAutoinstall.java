@@ -147,7 +147,7 @@ public class mainAutoinstall
            {
               res0.forEach(System.out::println);   
            } 
-        
+  //      ontocore.updateOntology("http://www.dmi.unict.it/lightagent.owl");
   //     InputStream request=readData("ontologies/test/rasb/test.owl");
  //      Stream<OWLAxiom> res= ontocore.parseRequest(request).axioms();
 //       System.out.println("Request:");
