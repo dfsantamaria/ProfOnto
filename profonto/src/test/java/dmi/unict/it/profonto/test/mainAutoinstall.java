@@ -135,8 +135,18 @@ public class mainAutoinstall
        System.out.println("Loading test");
        
         ontocore.parseRequest(readData("ontologies/test/rasb/lightagent-from-template.owl"));    
-        ontocore.parseRequest( readData("ontologies/test/rasb/rasb-lightagent.owl"));    
-                
+        ontocore.parseRequest( readData("ontologies/test/rasb/rasb-lightagent.owl")); 
+        System.out.println("Adding light agent");
+        ontocore.addDevice("http://www.dmi.unict.it/lightagent.owl");
+       System.out.println("Update Request- Loading Data");
+       ontocore.parseRequest( readData("ontologies/test/rasb/rasb-lightagent.owl"));
+        System.out.println("Update Request");
+       Stream<OWLAxiom> res0= ( (OWLOntology) ontocore.parseRequest(readData("ontologies/test/light-update-request.owl"))[0]).axioms();
+       System.out.println("Request of device:");
+       if(res0!=null)
+           {
+              res0.forEach(System.out::println);   
+           } 
         
   //     InputStream request=readData("ontologies/test/rasb/test.owl");
  //      Stream<OWLAxiom> res= ontocore.parseRequest(request).axioms();

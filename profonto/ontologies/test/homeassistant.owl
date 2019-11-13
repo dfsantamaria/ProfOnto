@@ -376,7 +376,7 @@
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#OntologyDescriptionObject"/>
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskInputParameterTemplate"/>
         <oasis:hasInformationObjectType rdf:resource="http://www.dmi.unict.it/oasis-abox.owl#ontology_description_object_type"/>
-        <oasis:descriptionProvidedByURL></oasis:descriptionProvidedByURL>
+        <oasis:descriptionProvidedByIRI></oasis:descriptionProvidedByIRI>
     </owl:NamedIndividual>
     
 

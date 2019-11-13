@@ -148,15 +148,22 @@ public class Profonto extends OntologyCore
         createFolder(path);
     }
 
+    /**
+     * 
+     * @param input
+     * @return
+     */
+     
     public OWLOntology secureLoadOntology(InputStream input)
     {
       try
-      {
+      {       
+        
         return this.getMainManager().loadOntologyFromOntologyDocument(input);
       }     
       catch(OWLOntologyAlreadyExistsException ex)
-      {
-        return this.getMainManager().getOntology(ex.getDocumentIRI());      
+      {        
+        return this.getMainManager().getOntology(ex.getOntologyID());      
       }
       catch (OWLOntologyCreationException ex)
       {
@@ -172,7 +179,7 @@ public class Profonto extends OntologyCore
       }     
       catch(OWLOntologyAlreadyExistsException ex)
       {        
-         return this.getMainManager().getOntology(ex.getDocumentIRI());
+         return this.getMainManager().getOntology(ex.getOntologyID());
       }
       catch (OWLOntologyCreationException ex)
       {
@@ -188,7 +195,7 @@ public class Profonto extends OntologyCore
       }     
       catch(OWLOntologyAlreadyExistsException ex)
       {        
-         return this.getMainManager().getOntology(ex.getDocumentIRI());
+         return this.getMainManager().getOntology(ex.getOntologyID());
       }
       catch (OWLOntologyCreationException ex)
       {
