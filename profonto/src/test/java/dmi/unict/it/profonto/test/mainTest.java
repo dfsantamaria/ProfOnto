@@ -54,9 +54,9 @@ public class mainTest
         return query;
       }
     
-    public static InputStream readData(String file)
+    public static ByteArrayInputStream readData(String file)
     {
-        InputStream inputstream=null;
+        ByteArrayInputStream inputstream=null;
         String input="";
         try {
             FileReader fileReader =  new FileReader(file);
@@ -144,7 +144,7 @@ public class mainTest
        // InputStream deviceConfig=readData("ontologies/test/alan-config.owl");
        // ontocore.addDeviceConfiguration(deviceConfig, id, id+"Conf-1","ALAN");        
     
-        InputStream request;
+        ByteArrayInputStream request;
         Stream<OWLAxiom> res;
         
   

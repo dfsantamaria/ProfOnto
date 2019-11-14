@@ -56,9 +56,9 @@ public class mainAutoinstall
         return query;
       }
     
-    public static InputStream readData(String file)
+    public static ByteArrayInputStream readData(String file)
     {
-        InputStream inputstream=null;
+        ByteArrayInputStream inputstream=null;
         String input="";
         try {
             FileReader fileReader =  new FileReader(file);
@@ -124,7 +124,7 @@ public class mainAutoinstall
        System.out.println("Modify connection: "+ ontocore.modifyConnection("http://www.dmi.unict.it/profonto-home.owl",
                                   "192.168.0.1", "8087"));
     
-        System.out.println(ontocore.updateOntology("http://www.dmi.unict.it/profonto-home.owl"));
+       // System.out.println(ontocore.updateOntology("http://www.dmi.unict.it/profonto-home.owl",false,false));
            
        
        
@@ -139,7 +139,7 @@ public class mainAutoinstall
         System.out.println("Adding light agent");
         ontocore.addDevice("http://www.dmi.unict.it/lightagent.owl");
        System.out.println("Update Request- Loading Data");
-       ontocore.parseRequest( readData("ontologies/test/rasb/rasb-lightagent.owl"));
+       ontocore.parseRequest(readData("ontologies/test/rasb-lightagent-toUpdateIntest.owl"));
         System.out.println("Update Request");
        Stream<OWLAxiom> res0= ( (OWLOntology) ontocore.parseRequest(readData("ontologies/test/light-update-request.owl"))[0]).axioms();
        System.out.println("Request of device:");
@@ -147,7 +147,7 @@ public class mainAutoinstall
            {
               res0.forEach(System.out::println);   
            } 
-  //      ontocore.updateOntology("http://www.dmi.unict.it/lightagent.owl");
+         ontocore.modifyDevice("http://www.dmi.unict.it/lightagent.owl");
   //     InputStream request=readData("ontologies/test/rasb/test.owl");
  //      Stream<OWLAxiom> res= ontocore.parseRequest(request).axioms();
 //       System.out.println("Request:");
@@ -167,7 +167,7 @@ public class mainAutoinstall
        
        System.out.println("Add user request");
        ontocore.parseRequest(readData("ontologies/test/rasb-user/alan.owl"));
-       InputStream request=readData("ontologies/test/rasb-user/add-user-request.owl");         
+       ByteArrayInputStream request=readData("ontologies/test/rasb-user/add-user-request.owl");         
        Stream<OWLAxiom> res= ( (OWLOntology) ontocore.parseRequest(request)[0]).axioms();
        System.out.println("Request of device:");
        if(res!=null)

@@ -6,6 +6,7 @@
 package dmi.unict.it.profonto.core;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -13,6 +14,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
+import java.nio.file.StandardCopyOption;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +25,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 import javafx.util.Pair;
+import org.apache.commons.io.IOUtils;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
@@ -46,6 +49,7 @@ import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
+import org.semanticweb.owlapi.model.OWLOntologyID;
 import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
@@ -682,7 +686,8 @@ public class Profonto extends OntologyCore
             if(!(file==null || file.equals("")))
                 this.getMainManager().saveOntology(ontology,
                     IRI.create(new File(file)));
-        } else
+        } 
+        else
         {
             System.out.println("Inconsistent Knowledge base");
         }        
@@ -1422,10 +1427,7 @@ public class Profonto extends OntologyCore
             FileOutputStream outStream = new FileOutputStream(file);
             this.getMainManager().saveOntology(ontology, new OWLXMLDocumentFormat(), outStream);
             this.getSatellite().put(ontology.getOntologyID().getOntologyIRI().get().toString(), name);
-            outStream.close();
-            
-            System.out.println(ontology.getOntologyID().getOntologyIRI().get().toString() + " "+ name);//
-            
+            outStream.close();       
         } 
         catch (IOException | OWLOntologyStorageException ex)
         {
@@ -1434,27 +1436,44 @@ public class Profonto extends OntologyCore
       }
     
     
-    
-    
-    /**
-     * Returns the set of axioms concerning the execution of the given request
-     * @param request The ontology of the request     
-     * @return the set of axioms representing the execution of the given request
-     */
-    public Object[] parseRequest(InputStream request)
+    OWLOntology checkSatelliteData(ByteArrayInputStream input)
       {
-        OntologyModel res = null;
-        ArrayList<String[]> depends=new ArrayList();
-        ArrayList<String[]> configs=null;
-        Stream<OWLAxiom> axioms = Stream.of();
-        Object[] toreturn = new Object[]{null,null};
-        OWLOntology ontology;
+        OWLOntology ontology=null;        
         try
-          {
-            ontology = this.secureLoadOntology(request);
-            if(ontology==null)
-                return toreturn;
-            boolean[] brequest= {false};
+        {        
+            ontology=this.getMainManager().loadOntologyFromOntologyDocument(input);
+        }     
+        catch(OWLOntologyAlreadyExistsException ex)
+         {   
+           OWLOntologyID id=ex.getOntologyID();
+           String ontoInfo[]=getPathAndName(id.getOntologyIRI().get().toString());
+           if(ontoInfo==null ||ontoInfo[1]==null)
+               return null;            
+            try 
+              {
+                input.reset();
+                File f=new File(this.getSatellitePath()+File.separator+ontoInfo[1]);            
+                FileOutputStream outputStream = new FileOutputStream(f);
+                int read;
+                byte[] bytes = new byte[1024];
+                while ((read = input.read(bytes)) != -1)
+                   outputStream.write(bytes, 0, read); 
+                this.getSatellite().put(ex.getOntologyID().getOntologyIRI().get().toString(), ontoInfo[1]);
+                input.close();
+                outputStream.close();
+                 
+              }
+            catch (IOException ex1)
+              {
+                return null;
+              }  
+           return null;
+        }
+        catch (OWLOntologyCreationException ex)
+        {
+         return null;   
+        } 
+           boolean[] brequest= {false};
             ontology.axioms().filter(x->x.isOfType(AxiomType.OBJECT_PROPERTY_ASSERTION)).forEach
             (
             element -> { 
@@ -1467,8 +1486,29 @@ public class Profonto extends OntologyCore
             if(brequest[0]==false)  //satellite
               {                 
                 addSatelliteData(ontology);                
-                return toreturn; //all null values
-              }                       
+                return null; //all null values
+              }   
+         return ontology;
+      }
+    
+    /**
+     * Returns the set of axioms concerning the execution of the given request
+     * @param request The ontology of the request     
+     * @return the set of axioms representing the execution of the given request
+     */
+    public Object[] parseRequest(ByteArrayInputStream request)
+      {
+        OntologyModel res = null;
+        ArrayList<String[]> depends=new ArrayList();
+        ArrayList<String[]> configs=null;
+        Stream<OWLAxiom> axioms = Stream.of();
+        Object[] toreturn = new Object[]{null,null};
+        OWLOntology ontology;
+        try
+          {
+             ontology = this.checkSatelliteData(request);
+             if(ontology==null)
+                return toreturn;                 
             //prefix
             String IRIrequest = ontology.getOntologyID().getOntologyIRI().get().toString();
             String prefix = getQueryPrefix(IRIrequest);
@@ -1747,8 +1787,7 @@ public class Profonto extends OntologyCore
                                                            iris.add(a.getDocumentIRI(ontology.getOntologyID().getOntologyIRI().get())); 
         });
         if (iris.isEmpty())
-            return null;
-        System.out.println(iris.get(0).toString());
+            return null;        
         return new String[]{iris.get(0).toString(),iris.get(0).getShortForm()};
       }
     
@@ -1820,7 +1859,7 @@ public class Profonto extends OntologyCore
          
       }
     
-     public String updateOntology(String iri) 
+     public String updateOntology(String iri, boolean updateBackup, boolean delete) 
       {
          String ontoInfo[]=getPathAndName(iri);
          if(ontoInfo==null)
@@ -1830,11 +1869,18 @@ public class Profonto extends OntologyCore
             OWLOntology ontology=restoreFromSource(iri, this.getSatellitePath(), ontoInfo[1]);
             if( ontology==null)
              return null;
-        
+                                  
+             if(updateBackup)
+               this.getMainManager().saveOntology(ontology, IRI.create(new File(this.getBackupPath()+File.separator+ontoInfo[1])));
             String thef=ontoInfo[0];
             thef=thef.substring(6,thef.length());            
             syncReasoner(ontology, thef);
             this.getMainManager().saveOntology(ontology, IRI.create(ontoInfo[0]));
+            if(delete)
+              {
+                File todelete=new File(this.getSatellitePath()+File.separator+ontoInfo[1]);
+                todelete.delete();
+              } 
           } 
         catch (OWLOntologyStorageException  ex)
           {            
@@ -1869,7 +1915,7 @@ public class Profonto extends OntologyCore
           }        
       }
     
-      private int updateFromPath( String name, Path path, OWLOntology ontology)
+      private int updateFromPath(String name, Path path, OWLOntology ontology)
       {        
         try
           {
@@ -1882,4 +1928,10 @@ public class Profonto extends OntologyCore
         return 1;
       }
 
+      public String modifyDevice(String description)
+        {
+           String s=this.updateOntology(description, true, true);
+           getSatellite().remove(description);           
+           return s;
+        }
 }

@@ -95,9 +95,9 @@ public class ProfontoEntryPoint
       return ontocore.checkDeviceInstallation(uridevice);
     }
     
-    public static InputStream getInputStream(String description)
+    public static ByteArrayInputStream getInputStream(String description)
     {
-        InputStream inputstream = null;
+        ByteArrayInputStream inputstream = null;
         inputstream = new ByteArrayInputStream(description.getBytes());
         try
         {
@@ -120,7 +120,7 @@ public class ProfontoEntryPoint
     public static String modifyDevice(String description)
     {
        if(description.startsWith("http")|| description.startsWith("www"))
-            return ontocore.updateOntology(description);
+            return ontocore.modifyDevice(description);
         return null;        
     }
     
