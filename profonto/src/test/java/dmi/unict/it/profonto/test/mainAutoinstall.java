@@ -121,8 +121,7 @@ public class mainAutoinstall
        InputStream assistantData=readData("ontologies/test/homeassistant.owl"); 
        ontocore.addDevice(assistantData);            
        
-       System.out.println("Modify connection: "+ ontocore.modifyConnection("http://www.dmi.unict.it/profonto-home.owl",
-                                  "192.168.0.1", "8087"));
+     
     
        // System.out.println(ontocore.updateOntology("http://www.dmi.unict.it/profonto-home.owl",false,false));
            
@@ -148,6 +147,10 @@ public class mainAutoinstall
               res0.forEach(System.out::println);   
            } 
          ontocore.modifyDevice("http://www.dmi.unict.it/lightagent.owl");
+         
+           System.out.println("Modify connection: "+ ontocore.modifyConnection("http://www.dmi.unict.it/profonto-home.owl",
+                                  "192.168.0.1", "8087"));
+         
   //     InputStream request=readData("ontologies/test/rasb/test.owl");
  //      Stream<OWLAxiom> res= ontocore.parseRequest(request).axioms();
 //       System.out.println("Request:");

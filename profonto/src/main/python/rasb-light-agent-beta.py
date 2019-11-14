@@ -402,8 +402,72 @@ class Agent(Thread):
         self.hubInfo[1]=port
         return 1
 
+    
     def set_connection(self, host, port):
-        #to_do
+
+        self.agentInfo[1]=host
+        self.agentInfo[2]=port
+        self.alive = False
+        self.serversocket.close()
+        time.sleep(2)
+
+
+        timestamp = Utils.getTimeStamp(Utils)
+
+        self.setAgentConnectionInfo(host, port, self.graphSet[0])
+
+        tosend = Utils.libbug(Utils, self.graphSet[0],
+                              self.iriSet[2])  # transmits behavior solving the rdflib bug of xml:base
+        state = Utils.transmit(Utils, tosend.encode(), False, self.hubInfo)
+        if state == None:
+            return 0
+        reqGraph = rdflib.Graph()
+
+        iri = str(self.iriSet[2]).rsplit('.', 1)[0] + "-request" + timestamp + ".owl"
+        reqGraph.add((URIRef(iri), RDF.type, OWL.Ontology))
+        reqGraph.add((URIRef(iri), OWL.imports, URIRef(self.iriSet[0])))
+        reqGraph.add((URIRef(iri), OWL.imports, URIRef(self.iriSet[1])))
+        # if(self.iriSet[4] != ''):
+        #    reqGraph.add((URIRef(iri), OWL.imports, URIRef(self.iriSet[4])))
+
+        task = URIRef(iri + "#task")  # the task
+        agent = URIRef(self.iriSet[2] + "#" + self.agentInfo[0])
+        reqGraph.add(
+            (agent, URIRef(self.iriSet[0] + "#hasType"), URIRef(self.iriSet[1] + "#device_type")))  # task object
+        parameter = URIRef(iri + "#parameter")  # the parameter
+        Utils.generateRequest(Utils, reqGraph, iri, self.iriSet, task, agent, URIRef(self.iriSet[1] + "#update"), None,
+                              parameter)
+
+        agent = URIRef(self.iriSet[2] + "#" + self.agentInfo[0])
+        reqGraph.add((agent, RDF.type, URIRef(self.iriSet[0] + "#Device")))  # has request
+
+        request = URIRef(iri + "#request")  # the request
+        reqGraph.add((URIRef(self.iriSet[0] + "#requests"), RDF.type, Utils.owlobj))
+        reqGraph.add((agent, URIRef(self.iriSet[0] + "#requests"), request))  # has request
+
+        reqGraph.add((parameter, RDF.type, URIRef(self.iriSet[0] + "#OntologyDescriptionObject")))
+
+        reqGraph.add((URIRef(self.iriSet[0] + "#hasInformationObjectType"), RDF.type, Utils.owlobj))
+        reqGraph.add((parameter, URIRef(self.iriSet[0] + "#hasInformationObjectType"),
+                      URIRef(self.iriSet[1] + "#ontology_description_object_type")))
+
+        reqGraph.add((URIRef(self.iriSet[0] + "#descriptionProvidedByIRI"), RDF.type, Utils.owldat))
+        reqGraph.add((parameter, URIRef(self.iriSet[0] + "#descriptionProvidedByIRI"),
+                      Literal(self.iriSet[2], datatype=XSD.string)))
+
+        tosend = Utils.libbug(Utils, reqGraph, iri)  # transmits config solving the rdflib bug of xml:base
+        received = Utils.transmit(Utils, tosend.encode(), True, self.hubInfo)
+        if received == None:
+            return 0
+        g = rdflib.Graph()
+        g.parse(data=received)
+        for s, b in g.subject_objects(URIRef(self.iriSet[0] + "#hasStatus")):
+            if (str(b) == self.iriSet[1] + "#succeded_status"):
+                print("Device update confirmed by the hub")
+            else:
+                print("Device update not confirmed by the hub")
+        # f=open("test.owl", "w")
+        # f.write(g.serialize(format="pretty-xml").decode())
         return 1
 
     def printGraph (self, graph):
@@ -422,6 +486,7 @@ class Agent(Thread):
           self.serversocket.bind((self.agentInfo[1], int(self.agentInfo[2])))
           self.serversocket.listen(5)
           print("Client listening on", self.agentInfo[1], "port", self.agentInfo[2])
+          self.alive = True
           while self.alive:
               try:
                 clientsocket, address = self.serversocket.accept()
@@ -532,6 +597,17 @@ class Console(Thread):
                    print ("The hub cannot be configured, check the parameters")
                 else:
                     print("Use: set hub address port")
+            elif command.startswith("set device"):
+                if not self.checkAgent(agent):
+                    continue
+                parms = command.split();
+                if len(parms) == 4:
+                    if self.set_connection(agent, parms[2], parms[3]):
+                        print("The device has been updated")
+                    else:
+                        print ("The device cannot be updated, check the parameters")
+                else:
+                    print("Use: set hub address port")
             elif command == "check install":
                 if self.checkAgent(agent):
                     if (self.check_install(agent)):
@@ -540,7 +616,7 @@ class Console(Thread):
                         print("The device is not installed")
             else:
                 print("Unrecognized command")
-                print("Use start | start [address] [port] | stop | exit | status | install | uninstall | set hub [address] [port] | check install")
+                print("Use start | start [address] [port] | stop | exit | status | install | uninstall | set hub [address] [port] | set device address port check install")
             time.sleep(1)
         return
 

@@ -1779,15 +1779,19 @@ public class Profonto extends OntologyCore
     
     String[] getPathAndName(String iri)
       {
+        
         OWLOntology ontology=this.getMainManager().getOntology(IRI.create(iri));
         if(ontology==null)
             return null;
         List<IRI> iris= new ArrayList<>();
         this.getMainManager().getIRIMappers().forEach(a->{
-                                                           iris.add(a.getDocumentIRI(ontology.getOntologyID().getOntologyIRI().get())); 
+                                                           IRI d=a.getDocumentIRI(ontology.getOntologyID().getOntologyIRI().get());
+                                                           if(d!=null)
+                                                               iris.add(d); 
         });
         if (iris.isEmpty())
-            return null;        
+            return null;  
+        System.out.println(iris.toString());      
         return new String[]{iris.get(0).toString(),iris.get(0).getShortForm()};
       }
     
@@ -1896,7 +1900,9 @@ public class Profonto extends OntologyCore
             return null;
         List<IRI> iris= new ArrayList<>();
         this.getMainManager().getIRIMappers().forEach(a->{
-                                                           iris.add(a.getDocumentIRI(ontology.getOntologyID().getOntologyIRI().get())); 
+                                                           IRI d=a.getDocumentIRI(ontology.getOntologyID().getOntologyIRI().get());
+                                                           if(d!=null)
+                                                               iris.add(d);
         }); 
         try
           {     
@@ -1904,13 +1910,14 @@ public class Profonto extends OntologyCore
             if (!f.exists())
                 return null;
             this.getMainManager().removeOntology(ontology); 
-        
+            this.getMainManager().getIRIMappers().remove(new SimpleIRIMapper(ontology.getOntologyID().getOntologyIRI().get(),
+                IRI.create(f.getCanonicalFile())));
             OWLOntology g=this.getMainManager().loadOntologyFromOntologyDocument(f);
             g.saveOntology(IRI.create(f));
             return g;            
           } 
-        catch (OWLOntologyCreationException |  OWLOntologyStorageException  ex)
-          {
+        catch (OWLOntologyCreationException |  OWLOntologyStorageException | IOException ex)
+          {            
             return null;
           }        
       }
