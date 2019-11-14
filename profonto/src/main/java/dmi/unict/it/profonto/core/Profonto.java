@@ -1884,9 +1884,11 @@ public class Profonto extends OntologyCore
               {
                 File todelete=new File(this.getSatellitePath()+File.separator+ontoInfo[1]);
                 todelete.delete();
+                this.getMainManager().getIRIMappers().remove(new SimpleIRIMapper(ontology.getOntologyID().getOntologyIRI().get(),
+                IRI.create(todelete.getCanonicalFile())));
               } 
           } 
-        catch (OWLOntologyStorageException  ex)
+        catch (OWLOntologyStorageException  | IOException ex)
           {            
             return null;
           }
