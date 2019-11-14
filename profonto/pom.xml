@@ -72,15 +72,12 @@
     <version>5.1.10</version>
 </dependency>
 <!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-simple -->
-<dependency>
-        <groupId>org.slf4j</groupId>
-        <artifactId>slf4j-api</artifactId>
-        <version>1.7.26</version>
-</dependency>
+<!-- https://mvnrepository.com/artifact/org.slf4j/slf4j-nop -->
 <dependency>
     <groupId>org.slf4j</groupId>
-    <artifactId>slf4j-jdk14</artifactId>
-    <version>1.7.26</version>
+    <artifactId>slf4j-nop</artifactId>
+    <version>1.7.29</version>
+    <scope>test</scope>
 </dependency>
 
      <dependency>

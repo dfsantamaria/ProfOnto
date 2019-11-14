@@ -1791,7 +1791,7 @@ public class Profonto extends OntologyCore
         });
         if (iris.isEmpty())
             return null;  
-        System.out.println(iris.toString());      
+        //System.out.println(iris.toString());      
         return new String[]{iris.get(0).toString(),iris.get(0).getShortForm()};
       }
     
