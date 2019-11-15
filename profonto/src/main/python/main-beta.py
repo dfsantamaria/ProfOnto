@@ -11,6 +11,7 @@ from rdflib import *
 from pathlib import Path
 from threading import *
 from datetime import datetime
+from lib.utils import *
 import re
 
 # class client(Thread):
@@ -36,8 +37,6 @@ class ProfOnto (Thread):
         self.assistant=''
         self.host = address
         self.port = port
-        self.owlobj=URIRef("http://www.w3.org/2002/07/owl#ObjectProperty")
-        self.owldat=URIRef("http://www.w3.org/2002/07/owl#DatatypeProperty")
         self.alive=True
         self.restart=True
         self.iriassistant=assistant
@@ -72,7 +71,12 @@ class ProfOnto (Thread):
             g.add((s, URIRef(self.oasis + "hasIPAddress"), Literal(host, datatype=XSD.string)))
         return Utils.libbug(Utils, g, self.assistant)
 
+
+
     def setConnection(self, host, port):
+        if(Utils.checkAddress(Utils, host, port)!= 1):
+             print("Invalid port typed.")
+             return 0
         if self.profonto.modifyConnection(self.iriassistant, host, port) == 1 :
             self.host=host
             self.port=port
@@ -118,81 +122,44 @@ class ProfOnto (Thread):
           if ret<1:
               print("Execution status of " + execution + "cannot be updated")
 
+
     def transmitExecutionStatus(self, execution, status, addr, sock,  server_socket):
         g=Graph()
         iri=Utils.retrieveURI(Utils, execution).replace(".owl","-response.owl")
-        self.generateRequest(g, iri)
+        task = URIRef(iri + "#task")
+        object = URIRef(iri + "#belief-data")  # the obj
+        parameter = URIRef(iri + "#parameter")  # the parameter
+        operator=URIRef(self.oasis + "add")  # task operator
+        Utils.generateRequest(Utils, g, iri, self.oasis, task, object, operator, None, parameter)
         iriassist=self.iriassistant+'#'+self.assistant
+
 
         g.add((URIRef(iriassist), RDF.type, URIRef( self.oasis + "Device")))  # has request
         g.add((URIRef(iriassist), URIRef( self.oasis + "requests"), URIRef(iri + "#request")))
 
-        task = URIRef(iri + "#task")
-        g.add((URIRef( self.oasis + "hasTaskOperator"), RDF.type, self.owlobj))
-        g.add((task, URIRef( self.oasis + "hasTaskOperator"), URIRef( self.oasis + "add")))  # task operator
 
-        object = URIRef(iri + "#belief-data")  # the obj
-        g.add((URIRef( self.oasis + "hasTaskObject"), RDF.type, self.owlobj))
-        g.add((object, RDF.type, URIRef( self.oasis + "TaskObject")))
-        g.add((URIRef( self.oasis + "hasInformationObjectType"), RDF.type, self.owlobj))
+        g.add((URIRef( self.oasis + "hasInformationObjectType"), RDF.type, Utils.owlobj))
         g.add((object, URIRef( self.oasis + "hasInformationObjectType"),
                       URIRef( self.oasisabox + "belief_description_object_type")))
-        g.add((task, URIRef( self.oasis + "hasTaskObject"), object))  # task object
 
-        parameter = URIRef(iri + "#parameter")  # the parameter
-        g.add((parameter, RDF.type, URIRef( self.oasis + "TaskInputParameter")))
         g.add((parameter, RDF.type, URIRef( self.oasis + "OntologyDescriptionObject")))
 
-        g.add((URIRef( self.oasis+ "hasInformationObjectType"), RDF.type, self.owlobj))
         g.add((parameter, URIRef( self.oasis + "hasInformationObjectType"),URIRef( self.oasisabox + "ontology_description_object_type")))
 
-        g.add((URIRef( self.oasis + "descriptionProvidedByIRI"), RDF.type, self.owldat))
+        g.add((URIRef( self.oasis + "descriptionProvidedByIRI"), RDF.type, Utils.owldat))
         g.add((parameter, URIRef( self.oasis + "descriptionProvidedByIRI"), Literal(iri, datatype=XSD.string)))
 
-        g.add((URIRef( self.oasis + "refersTo"), RDF.type, self.owlobj))
+        g.add((URIRef( self.oasis + "refersTo"), RDF.type, Utils.owlobj))
         g.add((parameter, URIRef( self.oasis + "refersTo"), URIRef(execution)))
 
-        g.add((URIRef( self.oasis + "hasTaskInputParameter"), RDF.type, self.owlobj))
-        g.add((task, URIRef( self.oasis + "hasTaskInputParameter"), parameter))  # task parameter
-
-        g.add((URIRef( self.oasis + "hasStatus"), RDF.type, self.owlobj))
+        g.add((URIRef( self.oasis + "hasStatus"), RDF.type, Utils.owlobj))
         g.add((URIRef(execution),URIRef( self.oasis + "hasStatus"), URIRef(status)))
 
-       # f=open("test.owl", "w")
-       # f.write(g.serialize(format="pretty-xml").decode())
 
-        res=self.transmit(g.serialize(format='pretty-xml'), sock, addr,  server_socket)
+        res=Utils.serverTransmit(Utils, g.serialize(format='pretty-xml'), sock, addr,  server_socket)
         server_socket.close()
         return res
 
-    def transmit(self, data, sock, addr, server_socket):
-        print("Sending response to: ", addr, "port ", sock)
-        try:
-            server_socket.send(data)
-        except socket.error:
-            return 0
-        #server_socket.close()
-        else:
-            return 1
-
-
-    def generateRequest(self, reqGraph, iri):
-
-        request = URIRef(iri+"#request")             #the request
-        reqGraph.add(( request, RDF.type, URIRef( self.oasis+"PlanDescription")))  # request type
-
-        goal = URIRef(iri + "#goal")  # the goal
-        reqGraph.add((goal, RDF.type, URIRef( self.oasis + "GoalDescription")))  # goal type
-
-        task = URIRef(iri + "#task")  # the task
-        reqGraph.add((task, RDF.type, URIRef( self.oasis + "TaskDescription")))  # task type
-
-        reqGraph.add((URIRef( self.oasis + "consistsOfGoalDescription"), RDF.type, self.owlobj))
-        reqGraph.add((request, URIRef( self.oasis + "consistsOfGoalDescription"), goal))  # has goal
-
-        reqGraph.add((URIRef( self.oasis + "consistsOfTaskDescription"), RDF.type, self.owlobj))
-        reqGraph.add((goal, URIRef( self.oasis + "consistsOfTaskDescription"), task))  # has goal
-        return
 
     def computesDependencies(self, graph, executions):
           for first, second in graph.subject_objects(predicate=URIRef( self.oasis + "dependsOn")):
@@ -434,7 +401,7 @@ class ProfOnto (Thread):
                     self.profhome_decide(g, execution, addr, sock, server_socket)
                 else:
                     message =  self.device_engage(g, execution)
-                    self.transmit(message, sock, addr, server_socket)
+                    Utils.serverTransmit(Utils, message, sock, addr, server_socket)
                     belief =  self.profonto.parseRequest(message.decode())[1]
                     if belief == None:
                         print("A belief from " + execution + " cannot be added")
@@ -475,55 +442,6 @@ class ProfOnto (Thread):
         return message
 
 
-class Utils():
-    def recvall(self, sock):
-        BUFF_SIZE = 1024  # 1 KiB
-        data = b''
-        timeout = time.time() + 60
-        while time.time() < timeout:
-            part = sock.recv(BUFF_SIZE)
-            data += part
-            if len(part) < BUFF_SIZE:
-                # either 0 or end of data
-                break
-        return data
-
-    def getTimeStamp(self):
-      return (str(datetime.timestamp(datetime.now()))).replace(".", "-")
-
-    def retrieveURI(self, string):
-        out = string.split("#", 1)[0]
-        return out
-
-    def retrieveEntityName(self, string):
-        out = string.split("#", 1)[1]
-        return out
-
-    def readOntoFile(self, file):
-        f = open(file, "r")
-        return f.read()
-
-
-    def getGraph(self, value):
-        g = rdflib.Graph()
-        g.parse(data=value)
-        return g
-
-    def replacenth(self, string, sub, wanted, n):
-        where = [m.start() for m in re.finditer(sub, string)][n - 1]
-        before = string[:where]
-        after = string[where:]
-        after = after.replace(sub, wanted, 1)
-        newString = before + after
-        return newString
-
-    def libbug(self, graph, iri):
-        tosend = graph.serialize(format='pretty-xml').decode()  # transmits template
-        replace = "  xml:base=\"" + iri + "\"> \n"
-        tosend = self.replacenth(self, tosend, ">", replace, 2)
-        return tosend
-###
-
 class Console(Thread):
     def __init__(self):
         Thread.__init__(self)
@@ -556,8 +474,8 @@ class Console(Thread):
         agent = None
         exec_status = True
         while (exec_status):
-            print("Enter a command:")
-            command = input(" ---> ").strip()
+            print("Enter a command:  ---> ", end='')
+            command = input('').strip()
             if command.startswith("start"):
                 parms = command.split();
                 if( len(parms)==1):

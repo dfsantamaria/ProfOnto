@@ -6,6 +6,8 @@ from rdflib import *
 import os
 from datetime import datetime
 import re
+
+from lib.utils import *
 # current date and time
 
 
@@ -39,7 +41,7 @@ class ServerManager(Thread):
 
         task = URIRef(iri + "#task")  # the task
         object = URIRef(iri + "#belief-data")  # the task
-        Utils.generateRequest(None, reqGraph, iri, self.agent.iriSet, task, object, URIRef(self.agent.iriSet[1] + "#add"), None, None)
+        Utils.generateRequest(None, reqGraph, iri, self.agent.iriSet[0], task, object, URIRef(self.agent.iriSet[1] + "#add"), None, None)
 
         agent = URIRef(self.agent.iriSet[2] + "#" + self.agent.agentInfo[0])
         reqGraph.add((agent, RDF.type, URIRef(self.agent.iriSet[0] + "#Device")))  # has request
@@ -85,100 +87,8 @@ class ServerManager(Thread):
         self.response(request)
         return
 
-class Utils():
-    owlobj = URIRef("http://www.w3.org/2002/07/owl#ObjectProperty")
-    owldat = URIRef("http://www.w3.org/2002/07/owl#DatatypeProperty")
-
-    def readOntoFile(self, file):
-        f = open(file, "r")
-        return f.read()
-
-    def getGraph(self, value, iri):
-        g = rdflib.Graph()
-        g.parse(data=value)
-        #g.bind('xml:base', iri, override=True)
-        return g
-
-    def replacenth(self, string, sub, wanted, n):
-        where = [m.start() for m in re.finditer(sub, string)][n - 1]
-        before = string[:where]
-        after = string[where:]
-        after = after.replace(sub, wanted, 1)
-        newString = before + after
-        return newString
-
-    def libbug(self, graph, iri):
-        tosend=graph.serialize(format='pretty-xml').decode()  # transmits template
-        replace = "  xml:base=\"" + iri + "\"> \n"
-        tosend = self.replacenth(self, tosend, ">", replace, 2)
-        return tosend
-
-    def recvall(self, sock):
-        BUFF_SIZE = 1024  # 1 KiB
-        data = b''
-        timeout = time.time() + 60
-        while time.time() < timeout:
-            part = sock.recv(BUFF_SIZE)
-            data += part
-            if len(part) < BUFF_SIZE:
-                break
-        return data
-
-    def getTimeStamp(self):
-        return  (str(datetime.timestamp(datetime.now()))).replace(".", "-")
-
-    def generateRequest(self, reqGraph, iri, iriSet, task, object, operator, argument, parameter):
-
-        request = URIRef(iri+"#request")             #the request
-        reqGraph.add(( request, RDF.type, URIRef(iriSet[0]+"#PlanDescription")))  # request type
-
-        goal = URIRef(iri + "#goal")  # the goal
-        reqGraph.add((goal, RDF.type, URIRef(iriSet[0] + "#GoalDescription")))  # goal type
-
-        reqGraph.add((task, RDF.type, URIRef(iriSet[0] + "#TaskDescription")))  # task type
-
-        reqGraph.add((URIRef(iriSet[0] + "#consistsOfGoalDescription"), RDF.type, Utils.owlobj))
-        reqGraph.add((request, URIRef(iriSet[0] + "#consistsOfGoalDescription"), goal))  # has goal
-
-        reqGraph.add((URIRef(iriSet[0] + "#consistsOfTaskDescription"), RDF.type, Utils.owlobj))
-        reqGraph.add((goal, URIRef(iriSet[0] + "#consistsOfTaskDescription"), task))  # has goal
-
-        reqGraph.add((object, RDF.type, URIRef(iriSet[0] + "#TaskObject")))
-        reqGraph.add((URIRef(iriSet[0] + "#hasTaskObject"), RDF.type, Utils.owlobj))
-        reqGraph.add((task, URIRef(iriSet[0] + "#hasTaskObject"), object))  # task object
-
-        reqGraph.add((URIRef(iriSet[0] + "#hasTaskOperator"), RDF.type, Utils.owlobj))
-        reqGraph.add((task, URIRef(iriSet[0] + "#hasTaskOperator"),
-             operator))  # task operator
-
-        if parameter is not None:
-           reqGraph.add((parameter, RDF.type, URIRef(iriSet[0] + "#TaskInputParameter")))
-           reqGraph.add((URIRef(iriSet[0] + "#hasTaskInputParameter"), RDF.type, Utils.owlobj))
-           reqGraph.add((task, URIRef(iriSet[0] + "#hasTaskInputParameter"), parameter))  # task parameter
 
 
-        if argument is not None:
-            reqGraph.add((URIRef(iriSet[0] + "#hasOperatorArgument"), RDF.type, Utils.owlobj))
-            reqGraph.add((task, URIRef(iriSet[0] + "#hasOperatorArgument"), argument))  # argument
-
-        return
-
-
-    def transmit(self, data, response, hubInfo):
-        # print(data)
-        received = ''
-        try:
-            client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-            client_socket.connect((hubInfo[0], int(hubInfo[1])))
-            client_socket.send(data)
-            if (response):
-                received = Utils.recvall(Utils, client_socket).decode()
-        except socket.error:
-            client_socket.close()
-            return None
-        else:
-            client_socket.close()
-            return received
 
 class Agent(Thread):
     def __init__(self, address, port, path, templates, iriAgent, iriTemplate):
@@ -217,13 +127,13 @@ class Agent(Thread):
         self.graphSet[1]=None
         for tem in templates:
             if(self.graphSet[1]==None):
-               self.graphSet[1]=Utils.getGraph(Utils, Utils.readOntoFile(Utils,tem), self.iriSet[3])
+               self.graphSet[1]=Utils.getGraph(Utils, Utils.readOntoFile(Utils,tem))
             else:
-               self.graphSet[1]+= Utils.getGraph(Utils, Utils.readOntoFile(Utils,tem),self.iriSet[3])
+               self.graphSet[1]+= Utils.getGraph(Utils, Utils.readOntoFile(Utils,tem))
         return
 
     def setAgentOntology(self, path):
-        self.graphSet[0] = Utils.getGraph(Utils, Utils.readOntoFile(Utils,path), self.iriSet[2])
+        self.graphSet[0] = Utils.getGraph(Utils, Utils.readOntoFile(Utils,path))
         return
 
    # def setAgentConfiguration(self, path):
@@ -275,7 +185,7 @@ class Agent(Thread):
         agent = URIRef(self.iriSet[2] + "#" + self.agentInfo[0])
         reqGraph.add((agent, URIRef(self.iriSet[0] + "#hasType"), URIRef(self.iriSet[1] + "#device_type") ))  # task object
 
-        Utils.generateRequest(Utils,reqGraph, iri, self.iriSet, task, agent, URIRef(self.iriSet[1] + "#check"), URIRef(self.iriSet[1] + "#installation"), None)
+        Utils.generateRequest(Utils,reqGraph, iri, self.iriSet[0], task, agent, URIRef(self.iriSet[1] + "#check"), URIRef(self.iriSet[1] + "#installation"), None)
 
         agent = URIRef(self.iriSet[2] + "#" + self.agentInfo[0])
         reqGraph.add((agent, RDF.type, URIRef(self.iriSet[0] + "#Device")))  # has request
@@ -285,7 +195,7 @@ class Agent(Thread):
         reqGraph.add((agent, URIRef(self.iriSet[0] + "#requests"), request))  # has request
 
         tosend = Utils.libbug(Utils, reqGraph,  iri)  # transmits config solving the rdflib bug of xml:base
-        received= Utils.transmit(Utils,tosend.encode(), True, self.hubInfo)
+        received= Utils.transmit(Utils,tosend.encode(), True, self.hubInfo[0], self.hubInfo[1])
         if received == None:
            return 0
         g = rdflib.Graph()
@@ -301,12 +211,12 @@ class Agent(Thread):
         timestamp = Utils.getTimeStamp(Utils)
 
         tosend=Utils.libbug(Utils, self.graphSet[1], self.iriSet[3])  # transmits template solving the rdflib bug of xml:base
-        state=Utils.transmit(Utils, tosend.encode(), False, self.hubInfo)
+        state=Utils.transmit(Utils, tosend.encode(), False, self.hubInfo[0], self.hubInfo[1])
         if state == None:
             return 0
 
         tosend = Utils.libbug(Utils, self.graphSet[0], self.iriSet[2])  # transmits behavior solving the rdflib bug of xml:base
-        state=Utils.transmit(Utils, tosend.encode(), False, self.hubInfo)
+        state=Utils.transmit(Utils, tosend.encode(), False, self.hubInfo[0], self.hubInfo[1])
         if state == None:
             return 0
         reqGraph = rdflib.Graph()
@@ -323,7 +233,7 @@ class Agent(Thread):
         reqGraph.add(
             (agent, URIRef(self.iriSet[0] + "#hasType"), URIRef(self.iriSet[1] + "#device_type")))  # task object
         parameter = URIRef(iri +"#parameter")  # the parameter
-        Utils.generateRequest(Utils,reqGraph, iri, self.iriSet, task, agent,URIRef(self.iriSet[1] + "#install"), None, parameter )
+        Utils.generateRequest(Utils,reqGraph, iri, self.iriSet[0], task, agent,URIRef(self.iriSet[1] + "#install"), None, parameter )
 
         agent = URIRef(self.iriSet[2] + "#" + self.agentInfo[0])
         reqGraph.add((agent, RDF.type, URIRef(self.iriSet[0] + "#Device")))  # has request
@@ -341,7 +251,7 @@ class Agent(Thread):
         reqGraph.add((parameter, URIRef(self.iriSet[0] + "#descriptionProvidedByIRI"), Literal(self.iriSet[2], datatype=XSD.string)))
 
         tosend = Utils.libbug(Utils, reqGraph,  iri)  # transmits config solving the rdflib bug of xml:base
-        received= Utils.transmit(Utils,tosend.encode(), True, self.hubInfo)
+        received= Utils.transmit(Utils,tosend.encode(), True, self.hubInfo[0], self.hubInfo[1])
         if received == None:
            return 0
         g = rdflib.Graph()
@@ -370,7 +280,7 @@ class Agent(Thread):
         #    reqGraph.add((URIRef(iri), OWL.imports, URIRef(self.iriSet[4])))
         task = URIRef(iri + "#task")  # the task
         agent = URIRef(self.iriSet[2] + "#" + self.agentInfo[0])
-        Utils.generateRequest(Utils, reqGraph, iri, self.iriSet, task, agent, URIRef(self.iriSet[1] + "#uninstall"), None, None)
+        Utils.generateRequest(Utils, reqGraph, iri, self.iriSet[0], task, agent, URIRef(self.iriSet[1] + "#uninstall"), None, None)
 
         agent = URIRef(self.iriSet[2] + "#" + self.agentInfo[0])
         reqGraph.add(
@@ -383,7 +293,7 @@ class Agent(Thread):
 
 
         tosend = Utils.libbug(Utils, reqGraph, iri)  # transmits config solving the rdflib bug of xml:base
-        received = Utils.transmit(Utils, tosend.encode(), True, self.hubInfo)
+        received = Utils.transmit(Utils, tosend.encode(), True, self.hubInfo[0], self.hubInfo[1])
         if (received == None):
             return 0
         g = rdflib.Graph()
@@ -404,6 +314,8 @@ class Agent(Thread):
 
     
     def set_connection(self, host, port):
+        if self.hubInfo[0]=='' or self.hubInfo[1]=='':
+            return 0
 
         self.agentInfo[1]=host
         self.agentInfo[2]=port
@@ -411,14 +323,13 @@ class Agent(Thread):
         self.serversocket.close()
         time.sleep(2)
 
-
         timestamp = Utils.getTimeStamp(Utils)
 
         self.setAgentConnectionInfo(host, port, self.graphSet[0])
 
         tosend = Utils.libbug(Utils, self.graphSet[0],
                               self.iriSet[2])  # transmits behavior solving the rdflib bug of xml:base
-        state = Utils.transmit(Utils, tosend.encode(), False, self.hubInfo)
+        state = Utils.transmit(Utils, tosend.encode(), False, self.hubInfo[0], self.hubInfo[1])
         if state == None:
             return 0
         reqGraph = rdflib.Graph()
@@ -435,7 +346,7 @@ class Agent(Thread):
         reqGraph.add(
             (agent, URIRef(self.iriSet[0] + "#hasType"), URIRef(self.iriSet[1] + "#device_type")))  # task object
         parameter = URIRef(iri + "#parameter")  # the parameter
-        Utils.generateRequest(Utils, reqGraph, iri, self.iriSet, task, agent, URIRef(self.iriSet[1] + "#update"), None,
+        Utils.generateRequest(Utils, reqGraph, iri, self.iriSet[0], task, agent, URIRef(self.iriSet[1] + "#update"), None,
                               parameter)
 
         agent = URIRef(self.iriSet[2] + "#" + self.agentInfo[0])
@@ -456,7 +367,7 @@ class Agent(Thread):
                       Literal(self.iriSet[2], datatype=XSD.string)))
 
         tosend = Utils.libbug(Utils, reqGraph, iri)  # transmits config solving the rdflib bug of xml:base
-        received = Utils.transmit(Utils, tosend.encode(), True, self.hubInfo)
+        received = Utils.transmit(Utils, tosend.encode(), True, self.hubInfo[0], self.hubInfo[1])
         if received == None:
             return 0
         g = rdflib.Graph()
@@ -554,8 +465,8 @@ class Console(Thread):
         agent = None
         exec_status = True
         while (exec_status):
-            print("Enter a command:")
-            command = input(" ---> ").strip()
+            print("Enter a command: ---> ", end='')
+            command = input("").strip()
             if command.startswith("start"):
                 parms = command.split();
                 if( len(parms)==1):
