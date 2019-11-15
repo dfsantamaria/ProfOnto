@@ -8,11 +8,13 @@ package dmi.unict.it.profonto.test;
 import dmi.unict.it.profonto.core.Profonto;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +32,28 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 public class mainTest
   {
     
+      public static String[] toStringOntology(ByteArrayOutputStream[] array)
+      {           
+        String[] ret = new String[array.length];                   
+            try
+              { 
+                for (int i = 0; i < ret.length; i++)
+                 {    
+                   if(array[i]!=null)
+                     {                      
+                      ret[i]=array[i].toString("UTF-8");
+                     }
+                 }
+              } 
+            catch (UnsupportedEncodingException ex)
+              {                
+                for (int j = 0; j < ret.length; j++)
+                    ret[j]=null;
+                return ret;
+              }          
+        return ret;
+      }
+      
     public static String readQuery(String path)
       {
         String query="";
@@ -167,16 +191,14 @@ public class mainTest
 
          request=readData("ontologies/test/light-check-install-request.owl");   
          System.out.println("Check install request:");
-         OWLOntology out=((OWLOntology) ontocore.parseRequest(request)[0]);          
-         res= out.axioms();         
-         res.forEach(System.out::println);   
-          System.out.println(ontocore.checkDeviceInstallation("http://www.dmi.unict.it/lightagent.owl#light-device"));
+         String out=toStringOntology(ontocore.parseRequest(request))[0];          
+         
+         System.out.println(ontocore.checkDeviceInstallation("http://www.dmi.unict.it/lightagent.owl#light-device"));
          
          request=readData("ontologies/test/user-request-2.owl");   
          System.out.println("Parse user request:");
-         out=((OWLOntology) ontocore.parseRequest(request)[0]);          
-         res= out.axioms();         
-         res.forEach(System.out::println);   
+         out=toStringOntology(ontocore.parseRequest(request))[0];          
+         System.out.println(out); 
 
         try
           {            
@@ -191,16 +213,13 @@ public class mainTest
           }
           
        request=readData("ontologies/test/interpretation-request.owl");
-       res= ((OWLOntology) ontocore.parseRequest(request)[0]).axioms();
-       System.out.println("Request of device:");
+       out= toStringOntology(ontocore.parseRequest(request))[0];
+       
+       System.out.println("Retrieve data: \n"+ out);
+       res=ontocore.retrieveBeliefAssertions("http://www.dmi.unict.it/interpretation-request.owl#user-utterance-1");
+         
        if(res!=null)
-           {
-         res.forEach(System.out::println);        
-        
-         System.out.println();
-         System.out.println("Retrieve data:");
-         res=ontocore.retrieveBeliefAssertions("http://www.dmi.unict.it/interpretation-request.owl#user-utterance-1");
-                                         
+         {
          res.forEach(System.out::println);
            }
          else System.out.println("Request unsatisfiable");              

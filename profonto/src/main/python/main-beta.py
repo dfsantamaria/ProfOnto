@@ -74,7 +74,7 @@ class ProfOnto (Thread):
 
 
     def setConnection(self, host, port):
-        if(Utils.checkAddress(Utils, host, port)!= 1):
+        if(Utils.checkAddress(Utils, host, port)==0):
              print("Invalid port typed.")
              return 0
         if self.profonto.modifyConnection(self.iriassistant, host, port) == 1 :

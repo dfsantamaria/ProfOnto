@@ -7,6 +7,7 @@ package dmi.unict.it.profonto.core;
 
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -14,7 +15,6 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
-import java.nio.file.StandardCopyOption;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -1491,18 +1491,21 @@ public class Profonto extends OntologyCore
          return ontology;
       }
     
+    
+      
+    
     /**
      * Returns the set of axioms concerning the execution of the given request
      * @param request The ontology of the request     
      * @return the set of axioms representing the execution of the given request
      */
-    public Object[] parseRequest(ByteArrayInputStream request)
+    public ByteArrayOutputStream[] parseRequest(ByteArrayInputStream request)
       {
         OntologyModel res = null;
         ArrayList<String[]> depends=new ArrayList();
         ArrayList<String[]> configs=null;
         Stream<OWLAxiom> axioms = Stream.of();
-        Object[] toreturn = new Object[]{null,null};
+        ByteArrayOutputStream[] toreturn = new ByteArrayOutputStream[]{null,null};
         OWLOntology ontology;
         try
           {
@@ -1606,7 +1609,10 @@ public class Profonto extends OntologyCore
                   {
                       belief=this.getMainManager().getOntology(ex.getDocumentIRI());
                   }
-                  toreturn[1]=belief;
+                  toreturn[1]=new ByteArrayOutputStream();
+                  belief.saveOntology(toreturn[1]);
+                  this.getMainManager().removeOntology(belief);
+                  //toreturn[1]=belief;
                   //this.getMainManager().removeOntology(belief);
                 }
                
@@ -1667,7 +1673,7 @@ public class Profonto extends OntologyCore
                 //res.axioms().forEach(System.out::println);    
           if (res.axioms().count() == 0)
           {
-            return toreturn; //all new values
+            return toreturn; //all  values null
           }
         axioms = Stream.concat(res.axioms(), axioms);
         String[] conn=new String[]{""};
@@ -1706,13 +1712,16 @@ public class Profonto extends OntologyCore
         try
           {
             out = getMainManager().createOntology(axioms);
+            toreturn[0]=new ByteArrayOutputStream();
+            out.saveOntology(toreturn[0]);
+            this.getMainManager().removeOntology(out);
           } 
-        catch (OWLOntologyCreationException ex)
-          {
-            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+        catch (OWLOntologyCreationException | OWLOntologyStorageException ex)
+          {        
+            toreturn[0]=null;
             return toreturn; //all values null
-          }
-        toreturn[0]=out;
+          }           
+        //toreturn[0]=out;     
         return toreturn;
       }
     

@@ -10,6 +10,7 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Paths;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -335,21 +336,25 @@ public class ProfontoEntryPoint
      */
     public static String[] parseRequest(String request)
       {
-        Object[] out = ontocore.parseRequest(getInputStream(request));
+        ByteArrayOutputStream[] out = ontocore.parseRequest(getInputStream(request));
         String[] ret = new String[out.length];
-        for (int i = 0; i < ret.length; i++)
-          {
-            if (out[i] != null)
-              {
-                OWLOntology res = (OWLOntology) out[i];
-                ret[i] = getStringFromOntology(res);
-                ontocore.getMainManager().removeOntology(res);
+                   
+            try
+              { 
+                for (int i = 0; i < ret.length; i++)
+                 {    
+                   if(out[i]!=null)
+                     {                      
+                      ret[i]=out[i].toString("UTF-8");
+                     }
+                 }
               } 
-            else
-              {
-                ret[i] = null;
-              }
-          }
+            catch (UnsupportedEncodingException ex)
+              {                
+                for (int j = 0; j < ret.length; j++)
+                    ret[j]=null;
+                return ret;
+              }          
         return ret;
       }
 
@@ -411,7 +416,7 @@ public class ProfontoEntryPoint
      * Update the given execution status with the given value
      * @param execution the IRI of the execution to be updated
      * @param status the new status
-     * @return 1 if the execution has been correctly updated, 0 otherwise
+     * @return 1 if the execution has been correctly updated, 0 otherwise, -1 if some errors occur
      */
     public int setExecutionStatus(String execution, String status)
       {
