@@ -27,7 +27,11 @@ import py4j.GatewayServer;
  */
 public class ProfontoEntryPoint
   {
-
+    static Profonto ontocore; //the ontological core
+    /**
+     * Start Profonto gateway with default configuration
+     * @param args
+     */
     public static void main(String[] args)
       {
         GatewayServer gatewayServer = new GatewayServer(new ProfontoEntryPoint());
@@ -35,8 +39,7 @@ public class ProfontoEntryPoint
         System.out.println("Prof-Onto's core has been started. Wait for Prof-Onto to start.");
       }
 
-    static Profonto ontocore;
-
+    //return a string representation of the given ontology
     private static String getStringFromOntology(OWLOntology res)
       {
         ByteArrayOutputStream out = new ByteArrayOutputStream();
@@ -59,6 +62,9 @@ public class ProfontoEntryPoint
         return "";
       }
 
+    /**
+     * Create a standard entry point for the ontological core
+     */
     public ProfontoEntryPoint()
       {
         File ontoFile = new File("ontologies/main/oasis.owl");
@@ -67,6 +73,7 @@ public class ProfontoEntryPoint
         ontocore = new Profonto();
         try
           {
+            //initialize all the used paths
             ontocore.setOntologiesDeviceConfigurationsPath(Paths.get("ontologies" + File.separator + "devConfigs"));
             ontocore.setOntologiesDevicesPath(Paths.get("ontologies" + File.separator + "devices"));
             ontocore.setMainOntologiesPath(Paths.get("ontologies" + File.separator + "main"));
@@ -74,26 +81,36 @@ public class ProfontoEntryPoint
             ontocore.setQueryPath(Paths.get("ontologies" + File.separator + "queries"));
             ontocore.setSatellitePath(Paths.get("ontologies" + File.separator + "satellite"));
             ontocore.setBackupPath(Paths.get("ontologies" + File.separator + "backup"));
-
-            ontocore.setMainOntology(ontoFile);
-            ontocore.setMainAbox(aboxFile);
+            //set the ontologies used by the ontological core
+            ontocore.setMainOntology(ontoFile);            ontocore.setMainAbox(aboxFile);
 
             ontocore.setDataBehaviorOntology("http://www.dmi.unict.it/prof-onto-behavior.owl", "behavior.owl");
             ontocore.setDataRequestOntology("http://www.dmi.unict.it/prof-onto-request.owl", "request.owl");
             ontocore.setDataBeliefOntology("http://www.dmi.unict.it/prof-onto-belief.owl", "belief.owl");
-            ontocore.loadDevicesFromPath(true); //use this if the devices folder is not empty 
+            ontocore.loadDevicesFromPath(true); //use this if the devices folder is not empty in order to install the devices inside
             // ontocore.startReasoner();
-          } catch (OWLOntologyCreationException | OWLOntologyStorageException | IOException ex)
+          } 
+        catch (OWLOntologyCreationException | OWLOntologyStorageException | IOException ex)
           {
-            Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
+            
           }
       }
 
+    /**
+     * Check for the installation of the given device IRI
+     * @param uridevice IRI of the device to be checked
+     * @return 1 if the device is installed, 0 otherwise
+     */
     public static int checkDevice(String uridevice)
       {
         return ontocore.checkDeviceInstallation(uridevice);
       }
 
+    /**
+     * Return a ByteArrayInputStream of the give ontology in string format
+     * @param description The ontology represented as string
+     * @return the ByteArrayInputStream corresponding to the given ontology
+     */
     public static ByteArrayInputStream getInputStream(String description)
       {
         ByteArrayInputStream inputstream = null;
@@ -101,13 +118,19 @@ public class ProfontoEntryPoint
         try
           {
             inputstream.close();
-          } catch (IOException ex)
+          } 
+        catch (IOException ex)
           {
-            Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
           }
         return inputstream;
       }
 
+    /**
+     * Install a device from its ontology
+     * @param description the string representation of the onotology  or the IRI of the device
+     * @return  the IRI of the installed device, NULL otherwise
+     */
     public static String addDevice(String description)
       {
         if (description.startsWith("http") || description.startsWith("www"))
@@ -117,6 +140,11 @@ public class ProfontoEntryPoint
         return ontocore.addDevice(getInputStream(description));
       }
 
+    /**
+     * Update a device with its new ontology description
+     * @param description the string representation of the device or the IRI of the device
+     * @return the IRI of the updated device, NULL otherwise
+     */
     public static String modifyDevice(String description)
       {
         if (description.startsWith("http") || description.startsWith("www"))
@@ -126,17 +154,32 @@ public class ProfontoEntryPoint
         return null;
       }
 
+    /**
+     * Return the address and port of the given IRI device
+     * @param device the IRI of the device
+     * @return a String[] where String[0] contains the address, and String[1] the port of the device
+     */
     public String[] getConnectionInfo(String device)
       {
         return ontocore.getConnectionInfo(device);
       }
 
+    /**
+     * Return the string representation of the ontology from the given IRI
+     * @param device the IRI of the device
+     * @return the string representation of the device
+     */
     public static String getDeviceOntology(String device)
       {
         OWLOntology res = ontocore.getDevice(device);
         return getStringFromOntology(res);
       }
 
+    /**
+     * Add a user from its ontology or IRI
+     * @param description the string representation of the user ontology or the IRI
+     * @return the IRI of the added user
+     */
     public static String addUser(String description)
       {
         if (description.startsWith("http") || description.startsWith("www"))
@@ -146,6 +189,11 @@ public class ProfontoEntryPoint
         return ontocore.addUser(getInputStream(description));
       }
 
+    /**
+     * Add a user configuration from the given string representation of ontology or  from the IRI
+     * @param description the string representation of the ontology or the IRI
+     * @return the IRI of the added configuration
+     */
     public static String addConfiguration(String description)
       {
         String value = null;
@@ -159,59 +207,89 @@ public class ProfontoEntryPoint
         return value;
       }
 
-//    public static int addConfiguration(String description, String iddevice, String idconfig, String iduser)
-//    {
-//        ontocore.addDeviceConfiguration(getInputStream(description), iddevice, idconfig, iduser);
-//        return 0;
-//    }
+    /**
+     * Remove a user from the given ontology IRI
+     * @param id the IRI of the ontology
+     * @return 1 if the user has been correctly removed, -1 if some errors occur
+     */
     public static int removeUser(String id)
       {
         try
           {
             ontocore.removePermanentUser(id);
-          } catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex)
+          }
+        catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex)
           {
-            Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
           }
         return 1;
       }
 
+    /**
+     * Remove a device from the given IRI
+     * @param id the IRI of the device
+     * @return 1 if the device has been correctly removed, -1 if some errors occur
+     */
     public static int removeDevice(String id)
       {
         try
           {
             ontocore.removePermanentDevice(id);
-          } catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex)
+          } 
+        catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex)
           {
-            Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
           }
         return 1;
       }
 
+    /**
+     * Modify the address and port of the given device IRI
+     * @param iri the IRI of the device to update
+     * @param address the new address of the device
+     * @param port the new port of the device
+     * @return 1 if the device has been correctly updated, 0 otherwise
+     */
     public static int modifyConnection(String iri, String address, String port)
       {
         return ontocore.modifyConnection(iri, address, port);
       }
 
+    /**
+     * Add a belief information from its ontology represented as string
+     * @param input the string representation of the ontology
+     * @return 1 if the belief has been correctly added, 0 otherwise
+     */
     public static int addDataBelief(String input)
       {
         return ontocore.addDataToDataBelief(getInputStream(input));
       }
 
+    /**
+     * Remove a belief information from its ontology represented as string
+     * @param input the string representation of the belief
+     * @return 1 if the belief has been correctly removed, 0 otherwise
+     */
     public static int removeDataBelief(String input)
       {
         try
           {
             return ontocore.removeDataFromDataBelief(getInputStream(input));
-          } catch (OWLOntologyCreationException ex)
+          } 
+        catch (OWLOntologyCreationException ex)
           {
-            Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
           }
       }
 
+    /**
+     * Return the ontology presented as string of the given belief information
+     * @param input the string representation of the belief
+     * @return the ontology represented as string if the belief exists, null otherwise
+     */
     public String retrieveDataBelief(String input)
       {
         try
@@ -224,34 +302,37 @@ public class ProfontoEntryPoint
                 return out.toString();
               }
             return null;
-          } catch (OWLOntologyCreationException ex)
+          } 
+        catch (OWLOntologyCreationException ex)
           {
-            Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
             return null;
           }
       }
 
+    /**
+     * Synchronyze the reasoner on the data behavior
+     * @return 1 if data has been correctly synchronized, 0 otherwise
+     */
     public static int syncReasonerDataBehavior()
       {
         try
           {
             ontocore.syncReasonerDataBehavior();
-          } catch (OWLOntologyStorageException | OWLOntologyCreationException ex)
+          } 
+        catch (OWLOntologyStorageException | OWLOntologyCreationException ex)
           {
-            Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
           }
         return 1;
       }
 
-//    public static String acceptUserRequest(String request, String IRItask, String IRIUser, String IRIExec, String IRIgoalexec)
-//    {
-//       Stream<OWLAxiom> res= ontocore.acceptUserRequest(getInputStream(request), IRItask, IRIUser, IRIExec, IRIgoalexec);
-//       StringBuilder out=new StringBuilder();
-//      // res.forEach(x->System.out.println(x.));
-//       res.forEach(x->out.append(x.toString()).append("\n"));
-//       return out.toString();
-//    }
+    /**
+     * Satisfies the given OASIS request 
+     * @param request the OASIS request as string
+     * @return a String[], where String[0] contains the execution information and String[1] satellite data
+     */
     public static String[] parseRequest(String request)
       {
         Object[] out = ontocore.parseRequest(getInputStream(request));
@@ -263,7 +344,8 @@ public class ProfontoEntryPoint
                 OWLOntology res = (OWLOntology) out[i];
                 ret[i] = getStringFromOntology(res);
                 ontocore.getMainManager().removeOntology(res);
-              } else
+              } 
+            else
               {
                 ret[i] = null;
               }
@@ -271,19 +353,30 @@ public class ProfontoEntryPoint
         return ret;
       }
 
+    /**
+     * Remove a configuration from the given configuration IRI
+     * @param configuration
+     * @return 1 if the configuration has been correctly removed, 0 otherwise
+     */
     public static int removeConfiguration(String configuration)
       {
         try
           {
             ontocore.removePermanentConfigurationFromDevice(configuration);
-          } catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex)
+          } 
+        catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex)
           {
-            Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
           }
         return 1;
       }
 
+    /**
+     * Return data associated to the given individual
+     * @param individual the IRI of the individual
+     * @return the ontology of the individual data as string
+     */
     public static String retrieveAssertions(String individual)
       {
         Stream<OWLAxiom> res = ontocore.retrieveBeliefAssertions(individual);
@@ -296,27 +389,39 @@ public class ProfontoEntryPoint
         return "";
       }
 
+    /**
+     * Clean up all the request previously added
+     * @return 1 if all the request have been deleted, 0 otherwise
+     */
     public int emptyRequest()
       {
         try
           {
             ontocore.emptyRequestOntology();
             return 1;
-          } catch (OWLOntologyCreationException | OWLOntologyStorageException | IOException ex)
+          } 
+        catch (OWLOntologyCreationException | OWLOntologyStorageException | IOException ex)
           {
-            Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
           }
       }
 
+    /**
+     * Update the given execution status with the given value
+     * @param execution the IRI of the execution to be updated
+     * @param status the new status
+     * @return 1 if the execution has been correctly updated, 0 otherwise
+     */
     public int setExecutionStatus(String execution, String status)
       {
         try
           {
             ontocore.setExecutionStatus(execution, status);
-          } catch (OWLOntologyStorageException ex)
+          } 
+        catch (OWLOntologyStorageException ex)
           {
-            Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
             return -1;
           }
         return 1;
