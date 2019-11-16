@@ -50,7 +50,6 @@ import org.semanticweb.owlapi.model.OWLObjectProperty;
 import org.semanticweb.owlapi.model.OWLObjectPropertyAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLOntologyAlreadyExistsException;
 import org.semanticweb.owlapi.model.OWLOntologyID;
-import org.semanticweb.owlapi.model.OWLOntologyIRIMapper;
 import org.semanticweb.owlapi.reasoner.InferenceType;
 import org.semanticweb.owlapi.reasoner.OWLReasoner;
 import org.semanticweb.owlapi.util.InferredAxiomGenerator;
@@ -76,19 +75,22 @@ import ru.avicomp.ontapi.OntologyModel;
 public class Profonto extends OntologyCore
 {
     private OWLOntology mainAbox;
-    private final HashMap<String, String> devices; //IDdevice, IDOntology
-    private final HashMap<String, String[]> devConfig; //IDconfig <IDdevice-  IDOntology- IDuser
-    private final HashMap<String, String> users; //IDconfig <IDdevice, IDOntology> //IDdevice, IDOntology
-    private final HashMap<String, String> queries; //FileName, content
-    private final HashMap<String, String> satellite; //filename, idontology
+    private final HashMap<String, String> devices; //Hashmap for devices, <IDdevice, IDOntology>
+    private final HashMap<String, String[]> devConfig; //Hashmap for user configurations.  <IDdevice,  IDOntology, IDuser>
+    private final HashMap<String, String> users; //Hashmap for users. <IDdevice, IDOntology> 
+    private final HashMap<String, String> queries; //Hashmap for queries file. <FileName, content>
+    private final HashMap<String, String> satellite; //Hshmap for satellite data. <filename, idontology>
     
-    private Pair<String, OWLOntology> databehavior;
-    private Pair<String, OWLOntology> databelief;
-    private Pair<String, OWLOntology> datarequest;
+    private Pair<String, OWLOntology> databehavior; //ontology for device behaviors
+    private Pair<String, OWLOntology> databelief; //ontology for databelief
+    private Pair<String, OWLOntology> datarequest; //ontology for requests
     
-    private final Configuration configuration;
-    private final List<InferredAxiomGenerator<? extends OWLAxiom>> generators;
+    private final Configuration configuration; //reasoner configuration
+    private final List<InferredAxiomGenerator<? extends OWLAxiom>> generators;//reasoner configuration for inferences
 
+    /**
+     * Initialize Prof-Onto
+     */
     public Profonto()
     {
         super();
@@ -108,17 +110,25 @@ public class Profonto extends OntologyCore
         setDefaultReasonerGenerators(generators);
     }
 
-     
-
+    /**
+     * Set the main file for instances
+     * @param inputFile the file of the ontology
+     * @throws OWLOntologyCreationException
+     */
     public void setMainAbox(File inputFile) throws OWLOntologyCreationException 
       {        
         mainAbox= this.getMainManager().loadOntologyFromOntologyDocument(inputFile);
       } 
     
-     public OWLOntology getMainAbox() 
+    /**
+     * Return the ontology for instances
+     * @return the ontology for instances
+     */
+    public OWLOntology getMainAbox() 
       {        
         return mainAbox;
       } 
+    
     private void setDefaultReasonerGenerators(List<InferredAxiomGenerator<? extends OWLAxiom>> generators)
     {
         generators.add(new InferredSubClassAxiomGenerator());
@@ -146,6 +156,10 @@ public class Profonto extends OntologyCore
         return configuration;
     }
 
+    /**
+     * Set the path of the folder containging the main ontologies
+     * @param path path of the folder
+     */
     public void setMainOntologiesPath(Path path)
     {
         this.getConfiguration().getPaths()[0] = path;
@@ -153,9 +167,9 @@ public class Profonto extends OntologyCore
     }
 
     /**
-     * 
-     * @param input
-     * @return
+     * Load ontology taking care of dangerous situations
+     * @param input the InputStream of the ontology
+     * @return The corresponding OWL ontology
      */
      
     public OWLOntology secureLoadOntology(InputStream input)
@@ -175,6 +189,11 @@ public class Profonto extends OntologyCore
       }
     }
     
+     /**
+     * Load ontology taking care of dangerous situations
+     * @param input the file of the ontology
+     * @return The corresponding OWL ontology
+     */
     public OWLOntology secureLoadOntology(File input)
     {
       try
@@ -191,6 +210,11 @@ public class Profonto extends OntologyCore
       }
     }
     
+     /**
+     * Load ontology taking care of dangerous situations
+     * @param input the string representing of the ontology
+     * @return The corresponding OWL ontology
+     */
     public OWLOntology secureLoadOntology(String input)
     {
       try
@@ -207,45 +231,76 @@ public class Profonto extends OntologyCore
       }
     }
     
-    
+    /**
+     * Return the path of the main ontologies
+     * @return the path of the main ontologies
+     */
     public Path getMainOntologiesPath()
     {
         return this.getConfiguration().getPaths()[0];
     }
 
+    /**
+     * Set the path of the device ontologies
+     * @param path the path of the device ontologies
+     */
     public void setOntologiesDevicesPath(Path path)
     {
         this.getConfiguration().getPaths()[1] = path;
         createFolder(path);
     }
 
+    /**
+     * Return the path of the device ontologies
+     * @return the path of the device ontologies
+     */
     public Path getOntologiesDevicesPath()
     {
         return this.getConfiguration().getPaths()[1];
     }
 
+    /**
+     * Set the path of the device configuration ontologies
+     * @param path the path of the device configuration ontologies
+     */
     public void setOntologiesDeviceConfigurationsPath(Path path)
     {
         this.getConfiguration().getPaths()[2] = path;
         createFolder(path);
     }
 
+    /**
+     * return the path of the device configuration ontologies
+     * @return the path of the device configuration ontologies
+     */
     public Path getOntologiesDeviceConfigurationPath()
     {
         return this.getConfiguration().getPaths()[2];
     }
 
+    /**
+     * Set the path of the user ontologies
+     * @param path the path of the user ontologies
+     */
     public void setOntologiesUsersPath(Path path)
     {
         this.getConfiguration().getPaths()[3] = path;
         createFolder(path);
     }
     
-  public Path getOntologiesUsersPath()
+    /**
+     * Return the path of the user ontologies
+     * @return
+     */
+    public Path getOntologiesUsersPath()
     {
         return this.getConfiguration().getPaths()[3];
     }
   
+    /**
+     * Set the path of the SPARQL query files
+     * @param path of the SPARQL query files
+     */
     public void setQueryPath(Path path)
     {
        this.getConfiguration().getPaths()[4]=path; 
@@ -264,40 +319,64 @@ public class Profonto extends OntologyCore
          }    
     }
     
+    /**
+     * Return the query hashmap
+     * @return the query hashmap
+     */
     public HashMap<String,String> getQueries()
       {
         return this.queries;
       }
     
+    /**
+     * Return the query path
+     * @return the query path
+     */
     public Path getQueryPath()
     {
       return this.getConfiguration().getPaths()[4];
     }
     
+    /**
+     * Return the path of the satellite ontologies
+     * @return the path of the satellite ontologies
+     */
     public Path getSatellitePath()
     {
       return this.getConfiguration().getPaths()[5];
     }
 
+    /**
+     * Return the satellite ontologies path
+     * @param path the path of the satellite ontologies
+     */
     public void setSatellitePath(Path path)
     {
         this.getConfiguration().getPaths()[5] = path;
         createFolder(path);
     }
    
+    /**
+     * Set the path of the backup ontologies
+     * @param path the path of the backup ontologies
+     */
     public void setBackupPath(Path path)
     {
         this.getConfiguration().getPaths()[6] = path;
         createFolder(path);
     }
     
+    /**
+     * Return the path of the backup ontologies
+     * @return path the path of the backup ontologies
+     */
     public Path getBackupPath()
     {
       return this.getConfiguration().getPaths()[6];
     }
     
     /**
-     * Creates the folder from the given path if it does not exist
+     * Create the folder from the given path if it does not exist
      *
      * @param path the path of the folder
      */
@@ -310,20 +389,8 @@ public class Profonto extends OntologyCore
         }
     }
 
-//    public void startReasoner()
-//      {
-//        ReasonerFactory rf=new ReasonerFactory();
-//        org.semanticweb.HermiT.Configuration config= new org.semanticweb.HermiT.Configuration();
-//        config.ignoreUnsupportedDatatypes = true;        
-//        setReasoner(rf.createReasoner(this.getDataBeliefOntology(),config));
-//        this.getReasoner().precomputeInferences(InferenceType.CLASS_HIERARCHY, 
-//                                                 InferenceType.CLASS_ASSERTIONS, 
-//                                                 InferenceType.OBJECT_PROPERTY_HIERARCHY, 
-//                                                 InferenceType.DATA_PROPERTY_HIERARCHY, 
-//                                                 InferenceType.OBJECT_PROPERTY_ASSERTIONS);
-//      }
     /**
-     * Sets the data-belief ontology from file
+     * Set the data-belief ontology from file
      *
      * @param inputFile the file serializing the ontology
      * @throws OWLOntologyCreationException
@@ -336,7 +403,7 @@ public class Profonto extends OntologyCore
 
     
     /**
-     * Sets the data-request ontology from file
+     * Set the data-request ontology from file
      *
      * @param inputFile the file serializing the ontology
      * @throws OWLOntologyCreationException
@@ -349,7 +416,7 @@ public class Profonto extends OntologyCore
     
        
     /**
-     * Sets the data-behavior ontology from file
+     * Set the data-behavior ontology from file
      *
      * @param inputFile the file serializing the ontology
      * @throws OWLOntologyCreationException
@@ -399,6 +466,12 @@ public class Profonto extends OntologyCore
         addImportToOntology(this.getDataRequestOntology(), this.getDataBehaviorOntology().getOntologyID().getOntologyIRI().get());
     }
     
+    /**
+     * Empty the request ontology
+     * @throws OWLOntologyCreationException
+     * @throws OWLOntologyStorageException
+     * @throws IOException
+     */
     public void emptyRequestOntology() throws OWLOntologyCreationException, OWLOntologyStorageException, IOException
     {
        String iri=this.getDataRequestOntology().getOntologyID().getOntologyIRI().get().toString();          
@@ -408,7 +481,7 @@ public class Profonto extends OntologyCore
     
     
     /**
-     * Sets the data-beheavior ontology from file name
+     * Set the data-beheavior ontology from file name
      *
      * @param iri The IRI of the ontology
      * @param name the name of the file serializing the ontology
@@ -426,7 +499,7 @@ public class Profonto extends OntologyCore
     }
 
     /**
-     * Imports an ontology into the given ontology
+     * Import an ontology into the given ontology
      *
      * @param ontology The ontology to which add the import axiom
      * @param iri The iri to import into the dataset ontology
@@ -442,7 +515,7 @@ public class Profonto extends OntologyCore
     }
 
     /**
-     * Removes the import of an ontology from the given ontology
+     * Remove the import of an ontology from the given ontology
      *
      * @param ontology The ontology the import axiom has to be removed from.
      * @param iri The iri to remove from the dataset ontology
@@ -458,9 +531,9 @@ public class Profonto extends OntologyCore
     }
 
     /**
-     * Returns the data-behavior ontology
+     * Return the behavior ontology
      *
-     * @return the data-behavior ontology
+     * @return the behavior ontology
      */
     public Pair<String, OWLOntology> getDataBehaviorInfo()
     {
@@ -468,9 +541,9 @@ public class Profonto extends OntologyCore
     }
 
     /**
-     * Returns the data-belief ontology
+     * Return the belief ontology
      *
-     * @return the data-belief ontology
+     * @return the belief ontology
      */
     public OWLOntology getDataBeliefOntology()
     {
@@ -478,9 +551,9 @@ public class Profonto extends OntologyCore
     }
 
        /**
-     * Returns the data-request ontology
+     * Return the request ontology
      *
-     * @return the data-request ontology
+     * @return the request ontology
      */
     public OWLOntology getDataRequestOntology()
     {
@@ -489,9 +562,9 @@ public class Profonto extends OntologyCore
     
     
     /**
-     * Returns the data-belief ontology
+     * Return the belief infor
      *
-     * @return the data-belief ontology
+     * @return the belief ontology info, i.e., the pair <Name, Ontology>
      */
     public Pair<String, OWLOntology> getDataBeliefInfo()
     {
@@ -499,9 +572,9 @@ public class Profonto extends OntologyCore
     }
 
       /**
-     * Returns the data-request ontology
+     * Return the request ontology
      *
-     * @return the data-request ontology
+     * @return the request ontology
      */
     public Pair<String, OWLOntology> getDataRequestInfo()
     {
@@ -510,9 +583,9 @@ public class Profonto extends OntologyCore
     
         
     /**
-     * Returns the data-behavior ontology
+     * Return the behavior ontology
      *
-     * @return the data-behavior ontology
+     * @return the behavior ontology
      */
     public OWLOntology getDataBehaviorOntology()
     {
@@ -520,9 +593,9 @@ public class Profonto extends OntologyCore
     }
 
     /**
-     * Returns the set of connected devices
+     * Return the hashmap of  devices
      *
-     * @return the HashMap containing the connected devices
+     * @return the HashMap of the  devices
      */
     public HashMap getDevices()
     {
@@ -530,7 +603,7 @@ public class Profonto extends OntologyCore
     }
 
     /**
-     * Returns the set of devices configurations
+     * Return the hashmap of device configurations
      *
      * @return the HashMap containing the devices configuaration
      */
@@ -540,7 +613,7 @@ public class Profonto extends OntologyCore
     }
 
     /**
-     * Returns the set of users
+     * Return the hashmap of users
      *
      * @return the HashMap containing the users
      */
@@ -549,17 +622,20 @@ public class Profonto extends OntologyCore
         return users;
     }
 
+    /**
+     * Return the hashmap of the satellite ontologies
+     * @return the hashmap of the satellite ontologies
+     */
     public HashMap getSatellite()
       {
         return satellite;
       }
     /**
-     * Adds to the given ontology a set of axioms
+     * Add to the given ontology a set of axioms
      *
-     * @param ontology the ontology to be extended with the axioms
+     * @param ontology the ontology to be extended with the given axioms
      * @param axioms the axioms to be added
-     * @return the extended ontology
-     * @throws org.semanticweb.owlapi.model.OWLOntologyCreationException
+     * @return  1 if data has been correctly added, -1 otherwise
      */
     public int addAxiomsToOntology(OWLOntology ontology, Stream<OWLAxiom> axioms)
     {
@@ -579,6 +655,13 @@ public class Profonto extends OntologyCore
         return -1;
     }
 
+    /**
+     * Remove the given set of axioms from the given ontology
+     * @param ontology the ontology containing the axioms
+     * @param axioms the axioms to be removed
+     * @return 1 if axioms have been correctly removed, -1 otherwise
+     * @throws OWLOntologyCreationException
+     */
     public int removeAxiomsFromOntology(OWLOntology ontology, Stream<OWLAxiom> axioms) throws OWLOntologyCreationException
     {
         ChangeApplied changes = ontology.remove(axioms);
@@ -597,11 +680,21 @@ public class Profonto extends OntologyCore
         return -1;
     }
     
+    /**
+     * Add the given axioms to the behavior ontology
+     * @param axioms the axioms to be added
+     * @throws OWLOntologyCreationException
+     */
     public void addDataToDataBehavior(Stream<OWLAxiom> axioms) throws OWLOntologyCreationException
     {
         addAxiomsToOntology(this.getDataBehaviorOntology(), axioms);
     }
     
+    /**
+     * Verify if the given ontology has some execution status information
+     * @param ontology the ontology to be checked
+     * @return
+     */
     public boolean checkHasExecutionStatutInfo(OWLOntology ontology)
       {
         String query=getQueryPrefix(null)+"\n"+this.getQueries().get("ask02a.sparql");          
@@ -613,12 +706,17 @@ public class Profonto extends OntologyCore
           } 
         catch (OWLOntologyCreationException ex)
           {
-            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
             return false;
           }        
         return res;
       }
     
+    /**
+     * Add the content of the given ontology as InputStream to the belief ontology
+     * @param ontologystring the input stream of the ontology to be added.
+     * @return 1 if data have been correctly added, -1 othewise
+     */
     public int addDataToDataBelief(InputStream ontologystring) 
     {
         OWLOntology ontology=null;
@@ -640,6 +738,11 @@ public class Profonto extends OntologyCore
         return r;
     }
     
+     /**
+     * Remove the content of the given axioms as InputStream to the belief ontology
+     * @param ontologystring the input stream of the ontology to be removed.
+     * @return 1 if data have been correctly added, -1 othewise
+     */
     public int removeDataFromDataBelief(InputStream ontologystring) throws OWLOntologyCreationException
     {
         OWLOntology ontology=this.secureLoadOntology(ontologystring);
@@ -653,17 +756,18 @@ public class Profonto extends OntologyCore
         this.getMainManager().removeOntology(ontology);
         return r;
     }
-    
-//    public void addDataToDataBelief(Stream<OWLAxiom> axioms)
-//    {        
-//        addAxiomsToOntology(this.getDataBeliefOntology(), axioms); // Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
-//    }
 
+     /**
+     * Add the given axioms to the request ontology
+     * @param axioms the axioms to be added.     
+     * @throws org.semanticweb.owlapi.model.OWLOntologyCreationException     
+     */
     public void addDataToDataRequest(Stream<OWLAxiom> axioms) throws OWLOntologyCreationException
     {
-        addAxiomsToOntology(this.getDataRequestOntology(), axioms);
+       addAxiomsToOntology(this.getDataRequestOntology(), axioms);
     } 
 
+    //sync the reasoner on the given ontology and save inferences on the given file
     private void syncReasoner(OWLOntology ontology, String file) throws OWLOntologyStorageException
     {     
           
@@ -706,6 +810,7 @@ public class Profonto extends OntologyCore
         this.syncReasoner(m, this.getDataBehaviorInfo().getKey());
     }
 
+    //clean up an ontology except for the import axioms
     private void refreshOntology(OWLOntology ontology) throws OWLOntologyStorageException, OWLOntologyCreationException
     {
         Stream<OWLImportsDeclaration> imports = ontology.importsDeclarations();
@@ -725,18 +830,17 @@ public class Profonto extends OntologyCore
     {
         refreshOntology(this.getDataBehaviorOntology());
     }
-
-    
-    
-    
-    
-    
-    
-    public String addUser(String URL)
+   
+    /**
+     * Add an user from its IRI
+     * @param iri the IRI of the user
+     * @return
+     */
+    public String addUser(String iri)
     {
         try
         {
-           OWLOntology ontouser=this.getMainManager().loadOntology(IRI.create(URL)); 
+           OWLOntology ontouser=this.getMainManager().loadOntology(IRI.create(iri)); 
            return addUser(ontouser);
         }
         catch (OWLOntologyCreationException ex)
@@ -747,7 +851,11 @@ public class Profonto extends OntologyCore
        
     }
     
-    
+    /**
+     * Add an user from the given ontology as InputStream
+     * @param ontologyData the input stream of th ontology of the user to be added
+     * @return the name of the user as string
+     */
     public String addUser(InputStream ontologyData)
       {
         OWLOntology ontouser = this.secureLoadOntology(ontologyData);
@@ -759,8 +867,8 @@ public class Profonto extends OntologyCore
     /**
      * insert a new user given its ontology data
      *
-     * @param ontouser
-     * @return the created ontology
+     * @param ontouser the ontology of the user to be added
+     * @return the name of the user as string
      */
     public String addUser(OWLOntology ontouser)
     {
@@ -798,7 +906,11 @@ public class Profonto extends OntologyCore
         return val[0];
     }
 
-    
+    /**
+     * Return the connection information of the  device
+     * @param device the IRI of the device as string
+     * @return a String[] containing the info of the device: String[0] contains the address, String[1] the port
+     */
     public String[] getConnectionInfo(String device)
     {       
      OWLOntology ontology= this.getDevice(device); 
@@ -815,26 +927,30 @@ public class Profonto extends OntologyCore
     return value;
     }
     
-    
-    public int checkDeviceInstallation(String uridevice)
+    /**
+     * Verify if the given device is already installed
+     * @param iridevice the IRI of the device
+     * @return
+     */
+    public int checkDeviceInstallation(String iridevice)
       {       
         for (Map.Entry pair : devices.entrySet())          
-         if((((String)pair.getValue())+"#"+((String)pair.getKey())).equals(uridevice))                    
+         if((((String)pair.getValue())+"#"+((String)pair.getKey())).equals(iridevice))                    
                 return 1;                   
         return 0;
       }
     
     /**
-     * insert a new device given its ontology data
-     *
+     * add a new device given its IRI
+     * @param iri the iri of the device to be added
      * @return the created ontology
      */
     
-    public String addDevice(String URL)
+    public String addDevice(String iri)
     {
         try
         {
-           OWLOntology ontodevice=this.getMainManager().loadOntology(IRI.create(URL)); 
+           OWLOntology ontodevice=this.getMainManager().loadOntology(IRI.create(iri)); 
            return addDevice(ontodevice);
         }
         catch (OWLOntologyCreationException ex)
@@ -845,7 +961,11 @@ public class Profonto extends OntologyCore
        
     }
     
-    
+    /**
+     * Add a new device given its ontology as InputStream
+     * @param ontologyData the ontology of the device as InputStream
+     * @return the name of the device
+     */
     public String addDevice(InputStream ontologyData)
     {
       OWLOntology ontology = this.secureLoadOntology(ontologyData);
@@ -854,6 +974,11 @@ public class Profonto extends OntologyCore
       return addDevice(ontology);
     }
     
+    /**
+     * Add a new device given its ontology 
+     * @param ontodevice the ontology of the device 
+     * @return the name of the device
+     */
     public String addDevice(OWLOntology ontodevice)
     {        
         String val[]={""}; 
@@ -892,7 +1017,7 @@ public class Profonto extends OntologyCore
     }
 
     /**
-     * Returns the ontology corresponding to the given user id
+     * Return the ontology corresponding to the given user id
      *
      * @param id the id of the device
      * @return the ontology representing the user
@@ -904,7 +1029,7 @@ public class Profonto extends OntologyCore
     }
 
     /**
-     * Returns the ontology corresponding to the given device id
+     * Return the ontology corresponding to the given device id
      *
      * @param id the id of the device
      * @return the ontology representing the device
@@ -916,7 +1041,7 @@ public class Profonto extends OntologyCore
     }
 
     /**
-     * Returns the ontology corresponding to the given device id configuration
+     * Return the ontology corresponding to the given device id configuration
      *
      * @param id the id of the device configuration
      * @return the ontology representing the device configuration
@@ -927,7 +1052,7 @@ public class Profonto extends OntologyCore
     }
 
     /**
-     * Removes a given user
+     * Remove a given user
      *
      * @param id the id of the user to be removed
      * @throws org.semanticweb.owlapi.model.OWLOntologyStorageException
@@ -948,7 +1073,7 @@ public class Profonto extends OntologyCore
     }
 
     /**
-     * Removes a given device
+     * Remove a given device
      *
      * @param id the id of the device to be removed
      * @throws org.semanticweb.owlapi.model.OWLOntologyStorageException
@@ -970,6 +1095,12 @@ public class Profonto extends OntologyCore
         removePermanentConfigurationsFromDevice(id);
     }
 
+    /**
+     * Load the devices from the device installation path
+     * @param toimport if True also include the imported ontology
+     * @throws OWLOntologyStorageException
+     * @throws IOException
+     */
     public void loadDevicesFromPath(boolean toimport) throws OWLOntologyStorageException, IOException
     {
         Path path = this.getOntologiesDevicesPath();
@@ -1017,34 +1148,48 @@ public class Profonto extends OntologyCore
                    } 
                    catch (OWLOntologyCreationException ex) 
                      {
-                      Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+                      //Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
                      }
             }
         }
 
     }
 
-    
-    public String getEntityName(String s)
+    /**
+     * Return the name of an individual
+     * @param iri the IRI of the individual
+     * @return
+     */
+    public String getEntityName(String iri)
       {
-        return s.substring(s.lastIndexOf("#") + 1);
+        return iri.substring(iri.lastIndexOf("#") + 1);
       }
     
-    public String addDeviceConfiguration(String URL)
+    /**
+     * Add a device configuration from its IRI
+     * @param iri the iri of the device configuration
+     * @return the name of the device
+     */
+    public String addDeviceConfiguration(String iri)
     {
         try
         {
-           OWLOntology ontoconf=this.getMainManager().loadOntology(IRI.create(URL)); 
+           OWLOntology ontoconf=this.getMainManager().loadOntology(IRI.create(iri)); 
            return addDeviceConfiguration(ontoconf);
         }
         catch (OWLOntologyCreationException ex)
         {
-            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
        
     }
     
+    /**
+     * Add a device configuration from its ontology as InputStream
+     * @param deviceConfig the InputStream representing the ontology of the device configuration
+     * @return the name of the device
+     */
     public String addDeviceConfiguration(InputStream deviceConfig) 
       {
          OWLOntology ontodevConf = this.secureLoadOntology(deviceConfig);
@@ -1054,6 +1199,11 @@ public class Profonto extends OntologyCore
         
       }
     
+    /**
+     * Add a device configuration from its ontology
+     * @param ontodevConf the ontology of the configuration
+     * @return the name of the configuration
+     */
     public String addDeviceConfiguration(OWLOntology ontodevConf)
     {     
       String []vals=new String[]{"","",""};  
@@ -1099,54 +1249,13 @@ public class Profonto extends OntologyCore
         } 
       catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
         {
-            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
         return vals[1];      
     }
     
-    /**
-     * Adds a configuration device
-     *
-     * @param deviceConfig data configuration
-     * @param idDevice ID of the device
-     * @param idConfig ID of the configuration
-     * @return the ontology representing the configuration
-     */
-//    public OWLOntology addDeviceConfiguration(InputStream deviceConfig, String idDevice, String idConfig, String iduser)
-//    {
-//        File directory = new File(this.getOntologiesDeviceConfigurationPath() + File.separator + idDevice);
-//        if (!directory.exists())
-//        {
-//            directory.mkdir();
-//        }
-//
-//        OWLOntology ontodevConf = null;
-//        try
-//        {
-//            ontodevConf = this.getMainManager().loadOntologyFromOntologyDocument(deviceConfig);
-//            addImportToOntology(this.getDataBehaviorOntology(), ontodevConf.getOntologyID().getOntologyIRI().get());
-//            String filesource = directory.getAbsolutePath() + File.separator + idConfig + ".owl";
-//            File file = new File(filesource);
-//            FileOutputStream outStream = new FileOutputStream(file);
-//
-//            this.getMainManager().addIRIMapper(new SimpleIRIMapper(ontodevConf.getOntologyID().getOntologyIRI().get(),
-//                    IRI.create(file.getCanonicalFile())));
-//
-//            this.getMainManager().saveOntology(ontodevConf, new OWLXMLDocumentFormat(), outStream);
-//            this.getDeviceConfigurations().put(idConfig, new String[]
-//            {
-//                idDevice, ontodevConf.getOntologyID().getOntologyIRI().get().toString(), iduser
-//            });
-//            outStream.close();
-//            //    this.syncReasonerDataBehavior();
-//
-//        } catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
-//        {
-//            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return ontodevConf;
-//    }
+   
 
     /**
      * Removes a given device
@@ -1210,7 +1319,7 @@ public class Profonto extends OntologyCore
     /**
      * Removes all the configurations of a user
      *
-     * @param idDevice the device id
+     * @param idUser the id of the user
      * @throws OWLOntologyStorageException
      * @throws OWLOntologyCreationException
      */
@@ -1250,14 +1359,18 @@ public class Profonto extends OntologyCore
         }
     }
 
-    
-     public static String readQuery(String path)
+    /**
+     * Read a query from the given file
+     * @param file the file of the query
+     * @return
+     */
+    public static String readQuery(String file)
       {
         String query="";
         BufferedReader queryReader=null;
          try
           {
-            queryReader=new  BufferedReader(new FileReader(path));
+            queryReader=new  BufferedReader(new FileReader(file));
             String currentLine="";
             while ((currentLine = queryReader.readLine()) != null)
               {
@@ -1265,72 +1378,32 @@ public class Profonto extends OntologyCore
               }
             queryReader.close();
           } 
-        catch (FileNotFoundException ex)
-          {
-            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
-            
-          }
         catch (IOException ex)
           {
-            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
-          }
-      
+            //Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);   
+             return null;
+          }          
         return query;
       }
     
-//    /**
-//     *
-//     * @param request The InputStream object representing the request
-//     * @param IRItask The IRI of the OASIS Task instance from the request
-//     * @param IRIuser The IRI of the OASIS USER instance of the user
-//     * @param IRIexec The IRI of the OASIS TaskExcecution instance to create
-//     * @param IRIGoalExec The IRI of the OASIS GoalExecution instance to create
-//     * @return The OWLAxiom Stream containing the result of the query
-//     */
-//    public Stream<OWLAxiom> acceptUserRequest(InputStream request, String IRItask, String IRIuser, String IRIexec, String IRIGoalExec)
-//    {
-//        OntologyModel res=null;
-//        OWLOntology ontology;
-//        
-//        try
-//          {
-//            ontology = this.getMainManager().loadOntologyFromOntologyDocument(request);
-//          
-//            //Merge and query here         
-//            String query=this.getQueries().get("prefix01.sparql");            
-//            query+="PREFIX prof: <"+this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#>\n";
-//            query+="CONSTRUCT {\n";
-//            query+=(this.getQueries().get("construct01a.sparql").replaceAll("//exec//","<"+IRIexec+">").replaceAll("//goal//","<"+IRIGoalExec+">"));
-//            query+=(this.getQueries().get("construct01b.sparql"));
-//            query+="}";
-//            query+="WHERE { \n";
-//            query+=(this.getQueries().get("body01a.sparql").replaceAll("//task//", "<"+IRItask+">"));
-//            query+=(this.getQueries().get("body01b.sparql"));
-//            query+=(this.getQueries().get("body01c.sparql").replaceAll("//user//", "<"+IRIuser+">"));
-//            query+=this.getQueries().get("body01d.sparql");
-//            query+="}";
-//          
-//            //System.out.println(query);   
-//            res=performQuery(ontology, query);
-//            //res.axioms().forEach(System.out::println); 
-//          }
-//        catch (OWLOntologyCreationException ex)
-//          {
-//            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
-//          }   
-//        if(res==null) 
-//            return null;
-//        return res.axioms();
-//        
-//    }
-
-    
-     public OntologyModel performQuery(String query) throws OWLOntologyCreationException
+    /**
+     * Performs the given query on all the dataset
+     * @param query the query to be performed
+     * @return the OntologyModel of the query result
+     * @throws OWLOntologyCreationException
+     */
+    public OntologyModel performQuery(String query) throws OWLOntologyCreationException
       {
         OWLOntology ontology=this.getMainManager().createOntology();
         return this.performQuery(ontology,query);
       }
     
+     /**
+     * Performs the given query on the given ontology
+     * @param ontology the ontology target of the query
+     * @param query the query to be performed
+     * @return the OntologyModel of the query result
+     */
     public OntologyModel performQuery(OWLOntology ontology, String query)
       {
         OntologyModel res=null;
@@ -1351,7 +1424,7 @@ public class Profonto extends OntologyCore
     
     
     
-    
+    //retrieve the data concerning the tasks of a request
     private ArrayList<String[]> retrieveDependencies(OWLOntology ontology, String prefix) throws OWLOntologyCreationException
       {       
         String subquery = prefix + this.getQueries().get("body01b.sparql");        
@@ -1370,7 +1443,11 @@ public class Profonto extends OntologyCore
         return depends;
       }
     
-    
+    /**
+     * Add a set of default prefixes having as base the given IRI
+     * @param IRIrequest the IRI base as string 
+     * @return the prefix constructed
+     */
     public String getQueryPrefix(String IRIrequest)
       {
          String prefix = this.getQueries().get("prefix01.sparql");
@@ -1382,7 +1459,10 @@ public class Profonto extends OntologyCore
          return prefix;
       }
     
-    
+    /**
+     * Delete from satellite data the given ontology
+     * @param ont the ontology to be removed from satellite data
+     */
     public void deleteSatelliteData(OWLOntology ont)
       {
         try
@@ -1412,7 +1492,10 @@ public class Profonto extends OntologyCore
           }
       }
     
-    
+    /**
+     * Add the given ontology to the satellite data
+     * @param ontology to be added
+     */
     public void addSatelliteData(OWLOntology ontology)
       {       
         try
@@ -1435,8 +1518,12 @@ public class Profonto extends OntologyCore
         }      
       }
     
-    
-    OWLOntology checkSatelliteData(ByteArrayInputStream input)
+    /**
+     * Check wheter the given ontology is a request or an attempt of adding satellite data. In the latter case the data is added.
+     * @param input the ontology of the request as ByteArrayInputStream
+     * @return the ontology of the request or null if it is an attempt of adding satellite data
+     */
+    public OWLOntology checkSatelliteData(ByteArrayInputStream input)
       {
         OWLOntology ontology=null;        
         try
@@ -1725,7 +1812,11 @@ public class Profonto extends OntologyCore
         return toreturn;
       }
     
-    
+    /**
+     * Retrieve the given data from the belief and request ontologies
+     * @param iriInd the data to be retrieved 
+     * @return the axioms of the found data
+     */
     public Stream<OWLAxiom> retrieveBeliefAssertions(String iriInd)
       {
          
@@ -1733,6 +1824,12 @@ public class Profonto extends OntologyCore
                                                          getDataBeliefOntology().axioms()));
       }
     
+    /**
+     * Retrieve the given data from the belief ontology
+     * @param input the data to find as InpuStream
+     * @return the axioms of the found data
+     * @throws OWLOntologyCreationException
+     */
     public Stream<OWLAxiom> retrieveDataBelief(InputStream input) throws OWLOntologyCreationException
     {
       OWLOntology ontology=this.secureLoadOntology(input);
@@ -1752,7 +1849,7 @@ public class Profonto extends OntologyCore
       return axioms;
     }
     
-         
+     //retrieve the assertion concerning the given individual as string    
     private Stream<OWLAxiom> retrieveAssertions(String iriInd, Stream<OWLAxiom> ontology)
       {     
          
@@ -1763,6 +1860,7 @@ public class Profonto extends OntologyCore
          return axioms;        
       }
       
+    //retrieve the assertion concerning the object of the OASIS property refersTo   
      private Stream<OWLAxiom> retrieveRefersToAssertions(String iriInd, Stream<OWLAxiom> ontology)
       {     
          String prop=this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#refersTo";
@@ -1774,7 +1872,12 @@ public class Profonto extends OntologyCore
         return axioms;        
       }
     
-     
+    /**
+     * Set the execution status of the given execution as the given status value
+     * @param execution the execution to be updated
+     * @param status the new status
+     * @throws OWLOntologyStorageException
+     */
     public void setExecutionStatus (String execution, String status) throws OWLOntologyStorageException
       {
         OWLNamedIndividual individual=this.getMainManager().getOWLDataFactory().getOWLNamedIndividual(execution);
@@ -1785,8 +1888,12 @@ public class Profonto extends OntologyCore
         this.getMainManager().saveOntology(this.getDataRequestOntology());      
       }
 
-    
-    String[] getPathAndName(String iri)
+    /**
+     * Return path and file name of the given ontology as IRI
+     * @param iri the iri of the ontology
+     * @return the path and file name as String[]
+     */
+    public String[] getPathAndName(String iri)
       {
         
         OWLOntology ontology=this.getMainManager().getOntology(IRI.create(iri));
@@ -1804,7 +1911,13 @@ public class Profonto extends OntologyCore
         return new String[]{iris.get(0).toString(),iris.get(0).getShortForm()};
       }
     
-  
+    /**
+     * Update the connection information of the given devices as IRI
+     * @param iri the IRI of the device to be updated
+     * @param address the new address
+     * @param port the new port number
+     * @return return 1 if the device as been correctly updated, 0 otherwise, -1 if some errors occur
+     */
     public int modifyConnection(String iri, String address, String port) //to do
       {
          String ontoInfo[]=getPathAndName(iri);
@@ -1814,14 +1927,12 @@ public class Profonto extends OntologyCore
          OWLOntology ontology;
          ontology=restoreFromSource(iri, this.getBackupPath(), ontoInfo[1]);
          if( ontology==null)
-            return 0;
-             
+            return 0;             
                   
          String portProp=this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#hasPortNumber";
          String addrProp=this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#hasIPAddress";
          String connInf=this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#hasConnectionInfo";
-       
-         
+                
          List<OWLNamedIndividual> conn= new ArrayList<>();
          List<OWLAxiom> assertions= new ArrayList<>();
          ontology.axioms().filter(x->x.isOfType(AxiomType.DATA_PROPERTY_ASSERTION)).forEach( ax->
@@ -1866,13 +1977,21 @@ public class Profonto extends OntologyCore
           } 
         catch (OWLOntologyStorageException ex)
           {            
-            return 0;
+            return -1;
           }
         return 1;                             
          
       }
     
-     public String updateOntology(String iri, boolean updateBackup, boolean delete) 
+    /**
+     * Update the given ontology as IRI and depending on the boolean updateBackup, update also the backup file, and depending on the oolean delete
+     * remove the original file
+     * @param iri the ontology to be updated
+     * @param updateBackup 
+     * @param delete
+     * @return the IRI of the updated ontology
+     */
+    public String updateOntology(String iri, boolean updateBackup, boolean delete) 
       {
          String ontoInfo[]=getPathAndName(iri);
          if(ontoInfo==null)
@@ -1883,7 +2002,7 @@ public class Profonto extends OntologyCore
             if( ontology==null)
              return null;
                                   
-             if(updateBackup)
+            if(updateBackup)
                this.getMainManager().saveOntology(ontology, IRI.create(new File(this.getBackupPath()+File.separator+ontoInfo[1])));
             String thef=ontoInfo[0];
             thef=thef.substring(6,thef.length());            
@@ -1904,6 +2023,7 @@ public class Profonto extends OntologyCore
         return iri;   
       }
      
+    //restore the given ontology from the given path in the given file name
     private OWLOntology restoreFromSource(String iri, Path path, String name )           
       {
         OWLOntology ontology=this.getMainManager().getOntology(IRI.create(iri));
@@ -1933,6 +2053,7 @@ public class Profonto extends OntologyCore
           }        
       }
     
+     //save the ontology in the current path with the given name
       private int updateFromPath(String name, Path path, OWLOntology ontology)
       {        
         try
@@ -1946,7 +2067,12 @@ public class Profonto extends OntologyCore
         return 1;
       }
 
-      public String modifyDevice(String description)
+    /**
+     * Update the ontology of the given device
+     * @param description
+     * @return the iri of the updated device
+     */
+    public String modifyDevice(String description)
         {
            String s=this.updateOntology(description, true, true);
            getSatellite().remove(description);           
