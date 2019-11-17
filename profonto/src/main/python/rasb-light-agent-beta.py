@@ -261,6 +261,7 @@ class Agent(Thread):
                 print("Device installation confirmed by the hub")
             else:
                 print("Device installation not confirmed by the hub")
+                return 0
         #f=open("test.owl", "w")
         #f.write(g.serialize(format="pretty-xml").decode())
         return 1

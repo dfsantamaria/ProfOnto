@@ -229,7 +229,7 @@ class ProfOnto (Thread):
             if actions == URIRef(self.oasisabox + "install"):
                 file =  self.getOntologyFile(graph, execution)
                 value =  self.profonto.addDevice(file)  # read the device data
-                if value == None:
+                if value == None or value=="":
                     print ("A device cannot be added")
                     res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox + "failed_status"), addr, sock, server_socket)
                 else:

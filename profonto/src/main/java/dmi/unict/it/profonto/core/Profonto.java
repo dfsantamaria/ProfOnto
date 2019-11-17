@@ -1016,6 +1016,7 @@ public class Profonto extends OntologyCore
         catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
         {
             //Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+           return null;
         }
         return val[0];
     }
