@@ -1081,23 +1081,41 @@ public class Profonto extends OntologyCore
      * Remove a given device
      *
      * @param id the id of the device to be removed
-     * @throws org.semanticweb.owlapi.model.OWLOntologyStorageException
-     * @throws org.semanticweb.owlapi.model.OWLOntologyCreationException
-     * @throws java.io.IOException
+     * @return 
      */
-    public void removePermanentDevice(String id) throws OWLOntologyStorageException, OWLOntologyCreationException, IOException
+    public int removePermanentDevice(String id) 
     {
-        OWLOntology ontology = this.getDevice(id);
-        String tmp = (String) this.getDevices().remove(id); //this.getMainManager().getOntology(IRI.create(tmp));             
-        this.getMainManager().removeOntology(ontology);
-        removeImportFromOntology(this.getDataBehaviorOntology(), IRI.create(tmp));
-        File f = new File(this.getOntologiesDevicesPath() + File.separator + id + ".owl");
-        this.getMainManager().getIRIMappers().remove(new SimpleIRIMapper(ontology.getOntologyID().getOntologyIRI().get(),
-                IRI.create(f.getCanonicalFile())));
-
-        f.delete(); //always be sure to close all the open streams
-        new File(this.getBackupPath() + File.separator + id + ".owl").delete();
-        removePermanentConfigurationsFromDevice(id);
+        try
+          {
+            int found=0;
+            for (Object entry : this.getDevices().keySet())            
+              {
+               if( ((String) entry).equals(id))
+                 {
+                   found=1;
+                   break;
+                 }
+               }
+            if (found==0)
+                return 0;
+            OWLOntology ontology = this.getDevice(id);
+            String tmp = (String) this.getDevices().remove(id); //this.getMainManager().getOntology(IRI.create(tmp));
+            this.getMainManager().removeOntology(ontology);
+            removeImportFromOntology(this.getDataBehaviorOntology(), IRI.create(tmp));
+            File f = new File(this.getOntologiesDevicesPath() + File.separator + id + ".owl");
+            this.getMainManager().getIRIMappers().remove(new SimpleIRIMapper(ontology.getOntologyID().getOntologyIRI().get(),
+                    IRI.create(f.getCanonicalFile())));
+            
+            f.delete(); //always be sure to close all the open streams
+            new File(this.getBackupPath() + File.separator + id + ".owl").delete();
+            removePermanentConfigurationsFromDevice(id);
+          } 
+        catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
+          {
+            //Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            return -1;
+          } 
+        return 1;
     }
 
     /**

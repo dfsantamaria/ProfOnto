@@ -233,17 +233,8 @@ public class ProfontoEntryPoint
      * @return 1 if the device has been correctly removed, -1 if some errors occur
      */
     public static int removeDevice(String id)
-      {
-        try
-          {
-            ontocore.removePermanentDevice(id);
-          } 
-        catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex)
-          {
-            //Logger.getLogger(ProfontoEntryPoint.class.getName()).log(Level.SEVERE, null, ex);
-            return -1;
-          }
-        return 1;
+      {        
+          return  ontocore.removePermanentDevice(id);        
       }
 
     /**

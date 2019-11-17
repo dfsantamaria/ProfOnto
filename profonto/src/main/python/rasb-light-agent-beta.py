@@ -304,6 +304,7 @@ class Agent(Thread):
                 print("Device uninstallation confirmed by the hub")
             else:
                 print("Device uninstallation not confirmed by the hub")
+                return 0
         # f=open("test.owl", "w")
         # f.write(tosend)
         return 1
