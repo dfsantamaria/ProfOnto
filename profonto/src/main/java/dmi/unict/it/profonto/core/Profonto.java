@@ -9,7 +9,6 @@ import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
@@ -25,7 +24,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Stream;
 import javafx.util.Pair;
-import org.apache.commons.io.IOUtils;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
@@ -175,8 +173,7 @@ public class Profonto extends OntologyCore
     public OWLOntology secureLoadOntology(InputStream input)
     {
       try
-      {       
-        
+      {        
         return this.getMainManager().loadOntologyFromOntologyDocument(input);
       }     
       catch(OWLOntologyAlreadyExistsException ex)
@@ -981,7 +978,13 @@ public class Profonto extends OntologyCore
      */
     public String addDevice(OWLOntology ontodevice)
     {        
-        String val[]={""}; 
+        String val[]={""};         
+        for (Object entry : this.getDevices().values())            
+        {
+          if( ((String) entry).equals(ontodevice.getOntologyID().getOntologyIRI().get().toString()))
+              return "";
+        }
+        //  getDevices().get(ontodevice.getOntologyID().getOntologyIRI().get().toString());
         try
         {            
             this.deleteSatelliteData(ontodevice);
@@ -1009,9 +1012,10 @@ public class Profonto extends OntologyCore
         //    outStream.close();
             //  syncReasonerDataBehavior();
 
-        } catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
+        } 
+        catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
         {
-            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
         }
         return val[0];
     }
@@ -1488,7 +1492,7 @@ public class Profonto extends OntologyCore
           } 
         catch (IOException ex)
           {
-            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
           }
       }
     

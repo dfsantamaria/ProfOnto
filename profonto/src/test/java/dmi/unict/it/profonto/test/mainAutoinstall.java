@@ -6,7 +6,6 @@
 package dmi.unict.it.profonto.test;
 
 import dmi.unict.it.profonto.core.Profonto;
-import static dmi.unict.it.profonto.main.ProfontoEntryPoint.getInputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -21,10 +20,7 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.stream.Stream;
 import org.apache.commons.io.FileUtils;
-import org.semanticweb.owlapi.model.OWLAxiom;
-import org.semanticweb.owlapi.model.OWLOntology;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
@@ -146,7 +142,7 @@ public class mainAutoinstall
          
        InputStream assistantData=readData("ontologies/test/homeassistant.owl"); 
        ontocore.addDevice(assistantData);            
-       
+       ontocore.addDevice("http://www.dmi.unict.it/profonto-home.owl");
      
     
        // System.out.println(ontocore.updateOntology("http://www.dmi.unict.it/profonto-home.owl",false,false));
