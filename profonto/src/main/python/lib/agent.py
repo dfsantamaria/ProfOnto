@@ -98,7 +98,7 @@ class AgentServerManager(Thread):
 class Agent(Thread):
     def __init__(self, servermanager, path, templates, iriAgent, iriTemplate):
         self.servermanager=servermanager
-        self.alive = True
+        self.alive = False
         self.restart = True
         self.serversocket = None
         # declare class members
@@ -117,6 +117,9 @@ class Agent(Thread):
 
         # end set
         # self.start()
+
+    def isAlive(self):
+        return self.alive
 
     def startAgent(self):
         Thread.__init__(self)
@@ -472,10 +475,18 @@ class StopCommand(ConsoleCommand):
 
     def checkCommand(self, console, input, agent):
         if input.startswith(self.getCommandName()):
+           if not self.checkAgent(agent):
+              return 1
            agent.stop()
            return 1
         else:
            return 0
+
+    def checkAgent(self, agent):
+        if not agent.isAlive():
+            print("Agent not started. Please start the agent first")
+            return 0
+        return 1
 
 class ExitCommand(ConsoleCommand):
     def __init__(self):
@@ -483,10 +494,18 @@ class ExitCommand(ConsoleCommand):
 
     def checkCommand(self, console, input, agent):
         if input.startswith(self.getCommandName()):
+           if not self.checkAgent(agent):
+               return 1
            console.stop()
            return 1
         else:
            return 0
+
+    def checkAgent(self, agent):
+        if not agent.isAlive():
+            print("Agent not started. Please start the agent first")
+            return 0
+        return 1
 
 class StatusCommand(ConsoleCommand):
     def __init__(self):
@@ -514,12 +533,14 @@ class InstallCommand(ConsoleCommand):
                   print("Device installation complete")
                else:
                   print("Device cannot be installed. Make sure the hub is correctly set")
+           else:
+               return 1
         else:
            return 0
         return 1
 
     def checkAgent(self, agent):
-        if (agent == None):
+        if not agent.isAlive():
             print("Agent not started. Please start the agent first")
             return 0
         return 1
@@ -535,7 +556,7 @@ class SetHubCommand(ConsoleCommand):
     def checkCommand(self, console, input, agent):
         if input.startswith(self.getCommandName()):
            if not self.checkAgent(agent):
-             print("Agent not initialized")
+             return 1
            parms = input.split()
            if len(parms) == 4:
               if self.set_hub(agent, parms[2], parms[3]):
@@ -552,7 +573,7 @@ class SetHubCommand(ConsoleCommand):
         return agent.set_hub(host, port)
 
     def checkAgent(self, agent):
-        if (agent == None):
+        if not agent.isAlive():
             print("Agent not started. Please start the agent first")
             return 0
         return 1
@@ -576,7 +597,7 @@ class CheckInstallCommand(ConsoleCommand):
         return agent.check_install()
 
     def checkAgent(self, agent):
-        if (agent == None):
+        if not agent.isAlive():
             print("Agent not started. Please start the agent first")
             return 0
         return 1
@@ -587,17 +608,19 @@ class UninstallCommand(ConsoleCommand):
 
     def checkCommand(self, console, input, agent):
         if input.startswith(self.getCommandName()):
-            if self.checkAgent(agent):
+            if  agent.isAlive():
                 if (self.uninstall_device(agent)):
                     print("Device uninstallation complete")
                 else:
                     print("Device cannot be uninstalled. Make sure the hub is correctly set")
+            else:
+                print("Agent not started or not installed")
         else:
             return 0
         return 1
 
     def checkAgent(self, agent):
-        if (agent == None):
+        if not agent.isAlive():
             print("Agent not started. Please start the agent first")
             return 0
         return 1
@@ -612,7 +635,8 @@ class SetDeviceCommand(ConsoleCommand):
 
     def checkCommand(self, console, input, agent):
         if input.startswith(self.getCommandName()):
-           if not self.checkAgent(agent) or agent.check_install==0:
+           if not agent.isAlive() or agent.check_install==0:
+              print("Agent not started or not installed")
               return 1
            parms = input.split()
            if len(parms) == 4:
@@ -630,7 +654,7 @@ class SetDeviceCommand(ConsoleCommand):
         return agent.set_connection(host, port)
 
     def checkAgent(self, agent):
-        if (agent == None):
+        if not agent.isAlive():
            print("Agent not started. Please start the agent first")
            return 0
         return 1
@@ -663,6 +687,6 @@ class Console(Thread ):
             if check==0:
                 print("Unrecognized command")
                 print(
-                    "Use start | start [address] [port] | stop | exit | status | install | uninstall | set hub [address] [port] | set device address port check install")
+                    "Use start | start [address] [port] | stop | exit | status | install | uninstall | set hub [address] [port] | set device address port | check install")
             time.sleep(1)
         return
