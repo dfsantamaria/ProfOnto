@@ -8,6 +8,8 @@ from datetime import datetime
 import re
 from lib.utils import *
 from lib.agent import *
+from lib.consolecommand import*
+from lib.console import*
 
 
 class LightAgentServerManager(AgentServerManager):
