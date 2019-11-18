@@ -122,12 +122,12 @@ Instructions for users:
      
 Istructions for developers:
 
-  1) Inherit the class AgentServerManager (located in agent.py) and implement the virtual function 
+  1) Inherit the class AgentServerManager (located in lib/agent.py) and implement the virtual function 
   
      performOperation(self, g, execution), where 
      
      -"g" is the RDFLib graph of the response received from the assistant.
-     -"execution" is the individual representing the execution entity received from the assistant. 
+     -"execution" is the iri of the individual representing the execution activity received from the assistant. 
      
     Let us call such class "CustomAgentServerManager"
      
@@ -140,21 +140,22 @@ Istructions for developers:
      -"agent_iri is the IRI" of the agent ontology.
      -"agent_iri_template" is the IRI of the agent template ontology.
      
-  3) Instantiate a console command by inherinting the class ConsoleCommand (file consolecommand.py) and implementing the virtual function 
+  3) Instantiate a console command by inherinting the class ConsoleCommand (located in lib/consolecommand.py) and by implementing the virtual function 
   
-     def checkCommand(self, console, input, agent), where
+     checkCommand(self, console, input, agent), where
      
-     -"console" is the console to which the command is attached.
+     -"console" is the console the command is attached to.
      -"input" is the command that should be typed in order to invoke the command.
      -"agent" is the agent on which the command is acting.
      
-  3)Instantiate the Console (file console.py) by writing
+  3)Instantiate the Console (located in lib/console.py) by writing
   
     Console(agent, [command1, command2, ...], where
     
     -"agent" is the agento to which the console is attached.
     -"command1", "command2", ... are the console commands instantiated at step 2. A set of defualt command can be found on file "consolecommand.py".     
     
+    write console.run() to run the console. See the file target/rasb-light-agent-beta.py for an example.
      
 <------------------------------------------------------------ Stay tuned for updates ---------------------------------------------------------->
    
