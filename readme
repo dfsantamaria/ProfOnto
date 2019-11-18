@@ -47,7 +47,7 @@ solely responsible for any damage to your computer system or loss of data that r
 whether oral or written, obtained by you from the BGS or from the BGS web site shall create any warranty for the software.
 
 
-Instructions:
+Instructions for users:
 
 - Notice that Pyhton 3.7 is required.
 
@@ -117,8 +117,44 @@ Instructions:
           -> uninstall #to remove the behavior of the agent from the assistant knowledge base
           
           -> stop   # to disconnect the client.
+          
+          -> exit # to close the console
      
+Istructions for developers:
+
+  1) Inherit the class AgentServerManager (located in agent.py) and implement the virtual function 
+  
+     performOperation(self, g, execution), where 
      
+     -"g" is the RDFLib graph of the response received from the assistant.
+     -"execution" is the individual representing the execution entity received from the assistant. 
+     
+    Let us call such class "CustomAgentServerManager"
+     
+  2) Instantiate an agent by writing:
+     
+     agent=Agent(CustomAgentServerManager(), agent_iri_file, {template_iri_file}, agent_iri, agent_iri_template) where
+     
+     -"agent_iri_file" is the path of the agent ontology file.
+     -"template_iri_file" is the path of the agent template file.
+     -"agent_iri is the IRI" of the agent ontology.
+     -"agent_iri_template" is the IRI of the agent template ontology.
+     
+  3) Instantiate a console command by inherinting the class ConsoleCommand (file consolecommand.py) and implementing the virtual function 
+  
+     def checkCommand(self, console, input, agent), where
+     
+     -"console" is the console to which the command is attached.
+     -"input" is the command that should be typed in order to invoke the command.
+     -"agent" is the agent on which the command is acting.
+     
+  3)Instantiate the Console (file console.py) by writing
+  
+    Console(agent, [command1, command2, ...], where
+    
+    -"agent" is the agento to which the console is attached.
+    -"command1", "command2", ... are the console commands instantiated at step 2. A set of defualt command can be found on file "consolecommand.py".     
+    
      
 <------------------------------------------------------------ Stay tuned for updates ---------------------------------------------------------->
    
