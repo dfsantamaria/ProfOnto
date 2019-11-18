@@ -91,8 +91,7 @@ class ServerManager(Thread):
 
 
 class Agent(Thread):
-    def __init__(self, address, port, path, templates, iriAgent, iriTemplate):
-        Thread.__init__(self)
+    def __init__(self, path, templates, iriAgent, iriTemplate):
         self.alive=True
         self.restart = True
         self.serversocket = None
@@ -102,17 +101,18 @@ class Agent(Thread):
         self.agentInfo=['','',''] #0->short name, 1->host, 2->port
         self.hubInfo=['',''] #0->address, 1-> port
         graphSet = ['', '', '']  # 0->Agent,  1->Templates
-
-        #end declare
-        #set agent graphs
         self.setAgentTemplates(templates)
         self.setAgentOntology(path)
-        #self.setAgentConfiguration(configuration)
+        # self.setAgentConfiguration(configuration)
         self.setAgentIRIs(self.graphSet[0])
-        # end set
-        #set connection
-        self.setAgentConnectionInfo(address, port, self.graphSet[0])
+        #end declare
+        #set agent graphs
+
         #end set
+        #self.start()
+
+    def startAgent(self):
+        Thread.__init__(self)
         self.start()
 
     def stop(self):
@@ -139,6 +139,13 @@ class Agent(Thread):
    # def setAgentConfiguration(self, path):
    #     self.graphSet[1] = self.getGraph(self.readOntoFile(path),self.iriSet[4])
    #     return
+
+
+    def setAgentConnection(self, address, port):
+        self.address=address
+        self.port=port
+        self.setAgentConnectionInfo(self.address, self.port, self.graphSet[0])
+
 
     def setAgentConnectionInfo(self, address, port, graph):
         the_port=''
@@ -393,6 +400,8 @@ class Agent(Thread):
         return iri[start+1:]
 
     def run(self):
+        # end set
+        # set connection
         while(self.restart):
           self.serversocket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
           self.serversocket.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
@@ -414,57 +423,50 @@ class Agent(Thread):
 
 
 class Console(Thread):
-    def __init__(self):
+    def __init__(self, agent):
         Thread.__init__(self)
+        self.agent=agent
         self.start()
         return
 
-    def start_command(self, address, port):
-        return Agent(address, port, "ontologies/test/rasb/rasb-lightagent.owl",
-                        {"ontologies/test/rasb/lightagent-from-template.owl"},
-                         "http://www.dmi.unict.it/lightagent.owl", "http://www.dmi.unict.it/lightagent-template.owl")
+    def start_command(self):
+        self.agent.start()
+        return
 
-    def stop_command(self, agent):
-        agent.stop()
+    def stop_command(self):
+        self.agent.stop()
         return True
 
-    def exit_command(self, agent):
-        self.stop_command(agent)
+    def exit_command(self):
+        self.stop_command()
         print("Console closing. Goodbye.")
         return False
 
-    def status_command(self, agent):
-        return agent.alive
+    def status_command(self):
+        return self.agent.alive
 
-    def install_device(self, agent):
-        return agent.install_device()
+    def install_device(self):
+        return self.agent.install_device()
 
-    def check_install(self, agent):
-        return agent.check_install()
+    def check_install(self):
+        return self.agent.check_install()
 
-    def uninstall_device(self, agent):
-        return agent.uninstall_device()
+    def uninstall_device(self):
+        return self.agent.uninstall_device()
 
-    def set_hub(self, agent, host, port):
-        return agent.set_hub(host, port)
+    def set_hub(self, host, port):
+        return self.agent.set_hub(host, port)
 
-    def set_connection(self, agent, host, port):
-        return agent.set_connection(host, port)
+    def set_connection(self, host, port):
+        return self.agent.set_connection(host, port)
 
-    def checkAgent(self, agent):
-        if(agent == None):
+    def checkAgent(self):
+        if(self.agent == None):
             print("Agent not started. Please start the agent first")
             return 0
         return 1
 
-    def setTestPath(self):
-        p = Path(__file__).parents[1]
-        os.chdir(p)
-        return
-
     def run(self):
-        self.setTestPath()
-        agent = None
         exec_status = True
         while (exec_status):
             print("Enter a command: ---> ", end='')
@@ -472,58 +474,60 @@ class Console(Thread):
             if command.startswith("start"):
                 parms = command.split();
                 if( len(parms)==1):
-                  agent = self.start_command(None, None) #default address, port
+                  self.agent.setAgentConnection(None,None)
+                  self.agent.startAgent() #default address, port
                 elif(len(parms)==3):
-                  agent = self.start_command(parms[1], parms[2])
+                  self.agent.setAgentConnection(parms[1], parms[2])
+                  self.agent.startAgent()
                 else:
                   print("Use: start | start address port")
             elif command == "stop":
-                self.stop_command(agent)
+                self.stop_command()
             elif command == "exit":
-                exec_status = self.exit_command(agent)
+                exec_status = self.exit_command()
             elif command == "status":
-                status=self.status_command(agent)
+                status=self.status_command()
                 print("The server is ", end = "")
                 if (not status):
                     print ("not ", end= "")
                 print("active.")
             elif command == "install":
-                 if self.checkAgent(agent):
-                   if( self.install_device(agent)):
+                 if self.checkAgent():
+                   if( self.install_device()):
                        print("Device installation complete")
                    else:
                        print("Device cannot be installed. Make sure the hub is correctly set")
             elif command == "uninstall":
-                if self.checkAgent(agent):
-                    if (self.uninstall_device(agent)):
+                if self.checkAgent():
+                    if (self.uninstall_device()):
                         print("Device uninstallation complete")
                     else:
                         print("Device cannot be uninstalled. Make sure the hub is correctly set")
             elif command.startswith("set hub"):
-                if not self.checkAgent(agent):
+                if not self.checkAgent():
                    continue
-                parms=command.split();
+                parms=command.split()
                 if len(parms)==4:
-                  if self.set_hub(agent, parms[2], parms[3]):
+                  if self.set_hub(parms[2], parms[3]):
                     print("The hub is located at address ", parms[2], "port ", parms[3])
                   else:
                    print ("The hub cannot be configured, check the parameters")
                 else:
                     print("Use: set hub address port")
             elif command.startswith("set device"):
-                if not self.checkAgent(agent):
+                if not self.checkAgent():
                     continue
-                parms = command.split();
+                parms = command.split()
                 if len(parms) == 4:
-                    if self.set_connection(agent, parms[2], parms[3]):
+                    if self.set_connection(parms[2], parms[3]):
                         print("The device has been updated")
                     else:
                         print ("The device cannot be updated, check the parameters")
                 else:
                     print("Use: set hub address port")
             elif command == "check install":
-                if self.checkAgent(agent):
-                    if (self.check_install(agent)):
+                if self.checkAgent():
+                    if (self.check_install()):
                         print("The device is installed")
                     else:
                         print("The device is not installed")
@@ -533,8 +537,18 @@ class Console(Thread):
             time.sleep(1)
         return
 
+
+def setTestPath():
+    p = Path(__file__).parents[1]
+    os.chdir(p)
+    return
+
 def main():
-     Console()
+    setTestPath()
+    agent=Agent("ontologies/test/rasb/rasb-lightagent.owl",
+          {"ontologies/test/rasb/lightagent-from-template.owl"},
+          "http://www.dmi.unict.it/lightagent.owl", "http://www.dmi.unict.it/lightagent-template.owl")
+    Console(agent)
 
 if __name__ == '__main__':
     main()
