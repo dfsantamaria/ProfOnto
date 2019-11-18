@@ -8,7 +8,7 @@ class Console(Thread ):
         self.agent = agent
         self.commandSet= commandSet
         self.exec_status = True
-        self.start()
+        #self.start()
         return
 
     def stop(self):

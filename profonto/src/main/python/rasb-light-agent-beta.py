@@ -32,7 +32,8 @@ def main():
     agent=Agent(LightAgentServerManager(), "ontologies/test/rasb/rasb-lightagent.owl",
           {"ontologies/test/rasb/lightagent-from-template.owl"},
           "http://www.dmi.unict.it/lightagent.owl", "http://www.dmi.unict.it/lightagent-template.owl")
-    Console(agent, [StartCommand(), StopCommand(), ExitCommand(), StatusCommand(), SetHubCommand(), InstallCommand(), CheckInstallCommand(), UninstallCommand(), SetDeviceCommand() ])
+    console=Console(agent, [StartCommand(), StopCommand(), ExitCommand(), StatusCommand(), SetHubCommand(), InstallCommand(), CheckInstallCommand(), UninstallCommand(), SetDeviceCommand() ])
+    console.start()
 
 if __name__ == '__main__':
     main()
