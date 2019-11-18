@@ -14,18 +14,6 @@ from datetime import datetime
 from lib.utils import *
 import re
 
-# class client(Thread):
-#     def __init__(self, prof, socket, address, server_socket):
-#         Thread.__init__(self)
-#         self.sock = socket
-#         self.addr = address
-#         self.server_socket = server_socket
-#         self.prof = prof
-#         self.start()
-#
-#     def run(self):
-#         request = Utils.recvall(Utils, self.sock).decode()
-#         self.prof.decide(request, self.addr[1], self.addr[0], self.sock)
 
 
 class ProfOnto (Thread):
