@@ -431,118 +431,236 @@ class Agent(Thread):
     #############################################################################################
 
 
-class Console(Thread):
-    inputText = "Enter a command: ---> "
-    def __init__(self, agent):
-        Thread.__init__(self)
-        self.agent = agent
-        self.start()
-        return
+
+class ConsoleCommand():
+    def __init__(self, name):
+        self.commandName=name
+
+    def checkCommand(self, console, input, agent):
+        raise NotImplementedError()
+
+    def getCommandName(self):
+        return self.commandName
 
 
-    def start_command(self):
-        self.agent.start()
-        return
 
-    def stop_command(self):
-        self.agent.stop()
-        return True
+class StartCommand(ConsoleCommand):
+    def __init__(self):
+        super(StartCommand, self).__init__("start")
 
-    def exit_command(self):
-        self.stop_command()
-        print("Console closing. Goodbye.")
-        return False
 
-    def status_command(self):
-        return self.agent.alive
+    def checkCommand(self, console, input, agent):
+        if input.startswith(self.getCommandName()):
+            parms = input.split();
+            if (len(parms) == 1):
+                agent.setAgentConnection(None, None)
+                agent.startAgent()  # default address, port
+                return 1
+            elif (len(parms) == 3):
+                agent.setAgentConnection(parms[1], parms[2])
+                agent.startAgent()
+                return 1
+            else:
+                print("Use: start | start address port")
+                return 0
 
-    def install_device(self):
-        return self.agent.install_device()
 
-    def check_install(self):
-        return self.agent.check_install()
 
-    def uninstall_device(self):
-        return self.agent.uninstall_device()
+class StopCommand(ConsoleCommand):
+    def __init__(self):
+        super(StopCommand, self).__init__("stop")
 
-    def set_hub(self, host, port):
-        return self.agent.set_hub(host, port)
+    def checkCommand(self, console, input, agent):
+        if input.startswith(self.getCommandName()):
+           agent.stop()
+           return 1
+        else:
+           return 0
 
-    def set_connection(self, host, port):
-        return self.agent.set_connection(host, port)
+class ExitCommand(ConsoleCommand):
+    def __init__(self):
+        super(ExitCommand, self).__init__("exit")
 
-    def checkAgent(self):
-        if (self.agent == None):
+    def checkCommand(self, console, input, agent):
+        if input.startswith(self.getCommandName()):
+           console.stop()
+           return 1
+        else:
+           return 0
+
+class StatusCommand(ConsoleCommand):
+    def __init__(self):
+        super(StatusCommand, self).__init__("status")
+
+    def checkCommand(self, console, input, agent):
+        if input.startswith(self.getCommandName()):
+            status = agent.alive
+            print("The server is ", end = "")
+            if (not status):
+                print ("not ", end= "")
+            print("active.")
+            return 1
+        else:
+           return 0
+
+class InstallCommand(ConsoleCommand):
+    def __init__(self):
+        super(InstallCommand, self).__init__("install")
+
+    def checkCommand(self, console, input, agent):
+        if input.startswith(self.getCommandName()):
+           if self.checkAgent(agent):
+               if (self.install_device(agent)):
+                  print("Device installation complete")
+               else:
+                  print("Device cannot be installed. Make sure the hub is correctly set")
+        else:
+           return 0
+        return 1
+
+    def checkAgent(self, agent):
+        if (agent == None):
             print("Agent not started. Please start the agent first")
             return 0
         return 1
 
+    def install_device(self, agent):
+        return agent.install_device()
+
+
+class SetHubCommand(ConsoleCommand):
+    def __init__(self):
+        super(SetHubCommand, self).__init__("set hub")
+
+    def checkCommand(self, console, input, agent):
+        if input.startswith(self.getCommandName()):
+           if not self.checkAgent(agent):
+             print("Agent not initialized")
+           parms = input.split()
+           if len(parms) == 4:
+              if self.set_hub(agent, parms[2], parms[3]):
+                  print("The hub is located at address ", parms[2], "port ", parms[3])
+              else:
+                  print ("The hub cannot be configured, check the parameters")
+           else:
+              print("Use: set hub address port")
+           return 1
+        else:
+            return 0
+
+    def set_hub(self, agent, host, port):
+        return agent.set_hub(host, port)
+
+    def checkAgent(self, agent):
+        if (agent == None):
+            print("Agent not started. Please start the agent first")
+            return 0
+        return 1
+
+class CheckInstallCommand(ConsoleCommand):
+    def __init__(self):
+        super(CheckInstallCommand, self).__init__("check install")
+
+    def checkCommand(self, console, input, agent):
+        if input.startswith(self.getCommandName()):
+            if self.checkAgent(agent):
+                if (self.check_install(agent)):
+                    print("The device is installed")
+                else:
+                    print("The device is not installed")
+        else:
+            return 0
+        return 1
+
+    def check_install(self, agent):
+        return agent.check_install()
+
+    def checkAgent(self, agent):
+        if (agent == None):
+            print("Agent not started. Please start the agent first")
+            return 0
+        return 1
+
+class UninstallCommand(ConsoleCommand):
+    def __init__(self):
+        super(UninstallCommand, self).__init__("uninstall")
+
+    def checkCommand(self, console, input, agent):
+        if input.startswith(self.getCommandName()):
+            if self.checkAgent(agent):
+                if (self.uninstall_device(agent)):
+                    print("Device uninstallation complete")
+                else:
+                    print("Device cannot be uninstalled. Make sure the hub is correctly set")
+        else:
+            return 0
+        return 1
+
+    def checkAgent(self, agent):
+        if (agent == None):
+            print("Agent not started. Please start the agent first")
+            return 0
+        return 1
+
+    def uninstall_device(self, agent):
+        return agent.uninstall_device()
+
+
+class SetDeviceCommand(ConsoleCommand):
+    def __init__(self):
+        super(SetDeviceCommand, self).__init__("set device")
+
+    def checkCommand(self, console, input, agent):
+        if input.startswith(self.getCommandName()):
+           if not self.checkAgent(agent) or agent.check_install==0:
+              return 1
+           parms = input.split()
+           if len(parms) == 4:
+               if self.set_connection(agent, parms[2], parms[3]):
+                  print("The device has been updated")
+               else:
+                  print ("The device cannot be updated, check the parameters")
+           else:
+               print("Use: set hub address port")
+        else:
+            return 0
+        return 1
+
+    def set_connection(self, agent, host, port):
+        return agent.set_connection(host, port)
+
+    def checkAgent(self, agent):
+        if (agent == None):
+           print("Agent not started. Please start the agent first")
+           return 0
+        return 1
+
+
+class Console(Thread ):
+    inputText = "Enter a command: ---> "
+    def __init__(self, agent, commandSet):
+        Thread.__init__(self)
+        self.agent = agent
+        self.commandSet= commandSet
+        self.exec_status = True
+        self.start()
+        return
+
+    def stop(self):
+        self.exec_status=False
+        print("Console closing. Goodbye.")
+        return False
+
     def run(self):
-        exec_status = True
-        while (exec_status):
+        while (self.exec_status):
             print(Console.inputText, end='')
-            command = input("").strip()
-            if command.startswith("start"):
-                parms = command.split();
-                if (len(parms) == 1):
-                    self.agent.setAgentConnection(None, None)
-                    self.agent.startAgent()  # default address, port
-                elif (len(parms) == 3):
-                    self.agent.setAgentConnection(parms[1], parms[2])
-                    self.agent.startAgent()
-                else:
-                    print("Use: start | start address port")
-            elif command == "stop":
-                self.stop_command()
-            elif command == "exit":
-                exec_status = self.exit_command()
-            elif command == "status":
-                status = self.status_command()
-                print("The server is ", end = "")
-                if (not status):
-                    print ("not ", end= "")
-                print("active.")
-            elif command == "install":
-                if self.checkAgent():
-                    if (self.install_device()):
-                        print("Device installation complete")
-                    else:
-                        print("Device cannot be installed. Make sure the hub is correctly set")
-            elif command == "uninstall":
-                if self.checkAgent():
-                    if (self.uninstall_device()):
-                        print("Device uninstallation complete")
-                    else:
-                        print("Device cannot be uninstalled. Make sure the hub is correctly set")
-            elif command.startswith("set hub"):
-                if not self.checkAgent():
-                    continue
-                parms = command.split()
-                if len(parms) == 4:
-                    if self.set_hub(parms[2], parms[3]):
-                        print("The hub is located at address ", parms[2], "port ", parms[3])
-                    else:
-                        print ("The hub cannot be configured, check the parameters")
-                else:
-                    print("Use: set hub address port")
-            elif command.startswith("set device"):
-                if not self.checkAgent():
-                    continue
-                parms = command.split()
-                if len(parms) == 4:
-                    if self.set_connection(parms[2], parms[3]):
-                        print("The device has been updated")
-                    else:
-                        print ("The device cannot be updated, check the parameters")
-                else:
-                    print("Use: set hub address port")
-            elif command == "check install":
-                if self.checkAgent():
-                    if (self.check_install()):
-                        print("The device is installed")
-                    else:
-                        print("The device is not installed")
-            else:
+            entered = input("").strip()
+            check=0
+            for command in self.commandSet:
+                check=command.checkCommand(self, entered, self.agent)
+                if check==1:
+                   break
+            if check==0:
                 print("Unrecognized command")
                 print(
                     "Use start | start [address] [port] | stop | exit | status | install | uninstall | set hub [address] [port] | set device address port check install")
