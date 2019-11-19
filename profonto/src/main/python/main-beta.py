@@ -81,8 +81,11 @@ class ProfOnto (Thread):
         self.restart=False
         self.serversocket.close()
         print("Server is closing. Wait.")
-        self.profontoGateWay.close()
-        self.profontoGateWay.shutdown()
+        try:
+            self.profontoGateWay.close()
+            self.profontoGateWay.shutdown()
+        except Exception as e:
+            return
         return
 
     def init_server(self):

@@ -8,6 +8,7 @@ package dmi.unict.it.profonto.core;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
@@ -1735,8 +1736,70 @@ public class Profonto extends OntologyCore
                   querytail+="?task prof:hasOperatorArgument <"+subqueryParam[6]+"> .\n";
                   querybody += taskExec + " prof:hasOperatorArgument " + " <" + subqueryParam[6] + "> .";
                 
-                }
+                } 
                                                                            
+                //?outparameter ?outparamtype ?outthecontent
+                r=qs.getResource("outparameter");            
+                if(r!=null)
+                {
+                  subqueryParam[7] = r.getURI();
+                  axioms = retrieveAssertions(subqueryParam[7], ontology.axioms());
+                  querybody += taskExec + " prof:hasTaskOutputParameter " + " <" + subqueryParam[7] + "> .";
+                
+                } 
+                
+                r=qs.getResource("outparamtype");
+                if(r!=null)
+                {
+                  subqueryParam[8]=r.getURI();
+                  querytail+=this.getQueries().get("body02f.sparql").replaceAll("//paramtout//", " <"+ subqueryParam[8]+"> \n");
+                }
+               
+                
+                r=qs.getResource("outthecontent"); //case of belief with refersTo                
+                if(r!=null)
+                {
+                  String val=r.getURI();
+                  Stream<OWLAxiom> beliefax=this.retrieveRefersToAssertions(val, copyOnto);
+                  OWLOntology belief=null;
+                  try
+                  {
+                      Timestamp t= new Timestamp(System.currentTimeMillis());
+                      belief= this.getMainManager().createOntology(beliefax);                     
+                  }
+                  catch (OWLOntologyAlreadyExistsException ex)
+                  {
+                      belief=this.getMainManager().getOntology(ex.getDocumentIRI());
+                  } 
+                  
+                try
+                  {
+                    if(toreturn[1]==null)
+                    {
+                      toreturn[1]=new ByteArrayOutputStream();
+                      belief.saveOntology(toreturn[1]);
+                      this.getMainManager().removeOntology(belief);
+                    }
+                    else
+                    {      
+                      ByteArrayOutputStream tmp=new ByteArrayOutputStream();
+                      belief.saveOntology(tmp);
+                      this.getMainManager().removeOntology(belief);
+                      DataOutputStream dout = new DataOutputStream(tmp);
+                      dout.write(toreturn[1].toByteArray());  
+                      toreturn[1]=tmp;                      
+                    }
+                  }                  
+                  catch (IOException ex)
+                      {
+                        return new ByteArrayOutputStream[]{null,null};
+                      }
+                  
+                  //toreturn[1]=belief;
+                  //this.getMainManager().removeOntology(belief);
+                }
+                
+                
                 
                 query += "CONSTRUCT {\n";
 
@@ -1785,7 +1848,7 @@ public class Profonto extends OntologyCore
                 //res.axioms().forEach(System.out::println);    
           if (res.axioms().count() == 0)
           {
-            return toreturn; //all  values null
+            return new ByteArrayOutputStream[]{null,null}; //all  values null
           }
         axioms = Stream.concat(res.axioms(), axioms);
         String[] conn=new String[]{""};
@@ -1803,7 +1866,7 @@ public class Profonto extends OntologyCore
       catch (OWLOntologyCreationException | OWLOntologyStorageException ex)
           {
             //Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
-            return toreturn; //all values null
+            return new ByteArrayOutputStream[]{null,null}; //all values null
           }
         
         this.getMainManager().removeOntology(ontology);        
@@ -1831,7 +1894,7 @@ public class Profonto extends OntologyCore
         catch (OWLOntologyCreationException | OWLOntologyStorageException ex)
           {        
             toreturn[0]=null;
-            return toreturn; //all values null
+            return new ByteArrayOutputStream[]{null,null};//all values null
           }           
         //toreturn[0]=out;     
         return toreturn;
