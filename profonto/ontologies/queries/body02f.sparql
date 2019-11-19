@@ -1,0 +1,16 @@
+OPTIONAL
+{
+  ?task prof:hasTaskOutputParameter ?Taskparamout .  
+}
+
+OPTIONAL
+{
+   ?task prof:hasTaskOutputParameter ?Taskparamout .
+   ?Taskparamout prof:hasType ?Taskparamouttype .
+   FILTER ( ?Taskparamouttype = //paramtout// )
+}
+
+OPTIONAL
+{
+  ?task prof:hasTaskOutputParameterTemplate ?Taskparamout .  
+}

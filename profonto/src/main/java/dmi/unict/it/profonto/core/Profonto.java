@@ -1676,7 +1676,9 @@ public class Profonto extends OntologyCore
                     null, //qs.getResource("obtype").getURI(),
                     //qs.getResource("hasTask").getURI(),  
                     null,
-                    null
+                    null,
+                    
+                    null, null, null //for output
                   };                
 
                  String theobject = " <" + subqueryParam[3] + ">"; //edit this line
@@ -1689,7 +1691,7 @@ public class Profonto extends OntologyCore
                 
                 String taskExec = "<" + subqueryParam[1] + "_execution>";
                  
-                Resource r = qs.getResource("tparameter");
+                Resource r = qs.getResource("tparameter"); //to do the same with output parameter
                 if (r != null)
                   {
                     subqueryParam[4] = r.getURI();
@@ -1800,7 +1802,7 @@ public class Profonto extends OntologyCore
       } 
       catch (OWLOntologyCreationException | OWLOntologyStorageException ex)
           {
-            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            //Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
             return toreturn; //all values null
           }
         
