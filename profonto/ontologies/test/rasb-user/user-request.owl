@@ -68,7 +68,11 @@
         <NamedIndividual IRI="#alan-task-1-1-1-object"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskOutputParameter"/>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#CompositeValue"/>
+        <NamedIndividual IRI="#turn-parameter"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskInputParameter"/>
         <NamedIndividual IRI="#turn-parameter"/>
     </ClassAssertion>
     <ObjectPropertyAssertion>
@@ -117,7 +121,7 @@
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#LightObjectType"/>
     </ObjectPropertyAssertion>
     <DataPropertyAssertion>
-        <DataProperty IRI="http://www.dmi.unict.it/oasis.owl#hasInputValue"/>
+        <DataProperty IRI="http://www.dmi.unict.it/oasis.owl#hasDataValue"/>
         <NamedIndividual IRI="#turn-parameter"/>
         <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">25</Literal>
     </DataPropertyAssertion>

@@ -255,9 +255,6 @@
         <Class IRI="#SpaceOperator"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Value"/>
-    </Declaration>
-    <Declaration>
         <ObjectProperty IRI="#hasConditionalOperator"/>
     </Declaration>
     <Declaration>
@@ -265,6 +262,9 @@
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasTaskParameterTemplate"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#CompositeValue"/>
     </Declaration>
     <Declaration>
         <Class IRI="#MessageOperatorArgument"/>
@@ -379,6 +379,9 @@
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#connectsTo"/>
+    </Declaration>
+    <Declaration>
+        <DataProperty IRI="#hasDataValue"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasService"/>
@@ -624,9 +627,6 @@
         <ObjectProperty IRI="#defines"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasValue"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="#TaskOperatorArgument"/>
     </Declaration>
     <Declaration>
@@ -741,13 +741,16 @@
         <Class IRI="#ConditionalParameter"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasFormat"/>
-    </Declaration>
-    <Declaration>
         <ObjectProperty IRI="#cosistsOfTaskExecution"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#hasFormat"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#MessageParameter"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasCompositeValue"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasTaskObjectTemplate"/>
@@ -1120,11 +1123,11 @@
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#ConnectionEntry"/>
-        <Class IRI="#ConnectionThing"/>
+        <Class IRI="#CompositeValue"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#ConnectionEntry"/>
-        <Class IRI="#Value"/>
+        <Class IRI="#ConnectionThing"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#ConnectionEntryType"/>
@@ -1192,7 +1195,7 @@
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#GeometricExtension"/>
-        <Class IRI="#Value"/>
+        <Class IRI="#CompositeValue"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#GoalDescription"/>
@@ -1300,7 +1303,7 @@
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#OpportunityValue"/>
-        <Class IRI="#Value"/>
+        <Class IRI="#CompositeValue"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#PermanentStatus"/>
@@ -1384,11 +1387,11 @@
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#SmartContractEntry"/>
-        <Class IRI="#SmartContractThing"/>
+        <Class IRI="#CompositeValue"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#SmartContractEntry"/>
-        <Class IRI="#Value"/>
+        <Class IRI="#SmartContractThing"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#SmartContractEntryType"/>
@@ -1504,7 +1507,7 @@
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#TemperatureValue"/>
-        <Class IRI="#Value"/>
+        <Class IRI="#CompositeValue"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Template"/>
@@ -1788,7 +1791,7 @@
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasConnectionEntry"/>
-        <ObjectProperty IRI="#hasValue"/>
+        <ObjectProperty IRI="#hasCompositeValue"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasConnectionEntryType"/>
@@ -1808,7 +1811,7 @@
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasGeometricExtension"/>
-        <ObjectProperty IRI="#hasValue"/>
+        <ObjectProperty IRI="#hasCompositeValue"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasGoalExecution"/>
@@ -1856,7 +1859,7 @@
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasOpportunityValue"/>
-        <ObjectProperty IRI="#hasValue"/>
+        <ObjectProperty IRI="#hasCompositeValue"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasScheduling"/>
@@ -1868,7 +1871,7 @@
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasSmartContractEntry"/>
-        <ObjectProperty IRI="#hasValue"/>
+        <ObjectProperty IRI="#hasCompositeValue"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasSmartContractEntryType"/>
@@ -1908,7 +1911,7 @@
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasTaskInputParameterTemplate"/>
-        <ObjectProperty IRI="#hasTaskInputParameter"/>
+        <ObjectProperty IRI="#hasTaskParameter"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasTaskInputParameterTemplate"/>
@@ -1948,7 +1951,7 @@
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasTaskOutputParameterTemplate"/>
-        <ObjectProperty IRI="#hasTaskOutputParameter"/>
+        <ObjectProperty IRI="#hasTaskParameter"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasTaskOutputParameterTemplate"/>
@@ -2704,6 +2707,10 @@
         <DataProperty IRI="#hasFileDescription"/>
     </SubDataPropertyOf>
     <SubDataPropertyOf>
+        <DataProperty IRI="#hasConditionDataValue"/>
+        <DataProperty IRI="#hasDataValue"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
         <DataProperty IRI="#hasFileType"/>
         <DataProperty IRI="#hasFileDescription"/>
     </SubDataPropertyOf>
@@ -2712,8 +2719,24 @@
         <DataProperty IRI="#hasConnectionInfo"/>
     </SubDataPropertyOf>
     <SubDataPropertyOf>
+        <DataProperty IRI="#hasInputValue"/>
+        <DataProperty IRI="#hasDataValue"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#hasOutputValue"/>
+        <DataProperty IRI="#hasDataValue"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
         <DataProperty IRI="#hasPortNumber"/>
         <DataProperty IRI="#hasConnectionInfo"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#hasPublicKey"/>
+        <DataProperty IRI="#hasDataValue"/>
+    </SubDataPropertyOf>
+    <SubDataPropertyOf>
+        <DataProperty IRI="#hasScheduleRepetition"/>
+        <DataProperty IRI="#hasDataValue"/>
     </SubDataPropertyOf>
     <DataPropertyDomain>
         <DataProperty IRI="#descriptionProvidedByEntityIRI"/>
@@ -2921,6 +2944,16 @@
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#ComponentType</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Component type</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#CompositeValue</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general complex value</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#CompositeValue</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Value</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -3705,7 +3738,7 @@
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#TaskOutputParameter</IRI>
-        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Task input parameter</Literal>
+        <Literal datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Task output parameter</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -3791,16 +3824,6 @@
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#UrbanObjectType</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Urban device type</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Value</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This class describes a general complex value</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Value</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Value</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
@@ -3959,6 +3982,11 @@
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#hasCompositeValue</IRI>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to a value</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasConditionalDescriptor</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to a conditional descriptor</Literal>
     </AnnotationAssertion>
@@ -4096,11 +4124,6 @@
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasType</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to the related type</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#hasValue</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links things to a value</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
