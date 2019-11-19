@@ -17,6 +17,9 @@
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#kitchen"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_on"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#alan"/>
     </Declaration>
     <Declaration>
@@ -29,6 +32,9 @@
         <NamedIndividual IRI="#alan-plan-1"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="#turn-parameter"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="#alan-task-1-1-1-object"/>
     </Declaration>
     <Declaration>
@@ -36,9 +42,6 @@
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#alan-task-1-1-1"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_off"/>
     </Declaration>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#User"/>
@@ -64,6 +67,10 @@
         <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskObjectTemplate"/>
         <NamedIndividual IRI="#alan-task-1-1-1-object"/>
     </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskOutputParameter"/>
+        <NamedIndividual IRI="#turn-parameter"/>
+    </ClassAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#requests"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#alan"/>
@@ -80,6 +87,11 @@
         <NamedIndividual IRI="#alan-goal-1-1"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskInputParameter"/>
+        <NamedIndividual IRI="#alan-task-1-1-1"/>
+        <NamedIndividual IRI="#turn-parameter"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
         <NamedIndividual IRI="#alan-task-1-1-1"/>
         <NamedIndividual IRI="#alan-task-1-1-1-object"/>
@@ -87,7 +99,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskOperator"/>
         <NamedIndividual IRI="#alan-task-1-1-1"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_off"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_on"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasType"/>
@@ -104,6 +116,11 @@
         <NamedIndividual IRI="#alan-task-1-1-1-object"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#LightObjectType"/>
     </ObjectPropertyAssertion>
+    <DataPropertyAssertion>
+        <DataProperty IRI="http://www.dmi.unict.it/oasis.owl#hasInputValue"/>
+        <NamedIndividual IRI="#turn-parameter"/>
+        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">25</Literal>
+    </DataPropertyAssertion>
 </Ontology>
 
 
