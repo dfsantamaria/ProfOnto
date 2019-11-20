@@ -1982,7 +1982,7 @@ public class Profonto extends OntologyCore
          
          OWLNamedIndividual individual=this.getMainManager().getOWLDataFactory().getOWLNamedIndividual(iriInd);         
          Stream<OWLAxiom> axioms=ontology.filter(x->x.isLogicalAxiom())
-                                              .filter(x->x.isOfType(AxiomType.OBJECT_PROPERTY_ASSERTION) || x.isOfType(AxiomType.DATA_PROPERTY_ASSERTION))
+                                              //.filter(x->x.isOfType(AxiomType.OBJECT_PROPERTY_ASSERTION) || x.isOfType(AxiomType.DATA_PROPERTY_ASSERTION))
                                               .filter(x->x.containsEntityInSignature(individual));
          return axioms;        
       }
