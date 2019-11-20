@@ -175,8 +175,7 @@ class ProfOnto (Thread):
 
 
 
-    def createRequest(self, graph,execution):
-        request=Graph()
+    def createRequest(self, graph, request, execution):
         uri='http://www.dmi.unict.it/profonto-home.owl#'
         name=Utils.retrieveEntityName(Utils, execution)
         request.add((execution, RDF.type, URIRef( self.oasis + "TaskExecution")))
@@ -192,18 +191,26 @@ class ProfOnto (Thread):
         #performer = next(graph.subjects(URIRef(oasis + "performs"), execution))
         request.add((execution, URIRef( self.oasis+"hasTaskObject"), taskObject))
         request.add((execution, URIRef( self.oasis + "hasTaskOperator"), taskOperator))
-        return request
+
 
     def device_engage(self, graph, execution):
         #for s,p,o in graph.triples( (None,None,None) ):
-        #    print(s,p,o)
+            #print(s,p,o)
         taskObject = next(graph.objects(execution, URIRef( self.oasis + "hasTaskObject")))
         taskOperator = next(graph.objects(execution, URIRef( self.oasis + "hasTaskOperator")))
         performer = next(graph.subjects(URIRef( self.oasis + "performs"), execution))
         devip=next(graph.objects(subject=None, predicate=URIRef( self.oasis + "hasIPAddress")))
         devport=next(graph.objects(subject=None, predicate=URIRef( self.oasis + "hasPortNumber")))
-        print("To engage:", performer, taskObject, taskOperator, devip, devport)
-        toreturn = self.createRequest(graph,execution).serialize(format='xml')
+        request=next(graph.subjects(URIRef( self.oasis + "hasTaskExecution"), execution))
+        value=100
+        for s in graph.objects(request, URIRef(self.oasis + "hasTaskInputParameter")):
+            for t in graph.objects(s, URIRef(self.oasis + "hasDataValue")):
+                value=t
+                break
+        print("To engage:", performer, taskObject, value, taskOperator, devip, devport)
+        toreturn=Graph()
+        self.createRequest(graph, toreturn, execution)
+        toreturn=toreturn.serialize(format='xml')
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect((devip, int(devport)))
         client_socket.send(toreturn)
