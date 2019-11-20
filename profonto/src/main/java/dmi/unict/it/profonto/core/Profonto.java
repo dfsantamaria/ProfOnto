@@ -17,6 +17,7 @@ import java.io.InputStream;
 import java.nio.file.Path;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
@@ -43,6 +44,7 @@ import org.semanticweb.HermiT.ReasonerFactory;
 import org.semanticweb.owlapi.model.AxiomType;
 import org.semanticweb.owlapi.model.OWLClassAssertionAxiom;
 import org.semanticweb.owlapi.model.OWLDataPropertyAssertionAxiom;
+import org.semanticweb.owlapi.model.OWLEntity;
 import org.semanticweb.owlapi.model.OWLIndividualAxiom;
 import org.semanticweb.owlapi.model.OWLNamedIndividual;
 import org.semanticweb.owlapi.model.OWLObjectProperty;
@@ -63,6 +65,7 @@ import org.semanticweb.owlapi.util.InferredOntologyGenerator;
 import org.semanticweb.owlapi.util.InferredSubClassAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredSubDataPropertyAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredSubObjectPropertyAxiomGenerator;
+import org.semanticweb.owlapi.util.OWLEntityRenamer;
 import org.semanticweb.owlapi.util.SimpleIRIMapper;
 import org.semanticweb.owlapi.vocab.OWL2Datatype;
 import ru.avicomp.ontapi.OntologyModel;
@@ -1682,6 +1685,7 @@ public class Profonto extends OntologyCore
                     null, null, null //for output
                   };                
 
+                
                  String theobject = " <" + subqueryParam[3] + ">"; //edit this line
                 
                  execQ = this.createQuery(ontology, prefix + this.getQueries().get("ask01a.sparql").replaceAll("//theobj//", theobject));
@@ -1689,14 +1693,16 @@ public class Profonto extends OntologyCore
                   {
                     theobject = " ?device_object ";
                   }
-                
+                 
+                String tasExecInd= subqueryParam[1] + "_execution";
                 String taskExec = "<" + subqueryParam[1] + "_execution>";
                  
                 Resource r = qs.getResource("tparameter"); //to do the same with output parameter
                 if (r != null)
                   {
-                    subqueryParam[4] = r.getURI();
-                    axioms = retrieveAssertions(subqueryParam[4], ontology.axioms());
+                    subqueryParam[4] = r.getURI();                      
+                    axioms = retrieveAssertionsWithNewIndividual(subqueryParam[1],tasExecInd, 
+                                                                 retrieveAssertions(subqueryParam[4],ontology.axioms()));
                     querybody += taskExec + " prof:hasTaskInputParameter " + " <" + subqueryParam[4] + "> .";
                   }
                 r=qs.getResource("paramtype");
@@ -1743,7 +1749,9 @@ public class Profonto extends OntologyCore
                 if(r!=null)
                 {
                   subqueryParam[7] = r.getURI();
-                  axioms = retrieveAssertions(subqueryParam[7], ontology.axioms());
+                  axioms = Stream.concat(retrieveAssertionsWithNewIndividual(subqueryParam[1],tasExecInd, 
+                                         retrieveAssertions(subqueryParam[7],ontology.axioms()))
+                                         , axioms);
                   querybody += taskExec + " prof:hasTaskOutputParameter " + " <" + subqueryParam[7] + "> .";
                 
                 } 
@@ -1936,6 +1944,37 @@ public class Profonto extends OntologyCore
       this.getMainManager().removeOntology(ontology);
       return axioms;
     }
+    
+    
+    
+      //retrieve the assertion concerning the given individual as string    
+    private Stream<OWLAxiom> retrieveAssertionsWithNewIndividual(String iriInd, String newIndividual, Stream<OWLAxiom> ontology)
+      {         
+        try
+          {
+            OWLOntology o=this.getMainManager().createOntology(ontology);
+            final OWLEntityRenamer renamer = new OWLEntityRenamer(this.getMainManager(), Collections.singleton(o));
+            final Map<OWLEntity, IRI> entity2IRIMap = new HashMap<>();
+            o.individualsInSignature().forEach(toRename ->
+                                      {
+                                        final IRI iri = toRename.getIRI();
+                                        if(iri.getIRIString().equals(iriInd))
+                                          {
+                                            entity2IRIMap.put(toRename, IRI.create(iri.toString().replace(iriInd, newIndividual)));                                            
+                                          }
+                                      });
+            o.applyChanges(renamer.changeIRI(entity2IRIMap));   
+            //o.axioms().forEach(System.out::println);
+            Stream<OWLAxiom> a= o.axioms();
+            this.getMainManager().removeOntology(o);            
+            return a;        
+          }
+        catch (OWLOntologyCreationException ex)
+          {
+            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+          }
+      }
     
      //retrieve the assertion concerning the given individual as string    
     private Stream<OWLAxiom> retrieveAssertions(String iriInd, Stream<OWLAxiom> ontology)

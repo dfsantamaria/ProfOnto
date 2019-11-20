@@ -196,19 +196,21 @@ class ProfOnto (Thread):
     def device_engage(self, graph, execution):
         #for s,p,o in graph.triples( (None,None,None) ):
             #print(s,p,o)
+        toreturn = Graph()
         taskObject = next(graph.objects(execution, URIRef( self.oasis + "hasTaskObject")))
         taskOperator = next(graph.objects(execution, URIRef( self.oasis + "hasTaskOperator")))
         performer = next(graph.subjects(URIRef( self.oasis + "performs"), execution))
         devip=next(graph.objects(subject=None, predicate=URIRef( self.oasis + "hasIPAddress")))
         devport=next(graph.objects(subject=None, predicate=URIRef( self.oasis + "hasPortNumber")))
-        request=next(graph.subjects(URIRef( self.oasis + "hasTaskExecution"), execution))
         value=100
-        for s in graph.objects(request, URIRef(self.oasis + "hasTaskInputParameter")):
-            for t in graph.objects(s, URIRef(self.oasis + "hasDataValue")):
+        for s, o in graph.subject_objects(URIRef(self.oasis + "hasTaskInputParameter")):
+            toreturn.add((s, URIRef(self.oasis + "hasTaskInputParameter"), o))
+            for t in graph.objects(o, URIRef(self.oasis + "hasDataValue")):
+                toreturn.add((o,URIRef(self.oasis + "hasDataValue"),t))
                 value=t
                 break
         print("To engage:", performer, taskObject, value, taskOperator, devip, devport)
-        toreturn=Graph()
+
         self.createRequest(graph, toreturn, execution)
         toreturn=toreturn.serialize(format='xml')
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)

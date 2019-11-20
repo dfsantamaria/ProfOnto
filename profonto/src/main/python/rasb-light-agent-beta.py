@@ -14,9 +14,16 @@ from lib.console import*
 
 class LightAgentServerManager(AgentServerManager):
     def performOperation(self, g, execution):
+       # for s,p,o in g.triples( (None,None,None) ):
+        #  print(s,p,o)
         taskObject = next(g.objects(execution, URIRef(self.agent.iriSet[0] + "#hasTaskObject")))
         taskOperator = next(g.objects(execution, URIRef(self.agent.iriSet[0] + "#hasTaskOperator")))
-        print("\n Action ", taskOperator, "on ", taskObject)
+        value = 100
+        for s in g.objects(None, URIRef(self.agent.iriSet[0] + "#hasTaskInputParameter")):
+            for t in g.objects(s, URIRef(self.agent.iriSet[0] + "#hasDataValue")):
+                value = t
+                break
+        print("\n Action ", taskOperator, "on ", taskObject, "with value ", value)
         print(Console.inputText, end='')
         return
 
