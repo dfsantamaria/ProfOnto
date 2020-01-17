@@ -6,7 +6,7 @@
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      ontologyIRI="http://www.dmi.unict.it/oasis.owl"
-     versionIRI="http://www.dmi.unict.it/oasis.owl/0.0.1">
+     versionIRI="http://www.dmi.unict.it/oasis.owl/1.0.0">
     <Prefix name="" IRI="http://www.dmi.unict.it/oasis.owl"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
@@ -31,6 +31,10 @@
     </Annotation>
     <Annotation>
         <AnnotationProperty IRI="http://purl.org/dc/terms/created"/>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Daniele Francesco Santamaria</Literal>
+    </Annotation>
+    <Annotation>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/created"/>
         <IRI>http://www.dmi.unict.it/~santamaria/ext/metadata/foaf.rdf</IRI>
     </Annotation>
     <Annotation>
@@ -51,10 +55,10 @@
         <ObjectProperty IRI="#hasTaskInputParameterTemplate"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#hasPublicKey"/>
+        <DataProperty IRI="#hasIPAddress"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#hasIPAddress"/>
+        <DataProperty IRI="#hasPublicKey"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasConnectionEntry"/>
@@ -87,10 +91,10 @@
         <ObjectProperty IRI="#hasAppellation"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#PermanentStatus"/>
+        <Class IRI="#Scheduling"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Scheduling"/>
+        <Class IRI="#PermanentStatus"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#exploits"/>
@@ -138,10 +142,10 @@
         <Class IRI="#TemporaryStatus"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasTimeSpan"/>
+        <Class IRI="#Activity"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Activity"/>
+        <ObjectProperty IRI="#hasTimeSpan"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasConditionalThing"/>
@@ -186,10 +190,10 @@
         <Class IRI="#PlanDescription"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasConditionalAtom"/>
+        <ObjectProperty IRI="#deliversMessage"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#deliversMessage"/>
+        <ObjectProperty IRI="#hasConditionalAtom"/>
     </Declaration>
     <Declaration>
         <Class IRI="#VirtualSpace"/>
@@ -210,10 +214,10 @@
         <ObjectProperty IRI="#hasSmartContractEntry"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Behavior"/>
+        <Class IRI="#ConnectionThing"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ConnectionThing"/>
+        <Class IRI="#Behavior"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ConditionalBody"/>
@@ -273,10 +277,10 @@
         <Class IRI="#SpaceType"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#TaskOperator"/>
+        <ObjectProperty IRI="#hasTaskParameter"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasTaskParameter"/>
+        <Class IRI="#TaskOperator"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Connection"/>
@@ -444,10 +448,10 @@
         <Class IRI="#Sensor"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ConfiguredThing"/>
+        <ObjectProperty IRI="#hasFeasibility"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasFeasibility"/>
+        <Class IRI="#ConfiguredThing"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasConditionalHead"/>
@@ -483,10 +487,10 @@
         <ObjectProperty IRI="#hasConditionalRuleThing"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasConditionalBodyAtom"/>
+        <Class IRI="#TemperatureValue"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#TemperatureValue"/>
+        <ObjectProperty IRI="#hasConditionalBodyAtom"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasObjectType"/>
@@ -516,10 +520,10 @@
         <Class IRI="#ActionThing"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Actuator"/>
+        <Class IRI="#EdgeDevice"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#EdgeDevice"/>
+        <Class IRI="#Actuator"/>
     </Declaration>
     <Declaration>
         <Class IRI="#HumanAgentBehaviorTemplate"/>
@@ -636,7 +640,7 @@
         <ObjectProperty IRI="#subjectedToTask"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#fallsWithin"/>
+        <ObjectProperty IRI="#hasTaskOperator"/>
     </Declaration>
     <Declaration>
         <Class IRI="#TaskObject"/>
@@ -648,7 +652,7 @@
         <Class IRI="#ConditionalSet"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasTaskOperator"/>
+        <ObjectProperty IRI="#fallsWithin"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ConditionalBodyAtom"/>
@@ -720,10 +724,10 @@
         <ObjectProperty IRI="#hasImplementation"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ConfigurationType"/>
+        <DataProperty IRI="#hasConnectionInfo"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#hasConnectionInfo"/>
+        <Class IRI="#ConfigurationType"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#adoptsTemplate"/>
@@ -780,10 +784,10 @@
         <ObjectProperty IRI="#hasSpaceSpan"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#consistsOfConnectionEntry"/>
+        <NamedIndividual IRI="#spaceSpan"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#spaceSpan"/>
+        <ObjectProperty IRI="#consistsOfConnectionEntry"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#implementsTaskParameter"/>
@@ -796,6 +800,9 @@
     </Declaration>
     <Declaration>
         <DataProperty IRI="#hasOutputValue"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#entrustedBy"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasSmartContractType"/>
@@ -825,10 +832,10 @@
         <ObjectProperty IRI="#dependsOn"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasSpaceType"/>
+        <ObjectProperty IRI="#hasMessageOperatorArgument"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasMessageOperatorArgument"/>
+        <ObjectProperty IRI="#hasSpaceType"/>
     </Declaration>
     <Declaration>
         <Class IRI="http://www.w3.org/2006/time#TemporalEntity"/>
@@ -888,10 +895,10 @@
         <ObjectProperty IRI="#entrustedFrom"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#isCopyOf"/>
+        <DataProperty IRI="#hasBinaryData"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#hasBinaryData"/>
+        <ObjectProperty IRI="#isCopyOf"/>
     </Declaration>
     <Declaration>
         <Class IRI="#SmartContractType"/>
@@ -906,13 +913,13 @@
         <ObjectProperty IRI="#hasConfiguration"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#consistsOfEntrustment"/>
+        <Class IRI="#ConditionalOperatorArgument"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#hasPortNumber"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ConditionalOperatorArgument"/>
+        <ObjectProperty IRI="#consistsOfEntrustment"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ExistentialOperator"/>
@@ -1666,6 +1673,10 @@
         <ObjectProperty IRI="#isRelatedWith"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
+        <ObjectProperty IRI="#entrustedBy"/>
+        <ObjectProperty IRI="#isInvolvedInEntrustmentWith"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
         <ObjectProperty IRI="#entrustedFrom"/>
         <ObjectProperty IRI="#isInvolvedInEntrustmentWith"/>
     </SubObjectPropertyOf>
@@ -2094,6 +2105,10 @@
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#descriptionProvidedByEntity"/>
         <Class IRI="#OntologyDescriptionObject"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#entrustedBy"/>
+        <Class IRI="#EntrustmentActivity"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#entrustedFrom"/>
@@ -2375,6 +2390,10 @@
     <ObjectPropertyRange>
         <ObjectProperty IRI="#descriptionProvidedByEntity"/>
         <Class abbreviatedIRI="owl:Thing"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#entrustedBy"/>
+        <Class IRI="#RequestDescriptionObject"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#entrustedFrom"/>
