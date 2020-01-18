@@ -55,10 +55,10 @@
         <ObjectProperty IRI="#hasTaskInputParameterTemplate"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#hasIPAddress"/>
+        <DataProperty IRI="#hasPublicKey"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#hasPublicKey"/>
+        <DataProperty IRI="#hasIPAddress"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasConnectionEntry"/>
@@ -91,10 +91,10 @@
         <ObjectProperty IRI="#hasAppellation"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Scheduling"/>
+        <Class IRI="#PermanentStatus"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#PermanentStatus"/>
+        <Class IRI="#Scheduling"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#exploits"/>
@@ -139,13 +139,16 @@
         <ObjectProperty IRI="#hasTaskOutputParameter"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#involves"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#TemporaryStatus"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Activity"/>
+        <ObjectProperty IRI="#hasTimeSpan"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasTimeSpan"/>
+        <Class IRI="#Activity"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasConditionalThing"/>
@@ -190,10 +193,10 @@
         <Class IRI="#PlanDescription"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#deliversMessage"/>
+        <ObjectProperty IRI="#hasConditionalAtom"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasConditionalAtom"/>
+        <ObjectProperty IRI="#deliversMessage"/>
     </Declaration>
     <Declaration>
         <Class IRI="#VirtualSpace"/>
@@ -277,10 +280,10 @@
         <Class IRI="#SpaceType"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasTaskParameter"/>
+        <Class IRI="#TaskOperator"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#TaskOperator"/>
+        <ObjectProperty IRI="#hasTaskParameter"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Connection"/>
@@ -487,10 +490,10 @@
         <ObjectProperty IRI="#hasConditionalRuleThing"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#TemperatureValue"/>
+        <ObjectProperty IRI="#hasConditionalBodyAtom"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasConditionalBodyAtom"/>
+        <Class IRI="#TemperatureValue"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasObjectType"/>
@@ -520,10 +523,10 @@
         <Class IRI="#ActionThing"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#EdgeDevice"/>
+        <Class IRI="#Actuator"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Actuator"/>
+        <Class IRI="#EdgeDevice"/>
     </Declaration>
     <Declaration>
         <Class IRI="#HumanAgentBehaviorTemplate"/>
@@ -569,6 +572,9 @@
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasInformationObjectType"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#triggeredBy"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#consistsOfEntry"/>
@@ -640,7 +646,7 @@
         <ObjectProperty IRI="#subjectedToTask"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasTaskOperator"/>
+        <ObjectProperty IRI="#fallsWithin"/>
     </Declaration>
     <Declaration>
         <Class IRI="#TaskObject"/>
@@ -652,7 +658,7 @@
         <Class IRI="#ConditionalSet"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#fallsWithin"/>
+        <ObjectProperty IRI="#hasTaskOperator"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ConditionalBodyAtom"/>
@@ -724,10 +730,10 @@
         <ObjectProperty IRI="#hasImplementation"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#hasConnectionInfo"/>
+        <Class IRI="#ConfigurationType"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ConfigurationType"/>
+        <DataProperty IRI="#hasConnectionInfo"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#adoptsTemplate"/>
@@ -832,10 +838,10 @@
         <ObjectProperty IRI="#dependsOn"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasMessageOperatorArgument"/>
+        <ObjectProperty IRI="#hasSpaceType"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasSpaceType"/>
+        <ObjectProperty IRI="#hasMessageOperatorArgument"/>
     </Declaration>
     <Declaration>
         <Class IRI="http://www.w3.org/2006/time#TemporalEntity"/>
@@ -895,10 +901,10 @@
         <ObjectProperty IRI="#entrustedFrom"/>
     </Declaration>
     <Declaration>
-        <DataProperty IRI="#hasBinaryData"/>
+        <ObjectProperty IRI="#isCopyOf"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#isCopyOf"/>
+        <DataProperty IRI="#hasBinaryData"/>
     </Declaration>
     <Declaration>
         <Class IRI="#SmartContractType"/>
@@ -913,13 +919,13 @@
         <ObjectProperty IRI="#hasConfiguration"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ConditionalOperatorArgument"/>
+        <ObjectProperty IRI="#consistsOfEntrustment"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#hasPortNumber"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#consistsOfEntrustment"/>
+        <Class IRI="#ConditionalOperatorArgument"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ExistentialOperator"/>
@@ -975,10 +981,6 @@
     <SubClassOf>
         <Class IRI="#ActiveStatus"/>
         <Class IRI="#ActivationStatus"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#Activity"/>
-        <Class IRI="#Event"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Actor"/>
@@ -1370,7 +1372,7 @@
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Scheduling"/>
-        <Class IRI="#Event"/>
+        <Class IRI="#DescriptionObject"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Sensor"/>
@@ -2041,9 +2043,17 @@
         <ObjectProperty IRI="#isDescribedBy"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
+        <ObjectProperty IRI="#triggeredBy"/>
+        <ObjectProperty IRI="#isRelatedWith"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
         <ObjectProperty IRI="#triggers"/>
         <ObjectProperty IRI="#isRelatedWith"/>
     </SubObjectPropertyOf>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#triggeredBy"/>
+        <ObjectProperty IRI="#triggers"/>
+    </InverseObjectProperties>
     <TransitiveObjectProperty>
         <ObjectProperty IRI="#consistsOf"/>
     </TransitiveObjectProperty>
@@ -2324,8 +2334,8 @@
         </ObjectUnionOf>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#triggers"/>
-        <Class IRI="#Agent"/>
+        <ObjectProperty IRI="#triggeredBy"/>
+        <Class IRI="#Event"/>
     </ObjectPropertyDomain>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#activatedByScheduling"/>
