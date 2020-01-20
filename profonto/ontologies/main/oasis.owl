@@ -6,7 +6,7 @@
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      ontologyIRI="http://www.dmi.unict.it/oasis.owl"
-     versionIRI="http://www.dmi.unict.it/oasis.owl/0.0.1">
+     versionIRI="http://www.dmi.unict.it/oasis.owl/1.0.0">
     <Prefix name="" IRI="http://www.dmi.unict.it/oasis.owl"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
@@ -28,6 +28,10 @@
     <Annotation>
         <AnnotationProperty IRI="http://purl.org/dc/terms/created"/>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Domenico Cantone</Literal>
+    </Annotation>
+    <Annotation>
+        <AnnotationProperty IRI="http://purl.org/dc/terms/created"/>
+        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">Daniele Francesco Santamaria</Literal>
     </Annotation>
     <Annotation>
         <AnnotationProperty IRI="http://purl.org/dc/terms/created"/>
@@ -135,6 +139,9 @@
         <ObjectProperty IRI="#hasTaskOutputParameter"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#involves"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#TemporaryStatus"/>
     </Declaration>
     <Declaration>
@@ -210,10 +217,10 @@
         <ObjectProperty IRI="#hasSmartContractEntry"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#Behavior"/>
+        <Class IRI="#ConnectionThing"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ConnectionThing"/>
+        <Class IRI="#Behavior"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ConditionalBody"/>
@@ -444,10 +451,10 @@
         <Class IRI="#Sensor"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ConfiguredThing"/>
+        <ObjectProperty IRI="#hasFeasibility"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasFeasibility"/>
+        <Class IRI="#ConfiguredThing"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasConditionalHead"/>
@@ -565,6 +572,9 @@
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasInformationObjectType"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#triggeredBy"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#consistsOfEntry"/>
@@ -780,10 +790,10 @@
         <ObjectProperty IRI="#hasSpaceSpan"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#consistsOfConnectionEntry"/>
+        <NamedIndividual IRI="#spaceSpan"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#spaceSpan"/>
+        <ObjectProperty IRI="#consistsOfConnectionEntry"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#implementsTaskParameter"/>
@@ -796,6 +806,9 @@
     </Declaration>
     <Declaration>
         <DataProperty IRI="#hasOutputValue"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#entrustedBy"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasSmartContractType"/>
@@ -968,10 +981,6 @@
     <SubClassOf>
         <Class IRI="#ActiveStatus"/>
         <Class IRI="#ActivationStatus"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#Activity"/>
-        <Class IRI="#Event"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Actor"/>
@@ -1363,7 +1372,7 @@
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Scheduling"/>
-        <Class IRI="#Event"/>
+        <Class IRI="#DescriptionObject"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Sensor"/>
@@ -1664,6 +1673,10 @@
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#descriptionProvidedByEntity"/>
         <ObjectProperty IRI="#isRelatedWith"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#entrustedBy"/>
+        <ObjectProperty IRI="#isInvolvedInEntrustmentWith"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#entrustedFrom"/>
@@ -2030,9 +2043,17 @@
         <ObjectProperty IRI="#isDescribedBy"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
+        <ObjectProperty IRI="#triggeredBy"/>
+        <ObjectProperty IRI="#isRelatedWith"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
         <ObjectProperty IRI="#triggers"/>
         <ObjectProperty IRI="#isRelatedWith"/>
     </SubObjectPropertyOf>
+    <InverseObjectProperties>
+        <ObjectProperty IRI="#triggeredBy"/>
+        <ObjectProperty IRI="#triggers"/>
+    </InverseObjectProperties>
     <TransitiveObjectProperty>
         <ObjectProperty IRI="#consistsOf"/>
     </TransitiveObjectProperty>
@@ -2094,6 +2115,10 @@
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#descriptionProvidedByEntity"/>
         <Class IRI="#OntologyDescriptionObject"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#entrustedBy"/>
+        <Class IRI="#EntrustmentActivity"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#entrustedFrom"/>
@@ -2309,8 +2334,8 @@
         </ObjectUnionOf>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#triggers"/>
-        <Class IRI="#Agent"/>
+        <ObjectProperty IRI="#triggeredBy"/>
+        <Class IRI="#Event"/>
     </ObjectPropertyDomain>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#activatedByScheduling"/>
@@ -2375,6 +2400,10 @@
     <ObjectPropertyRange>
         <ObjectProperty IRI="#descriptionProvidedByEntity"/>
         <Class abbreviatedIRI="owl:Thing"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#entrustedBy"/>
+        <Class IRI="#RequestDescriptionObject"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#entrustedFrom"/>
