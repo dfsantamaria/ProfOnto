@@ -133,13 +133,13 @@
         <Class IRI="#ConnectionEntry"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#involves"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="#hasGoalExecution"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasTaskOutputParameter"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#involves"/>
     </Declaration>
     <Declaration>
         <Class IRI="#TemporaryStatus"/>
@@ -878,6 +878,9 @@
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasSubject"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#triggeredFor"/>
     </Declaration>
     <Declaration>
         <AnnotationProperty IRI="#beliefProvidedBy"/>
@@ -2047,6 +2050,10 @@
         <ObjectProperty IRI="#isRelatedWith"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
+        <ObjectProperty IRI="#triggeredFor"/>
+        <ObjectProperty IRI="#isRelatedWith"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
         <ObjectProperty IRI="#triggers"/>
         <ObjectProperty IRI="#isRelatedWith"/>
     </SubObjectPropertyOf>
@@ -2335,6 +2342,10 @@
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#triggeredBy"/>
+        <Class IRI="#Event"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
+        <ObjectProperty IRI="#triggeredFor"/>
         <Class IRI="#Event"/>
     </ObjectPropertyDomain>
     <ObjectPropertyRange>
