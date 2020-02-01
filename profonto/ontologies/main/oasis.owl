@@ -193,6 +193,9 @@
         <Class IRI="#PlanDescription"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#refersExactlyTo"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="#hasConditionalAtom"/>
     </Declaration>
     <Declaration>
@@ -596,6 +599,9 @@
     </Declaration>
     <Declaration>
         <Class IRI="#PublicBehavior"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#refersAsNewTo"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Status"/>
@@ -2028,6 +2034,14 @@
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#providesSmartContractType"/>
         <ObjectProperty IRI="#provides"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#refersAsNewTo"/>
+        <ObjectProperty IRI="#refersTo"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#refersExactlyTo"/>
+        <ObjectProperty IRI="#refersTo"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#setsUp"/>
