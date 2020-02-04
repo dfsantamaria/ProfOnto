@@ -190,10 +190,10 @@
         <Class IRI="#Operator"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#PlanDescription"/>
+        <ObjectProperty IRI="#refersExactlyTo"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#refersExactlyTo"/>
+        <Class IRI="#PlanDescription"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasConditionalAtom"/>
@@ -724,6 +724,9 @@
         <ObjectProperty IRI="#entrusts"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#ConditionalEntryTemplate"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#Event"/>
     </Declaration>
     <Declaration>
@@ -881,6 +884,9 @@
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasConditionalDescriptor"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#implementsConditionalEntry"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasSubject"/>
@@ -1074,6 +1080,10 @@
     <SubClassOf>
         <Class IRI="#ConditionalDescriptor"/>
         <Class IRI="#Descriptor"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ConditionalEntryTemplate"/>
+        <Class IRI="#ConditionalThing"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#ConditionalHead"/>
@@ -2002,6 +2012,14 @@
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasTimeSpan"/>
         <ObjectProperty IRI="#isRelatedWith"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#implementsConditionalEntry"/>
+        <ObjectProperty IRI="#hasConditionalThing"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#implementsConditionalEntry"/>
+        <ObjectProperty IRI="#implements"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#implementsTaskInputParameter"/>
