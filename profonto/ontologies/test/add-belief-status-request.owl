@@ -38,6 +38,12 @@
     <Declaration>
         <NamedIndividual IRI="#add-belief-req-plan"/>
     </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#belief_description_object_type"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#ontology_description_object_type"/>
+    </Declaration>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#GoalDescription"/>
         <NamedIndividual IRI="#add-belief-req-goal"/>
@@ -55,7 +61,7 @@
         <NamedIndividual IRI="#add-user-belief-ontology"/>
     </ClassAssertion>
     <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskInputParameter"/>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskActualInputParameter"/>
         <NamedIndividual IRI="#add-user-belief-ontology"/>
     </ClassAssertion>
     <ClassAssertion>
@@ -77,7 +83,7 @@
         <NamedIndividual IRI="#add-belief-req-goal"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskInputParameter"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskActualInputParameter"/>
         <NamedIndividual IRI="#add-belief-req-task"/>
         <NamedIndividual IRI="#add-user-belief-ontology"/>
     </ObjectPropertyAssertion>

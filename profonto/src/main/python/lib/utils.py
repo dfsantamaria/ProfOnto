@@ -93,9 +93,9 @@ class Utils():
              operator))  # task operator
 
         if parameter is not None:
-           reqGraph.add((parameter, RDF.type, URIRef(iriOasis + "#TaskInputParameter")))
-           reqGraph.add((URIRef(iriOasis + "#hasTaskInputParameter"), RDF.type, Utils.owlobj))
-           reqGraph.add((task, URIRef(iriOasis + "#hasTaskInputParameter"), parameter))  # task parameter
+           reqGraph.add((parameter, RDF.type, URIRef(iriOasis + "#TaskActualInputParameter")))
+           reqGraph.add((URIRef(iriOasis + "#hasTaskActualInputParameter"), RDF.type, Utils.owlobj))
+           reqGraph.add((task, URIRef(iriOasis + "#hasTaskActualInputParameter"), parameter))  # task parameter
 
 
         if argument is not None:

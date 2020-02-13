@@ -1,11 +1,11 @@
 OPTIONAL
 {
-  ?task prof:hasTaskInputParameter ?Taskparam .  
+  ?task prof:hasTaskFormalInputParameter ?Taskparam .  
 }
 
 OPTIONAL
 {
-   ?task prof:hasTaskInputParameter ?Taskparam .
+   ?task prof:hasTaskFormalInputParameter ?Taskparam .
    ?Taskparam prof:hasType ?Taskparamtype .
    FILTER ( ?Taskparamtype = //paramt// )
 }

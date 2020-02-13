@@ -63,7 +63,7 @@ class AgentServerManager(Thread):
                       URIRef(self.agent.iriSet[1] + "#belief_description_object_type")))
 
         parameter = URIRef(iri + "#parameter")  # the parameter
-        reqGraph.add((parameter, RDF.type, URIRef(self.agent.iriSet[0] + "#TaskInputParameter")))
+        reqGraph.add((parameter, RDF.type, URIRef(self.agent.iriSet[0] + "#TaskActualInputParameter")))
         reqGraph.add((parameter, RDF.type, URIRef(self.agent.iriSet[0] + "#OntologyDescriptionObject")))
 
         reqGraph.add((URIRef(self.agent.iriSet[0] + "#refersTo"), RDF.type, Utils.owlobj))
@@ -79,8 +79,8 @@ class AgentServerManager(Thread):
         reqGraph.add((parameter, URIRef(self.agent.iriSet[0] + "#descriptionProvidedByIRI"),
                       Literal(iri, datatype=XSD.string)))
 
-        reqGraph.add((URIRef(self.agent.iriSet[0] + "#hasTaskInputParameter"), RDF.type, Utils.owlobj))
-        reqGraph.add((task, URIRef(self.agent.iriSet[0] + "#hasTaskInputParameter"), parameter))  # task parameter
+        reqGraph.add((URIRef(self.agent.iriSet[0] + "#hasTaskActualInputParameter"), RDF.type, Utils.owlobj))
+        reqGraph.add((task, URIRef(self.agent.iriSet[0] + "#hasTaskActualInputParameter"), parameter))  # task parameter
 
         tosend = Utils.libbug(Utils, reqGraph, iri)
         # f=open("test.owl", "w")

@@ -10,7 +10,7 @@
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#">
     <owl:Ontology rdf:about="http://www.dmi.unict.it/lightagent.owl">
         <owl:imports rdf:resource="http://www.dmi.unict.it/lightagent-template.owl"/>
-        <owl:imports rdf:resource="http://www.dmi.unict.it/oasis.owl/0.0.1"/>
+        <owl:imports rdf:resource="http://www.dmi.unict.it/oasis.owl"/>
     </owl:Ontology>
     
 

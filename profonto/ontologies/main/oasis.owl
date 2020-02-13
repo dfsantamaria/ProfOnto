@@ -5,8 +5,7 @@
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     ontologyIRI="http://www.dmi.unict.it/oasis.owl"
-     versionIRI="http://www.dmi.unict.it/oasis.owl/1.0.0">
+     ontologyIRI="http://www.dmi.unict.it/oasis.owl">
     <Prefix name="" IRI="http://www.dmi.unict.it/oasis.owl"/>
     <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
     <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
@@ -64,6 +63,9 @@
         <ObjectProperty IRI="#hasConnectionEntry"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#hasTaskFormalOutputParameter"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#TaskInputParameterTemplate"/>
     </Declaration>
     <Declaration>
@@ -113,6 +115,9 @@
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="#exists"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#consistsOfSmartContractInstance"/>
     </Declaration>
     <Declaration>
         <DataProperty IRI="#descriptionProvidedByURL"/>
@@ -208,16 +213,19 @@
         <Class IRI="#FailedStatus"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#TaskFormalInputParameter"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="#isInvolvedInConfigurationSetUpWith"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasTaskActualInputParameter"/>
     </Declaration>
     <Declaration>
         <Class IRI="#TaskInputParameter"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ConditionalAtom"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasSmartContractEntry"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ConnectionThing"/>
@@ -320,6 +328,9 @@
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#requests"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#SmartContractInstance"/>
     </Declaration>
     <Declaration>
         <Class IRI="#SoftwareAgentBehaviorTemplate"/>
@@ -583,6 +594,9 @@
         <ObjectProperty IRI="#consistsOfEntry"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#TaskActualInputParameter"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="#failed_status"/>
     </Declaration>
     <Declaration>
@@ -655,10 +669,10 @@
         <ObjectProperty IRI="#fallsWithin"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#TaskObject"/>
+        <Class IRI="#InformationObject"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#InformationObject"/>
+        <Class IRI="#TaskObject"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ConditionalSet"/>
@@ -680,6 +694,9 @@
     </Declaration>
     <Declaration>
         <Class IRI="#ConfigurationThing"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty IRI="#hasTaskFormalInputParameter"/>
     </Declaration>
     <Declaration>
         <Class IRI="#TimeOperator"/>
@@ -715,6 +732,9 @@
         <NamedIndividual IRI="#succeded_status"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#hasTaskActualOutputParameter"/>
+    </Declaration>
+    <Declaration>
         <AnnotationProperty IRI="http://purl.org/dc/terms/created"/>
     </Declaration>
     <Declaration>
@@ -728,6 +748,9 @@
     </Declaration>
     <Declaration>
         <Class IRI="#Event"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TaskFormalOutputParameter"/>
     </Declaration>
     <Declaration>
         <Class IRI="#SensorComponent"/>
@@ -836,6 +859,9 @@
     </Declaration>
     <Declaration>
         <Class IRI="#Configuration"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#TaskActualOutputParameter"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Message"/>
@@ -1426,6 +1452,10 @@
         <Class IRI="#Type"/>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#SmartContractInstance"/>
+        <Class IRI="#SmartContractThing"/>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#SmartContractThing"/>
         <Class IRI="#DescriptionObject"/>
     </SubClassOf>
@@ -1462,6 +1492,14 @@
         <Class IRI="#Type"/>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#TaskActualInputParameter"/>
+        <Class IRI="#TaskInputParameter"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TaskActualOutputParameter"/>
+        <Class IRI="#TaskOutputParameter"/>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#TaskDescription"/>
         <Class IRI="#RequestDescriptionObject"/>
     </SubClassOf>
@@ -1484,6 +1522,14 @@
     <SubClassOf>
         <Class IRI="#TaskExecution"/>
         <Class IRI="#TaskThing"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TaskFormalInputParameter"/>
+        <Class IRI="#TaskInputParameter"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TaskFormalOutputParameter"/>
+        <Class IRI="#TaskOutputParameter"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#TaskInputParameter"/>
@@ -1664,6 +1710,10 @@
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#consistsOfSmartContractEntry"/>
         <ObjectProperty IRI="#consistsOfEntry"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#consistsOfSmartContractInstance"/>
+        <ObjectProperty IRI="#consistsOfDescription"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#consistsOfTaskDescription"/>
@@ -1902,10 +1952,6 @@
         <ObjectProperty IRI="#hasBehavior"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasSmartContractEntry"/>
-        <ObjectProperty IRI="#hasCompositeValue"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasSmartContractEntryType"/>
         <ObjectProperty IRI="#hasType"/>
     </SubObjectPropertyOf>
@@ -1930,12 +1976,28 @@
         <ObjectProperty IRI="#hasType"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasTaskActualInputParameter"/>
+        <ObjectProperty IRI="#hasTaskInputParameter"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasTaskActualOutputParameter"/>
+        <ObjectProperty IRI="#hasTaskOutputParameter"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasTaskDescriptor"/>
         <ObjectProperty IRI="#hasDescriptor"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasTaskExecution"/>
         <ObjectProperty IRI="#hasExecutionObject"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasTaskFormalInputParameter"/>
+        <ObjectProperty IRI="#hasTaskInputParameter"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasTaskFormalOutputParameter"/>
+        <ObjectProperty IRI="#hasTaskOutputParameter"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasTaskInputParameter"/>
@@ -2136,6 +2198,10 @@
         <Class IRI="#SmartContract"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
+        <ObjectProperty IRI="#consistsOfSmartContractInstance"/>
+        <Class IRI="#SmartContract"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
         <ObjectProperty IRI="#consistsOfTaskEntrustment"/>
         <Class IRI="#GoalEntrustment"/>
     </ObjectPropertyDomain>
@@ -2279,10 +2345,6 @@
         <Class IRI="#Agent"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasSmartContractEntry"/>
-        <Class IRI="#SmartContract"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasSmartContractType"/>
         <Class IRI="#SmartContract"/>
     </ObjectPropertyDomain>
@@ -2419,6 +2481,10 @@
     <ObjectPropertyRange>
         <ObjectProperty IRI="#consistsOfSmartContractEntry"/>
         <Class IRI="#SmartContractEntry"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
+        <ObjectProperty IRI="#consistsOfSmartContractInstance"/>
+        <Class IRI="#SmartContractInstance"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#consistsOfTaskDescription"/>
@@ -2626,10 +2692,6 @@
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasService"/>
         <Class IRI="#Service"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasSmartContractEntry"/>
-        <Class IRI="#SmartContractEntry"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasSmartContractType"/>
@@ -4136,11 +4198,6 @@
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#hasScheduling</IRI>
         <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links behavior descriptions with scheduling activities</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#hasSmartContractEntry</IRI>
-        <Literal xml:lang="en" datatypeIRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#PlainLiteral">This property links smart contracts to their entries</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>

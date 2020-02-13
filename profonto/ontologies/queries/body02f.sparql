@@ -1,11 +1,11 @@
 OPTIONAL
 {
-  ?task prof:hasTaskOutputParameter ?Taskparamout .  
+  ?task prof:hasTaskFormalOutputParameter ?Taskparamout .  
 }
 
 OPTIONAL
 {
-   ?task prof:hasTaskOutputParameter ?Taskparamout .
+   ?task prof:hasTaskFormalOutputParameter ?Taskparamout .
    ?Taskparamout prof:hasType ?Taskparamouttype .
    FILTER ( ?Taskparamouttype = //paramtout// )
 }

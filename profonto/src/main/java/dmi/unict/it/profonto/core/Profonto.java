@@ -1703,7 +1703,7 @@ public class Profonto extends OntologyCore
                     subqueryParam[4] = r.getURI();                      
                     axioms = retrieveAssertionsWithNewIndividual(subqueryParam[1],tasExecInd, 
                                                                  retrieveAssertions(subqueryParam[4],ontology.axioms()));
-                    querybody += taskExec + " prof:hasTaskInputParameter " + " <" + subqueryParam[4] + "> .";
+                    querybody += taskExec + " prof:hasTaskActualInputParameter " + " <" + subqueryParam[4] + "> .";
                   }
                 r=qs.getResource("paramtype");
                 if(r!=null)
@@ -1752,7 +1752,7 @@ public class Profonto extends OntologyCore
                   axioms = Stream.concat(retrieveAssertionsWithNewIndividual(subqueryParam[1],tasExecInd, 
                                          retrieveAssertions(subqueryParam[7],ontology.axioms()))
                                          , axioms);
-                  querybody += taskExec + " prof:hasTaskOutputParameter " + " <" + subqueryParam[7] + "> .";
+                  querybody += taskExec + " prof:hasTaskActualOutputParameter " + " <" + subqueryParam[7] + "> .";
                 
                 } 
                 

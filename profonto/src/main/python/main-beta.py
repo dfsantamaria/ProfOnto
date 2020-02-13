@@ -163,7 +163,7 @@ class ProfOnto (Thread):
 
     def getOntologyFile(self, graph, execution):
         file=None
-        for t in graph.objects(execution, URIRef( self.oasis + "hasTaskInputParameter")): # retrieving source
+        for t in graph.objects(execution, URIRef( self.oasis + "hasTaskActualInputParameter")): # retrieving source
            for s in graph.objects(t, URIRef( self.oasis + "descriptionProvidedByURL")):
                if (s is not None):
                  file = Utils.readOntoFile(Utils, s)
@@ -203,8 +203,8 @@ class ProfOnto (Thread):
         devip=next(graph.objects(subject=None, predicate=URIRef( self.oasis + "hasIPAddress")))
         devport=next(graph.objects(subject=None, predicate=URIRef( self.oasis + "hasPortNumber")))
         value=100
-        for s, o in graph.subject_objects(URIRef(self.oasis + "hasTaskInputParameter")):
-            toreturn.add((s, URIRef(self.oasis + "hasTaskInputParameter"), o))
+        for s, o in graph.subject_objects(URIRef(self.oasis + "hasTaskActualInputParameter")):
+            toreturn.add((s, URIRef(self.oasis + "hasTaskActualInputParameter"), o))
             for t in graph.objects(o, URIRef(self.oasis + "hasDataValue")):
                 toreturn.add((o,URIRef(self.oasis + "hasDataValue"),t))
                 value=t

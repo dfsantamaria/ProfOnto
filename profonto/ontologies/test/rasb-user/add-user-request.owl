@@ -3,6 +3,7 @@
      xml:base="http://www.dmi.unict.it/add-user-request.owl"
      xmlns:oasis="http://www.dmi.unict.it/oasis.owl#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:terms="http://purl.org/dc/terms/"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
@@ -161,7 +162,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/add-user-request.owl#add-user-req-ontology">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#OntologyDescriptionObject"/>
-        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskInputParameter"/>
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskActualInputParameter"/>
         <oasis:descriptionProvidedByIRI>http://www.dmi.unict.it/ontoas/alan.owl</oasis:descriptionProvidedByIRI>
     </owl:NamedIndividual>
     
@@ -180,7 +181,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/add-user-request.owl#add-user-req-task">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskDescription"/>
-        <oasis:hasTaskInputParameter rdf:resource="http://www.dmi.unict.it/add-user-request.owl#add-user-req-ontology"/>
+        <oasis:hasTaskActualInputParameter rdf:resource="http://www.dmi.unict.it/add-user-request.owl#add-user-req-ontology"/>
         <oasis:hasTaskObject rdf:resource="http://www.dmi.unict.it/ontoas/alan.owl#alan"/>
         <oasis:hasTaskOperator rdf:resource="http://www.dmi.unict.it/oasis-abox.owl#add"/>
     </owl:NamedIndividual>
