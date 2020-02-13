@@ -104,8 +104,8 @@ Instructions for users:
          
         Or
         
-   3.2.B) Run the file "rasb-light-agent-beta.py" in "target/python" that simulate a rasberry PI working with OASIS and type the following 
-          command:
+   3.2.B) Edit the file "rasb-light-agent-beta.py" in "target/python" that simulates a rasberry PI working with OASIS by changing the variables
+         "address" and "port" with the ones set in the domotic assistant. Run the file and type the following commands:
           
           -> start           # to start the application that will listen on localhost, port 8087. 
           
@@ -163,7 +163,7 @@ Istructions for developers:
   
     Console(agent, [command1, command2, ...], where
     
-    -"agent" is the agento to which the console is attached.
+    -"agent" is the agent to which the console is attached.
     -"command1", "command2", ... are the console commands instantiated at step 2. A set of defualt command can be found on file "consolecommand.py".     
     
     write console.run() to run the console. See the file target/rasb-light-agent-beta.py for an example.
