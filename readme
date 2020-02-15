@@ -151,7 +151,7 @@ Instructions for developers:
      -"agent_iri is the IRI" of the agent ontology.
      -"agent_iri_template" is the IRI of the agent template ontology.
      
-  3) Instantiate a console command by inherinting the class ConsoleCommand (located in lib/consolecommand.py) and by implementing the virtual function 
+  3) Instantiate a console command by inheriting the class ConsoleCommand (located in lib/consolecommand.py) and by implementing the virtual function 
   
      checkCommand(self, console, input, agent), where
      
