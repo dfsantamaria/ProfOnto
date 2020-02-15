@@ -104,7 +104,7 @@ Instructions for users:
          
         Or
         
-   3.2.B) Edit the file "rasb-light-agent-beta.py" in "target/python" that simulates a rasberry PI working with OASIS by changing the variables
+   3.2.B) Edit the file "rasb-light-agent-beta.py" in "target/python" that simulates a raspberry PI working with OASIS by changing the variables
          "address" and "port" with the ones set in the domotic assistant. Run the file and type the following commands:
           
           -> start           # to start the application that will listen on localhost, port 8087. 
@@ -131,7 +131,7 @@ Instructions for users:
           
           -> exit # to close the console
      
-Istructions for developers:
+Instructions for developers:
 
   1) Inherit the class AgentServerManager (located in lib/agent.py) and implement the virtual function 
   
