@@ -5,9 +5,22 @@
     <artifactId>Prof-Onto</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
+     <pluginRepositories>
+      <pluginRepository>
+        <id>central</id>
+        <name>Central Repository</name>
+        <url>https://repo.maven.apache.org/maven2</url>
+        <layout>default</layout>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
+        <releases>
+            <updatePolicy>never</updatePolicy>
+        </releases>
+       </pluginRepository>
+    </pluginRepositories>
     <build>
-        <plugins>
-     
+        <plugins>     
     <plugin> 
     <artifactId>maven-dependency-plugin</artifactId> 
     <executions> 
@@ -40,6 +53,23 @@
             </plugin>
         </plugins>
     </build>
+    
+       <repositories>
+    <repository>
+        <id>central</id>
+        <name>Central Repository</name>
+        <url>https://repo.maven.apache.org/maven2</url>
+        <layout>default</layout>
+        <snapshots>
+            <enabled>false</enabled>
+        </snapshots>
+    </repository>
+    <repository>
+        <id>jitpack.io</id>
+        <url>https://jitpack.io</url>
+    </repository>
+</repositories> 
+    
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -92,6 +122,22 @@
     <version>0.10.8.1</version>
 </dependency>
 
+    <dependency>
+      <groupId>com.github.ipfs</groupId>
+      <artifactId>java-ipfs-http-client</artifactId>
+      <version>v1.2.3</version>
+    </dependency>    
+   <dependency>
+   <groupId>org.web3j</groupId>
+   <artifactId>web3j-maven-plugin</artifactId>
+   <version>4.5.11</version>
+</dependency>
+   
+   <dependency>
+    <groupId>org.web3j</groupId>
+    <artifactId>core</artifactId>
+    <version>4.5.15</version>
+  </dependency>  
        
     </dependencies>
     <name>ProfOnto</name>

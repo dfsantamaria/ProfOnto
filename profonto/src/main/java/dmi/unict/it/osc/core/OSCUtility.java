@@ -1,0 +1,157 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
+package dmi.unict.it.osc.core;
+import java.math.BigInteger;
+import io.ipfs.api.IPFS;
+import io.ipfs.api.MerkleNode;
+import io.ipfs.api.NamedStreamable;
+import io.ipfs.multiaddr.MultiAddress;
+import io.ipfs.multihash.Multihash;
+import java.io.IOException;
+import java.math.BigDecimal;
+import javax.xml.bind.DatatypeConverter;
+import org.web3j.crypto.Credentials;
+import org.web3j.protocol.Web3j;
+import org.web3j.protocol.http.HttpService;
+import org.web3j.tuples.generated.Tuple3;
+import org.web3j.utils.Numeric;
+/**
+ *
+ * @author Daniele Francesco Santamaria
+ */
+public class OSCUtility
+  {
+    private final IPFS ipfs; 
+    private final Web3j web3;
+    private final Credentials credentials;   
+    
+    public OSCUtility(String ipfsaddress, String ethereumAddr, String privateKey)
+      {
+         ipfs = new IPFS(new MultiAddress(ipfsaddress));     
+         web3 = Web3j.build(new HttpService(ethereumAddr));
+         credentials=Credentials.create(privateKey);         
+      } 
+
+   public Web3j getWeb3jClient()
+     {
+      return this.web3;
+     }
+     
+   public IPFS getIPFSClient()
+     {
+       return this.ipfs;
+     }
+   
+   public Credentials getCredentials()
+     {
+       return this.credentials;
+     }
+   
+    public Oasisosc uploadContract(String ontology, String query)
+      {
+        try      
+          { 
+            NamedStreamable.ByteArrayWrapper ontologyIPFS = new NamedStreamable.ByteArrayWrapper(ontology.getBytes());  
+            NamedStreamable.ByteArrayWrapper queryIPFS = new NamedStreamable.ByteArrayWrapper(ontology.getBytes());  
+            MerkleNode ontologyMN = ipfs.add(ontologyIPFS).get(0);
+            MerkleNode queryMN = ipfs.add(queryIPFS).get(0);           
+            String ontologyEX=DatatypeConverter.printHexBinary(ontologyMN.hash.toBytes());
+            String queryEX=DatatypeConverter.printHexBinary(queryMN.hash.toBytes());
+            byte[] ontologyDigest = Numeric.hexStringToByteArray(ontologyEX.substring(4, ontologyEX.length()));
+            byte[] queryDigest = Numeric.hexStringToByteArray(queryEX.substring(4, ontologyEX.length()));          
+            
+            Oasisosc contract = Oasisosc.deploy(web3, credentials,  new OSCSimpleGasProvider(new BigDecimal(1), BigInteger.valueOf(3000000)),
+                                                                  new BigInteger(ontologyEX.substring(0, 2)), new BigInteger(ontologyEX.substring(2, 4)), ontologyDigest,
+                                                                  new BigInteger(queryEX.substring(0, 2)),  new BigInteger(queryEX.substring(2, 4)), queryDigest 
+                                                                                               ).send();            
+           return contract;
+          } 
+          catch (IOException ex)
+          {
+              System.out.println(ex.toString());
+          } 
+         catch (Exception ex)
+          {
+            System.out.println(ex.toString());
+          }
+          return null;
+      } 
+    
+    public String computeIPFSCIDFromMultiHash( Tuple3<BigInteger,BigInteger, byte[] > ipfsmultihash)
+      {         
+        String ipfscid=ipfsmultihash.component1()+""+ipfsmultihash.component2()+ DatatypeConverter.printHexBinary(ipfsmultihash.component3());
+        return ipfscid;
+      }
+    
+    
+    public String getOntologyFromContract(String contractAddress)
+      {
+        Oasisosc osc = Oasisosc.load(contractAddress,this.getWeb3jClient(), this.getCredentials(), 
+                       new OSCSimpleGasProvider(new BigDecimal(1), BigInteger.valueOf(3000000)));
+        return this.getOntologyFromContract(osc);
+      }
+    
+     public String getSPARQLQueryFromContract(String contractAddress)
+      {
+        Oasisosc osc = Oasisosc.load(contractAddress,this.getWeb3jClient(), this.getCredentials(), 
+                       new OSCSimpleGasProvider(new BigDecimal(1), BigInteger.valueOf(3000000)));
+        return this.getSPARQLQueryFromContract(osc);
+      }
+    
+    public String getOntologyFromContract(Oasisosc contract)
+      {
+        if(contract==null)
+            return null;        
+        String result=null;
+        try
+          {
+            String ipfscid=this.computeIPFSCIDFromMultiHash(contract.getOntology().send());
+            result=this.readFromIPFSCID(ipfscid);
+            return result;
+          } 
+        catch (Exception ex)
+          {
+             System.out.println(ex.toString());
+            return null;
+          }
+      }
+    
+       public String getSPARQLQueryFromContract(Oasisosc contract)
+      {
+        if(contract==null)
+            return null;        
+        String result=null;
+        try
+          {
+            String ipfscid=this.computeIPFSCIDFromMultiHash(contract.getSPARQLQuery().send());
+            result=this.readFromIPFSCID(ipfscid);
+            return result;
+          } 
+        catch (Exception ex)
+          {
+             System.out.println(ex.toString());
+            return null;
+          }
+      }
+    
+    
+    private String readFromIPFSCID(String ipfscid)
+      {  
+       
+        try
+          {
+            Multihash multihash = Multihash.fromHex(ipfscid);               
+            byte[] content;
+            content = ipfs.cat(multihash);
+            return new String(content);
+          } 
+        catch (IOException ex)
+          {
+            System.out.println(ex.toString());
+            return null;
+          }        
+      }    
+  }
