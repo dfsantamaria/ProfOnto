@@ -1,21 +1,29 @@
 package dmi.unict.it.osc.core;
 
+import io.reactivex.Flowable;
+import io.reactivex.functions.Function;
 import java.math.BigInteger;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.Callable;
+import org.web3j.abi.EventEncoder;
 import org.web3j.abi.FunctionEncoder;
 import org.web3j.abi.TypeReference;
 import org.web3j.abi.datatypes.Address;
-import org.web3j.abi.datatypes.Function;
+import org.web3j.abi.datatypes.Event;
 import org.web3j.abi.datatypes.Type;
 import org.web3j.abi.datatypes.generated.Bytes32;
 import org.web3j.abi.datatypes.generated.Uint8;
 import org.web3j.crypto.Credentials;
 import org.web3j.protocol.Web3j;
+import org.web3j.protocol.core.DefaultBlockParameter;
 import org.web3j.protocol.core.RemoteCall;
 import org.web3j.protocol.core.RemoteFunctionCall;
+import org.web3j.protocol.core.methods.request.EthFilter;
+import org.web3j.protocol.core.methods.response.BaseEventResponse;
+import org.web3j.protocol.core.methods.response.Log;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.tuples.generated.Tuple3;
 import org.web3j.tx.Contract;
@@ -33,7 +41,7 @@ import org.web3j.tx.gas.ContractGasProvider;
  */
 @SuppressWarnings("rawtypes")
 public class Oasisosc extends Contract {
-    public static final String BINARY = "608060405234801561001057600080fd5b506040516102ed3803806102ed833981810160405260c081101561003357600080fd5b508051602080830151604080850151606080870151608088015160a090980151845180840186523381528551808501875260ff998a16815296891687890152868601949094528387019586528451928301855290871682529686168186019081528184019788528284018290529151600080546001600160a01b03929092166001600160a01b0319909216919091179055925180516001805496830151881661010090810261ff0019938a1660ff19998a16178416179091559190930151600255925160038054925187169094029516931692909217909116919091179055516004556101c8806101256000396000f3fe608060405234801561001057600080fd5b506004361061004c5760003560e01c80637e6e264f1461005157806383197ef01461007d578063893d20e814610087578063f618d2b0146100ab575b600080fd5b6100596100b3565b6040805160ff94851681529290931660208301528183015290519081900360600190f35b6100856100c9565b005b61008f610115565b604080516001600160a01b039092168252519081900360200190f35b610059610124565b60035460045460ff808316926101009004169192565b6000546001600160a01b031633146101125760405162461bcd60e51b815260040180806020018281038252603481526020018061013b6034913960400191505060405180910390fd5b33ff5b6000546001600160a01b031690565b60015460025460ff80831692610100900416919256fe4f6e6c7920636f6e7472616374206f776e657220697320616c6c6f77656420746f2063616c6c20746869732066756e6374696f6ea265627a7a7231582006b22780e039a42b60ebed20f9272b7172b4fe16838c9f3dca27deb8ec7559bd64736f6c637827302e352e31362d6e696768746c792e323032302e312e322b636f6d6d69742e39633332323663650057";
+    public static final String BINARY = "608060405234801561001057600080fd5b5060405161035f38038061035f833981810160405260c081101561003357600080fd5b508051602080830151604080850151606080870151608088015160a09098015184518084018652338082528651808601885260ff808c168252808a16828c0152818901889052838b01918252885196870189528086168752808d16878c01908152878a01868152858b018990529451600080546001600160a01b03929092166001600160a01b03199092169190911790559151805160018054838f0151851661010090810261ff001994871660ff1993841617851617909255928c015160025598516003805495518516909a029316939091169290921790911617909455516004558451848152968701819052845197989597939691959490937f0cd0502e76ab9a90ab900076d81b15a79a97f208a205f467468083e63a0450089281900390910190a25050505050506101f38061016c6000396000f3fe608060405234801561001057600080fd5b506004361061004c5760003560e01c80637e6e264f1461005157806383197ef01461007d578063893d20e814610087578063f618d2b0146100ab575b600080fd5b6100596100b3565b6040805160ff94851681529290931660208301528183015290519081900360600190f35b6100856100c9565b005b61008f610140565b604080516001600160a01b039092168252519081900360200190f35b61005961014f565b60035460045460ff808316926101009004169192565b6000546001600160a01b031633146101125760405162461bcd60e51b81526004018080602001828103825260348152602001806101666034913960400191505060405180910390fd5b60405133907f5158809353c1d603d8c77564e8556eea254ce047d03c767920eeb497481c1e4f90600090a233ff5b6000546001600160a01b031690565b60015460025460ff80831692610100900416919256fe4f6e6c7920636f6e7472616374206f776e657220697320616c6c6f77656420746f2063616c6c20746869732066756e6374696f6ea265627a7a7231582021c3dc5b469af1d98a095e73d68ee76d4a936701d9bdbd4707413323264f610164736f6c637827302e352e31362d6e696768746c792e323032302e312e322b636f6d6d69742e39633332323663650057";
 
     public static final String FUNC_DESTROY = "destroy";
 
@@ -42,6 +50,14 @@ public class Oasisosc extends Contract {
     public static final String FUNC_GETOWNER = "getOwner";
 
     public static final String FUNC_GETSPARQLQUERY = "getSPARQLQuery";
+
+    public static final Event DESTROYEVENT_EVENT = new Event("DestroyEvent", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {}));
+    ;
+
+    public static final Event STORAGEEVENT_EVENT = new Event("StorageEvent", 
+            Arrays.<TypeReference<?>>asList(new TypeReference<Address>(true) {}, new TypeReference<Bytes32>() {}, new TypeReference<Bytes32>() {}));
+    ;
 
     @Deprecated
     protected Oasisosc(String contractAddress, Web3j web3j, Credentials credentials, BigInteger gasPrice, BigInteger gasLimit) {
@@ -61,8 +77,74 @@ public class Oasisosc extends Contract {
         super(BINARY, contractAddress, web3j, transactionManager, contractGasProvider);
     }
 
+    public List<DestroyEventEventResponse> getDestroyEventEvents(TransactionReceipt transactionReceipt) {
+        List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(DESTROYEVENT_EVENT, transactionReceipt);
+        ArrayList<DestroyEventEventResponse> responses = new ArrayList<DestroyEventEventResponse>(valueList.size());
+        for (Contract.EventValuesWithLog eventValues : valueList) {
+            DestroyEventEventResponse typedResponse = new DestroyEventEventResponse();
+            typedResponse.log = eventValues.getLog();
+            typedResponse.from = (String) eventValues.getIndexedValues().get(0).getValue();
+            responses.add(typedResponse);
+        }
+        return responses;
+    }
+
+    public Flowable<DestroyEventEventResponse> destroyEventEventFlowable(EthFilter filter) {
+        return web3j.ethLogFlowable(filter).map(new Function<Log, DestroyEventEventResponse>() {
+            @Override
+            public DestroyEventEventResponse apply(Log log) {
+                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(DESTROYEVENT_EVENT, log);
+                DestroyEventEventResponse typedResponse = new DestroyEventEventResponse();
+                typedResponse.log = log;
+                typedResponse.from = (String) eventValues.getIndexedValues().get(0).getValue();
+                return typedResponse;
+            }
+        });
+    }
+
+    public Flowable<DestroyEventEventResponse> destroyEventEventFlowable(DefaultBlockParameter startBlock, DefaultBlockParameter endBlock) {
+        EthFilter filter = new EthFilter(startBlock, endBlock, getContractAddress());
+        filter.addSingleTopic(EventEncoder.encode(DESTROYEVENT_EVENT));
+        return destroyEventEventFlowable(filter);
+    }
+
+    public List<StorageEventEventResponse> getStorageEventEvents(TransactionReceipt transactionReceipt) {
+        List<Contract.EventValuesWithLog> valueList = extractEventParametersWithLog(STORAGEEVENT_EVENT, transactionReceipt);
+        ArrayList<StorageEventEventResponse> responses = new ArrayList<StorageEventEventResponse>(valueList.size());
+        for (Contract.EventValuesWithLog eventValues : valueList) {
+            StorageEventEventResponse typedResponse = new StorageEventEventResponse();
+            typedResponse.log = eventValues.getLog();
+            typedResponse.from = (String) eventValues.getIndexedValues().get(0).getValue();
+            typedResponse.digestO = (byte[]) eventValues.getNonIndexedValues().get(0).getValue();
+            typedResponse.digestQ = (byte[]) eventValues.getNonIndexedValues().get(1).getValue();
+            responses.add(typedResponse);
+        }
+        return responses;
+    }
+
+    public Flowable<StorageEventEventResponse> storageEventEventFlowable(EthFilter filter) {
+        return web3j.ethLogFlowable(filter).map(new Function<Log, StorageEventEventResponse>() {
+            @Override
+            public StorageEventEventResponse apply(Log log) {
+                Contract.EventValuesWithLog eventValues = extractEventParametersWithLog(STORAGEEVENT_EVENT, log);
+                StorageEventEventResponse typedResponse = new StorageEventEventResponse();
+                typedResponse.log = log;
+                typedResponse.from = (String) eventValues.getIndexedValues().get(0).getValue();
+                typedResponse.digestO = (byte[]) eventValues.getNonIndexedValues().get(0).getValue();
+                typedResponse.digestQ = (byte[]) eventValues.getNonIndexedValues().get(1).getValue();
+                return typedResponse;
+            }
+        });
+    }
+
+    public Flowable<StorageEventEventResponse> storageEventEventFlowable(DefaultBlockParameter startBlock, DefaultBlockParameter endBlock) {
+        EthFilter filter = new EthFilter(startBlock, endBlock, getContractAddress());
+        filter.addSingleTopic(EventEncoder.encode(STORAGEEVENT_EVENT));
+        return storageEventEventFlowable(filter);
+    }
+
     public RemoteFunctionCall<TransactionReceipt> destroy() {
-        final Function function = new Function(
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(
                 FUNC_DESTROY, 
                 Arrays.<Type>asList(), 
                 Collections.<TypeReference<?>>emptyList());
@@ -70,7 +152,7 @@ public class Oasisosc extends Contract {
     }
 
     public RemoteFunctionCall<Tuple3<BigInteger, BigInteger, byte[]>> getOntology() {
-        final Function function = new Function(FUNC_GETONTOLOGY, 
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_GETONTOLOGY, 
                 Arrays.<Type>asList(), 
                 Arrays.<TypeReference<?>>asList(new TypeReference<Uint8>() {}, new TypeReference<Uint8>() {}, new TypeReference<Bytes32>() {}));
         return new RemoteFunctionCall<Tuple3<BigInteger, BigInteger, byte[]>>(function,
@@ -87,14 +169,14 @@ public class Oasisosc extends Contract {
     }
 
     public RemoteFunctionCall<String> getOwner() {
-        final Function function = new Function(FUNC_GETOWNER, 
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_GETOWNER, 
                 Arrays.<Type>asList(), 
                 Arrays.<TypeReference<?>>asList(new TypeReference<Address>() {}));
         return executeRemoteCallSingleValueReturn(function, String.class);
     }
 
     public RemoteFunctionCall<Tuple3<BigInteger, BigInteger, byte[]>> getSPARQLQuery() {
-        final Function function = new Function(FUNC_GETSPARQLQUERY, 
+        final org.web3j.abi.datatypes.Function function = new org.web3j.abi.datatypes.Function(FUNC_GETSPARQLQUERY, 
                 Arrays.<Type>asList(), 
                 Arrays.<TypeReference<?>>asList(new TypeReference<Uint8>() {}, new TypeReference<Uint8>() {}, new TypeReference<Bytes32>() {}));
         return new RemoteFunctionCall<Tuple3<BigInteger, BigInteger, byte[]>>(function,
@@ -168,5 +250,17 @@ public class Oasisosc extends Contract {
                 new org.web3j.abi.datatypes.generated.Uint8(sizeQ), 
                 new org.web3j.abi.datatypes.generated.Bytes32(digestQ)));
         return deployRemoteCall(Oasisosc.class, web3j, transactionManager, gasPrice, gasLimit, BINARY, encodedConstructor);
+    }
+
+    public static class DestroyEventEventResponse extends BaseEventResponse {
+        public String from;
+    }
+
+    public static class StorageEventEventResponse extends BaseEventResponse {
+        public String from;
+
+        public byte[] digestO;
+
+        public byte[] digestQ;
     }
 }

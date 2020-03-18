@@ -24,16 +24,39 @@ import org.web3j.utils.Numeric;
  */
 public class OSCUtility
   {
-    private final IPFS ipfs; 
-    private final Web3j web3;
-    private final Credentials credentials;   
+    private  IPFS ipfs; 
+    private  Web3j web3;
+    private  Credentials credentials;   
     
-    public OSCUtility(String ipfsaddress, String ethereumAddr, String privateKey)
+    public OSCUtility(String ipfsaddress, String ethereumAddr, String privateKey) throws OSCUtilityConnectionExeception
+    {
+     try
+       {
+        ipfs = new IPFS(new MultiAddress(ipfsaddress));    
+        System.out.println("Connected to IPFS at "+ipfsaddress);
+        web3 = Web3j.build(new HttpService(ethereumAddr));
+        System.out.println("Connected to Ethereum node: "+web3.web3ClientVersion().send().getWeb3ClientVersion());
+        credentials=Credentials.create(privateKey);         
+        System.out.println("Welcome address: "+credentials.getAddress());
+       }    
+     catch (IOException e )
+       {
+         this.handleStartUpException();
+         throw new OSCUtilityConnectionExeception("Cannot correctly create OSCUtility. Couldn't connect to Ethereum node or invalid credentials.");
+       } 
+     catch(Exception e)
+       {
+         this.handleStartUpException();
+         throw new OSCUtilityConnectionExeception("Cannot correctly create OSCUtility. Couldn't connect to IPFS or invalid Ethereum credentials.");
+       }
+    } 
+
+    private void handleStartUpException()
       {
-         ipfs = new IPFS(new MultiAddress(ipfsaddress));     
-         web3 = Web3j.build(new HttpService(ethereumAddr));
-         credentials=Credentials.create(privateKey);         
-      } 
+        this.ipfs=null;
+        this. web3=null;
+        this.credentials=null; 
+      }
 
    public Web3j getWeb3jClient()
      {
@@ -55,7 +78,7 @@ public class OSCUtility
         try      
           { 
             NamedStreamable.ByteArrayWrapper ontologyIPFS = new NamedStreamable.ByteArrayWrapper(ontology.getBytes());  
-            NamedStreamable.ByteArrayWrapper queryIPFS = new NamedStreamable.ByteArrayWrapper(ontology.getBytes());  
+            NamedStreamable.ByteArrayWrapper queryIPFS = new NamedStreamable.ByteArrayWrapper(query.getBytes());  
             MerkleNode ontologyMN = ipfs.add(ontologyIPFS).get(0);
             MerkleNode queryMN = ipfs.add(queryIPFS).get(0);           
             String ontologyEX=DatatypeConverter.printHexBinary(ontologyMN.hash.toBytes());
