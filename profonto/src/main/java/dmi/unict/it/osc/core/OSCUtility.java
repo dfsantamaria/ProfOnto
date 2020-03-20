@@ -73,7 +73,7 @@ public class OSCUtility
        return this.credentials;
      }
    
-    public Oasisosc uploadContract(String ontology, String query)
+    public Oasisosc uploadContract(String ontology, String query, String previous)
       {
         try      
           { 
@@ -88,8 +88,8 @@ public class OSCUtility
             
             Oasisosc contract = Oasisosc.deploy(web3, credentials,  new OSCSimpleGasProvider(new BigDecimal(1), BigInteger.valueOf(3000000)),
                                                                   new BigInteger(ontologyEX.substring(0, 2)), new BigInteger(ontologyEX.substring(2, 4)), ontologyDigest,
-                                                                  new BigInteger(queryEX.substring(0, 2)),  new BigInteger(queryEX.substring(2, 4)), queryDigest 
-                                                                                               ).send();            
+                                                                  new BigInteger(queryEX.substring(0, 2)),  new BigInteger(queryEX.substring(2, 4)), queryDigest, 
+                                                                  previous).send();            
            return contract;
           } 
           catch (IOException ex)
@@ -124,6 +124,55 @@ public class OSCUtility
         return this.getSPARQLQueryFromContract(osc);
       }
     
+     public String getPreviousVersionFromContract(String contractAddress)
+      {
+        Oasisosc osc = Oasisosc.load(contractAddress,this.getWeb3jClient(), this.getCredentials(), 
+                       new OSCSimpleGasProvider(new BigDecimal(1), BigInteger.valueOf(3000000)));
+        return this.getPreviousVersionFromContract(osc);
+      } 
+     
+     public String getOwnerFromContract(String contractAddress)
+      {
+        Oasisosc osc = Oasisosc.load(contractAddress,this.getWeb3jClient(), this.getCredentials(), 
+                       new OSCSimpleGasProvider(new BigDecimal(1), BigInteger.valueOf(3000000)));
+        return this.getOwnerFromContract(osc);
+      } 
+     
+     public String getPreviousVersionFromContract(Oasisosc contract)
+       {
+         if(contract==null)
+            return null;        
+        String result=null;
+        try
+          {
+            String value=contract.getPreviousVersion().send();
+            return value;
+          } 
+        catch (Exception ex)
+          {
+            System.out.println(ex.toString());
+            return null;
+          }       
+       }
+     
+      public String getOwnerFromContract(Oasisosc contract)
+       {
+         if(contract==null)
+            return null;        
+        String result=null;
+        try
+          {
+            String value=contract.getOwner().send();
+            return value;
+          } 
+        catch (Exception ex)
+          {
+            System.out.println(ex.toString());
+            return null;
+          }       
+       }
+      
+     
     public String getOntologyFromContract(Oasisosc contract)
       {
         if(contract==null)
@@ -160,6 +209,7 @@ public class OSCUtility
           }
       }
     
+       
     
     private String readFromIPFSCID(String ipfscid)
       {  
