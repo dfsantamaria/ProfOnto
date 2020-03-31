@@ -226,5 +226,53 @@ public class OSCUtility
             System.out.println(ex.toString());
             return null;
           }        
+      }
+
+     public String getSPARQLQueryIPFSCID(String contractAddress)
+      {
+        Oasisosc osc = Oasisosc.load(contractAddress,this.getWeb3jClient(), this.getCredentials(), 
+                       new OSCSimpleGasProvider(new BigDecimal(1), BigInteger.valueOf(3000000)));
+        return this.getSPARQLQueryIPFSCID(osc);
+      }
+    
+    public String getSPARQLQueryIPFSCID(Oasisosc contract)
+         {
+        if(contract==null)
+            return null;         
+        try
+          {
+            String ipfscid=this.computeIPFSCIDFromMultiHash(contract.getSPARQLQuery().send());           
+            Multihash m=Multihash.fromHex(ipfscid);
+            return m.toBase58();
+          } 
+        catch (Exception ex)
+          {
+             System.out.println(ex.toString());
+            return null;
+          }
+      }
+    
+       public String getOntologyIPFSCID(String contractAddress)
+      {
+        Oasisosc osc = Oasisosc.load(contractAddress,this.getWeb3jClient(), this.getCredentials(), 
+                       new OSCSimpleGasProvider(new BigDecimal(1), BigInteger.valueOf(3000000)));
+        return this.getOntologyIPFSCID(osc);
+      }
+    
+    public String getOntologyIPFSCID(Oasisosc contract)
+         {
+        if(contract==null)
+            return null;         
+        try
+          {
+            String ipfscid=this.computeIPFSCIDFromMultiHash(contract.getOntology().send());           
+            Multihash m=Multihash.fromHex(ipfscid);
+            return m.toBase58();
+          } 
+        catch (Exception ex)
+          {
+             System.out.println(ex.toString());
+            return null;
+          }
       }    
   }
