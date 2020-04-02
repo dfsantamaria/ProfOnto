@@ -9,9 +9,9 @@ package dmi.unict.it.osc.core;
  *
  * @author Danile Francesco Santamaria
  */
-public class OSCUtilityConnectionExeception extends Exception
+public class OSCUtilityConnectionException extends Exception
   {
-    public OSCUtilityConnectionExeception(String errorMessage)
+    public OSCUtilityConnectionException(String errorMessage)
       {
         super(errorMessage);            
       }    

@@ -1,7 +1,7 @@
 package dmi.unict.it.osc.test;
 
 import dmi.unict.it.osc.core.OSCUtility;
-import dmi.unict.it.osc.core.OSCUtilityConnectionExeception;
+import dmi.unict.it.osc.core.OSCUtilityConnectionException;
 import dmi.unict.it.osc.core.Oasisosc;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -36,7 +36,7 @@ public class TestOSCUtility
                   */                  
                   osc=new OSCUtility(args[0], args[1], args[2]);                        
                 }
-              catch (OSCUtilityConnectionExeception e)
+              catch (OSCUtilityConnectionException e)
                 {
                   System.out.println(e.toString());
                   return;

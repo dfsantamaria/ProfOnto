@@ -29,7 +29,7 @@ public class OSCUtility
     private  Web3j web3;
     private  Credentials credentials;   
     
-    public OSCUtility(String ipfsaddress, String ethereumAddr, String privateKey) throws OSCUtilityConnectionExeception
+    public OSCUtility(String ipfsaddress, String ethereumAddr, String privateKey) throws OSCUtilityConnectionException
     {
      try
        {
@@ -43,12 +43,12 @@ public class OSCUtility
      catch (IOException e )
        {
          this.handleStartUpException();
-         throw new OSCUtilityConnectionExeception("Cannot correctly create OSCUtility. Couldn't connect to Ethereum node or invalid credentials.");
+         throw new OSCUtilityConnectionException("Cannot correctly create OSCUtility. Couldn't connect to Ethereum node or invalid credentials.");
        } 
      catch(Exception e)
        {
          this.handleStartUpException();
-         throw new OSCUtilityConnectionExeception("Cannot correctly create OSCUtility. Couldn't connect to IPFS or invalid Ethereum credentials.");
+         throw new OSCUtilityConnectionException("Cannot correctly create OSCUtility. Couldn't connect to IPFS or invalid Ethereum credentials.");
        }
     } 
 
