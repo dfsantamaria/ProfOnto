@@ -84,9 +84,9 @@ public class OSCUtility
             String ontologyEX=DatatypeConverter.printHexBinary(ontologyMN.hash.toBytes());
             String queryEX=DatatypeConverter.printHexBinary(queryMN.hash.toBytes());
             byte[] ontologyDigest = Numeric.hexStringToByteArray(ontologyEX.substring(4, ontologyEX.length()));
-            byte[] queryDigest = Numeric.hexStringToByteArray(queryEX.substring(4, ontologyEX.length()));          
+            byte[] queryDigest = Numeric.hexStringToByteArray(queryEX.substring(4, ontologyEX.length()));    
             
-            Oasisosc contract = Oasisosc.deploy(web3, credentials,  new OSCSimpleGasProvider(new BigDecimal(1), BigInteger.valueOf(3000000)),
+            Oasisosc contract = Oasisosc.deploy(web3, credentials,  new OSCSimpleGasProvider(new BigDecimal(10), BigInteger.valueOf(3000000)),
                                                                   new BigInteger(ontologyEX.substring(0, 2)), new BigInteger(ontologyEX.substring(2, 4)), ontologyDigest,
                                                                   new BigInteger(queryEX.substring(0, 2)),  new BigInteger(queryEX.substring(2, 4)), queryDigest, 
                                                                   previous).send();            
