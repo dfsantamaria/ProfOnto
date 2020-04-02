@@ -1,5 +1,14 @@
 package dmi.unict.it.osc.test;
 
+import dmi.unict.it.osc.core.OSCUtility;
+import dmi.unict.it.osc.core.OSCUtilityConnectionExeception;
+import dmi.unict.it.osc.core.Oasisosc;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 
 
 /*
@@ -9,10 +18,6 @@ package dmi.unict.it.osc.test;
  */
 
 
-import dmi.unict.it.osc.core.OSCUtility;
-import dmi.unict.it.osc.core.OSCUtilityConnectionExeception;
-import dmi.unict.it.osc.core.Oasisosc;
-
 /**
  *
  * @author Daniele Francesco Santamaria
@@ -21,37 +26,53 @@ public class TestOSCUtility
   {
     public static void main (String[] args)
       {
-         OSCUtility osc;
           try
             {
-               osc=new OSCUtility("/ip4/127.0.0.1/tcp/5001", "http://localhost:7545", "d315a8d6a184a816419d598e57a5a0ee2df66a977fee86bc219be4c02f40991e");  
+              OSCUtility osc;  
+              try
+                {
+                  /*
+                    For example osc=new OSCUtility("/ip4/127.0.0.1/tcp/5001", "http://localhost:7545", "9caae095fdc0791d706c0a8ccd2f934de599a9ca2e7f55579d67b68391ab18eb");
+                  */                  
+                  osc=new OSCUtility(args[0], args[1], args[2]);                        
+                }
+              catch (OSCUtilityConnectionExeception e)
+                {
+                  System.out.println(e.toString());
+                  return;
+                }                         
+              /*
+                Path of the ontology file and path of the query file
+              */
+              String ontcontent=new String (Files.readAllBytes(Paths.get(args[3])));
+              String querycontent=new String (Files.readAllBytes(Paths.get(args[4])));
+              
+              Oasisosc contract=osc.uploadContract(ontcontent, querycontent, args[5]);
+              if(contract!=null)
+                {
+                  System.out.println("The contract address is "+contract.getContractAddress());
+                  System.out.println("The ontology is "+osc.getOntologyFromContract(contract));
+                  System.out.println("The ontology IPFS CID is "+osc.getOntologyIPFSCID(contract));
+                  System.out.println("The SPARQL query is "+osc.getSPARQLQueryFromContract(contract));
+                  System.out.println("The SPARQL query IPFS CID is "+osc.getSPARQLQueryIPFSCID(contract));
+                  System.out.println("The previous version address is: "+osc.getPreviousVersionFromContract(contract));
+                  System.out.println("The owner of the contract is: "+osc.getOwnerFromContract(contract));
+                  
+                  System.out.println("Testing contract address");
+                  System.out.println("The ontology is "+osc.getOntologyFromContract(contract.getContractAddress()));
+                  System.out.println("The ontology IPFS CID is "+osc.getOntologyIPFSCID(contract.getContractAddress()));
+                  System.out.println("The SPARQL query is "+osc.getSPARQLQueryFromContract(contract.getContractAddress()));
+                  System.out.println("The SPARQL query IPFS CID is "+osc.getSPARQLQueryIPFSCID(contract.getContractAddress()));
+                  
+                  System.out.println("The previous version address is: "+osc.getPreviousVersionFromContract(contract.getContractAddress()));
+                  System.out.println("The owner of the contract is: "+osc.getOwnerFromContract(contract.getContractAddress()));
+                }
+              
             } 
-            catch (OSCUtilityConnectionExeception e)
+            catch (IOException ex)
             {
-              System.out.println(e.toString());
-              return;
+              Logger.getLogger(TestOSCUtility.class.getName()).log(Level.SEVERE, null, ex);
             }       
-        
-         Oasisosc contract=osc.uploadContract("this is an ontology", "this is a query", "0x0000000000000000000000000000000000000000");  
-         if(contract!=null)
-           {
-            System.out.println("The contract address is "+contract.getContractAddress());
-            System.out.println("The ontology is "+osc.getOntologyFromContract(contract));
-            System.out.println("The ontology IPFS CID is "+osc.getOntologyIPFSCID(contract));
-            System.out.println("The SPARQL query is "+osc.getSPARQLQueryFromContract(contract));
-            System.out.println("The SPARQL query IPFS CID is "+osc.getSPARQLQueryIPFSCID(contract));             
-            System.out.println("The previous version address is: "+osc.getPreviousVersionFromContract(contract));
-            System.out.println("The owner of the contract is: "+osc.getOwnerFromContract(contract));
-            
-            System.out.println("Testing contract address");
-            System.out.println("The ontology is "+osc.getOntologyFromContract(contract.getContractAddress()));
-            System.out.println("The ontology IPFS CID is "+osc.getOntologyIPFSCID(contract.getContractAddress()));
-            System.out.println("The SPARQL query is "+osc.getSPARQLQueryFromContract(contract.getContractAddress()));
-            System.out.println("The SPARQL query IPFS CID is "+osc.getSPARQLQueryIPFSCID(contract.getContractAddress()));
-            
-            System.out.println("The previous version address is: "+osc.getPreviousVersionFromContract(contract.getContractAddress()));
-            System.out.println("The owner of the contract is: "+osc.getOwnerFromContract(contract.getContractAddress()));
-           }
          
       }
   }
