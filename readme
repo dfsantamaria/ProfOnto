@@ -171,9 +171,9 @@ Instructions for developers:
     
     Write console.run() to run the console. See the file target/rasb-light-agent-beta.py for an example.
      
-<------------------------------------------------------------ Stay tuned for updates ---------------------------------------------------------->
+
    
-   USING OASIS - Ontology Smart Contracts Utility.
+USING OASIS - Ontology Smart Contracts Utility.
    
    OSCUtility allows to easily access the functions of the Ethereum smart contract that manages the ontological smart contract provided by OASIS. The smart contract is compliant to the 
    non-fungible token standard ERC721 and accessible at the address: 0x36194ab80f7649572cab9ec524950df32f638b08. 
@@ -196,5 +196,5 @@ Instructions for developers:
         -The wallet address of the destination wallet.
         -The ID of the token to be transferred as BigInteger.
         
-
+<------------------------------------------------------------ Stay tuned for updates ---------------------------------------------------------->
 
