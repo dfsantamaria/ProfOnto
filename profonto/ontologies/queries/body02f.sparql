@@ -1,16 +1,37 @@
 OPTIONAL
 {
-  ?task prof:hasTaskFormalOutputParameter ?Taskparamout .  
+  ?task prof:hasTaskFormalOutputParameter ?locTaskparamout .  
+  {
+    ?locTaskparamout prof:refersExactlyTo ?Taskparamout .
+   }
+   UNION
+   {
+     ?locTaskparamout prof:refersAsNewTo ?Taskparamout .
+   }
 }
 
 OPTIONAL
 {
-   ?task prof:hasTaskFormalOutputParameter ?Taskparamout .
+   ?task prof:hasTaskFormalOutputParameter ?locTaskparamout .
+   {
+    ?locTaskparamout prof:refersExactlyTo ?Taskparamout .
+   }
+   UNION
+   {
+     ?locTaskparamout prof:refersAsNewTo ?Taskparamout .
+   }
    ?Taskparamout prof:hasType ?Taskparamouttype .
    FILTER ( ?Taskparamouttype = //paramtout// )
 }
 
 OPTIONAL
 {
-  ?task prof:hasTaskOutputParameterTemplate ?Taskparamout .  
+  ?task prof:hasTaskOutputParameterTemplate ?locTaskparamout .  
+  {
+     ?locTaskparamout prof:refersExactlyTo ?Taskparamout .
+   }
+   UNION
+   {
+     ?locTaskparamout prof:refersAsNewTo ?Taskparamout .
+   }
 }

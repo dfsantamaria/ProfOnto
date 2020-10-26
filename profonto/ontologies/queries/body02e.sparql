@@ -1,16 +1,37 @@
 OPTIONAL
 {
-  ?task prof:hasTaskFormalInputParameter ?Taskparam .  
+  ?task prof:hasTaskFormalInputParameter ?locTaskparam .  
+   {
+    ?locTaskparam prof:refersExactlyTo ?Taskparam .
+   }
+   UNION
+   {
+     ?locTaskparam prof:refersAsNewTo ?Taskparam .
+   }
 }
 
 OPTIONAL
 {
-   ?task prof:hasTaskFormalInputParameter ?Taskparam .
+   ?task prof:hasTaskFormalInputParameter ?locTaskparam .
+   {
+    ?locTaskparam prof:refersExactlyTo ?Taskparam .
+   }
+   UNION
+   {
+     ?locTaskparam prof:refersAsNewTo ?Taskparam .
+   }
    ?Taskparam prof:hasType ?Taskparamtype .
    FILTER ( ?Taskparamtype = //paramt// )
 }
 
 OPTIONAL
 {
-  ?task prof:hasTaskInputParameterTemplate ?Taskparam .  
+  ?task prof:hasTaskInputParameterTemplate ?locTaskparam .  
+  {
+    ?locTaskparam prof:refersExactlyTo ?Taskparam .
+   }
+   UNION
+   {
+     ?locTaskparam prof:refersAsNewTo ?Taskparam .
+   }
 }

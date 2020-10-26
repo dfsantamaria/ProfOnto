@@ -1,7 +1,15 @@
 SELECT ?task ?prop ?thetype
 WHERE
 { 
- ?task prof:hasTaskObject ?taskObj .
+ ?task prof:hasTaskObject ?loctaskObj .
+ {
+  ?loctaskObj prof:refersExactlyTo ?taskObj .
+ }
+ UNION
+ {
+  ?loctaskObj prof:refersAsNewTo ?taskObj .
+ }
+
  ?taskObj ?prop ?obj .
  ?prop rdf:type owl:ObjectProperty.
 

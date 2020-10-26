@@ -1,244 +1,195 @@
 <?xml version="1.0"?>
-<Ontology xmlns="http://www.w3.org/2002/07/owl#"
-     xml:base="http://www.dmi.unict.it/lightagent.owl"
+<rdf:RDF xmlns="http://www.dmi.unict.it/lightagent-template.owl"
+     xml:base="http://www.dmi.unict.it/lightagent-template.owl"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     ontologyIRI="http://www.dmi.unict.it/lightagent.owl">
-    <Prefix name="" IRI="http://www.dmi.unict.it/lightagent.owl"/>
-    <Prefix name="owl" IRI="http://www.w3.org/2002/07/owl#"/>
-    <Prefix name="rdf" IRI="http://www.w3.org/1999/02/22-rdf-syntax-ns#"/>
-    <Prefix name="xml" IRI="http://www.w3.org/XML/1998/namespace"/>
-    <Prefix name="xsd" IRI="http://www.w3.org/2001/XMLSchema#"/>
-    <Prefix name="rdfs" IRI="http://www.w3.org/2000/01/rdf-schema#"/>
-    <Import>http://www.dmi.unict.it/oasis.owl</Import>
-    <Declaration>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#EnviromentComponent"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskSubject"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#LD-turnoff-behavior"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#LD-turnoff-goaldescription"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#LD-turnoff-taskdescription"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#LD-turnon-behavior"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#LD-turnon-goaldescription"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#LD-turnon-taskdescription"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#light-device"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#light-device-config"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#light-device-config-connect"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#light-device-light-template"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#light-device-light1"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#light-device-template"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#device_type"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#LightObjectType"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#kitchen"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_off"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_on"/>
-    </Declaration>
-    <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#Behavior"/>
-        <NamedIndividual IRI="#LD-turnoff-behavior"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#GoalDescription"/>
-        <NamedIndividual IRI="#LD-turnoff-goaldescription"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskDescription"/>
-        <NamedIndividual IRI="#LD-turnoff-taskdescription"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#Behavior"/>
-        <NamedIndividual IRI="#LD-turnon-behavior"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#GoalDescription"/>
-        <NamedIndividual IRI="#LD-turnon-goaldescription"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskDescription"/>
-        <NamedIndividual IRI="#LD-turnon-taskdescription"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#Device"/>
-        <NamedIndividual IRI="#light-device"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#Configuration"/>
-        <NamedIndividual IRI="#light-device-config"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#Connection"/>
-        <NamedIndividual IRI="#light-device-config-connect"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#ComponentTemplate"/>
-        <NamedIndividual IRI="#light-device-light-template"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskObject"/>
-        <NamedIndividual IRI="#light-device-light-template"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#EnviromentComponent"/>
-        <NamedIndividual IRI="#light-device-light1"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#DeviceBehaviorTemplate"/>
-        <NamedIndividual IRI="#light-device-template"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#HomeObjectType"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#LightObjectType"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#HomeObjectType"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#kitchen"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_off"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_on"/>
-    </ClassAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#consistsOfGoalDescription"/>
-        <NamedIndividual IRI="#LD-turnoff-behavior"/>
-        <NamedIndividual IRI="#LD-turnoff-goaldescription"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#consistsOfTaskDescription"/>
-        <NamedIndividual IRI="#LD-turnoff-goaldescription"/>
-        <NamedIndividual IRI="#LD-turnoff-taskdescription"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObjectTemplate"/>
-        <NamedIndividual IRI="#LD-turnoff-taskdescription"/>
-        <NamedIndividual IRI="#light-device-light-template"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskOperator"/>
-        <NamedIndividual IRI="#LD-turnoff-taskdescription"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_off"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#consistsOfGoalDescription"/>
-        <NamedIndividual IRI="#LD-turnon-behavior"/>
-        <NamedIndividual IRI="#LD-turnon-goaldescription"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#consistsOfTaskDescription"/>
-        <NamedIndividual IRI="#LD-turnon-goaldescription"/>
-        <NamedIndividual IRI="#LD-turnon-taskdescription"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObjectTemplate"/>
-        <NamedIndividual IRI="#LD-turnon-taskdescription"/>
-        <NamedIndividual IRI="#light-device-light-template"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskOperator"/>
-        <NamedIndividual IRI="#LD-turnon-taskdescription"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_on"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#adoptsAgentBehaviorTemplate"/>
-        <NamedIndividual IRI="#light-device"/>
-        <NamedIndividual IRI="#light-device-template"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasAgentType"/>
-        <NamedIndividual IRI="#light-device"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#device_type"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasConfiguration"/>
-        <NamedIndividual IRI="#light-device"/>
-        <NamedIndividual IRI="#light-device-config"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#settles"/>
-        <NamedIndividual IRI="#light-device"/>
-        <NamedIndividual IRI="#light-device-light1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasConnection"/>
-        <NamedIndividual IRI="#light-device-config"/>
-        <NamedIndividual IRI="#light-device-config-connect"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasType"/>
-        <NamedIndividual IRI="#light-device-light-template"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#LightObjectType"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#adoptsComponentTemplate"/>
-        <NamedIndividual IRI="#light-device-light1"/>
-        <NamedIndividual IRI="#light-device-light-template"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasType"/>
-        <NamedIndividual IRI="#light-device-light1"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#LightObjectType"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasBehavior"/>
-        <NamedIndividual IRI="#light-device-template"/>
-        <NamedIndividual IRI="#LD-turnoff-behavior"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasBehavior"/>
-        <NamedIndividual IRI="#light-device-template"/>
-        <NamedIndividual IRI="#LD-turnon-behavior"/>
-    </ObjectPropertyAssertion>
-    <DataPropertyAssertion>
-        <DataProperty IRI="http://www.dmi.unict.it/oasis.owl#hasIPAddress"/>
-        <NamedIndividual IRI="#light-device-config-connect"/>
-        <Literal>localhost</Literal>
-    </DataPropertyAssertion>
-    <DataPropertyAssertion>
-        <DataProperty IRI="http://www.dmi.unict.it/oasis.owl#hasPortNumber"/>
-        <NamedIndividual IRI="#light-device-config-connect"/>
-        <Literal datatypeIRI="http://www.w3.org/2001/XMLSchema#integer">8087</Literal>
-    </DataPropertyAssertion>
-</Ontology>
+     xmlns:oasis="http://www.dmi.unict.it/oasis.owl#"
+     xmlns:terms="http://purl.org/dc/terms/">
+    <owl:Ontology rdf:about="http://www.dmi.unict.it/lightagent-template.owl">
+        <owl:imports rdf:resource="http://www.dmi.unict.it/oasis.owl"/>
+    </owl:Ontology>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.dmi.unict.it/oasis.owl#EnviromentComponent -->
+
+    <owl:Class rdf:about="http://www.dmi.unict.it/oasis.owl#EnviromentComponent"/>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.dmi.unict.it/lightagent-template.owl#LD-taskObjectTemplate -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/lightagent-template.owl#LD-taskObjectTemplate">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#ComponentTemplate"/>
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskObjectTemplate"/>
+        <oasis:refersAsNewTo rdf:resource="http://www.dmi.unict.it/lightagent-template.owl#light-device-light-template"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/lightagent-template.owl#LD-turnoff-behavior -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/lightagent-template.owl#LD-turnoff-behavior">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#Behavior"/>
+        <oasis:consistsOfGoalDescription rdf:resource="http://www.dmi.unict.it/lightagent-template.owl#LD-turnoff-goaldescription"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/lightagent-template.owl#LD-turnoff-goaldescription -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/lightagent-template.owl#LD-turnoff-goaldescription">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#GoalDescription"/>
+        <oasis:consistsOfTaskDescription rdf:resource="http://www.dmi.unict.it/lightagent-template.owl#LD-turnoff-taskdescription"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/lightagent-template.owl#LD-turnoff-taskdescription -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/lightagent-template.owl#LD-turnoff-taskdescription">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskDescription"/>
+        <oasis:hasTaskObjectTemplate rdf:resource="http://www.dmi.unict.it/lightagent-template.owl#LD-taskObjectTemplate"/>
+        <oasis:hasTaskOperator rdf:resource="http://www.dmi.unict.it/oasis.owl#turn_off"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/lightagent-template.owl#LD-turnon-behavior -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/lightagent-template.owl#LD-turnon-behavior">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#Behavior"/>
+        <oasis:consistsOfGoalDescription rdf:resource="http://www.dmi.unict.it/lightagent-template.owl#LD-turnon-goaldescription"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/lightagent-template.owl#LD-turnon-goaldescription -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/lightagent-template.owl#LD-turnon-goaldescription">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#GoalDescription"/>
+        <oasis:consistsOfTaskDescription rdf:resource="http://www.dmi.unict.it/lightagent-template.owl#LD-turnon-taskdescription"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/lightagent-template.owl#LD-turnon-taskOperator -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/lightagent-template.owl#LD-turnon-taskOperator">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
+        <oasis:refersExactlyTo rdf:resource="http://www.dmi.unict.it/oasis.owl#turn_on"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/lightagent-template.owl#LD-turnon-taskdescription -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/lightagent-template.owl#LD-turnon-taskdescription">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskDescription"/>
+        <oasis:hasTaskInputParameterTemplate rdf:resource="http://www.dmi.unict.it/lightagent-template.owl#LD-turnon-taskparameter"/>
+        <oasis:hasTaskObjectTemplate rdf:resource="http://www.dmi.unict.it/lightagent-template.owl#LD-taskObjectTemplate"/>
+        <oasis:hasTaskOperator rdf:resource="http://www.dmi.unict.it/lightagent-template.owl#LD-turnon-taskOperator"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/lightagent-template.owl#LD-turnon-taskparameter -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/lightagent-template.owl#LD-turnon-taskparameter">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskFormalInputParameter"/>
+        <oasis:refersAsNewTo rdf:resource="http://www.dmi.unict.it/lightagent-template.owl#lightintensityparameter"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/lightagent-template.owl#light-device-light-template -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/lightagent-template.owl#light-device-light-template">
+        <oasis:hasType rdf:resource="http://www.dmi.unict.it/oasis.owl#LightObjectType"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/lightagent-template.owl#light-device-template -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/lightagent-template.owl#light-device-template">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#DeviceBehaviorTemplate"/>
+        <oasis:hasBehavior rdf:resource="http://www.dmi.unict.it/lightagent-template.owl#LD-turnoff-behavior"/>
+        <oasis:hasBehavior rdf:resource="http://www.dmi.unict.it/lightagent-template.owl#LD-turnon-behavior"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/lightagent-template.owl#lightintensityparameter -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/lightagent-template.owl#lightintensityparameter">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#CompositeValue"/>
+        <oasis:hasDataValue></oasis:hasDataValue>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/oasis-abox.owl#device_type -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/oasis-abox.owl#device_type"/>
+    
+
+
+    <!-- http://www.dmi.unict.it/oasis.owl#LightObjectType -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/oasis.owl#LightObjectType">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#HomeObjectType"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/oasis.owl#kitchen -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/oasis.owl#kitchen">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#HomeObjectType"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/oasis.owl#turn_off -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/oasis.owl#turn_off">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/oasis.owl#turn_on -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/oasis.owl#turn_on">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#Action"/>
+    </owl:NamedIndividual>
+</rdf:RDF>
 
 
 

@@ -142,7 +142,7 @@ public class mainAutoinstall
          
        InputStream assistantData=readData("ontologies/test/homeassistant.owl"); 
        ontocore.addDevice(assistantData);            
-       ontocore.addDevice("http://www.dmi.unict.it/profonto-home.owl");
+       ontocore.addDevice("http://www.dmi.unict.it/homeassistant.owl");
      
     
        // System.out.println(ontocore.updateOntology("http://www.dmi.unict.it/profonto-home.owl",false,false));
@@ -155,21 +155,21 @@ public class mainAutoinstall
        //InputStream request=readData("ontologies/test/light-installation-request-IRI.owl");
        System.out.println("Loading test");
        
-        ontocore.parseRequest(readData("ontologies/test/rasb/lightagent-from-template.owl"));    
-        ontocore.parseRequest( readData("ontologies/test/rasb/rasb-lightagent.owl")); 
+        ontocore.parseRequest(readData("ontologies/test/lightagent-from-template.owl"));    
+        ontocore.parseRequest( readData("ontologies/test/rasb-lightagent.owl")); 
         System.out.println("Adding light agent");
         ontocore.addDevice("http://www.dmi.unict.it/lightagent.owl");
-       System.out.println("Update Request- Loading Data");
-       ontocore.parseRequest(readData("ontologies/test/rasb-lightagent-toUpdateIntest.owl"));
-        System.out.println("Update Request");
-       String s=toStringOntology(ontocore.parseRequest(readData("ontologies/test/light-update-request.owl")))[0];
-       System.out.println("Request of device:\n" + s);
-       s=null;
-       ontocore.modifyDevice("http://www.dmi.unict.it/lightagent.owl");
-         
-        System.out.println("Modify connection: "+ ontocore.modifyConnection("http://www.dmi.unict.it/profonto-home.owl",
-                                  "192.168.0.1", "8087"));
-         
+//       System.out.println("Update Request- Loading Data");
+//       ontocore.parseRequest(readData("ontologies/test/rasb-lightagent-toUpdateIntest.owl"));
+//        System.out.println("Update Request");
+//       String s=toStringOntology(ontocore.parseRequest(readData("ontologies/test/light-update-request.owl")))[0];
+//       System.out.println("Request of device:\n" + s);
+//       s=null;
+//       ontocore.modifyDevice("http://www.dmi.unict.it/lightagent.owl");
+//         
+//        System.out.println("Modify connection: "+ ontocore.modifyConnection("http://www.dmi.unict.it/profonto-home.owl",
+//                                  "192.168.0.1", "8087"));
+//         
   //     InputStream request=readData("ontologies/test/rasb/test.owl");
  //      Stream<OWLAxiom> res= ontocore.parseRequest(request).axioms();
 //       System.out.println("Request:");
@@ -187,53 +187,53 @@ public class mainAutoinstall
        
           
        
-       System.out.println("Add user request");
-       ontocore.parseRequest(readData("ontologies/test/rasb-user/alan.owl"));
-       ByteArrayInputStream request=readData("ontologies/test/rasb-user/add-user-request.owl");         
-       s =  toStringOntology(ontocore.parseRequest(request))[0];
-       System.out.println("Request of device: \n"+s);
-       s=null;
-       
-       System.out.println("Add user configuration request");
-       request=readData("ontologies/test/add-user-configuration-request.owl");         
-       s= toStringOntology(ontocore.parseRequest(request))[0];       
-       System.out.println("Request of device: \n"+s);
-       s=null;
-                    
-       
-       System.out.println("Remove user configuration request");
-       request=readData("ontologies/test/remove-user-configuration-request.owl");         
-       s= toStringOntology(ontocore.parseRequest(request))[0];      
-       System.out.println("Request of device: \n"+s);
-       s=null;
-       
-       System.out.println("Testing belief with referTo object-property");
-       request=readData("ontologies/test/add-belief-refers.owl"); 
-       s= toStringOntology(ontocore.parseRequest(request))[1];
-       System.out.println(s);
-       s=null;
-       
-       System.out.println("Add belief request");
-       request=readData("ontologies/test/add-belief-request.owl");         
-       s= toStringOntology(ontocore.parseRequest(request))[0];
-       System.out.println("Request of device: \n"+ s);
-       s=null;
-       
-       System.out.println("Retrieve belief request");
-       request=readData("ontologies/test/retrieve-belief-request.owl");         
-       s= toStringOntology(ontocore.parseRequest(request))[0];
-       System.out.println("Request of device: \n"+s);
-              
-       System.out.println("Remove belief request");
-       request=readData("ontologies/test/remove-belief-request.owl");         
-       s= toStringOntology(ontocore.parseRequest(request))[0];
-       System.out.println("Request of device:\n"+s);
-       s=null;
-              
-       System.out.println("Remove user request");
-       request=readData("ontologies/test/remove-user-request.owl");         
-       s=toStringOntology(ontocore.parseRequest(request))[0];
-       System.out.println("Request of device:\n"+s);   
+//       System.out.println("Add user request");
+//       ontocore.parseRequest(readData("ontologies/test/rasb-user/alan.owl"));
+//       ByteArrayInputStream request=readData("ontologies/test/rasb-user/add-user-request.owl");         
+//       s =  toStringOntology(ontocore.parseRequest(request))[0];
+//       System.out.println("Request of device: \n"+s);
+//       s=null;
+//       
+//       System.out.println("Add user configuration request");
+//       request=readData("ontologies/test/add-user-configuration-request.owl");         
+//       s= toStringOntology(ontocore.parseRequest(request))[0];       
+//       System.out.println("Request of device: \n"+s);
+//       s=null;
+//                    
+//       
+//       System.out.println("Remove user configuration request");
+//       request=readData("ontologies/test/remove-user-configuration-request.owl");         
+//       s= toStringOntology(ontocore.parseRequest(request))[0];      
+//       System.out.println("Request of device: \n"+s);
+//       s=null;
+//       
+//       System.out.println("Testing belief with referTo object-property");
+//       request=readData("ontologies/test/add-belief-refers.owl"); 
+//       s= toStringOntology(ontocore.parseRequest(request))[1];
+//       System.out.println(s);
+//       s=null;
+//       
+//       System.out.println("Add belief request");
+//       request=readData("ontologies/test/add-belief-request.owl");         
+//       s= toStringOntology(ontocore.parseRequest(request))[0];
+//       System.out.println("Request of device: \n"+ s);
+//       s=null;
+//       
+//       System.out.println("Retrieve belief request");
+//       request=readData("ontologies/test/retrieve-belief-request.owl");         
+//       s= toStringOntology(ontocore.parseRequest(request))[0];
+//       System.out.println("Request of device: \n"+s);
+//              
+//       System.out.println("Remove belief request");
+//       request=readData("ontologies/test/remove-belief-request.owl");         
+//       s= toStringOntology(ontocore.parseRequest(request))[0];
+//       System.out.println("Request of device:\n"+s);
+//       s=null;
+//              
+//       System.out.println("Remove user request");
+//       request=readData("ontologies/test/remove-user-request.owl");         
+//       s=toStringOntology(ontocore.parseRequest(request))[0];
+//       System.out.println("Request of device:\n"+s);   
        
       }
   }

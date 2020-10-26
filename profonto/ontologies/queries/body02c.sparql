@@ -1,8 +1,31 @@
 ?behav prof:consistsOfGoalDescription ?goal .
 ?goal prof:consistsOfTaskDescription ?task .
-?task prof:hasTaskOperator //operation// .
+?task prof:hasTaskOperator ?locoperation .
+ {
+  ?locoperation prof:refersExactlyTo //operation// .
+ }
+ UNION
+  {
+     ?locoperation prof:refersAsNewTo //operation// .
+  }
+
+
+
 {
- ?task prof:hasTaskObject ?device_object .
+ {
+ ?task prof:hasTaskObject ?locdevice_object .
+ }
+ UNION
+{
+ ?task prof:hasTaskObjectTemplate ?locdevice_object .
+}
+ {
+  ?locdevice_object prof:refersExactlyTo ?device_object .
+ }
+ UNION
+ {
+  ?locdevice_object prof:refersAsNewTo ?device_object .
+ }
  ?device_object prof:hasType ?requesttype .
  FILTER NOT EXISTS
   {
@@ -17,4 +40,4 @@ UNION
   ?objecttemp prof:hasType ?requesttype .
 }
 
-//taskrequest// prof:hasType ?requesttype .
+

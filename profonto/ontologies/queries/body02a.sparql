@@ -4,16 +4,56 @@ WHERE
 ?selected_device prof:requests ?plan .
 ?plan prof:consistsOfGoalDescription ?goal .
 ?goal prof:consistsOfTaskDescription ?task .
-?task prof:hasTaskOperator ?operation .
-?task  prof:hasTaskObject ?device_object .
+?task prof:hasTaskOperator ?locoperation .
+?task  prof:hasTaskObject ?locdevice_object .
+
+ {
+  ?locoperation prof:refersExactlyTo ?operation .
+ }
+ UNION
+ {
+  ?locoperation prof:refersAsNewTo ?operation .
+ }
+
+ {
+  ?locdevice_object prof:refersExactlyTo ?device_object .
+ }
+ UNION
+ {
+  ?locdevice_object prof:refersAsNewTo ?device_object .
+ }
+
 ?device_object prof:hasType ?obtype .
-OPTIONAL { ?task prof:hasTaskActualInputParameter ?tparameter . 
-           OPTIONAL { ?tparameter prof:hasType ?paramtype . } 
-           OPTIONAL { ?tparameter prof:refersTo ?thecontent . }
+OPTIONAL { ?task prof:hasTaskActualInputParameter ?loctparameter . 
+           {
+            ?loctparameter prof:refersExactlyTo ?tparameter .
+           }
+           UNION
+           {
+             ?loctparameter prof:refersAsNewTo ?tparameter .
+            }
+           OPTIONAL { ?tparameter prof:hasType ?paramtype . }            
          }
 OPTIONAL { ?task prof:hasTaskActualOutputParameter ?outparameter . 
+            {
+            ?outparameter prof:refersExactlyTo ?outthecontent .
+           }
+           UNION
+           {
+             ?outparameter prof:refersAsNewTo ?outthecontent .
+            }
            OPTIONAL { ?outparameter prof:hasType ?outparamtype . } 
-           OPTIONAL { ?outparameter prof:refersTo ?outthecontent . }
+
+           
          }
-OPTIONAL { ?task prof:hasOperatorArgument ?argument .}         
+OPTIONAL { ?task prof:hasOperatorArgument ?locargument .
+              {
+            ?locargument prof:refersExactlyTo ?argument .
+           }
+           UNION
+           {
+             ?locargument prof:refersAsNewTo ?argument .
+            }
+
+         }         
 }

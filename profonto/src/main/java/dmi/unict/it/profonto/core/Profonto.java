@@ -1738,8 +1738,9 @@ public class Profonto extends OntologyCore
                 r=qs.getResource("argument"); //case of operator argument              
                 if(r!=null)
                 {
-                  subqueryParam[6]=r.getURI();
-                  querytail+="?task prof:hasOperatorArgument <"+subqueryParam[6]+"> .\n";
+                  subqueryParam[6]=r.getURI();                  
+                  querytail+="?task prof:hasOperatorArgument ?oparg .\n";
+                  querytail+="?oparg prof:refersExactlyTo <"+subqueryParam[6]+"> .\n";
                   querybody += taskExec + " prof:hasOperatorArgument " + " <" + subqueryParam[6] + "> .";
                 
                 } 
@@ -1822,14 +1823,16 @@ public class Profonto extends OntologyCore
                 query+=querybody;
                 
                 query += this.getQueries().get("construct01.sparql").replaceAll("//taskexec//", " " + taskExec + " ")
+                        .replaceAll("//taskexecobject//", " <" + subqueryParam[1] + "-taskObject> ")
+                        .replaceAll("//taskexecoperator//", " <" + subqueryParam[1] + "-taskOperator> ")
                         .replaceAll("//param1//", " <" + subqueryParam[1] + "> ")
                         .replaceAll("//param2//", " <" + subqueryParam[2] + "> ")
                         .replaceAll("//theobject//", " " + theobject + " ");
                 query += "}\n";
                 query += "WHERE { \n";
                 query += this.getQueries().get("body02b.sparql");
-                query += this.getQueries().get("body02c.sparql").replaceAll("//operation//", "<" + subqueryParam[2] + ">")
-                        .replaceAll("//taskrequest//", " <" + subqueryParam[3] + "> ");
+                query += this.getQueries().get("body02c.sparql").replaceAll("//operation//", "<" + subqueryParam[2] + ">");
+                       // .replaceAll("//taskrequest//", " <" + subqueryParam[3] + "> ");
 
                                      
                 query+=querytail;           
@@ -1851,9 +1854,10 @@ public class Profonto extends OntologyCore
                       }
                   }
                 query += "}";
-                 //System.out.println(query);            
+                 System.out.println(query);            
                 res = performQuery(ontology, query);
                 //res.axioms().forEach(System.out::println);    
+                
           if (res.axioms().count() == 0)
           {
             return new ByteArrayOutputStream[]{null,null}; //all  values null
