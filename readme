@@ -171,8 +171,30 @@ Instructions for developers:
     
     Write console.run() to run the console. See the file target/rasb-light-agent-beta.py for an example.
      
-<------------------------------------------------------------ Stay tuned for updates ---------------------------------------------------------->
-   
-   
 
+   
+USING OASIS - Ontology Smart Contract Utility.
+   
+   OSCUtility allows to easily access the functions of the Ethereum smart contract that manages the ontological smart contract provided by OASIS. The smart contract is compliant to the 
+   non-fungible token standard ERC721 and accessible at the address: 0x36194ab80f7649572cab9ec524950df32f638b08. 
+   
+   1) All the Smart Contract Utility functions are located in the class OSCUtility.java.
+   2) Instantiate OSCUtility with the following parameters:
+       - The address of the IPFS node.
+       - The address of the ethereum node.
+       - The private key of the wallet used to make transactions.
+   2) Call the function load of the OSCUtility instance with "0x36194ab80f7649572cab9ec524950df32f638b08" as parameter.
+   3) To publish an ontology call the function mint with the following parameters:
+       - The string representing the content of the ontology.
+       - The string representing the content of the query.
+       - The Token ID of the previous version of the ontology as BigInteger. If there is no previous version, use the BigInteger 0.
+      You will receive the hash of the transaction. Wait for it to be completed.
+   4) Use the function getTokenInfo to retrieve the IPFS url of the ontology and of the query. Use as parameter the BigInteger representing the token ID.
+   5) Use the function burn to destroy the token, using as parameter the token ID to be destroyed.
+   6) Use the function transferToken to transfer a token to another wallet. Use the following parameters:
+        -The wallet address of the current owner.
+        -The wallet address of the destination wallet.
+        -The ID of the token to be transferred as BigInteger.
+        
+<------------------------------------------------------------ Stay tuned for updates ---------------------------------------------------------->
 
