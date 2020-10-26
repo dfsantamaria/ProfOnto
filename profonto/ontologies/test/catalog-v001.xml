@@ -2,11 +2,11 @@
 <catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
     <uri id="Imports Wizard Entry" name="http://www.dmi.unict.it/oasis.owl" uri="file:/D:/danie/OneDrive/Documenti/NetBeansProjects/ProfOnto/profonto/ontologies/main/oasis.owl"/>
     <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
-        <uri id="Automatically generated entry, Timestamp=1603727960349" name="http://www.dmi.unict.it/alan-config.owl#" uri="alan-config.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1603727960349" name="http://www.dmi.unict.it/homeassistant.owl" uri="homeassistant.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1603727960349" name="http://www.dmi.unict.it/light-check-install-request.owl" uri="light-check-install-request.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1603727960349" name="http://www.dmi.unict.it/lightagent-template.owl" uri="lightagent-from-template.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1603727960349" name="http://www.dmi.unict.it/lightagent.owl" uri="rasb-lightagent.owl"/>
-        <uri id="Automatically generated entry, Timestamp=1603727960349" name="http://www.dmi.unict.it/ontoas/alan.owl" uri="alan.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1603732371997" name="http://www.dmi.unict.it/alan-config.owl#" uri="alan-config.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1603732371997" name="http://www.dmi.unict.it/homeassistant.owl" uri="homeassistant.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1603732371997" name="http://www.dmi.unict.it/light-check-install-request.owl" uri="light-check-install-request.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1603732371997" name="http://www.dmi.unict.it/lightagent-template.owl" uri="lightagent-from-template.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1603732371997" name="http://www.dmi.unict.it/lightagent.owl" uri="rasb-lightagent.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1603732371997" name="http://www.dmi.unict.it/ontoas/alan.owl" uri="alan.owl"/>
     </group>
 </catalog>

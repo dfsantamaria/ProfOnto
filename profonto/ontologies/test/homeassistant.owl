@@ -83,7 +83,6 @@
     <!-- http://www.dmi.unict.it/homeassistant.owl#homeassistant -->
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#homeassistant">
-        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#Agent"/>
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#Device"/>
         <oasis:adoptsTemplate rdf:resource="http://www.dmi.unict.it/homeassistant.owl#homeassistanttemplate"/>
         <oasis:hasConfiguration rdf:resource="http://www.dmi.unict.it/homeassistant.owl#homeassistantconfiguration"/>
