@@ -211,6 +211,7 @@ class Agent(Thread):
 
         tosend = Utils.libbug(Utils, reqGraph, iri)  # transmits config solving the rdflib bug of xml:base
         received = Utils.transmit(Utils, tosend.encode(), True, self.hubInfo[0], self.hubInfo[1])
+
         if received == None:
             return 0
         g = rdflib.Graph()

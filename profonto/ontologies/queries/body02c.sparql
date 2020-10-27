@@ -9,8 +9,6 @@
      ?locoperation prof:refersAsNewTo //operation// .
   }
 
-
-
 {
  
  ?task prof:hasTaskObject ?locdevice_object .
@@ -36,9 +34,15 @@ UNION
   UNION
   {
     ?locobjecttemp prof:refersExactlyTo ?objecttemp;
-  }  
+  } 
+  OPTIONAL
+  { 
   ?selected_device prof:settles ?device_object . 
+  }
   ?objecttemp prof:hasType ?requesttype .
+  
 }
-
+OPTIONAL
+{
 ?configuration prof:setsUp ?setted .
+}

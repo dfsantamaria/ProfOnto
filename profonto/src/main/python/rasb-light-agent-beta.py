@@ -36,8 +36,8 @@ def setTestPath():
 
 def main():
     setTestPath()
-    agent=Agent(LightAgentServerManager(), "ontologies/test/rasb/rasb-lightagent.owl",
-          {"ontologies/test/rasb/lightagent-from-template.owl"},
+    agent=Agent(LightAgentServerManager(), "ontologies/test/rasb-lightagent.owl",
+          {"ontologies/test/lightagent-from-template.owl"},
           "http://www.dmi.unict.it/lightagent.owl", "http://www.dmi.unict.it/lightagent-template.owl")
     console=Console(agent, [StartCommand(), StopCommand(), ExitCommand(), StatusCommand(), SetHubCommand(), InstallCommand(), CheckInstallCommand(), UninstallCommand(), SetDeviceCommand() ])
     console.start()

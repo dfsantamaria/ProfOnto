@@ -20,7 +20,9 @@ import java.sql.Timestamp;
 import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.stream.Stream;
 import org.apache.commons.io.FileUtils;
+import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
@@ -178,27 +180,27 @@ public class mainAutoinstall
 //         res.forEach(System.out::println);        
 //        
 //         System.out.println();
-//         System.out.println("Retrieve data:");
-//         res=ontocore.retrieveBeliefAssertions("http://www.dmi.unict.it/light-installation-request.owl#light-installation-req-task");
-//                                    
+ //        System.out.println("Retrieve data:");
+ //        Stream<OWLAxiom> res=ontocore.retrieveBeliefAssertions("http://www.dmi.unict.it/light-installation-request.owl#light-installation-req-task");
+                                    
 //         res.forEach(System.out::println);
 //           }
 //         else System.out.println("Request unsatisfiable");              
        
           
        
-//       System.out.println("Add user request");
-//       ontocore.parseRequest(readData("ontologies/test/rasb-user/alan.owl"));
-//       ByteArrayInputStream request=readData("ontologies/test/rasb-user/add-user-request.owl");         
-//       s =  toStringOntology(ontocore.parseRequest(request))[0];
-//       System.out.println("Request of device: \n"+s);
-//       s=null;
-//       
-//       System.out.println("Add user configuration request");
-//       request=readData("ontologies/test/add-user-configuration-request.owl");         
-//       s= toStringOntology(ontocore.parseRequest(request))[0];       
-//       System.out.println("Request of device: \n"+s);
-//       s=null;
+       System.out.println("Add user request");
+       ontocore.parseRequest(readData("ontologies/test/alan.owl"));
+       ByteArrayInputStream request=readData("ontologies/test/add-user-request.owl");         
+       s =  toStringOntology(ontocore.parseRequest(request))[0];
+       System.out.println("Request of device: \n"+s);
+       s=null;
+       
+       System.out.println("Add user configuration request");
+       request=readData("ontologies/test/add-user-configuration-request.owl");         
+       s= toStringOntology(ontocore.parseRequest(request))[0];       
+       System.out.println("Request of device: \n"+s);
+       s=null;
 //                    
 //       
 //       System.out.println("Remove user configuration request");

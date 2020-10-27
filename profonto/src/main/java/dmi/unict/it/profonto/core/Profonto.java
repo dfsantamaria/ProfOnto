@@ -1677,7 +1677,7 @@ public class Profonto extends OntologyCore
                     qs.getResource("task").getURI(),
                     qs.getResource("operation").getURI(),
                     qs.getResource("device_object").getURI(),
-                    null, //qs.getResource("obtype").getURI(),
+                    null, qs.getResource("obtype").getURI(),
                     //qs.getResource("hasTask").getURI(),  
                     null,
                     null,
@@ -1834,7 +1834,8 @@ public class Profonto extends OntologyCore
                 query += "}\n";
                 query += "WHERE { \n";
                 query += this.getQueries().get("body02b.sparql");
-                query += this.getQueries().get("body02c.sparql").replaceAll("//operation//", "<" + subqueryParam[2] + ">");
+                query += this.getQueries().get("body02c.sparql").replaceAll("//operation//", "<" + subqueryParam[2] + ">")
+                                                                .replaceAll("//requesttype//", "<"+subqueryParam[5]+">");
                        // .replaceAll("//taskrequest//", " <" + subqueryParam[3] + "> ");
 
                                      

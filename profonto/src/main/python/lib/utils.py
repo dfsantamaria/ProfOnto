@@ -84,23 +84,33 @@ class Utils():
         reqGraph.add((URIRef(iriOasis + "#consistsOfTaskDescription"), RDF.type, Utils.owlobj))
         reqGraph.add((goal, URIRef(iriOasis + "#consistsOfTaskDescription"), task))  # has goal
 
-        reqGraph.add((object, RDF.type, URIRef(iriOasis + "#TaskObject")))
+        taskObject = URIRef(iri + "#taskObject")  # the taskobject
+        reqGraph.add((taskObject, RDF.type, URIRef(iriOasis + "#TaskObject")))
         reqGraph.add((URIRef(iriOasis + "#hasTaskObject"), RDF.type, Utils.owlobj))
-        reqGraph.add((task, URIRef(iriOasis + "#hasTaskObject"), object))  # task object
 
+        reqGraph.add((task, URIRef(iriOasis + "#hasTaskObject"), taskObject))  # task object
+        reqGraph.add((taskObject, URIRef(iriOasis + "#refersExactlyTo"), object))  # task object
+
+        taskOperator = URIRef(iri + "#taskOperator")  # the taskobject
+        reqGraph.add((taskObject, RDF.type, URIRef(iriOasis + "#TaskOperator")))
         reqGraph.add((URIRef(iriOasis + "#hasTaskOperator"), RDF.type, Utils.owlobj))
         reqGraph.add((task, URIRef(iriOasis + "#hasTaskOperator"),
-             operator))  # task operator
+             taskOperator))  # task operator
+        reqGraph.add((taskOperator, URIRef(iriOasis + "#refersExactlyTo"), operator))  # task object
 
         if parameter is not None:
-           reqGraph.add((parameter, RDF.type, URIRef(iriOasis + "#TaskActualInputParameter")))
+           taskParameter = URIRef(iri + "#taskInputParameter")  # the taskobject
+           reqGraph.add((taskParameter, RDF.type, URIRef(iriOasis + "#TaskActualInputParameter")))
            reqGraph.add((URIRef(iriOasis + "#hasTaskActualInputParameter"), RDF.type, Utils.owlobj))
-           reqGraph.add((task, URIRef(iriOasis + "#hasTaskActualInputParameter"), parameter))  # task parameter
-
+           reqGraph.add((task, URIRef(iriOasis + "#hasTaskActualInputParameter"), taskParameter))  # task parameter
+           reqGraph.add((taskParameter, URIRef(iriOasis + "#refersExactlyTo"), parameter))
 
         if argument is not None:
+            opArgument = URIRef(iri + "#taskOperatorArgument")  # the taskobject
+            reqGraph.add((opArgument, RDF.type, URIRef(iriOasis + "#TaskOperatorArgument")))
             reqGraph.add((URIRef(iriOasis + "#hasOperatorArgument"), RDF.type, Utils.owlobj))
-            reqGraph.add((task, URIRef(iriOasis + "#hasOperatorArgument"), argument))  # argument
+            reqGraph.add((task, URIRef(iriOasis + "#hasOperatorArgument"), opArgument))  # argument
+            reqGraph.add((opArgument, URIRef(iriOasis + "#refersExactlyTo"), argument))
 
         return
 

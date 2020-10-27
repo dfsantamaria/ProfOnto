@@ -197,17 +197,22 @@ class ProfOnto (Thread):
         #for s,p,o in graph.triples( (None,None,None) ):
             #print(s,p,o)
         toreturn = Graph()
-        taskObject = next(graph.objects(execution, URIRef( self.oasis + "hasTaskObject")))
-        taskOperator = next(graph.objects(execution, URIRef( self.oasis + "hasTaskOperator")))
+        taskOb = next(graph.objects(execution, URIRef( self.oasis + "hasTaskObject")))
+        taskOp = next(graph.objects(execution, URIRef( self.oasis + "hasTaskOperator")))
+        taskObject = next(graph.objects(taskOb, URIRef(self.oasis + "refersExactlyTo")))
+        taskOperator = next(graph.objects(taskOp, URIRef(self.oasis + "refersExaclyTo")))
+
         performer = next(graph.subjects(URIRef( self.oasis + "performs"), execution))
         devip=next(graph.objects(subject=None, predicate=URIRef( self.oasis + "hasIPAddress")))
         devport=next(graph.objects(subject=None, predicate=URIRef( self.oasis + "hasPortNumber")))
         value=100
-        for s, o in graph.subject_objects(URIRef(self.oasis + "hasTaskActualInputParameter")):
-            toreturn.add((s, URIRef(self.oasis + "hasTaskActualInputParameter"), o))
-            for t in graph.objects(o, URIRef(self.oasis + "hasDataValue")):
-                toreturn.add((o,URIRef(self.oasis + "hasDataValue"),t))
-                value=t
+        for s, t in graph.subject_objects(URIRef(self.oasis + "hasTaskActualInputParameter")):
+            o=next(graph.objects(t, URIRef(self.oasis + "refersExaclyTo")))
+            toreturn.add((s, URIRef(self.oasis + "hasTaskActualInputParameter"), t))
+            toreturn.add((t, URIRef(self.oasis + "refersExacltyTo"), o))
+            for v in graph.objects(o, URIRef(self.oasis + "hasDataValue")):
+                toreturn.add((o,URIRef(self.oasis + "hasDataValue"),v))
+                value=v
                 break
         print("To engage:", performer, taskObject, value, taskOperator, devip, devport)
 
@@ -223,8 +228,10 @@ class ProfOnto (Thread):
 
     # Actions that the assistant performs
     def profhome_decide(self, graph, execution, addr, sock, server_socket):
-        requester = next(graph.objects(execution, URIRef( self.oasis + "hasTaskObject")))
-        for actions in graph.objects(execution, URIRef( self.oasis + "hasTaskOperator")):
+        req = next(graph.objects(execution, URIRef( self.oasis + "hasTaskObject")))
+        requester = next(graph.objects(req, URIRef( self.oasis + "refersExactlyTo")))
+        operator=next(graph.objects(execution, URIRef( self.oasis + "hasTaskOperator")))
+        for actions in graph.objects(operator, URIRef( self.oasis + "refersExactlyTo")):
             res=0
             if actions == URIRef(self.oasisabox + "install"):
                 file =  self.getOntologyFile(graph, execution)
@@ -354,7 +361,8 @@ class ProfOnto (Thread):
                         res =  self.transmitExecutionStatus(execution, URIRef(self.oasisabox + "failed_status"), addr, sock,
                                                   server_socket)
             elif actions == URIRef(self.oasisabox + "check"):
-                for argument in graph.objects(execution, URIRef(self.oasis + "hasOperatorArgument")):
+                for arg in graph.objects(execution, URIRef(self.oasis + "hasOperatorArgument")):
+                    argument = next(graph.objects(arg, URIRef(self.oasis + "refersExactlyTo")))
                     if argument == URIRef(self.oasisabox + "installation"):
                         print("Checking for the presence of ", requester)
                         isPresent= self.profonto.checkDevice(requester)

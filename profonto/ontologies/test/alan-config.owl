@@ -38,7 +38,40 @@
         <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#lightagent"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#user_cofiguration_type"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#user_configuration_type"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty abbreviatedIRI="oasis:hasType"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty abbreviatedIRI="oasis:setsUp"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty abbreviatedIRI="oasis:isProjectionOf"/>
+    </Declaration>
+    <Declaration>
+        <Class abbreviatedIRI="oasis:PhysicalSpace"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty abbreviatedIRI="oasis:hasSpaceSpan"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty abbreviatedIRI="oasis:hasConfigurationType"/>
+    </Declaration>
+    <Declaration>
+        <Class abbreviatedIRI="oasis:Configuration"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty abbreviatedIRI="oasis:hasConfiguration"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty abbreviatedIRI="oasis:configurationProvidedBy"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual abbreviatedIRI="oasis:LightObjectType"/>
+    </Declaration>
+    <Declaration>
+        <NamedIndividual abbreviatedIRI="oasis:kitchen"/>
     </Declaration>
     <ClassAssertion>
         <Class abbreviatedIRI="oasis:Configuration"/>
@@ -60,7 +93,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty abbreviatedIRI="oasis:hasConfigurationType"/>
         <NamedIndividual IRI="alan-device-light1-config"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#user_cofiguration_type"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#user_configuration_type"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty abbreviatedIRI="oasis:setsUp"/>

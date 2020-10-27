@@ -222,44 +222,25 @@ public class mainTest
          String s=toStringOntology(ontocore.parseRequest(readData("ontologies/test/light-update-request.owl")))[0];
         System.out.println("Request of device:\n" + s);
         
- //       res=ontocore.retrieveBeliefAssertions("http://www.dmi.unict.it/interpretation-request.owl#user-utterance-1");
-//         
-//       if(res!=null)
-//         {
-//         res.forEach(System.out::println);
-//           }
-//         else System.out.println("Request unsatisfiable");              
+        res=ontocore.retrieveBeliefAssertions("http://www.dmi.unict.it/interpretation-request.owl#user-utterance-1");
+         
+       if(res!=null)
+         {
+         res.forEach(System.out::println);
+          }
+        else System.out.println("Request unsatisfiable");              
 //       
 //       
-//        try
-//        {
-//            ontocore.emptyRequestOntology();
-//         }
-//        catch (OWLOntologyCreationException | OWLOntologyStorageException | IOException ex)
-//        {
-//            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        try
-//          {
-//            ontocore.removePermanentDevice(id);
-//
-//          }
-//        catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex)
-//          {
-//            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
-//          }
-             
-            
-            
-//        try
-//          {              
-//            ontocore.removePermanentDevice(id);
-//
-//          } 
-//        catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex)
-//          {
-//            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
-//          }
+        try
+        {
+            ontocore.emptyRequestOntology();
+         }
+        catch (OWLOntologyCreationException | OWLOntologyStorageException | IOException ex)
+        {
+            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        ontocore.removePermanentDevice(id);//        try
+
        
           
         
