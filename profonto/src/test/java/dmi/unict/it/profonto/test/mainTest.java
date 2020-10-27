@@ -218,7 +218,11 @@ public class mainTest
          out= toStringOntology(ontocore.parseRequest(request))[0];
 //       
         System.out.println("Retrieve data: \n"+ out);
-        res=ontocore.retrieveBeliefAssertions("http://www.dmi.unict.it/interpretation-request.owl#user-utterance-1");
+        
+         String s=toStringOntology(ontocore.parseRequest(readData("ontologies/test/light-update-request.owl")))[0];
+        System.out.println("Request of device:\n" + s);
+        
+ //       res=ontocore.retrieveBeliefAssertions("http://www.dmi.unict.it/interpretation-request.owl#user-utterance-1");
 //         
 //       if(res!=null)
 //         {
