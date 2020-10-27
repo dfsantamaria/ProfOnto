@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<catalog prefer="public" xmlns="urn:oasis:names:tc:entity:xmlns:xml:catalog">
+    <group id="Folder Repository, directory=, recursive=true, Auto-Update=true, version=2" prefer="public" xml:base="">
+        <uri id="Automatically generated entry, Timestamp=1603786892103" name="http://www.dmi.unict.it/oasis-abox.owl" uri="oasis-abox.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1603786892103" name="http://www.dmi.unict.it/oasis.owl" uri="oasis.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1603786892103" name="http://www.dmi.unict.it/prof-onto-behavior.owl" uri="behavior.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1603786892103" name="http://www.dmi.unict.it/prof-onto-belief.owl" uri="belief.owl"/>
+        <uri id="Automatically generated entry, Timestamp=1603786892103" name="http://www.dmi.unict.it/prof-onto-request.owl" uri="request.owl"/>
+    </group>
+</catalog>

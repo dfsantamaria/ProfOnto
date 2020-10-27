@@ -20,6 +20,12 @@
         <Class abbreviatedIRI="oasis:Component_Configuration"/>
     </Declaration>
     <Declaration>
+        <Class abbreviatedIRI="oasis:EnviromentComponent"/>
+    </Declaration>
+    <Declaration>
+        <ObjectProperty abbreviatedIRI="oasis:isCopyOf"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="alan-device-light1-config"/>
     </Declaration>
     <Declaration>
@@ -29,13 +35,13 @@
         <NamedIndividual IRI="main_kitchen_light"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#user_cofiguration_type"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#lightagent"/>
     </Declaration>
     <Declaration>
-        <Class abbreviatedIRI="oasis:EnviromentComponent"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#user_cofiguration_type"/>
     </Declaration>
     <ClassAssertion>
-        <Class abbreviatedIRI="oasis:Component_Configuration"/>
+        <Class abbreviatedIRI="oasis:Configuration"/>
         <NamedIndividual IRI="alan-device-light1-config"/>
     </ClassAssertion>
     <ClassAssertion>
@@ -77,18 +83,13 @@
         <NamedIndividual abbreviatedIRI="oasis:LightObjectType"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty abbreviatedIRI="oasis:isCopyOf"/>
+        <ObjectProperty abbreviatedIRI="oasis:isProjectionOf"/>
         <NamedIndividual IRI="main_kitchen_light"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-light1"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty abbreviatedIRI="oasis:settles"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-light1"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#lightagent"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty abbreviatedIRI="oasis:hasConfiguration"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device-light1"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#lightagent"/>
         <NamedIndividual IRI="alan-device-light1-config"/>
     </ObjectPropertyAssertion>
 </Ontology>

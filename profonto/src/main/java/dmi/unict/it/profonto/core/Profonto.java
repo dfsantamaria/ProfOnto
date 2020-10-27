@@ -1694,6 +1694,8 @@ public class Profonto extends OntologyCore
                     theobject = " ?device_object ";
                   }
                  
+              //  System.out.println(subqueryParam[3]+" ------ "+theobject);
+                 
                 String tasExecInd= subqueryParam[1] + "_execution";
                 String taskExec = "<" + subqueryParam[1] + "_execution>";
                  
@@ -1741,7 +1743,8 @@ public class Profonto extends OntologyCore
                   subqueryParam[6]=r.getURI();                  
                   querytail+="?task prof:hasOperatorArgument ?oparg .\n";
                   querytail+="?oparg prof:refersExactlyTo <"+subqueryParam[6]+"> .\n";
-                  querybody += taskExec + " prof:hasOperatorArgument " + " <" + subqueryParam[6] + "> .";
+                  querybody += taskExec + " prof:hasOperatorArgument " + " <" + subqueryParam[3] + "OperatorArgument> .";
+                  querybody += " <" + subqueryParam[3] + "OperatorArgument> "+ " prof:refersExactlyTo <" + subqueryParam[6] + "> .";
                 
                 } 
                                                                            

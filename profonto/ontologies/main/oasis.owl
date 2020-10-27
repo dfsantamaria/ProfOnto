@@ -1684,6 +1684,10 @@
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#TaskInputParameterTemplate"/>
+        <Class IRI="#TaskFormalInputParameter"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TaskInputParameterTemplate"/>
         <Class IRI="#TaskParameterTemplate"/>
     </SubClassOf>
     <SubClassOf>
@@ -1709,6 +1713,10 @@
     <SubClassOf>
         <Class IRI="#TaskOutputParameter"/>
         <Class IRI="#TaskParameter"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#TaskOutputParameterTemplate"/>
+        <Class IRI="#TaskFormalOutputParameter"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#TaskOutputParameterTemplate"/>

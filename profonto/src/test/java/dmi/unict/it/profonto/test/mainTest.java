@@ -190,35 +190,35 @@ public class mainTest
 ////            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
 ////          }
 //
-          request=readData("ontologies/test/light-check-install-request.owl");   
+         request=readData("ontologies/test/light-check-install-request.owl");   
          System.out.println("Check install request:");
          String out=toStringOntology(ontocore.parseRequest(request))[0];
          System.out.println(out);
 //         
          System.out.println(ontocore.checkDeviceInstallation("http://www.dmi.unict.it/lightagent.owl#lightagent"));
 //         
-//         request=readData("ontologies/test/user-request-2.owl");   
-//         System.out.println("Parse user request:");
-//         out=toStringOntology(ontocore.parseRequest(request))[0];          
-//         System.out.println(out); 
+         request=readData("ontologies/test/user-request.owl");   
+         System.out.println("Parse user request:");
+         out=toStringOntology(ontocore.parseRequest(request))[0];          
+         System.out.println(out); 
 //
-//        try
-//          {            
-//            ontocore.removePermanentUser(userId);
-//            ontocore.removePermanentDevice(id);
-//           // ontocore.refreshDataBehavior();     
-//           
-//          }
-//        catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex)
-//          {
-//            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
-//          }
+         try
+          {            
+            ontocore.removePermanentUser(userId);
+            ontocore.removePermanentDevice(id);
+           // ontocore.refreshDataBehavior();     
+           
+          }
+        catch (OWLOntologyStorageException | OWLOntologyCreationException | IOException ex)
+          {
+            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
+          }
 //          
-//       request=readData("ontologies/test/interpretation-request.owl");
-//       out= toStringOntology(ontocore.parseRequest(request))[0];
+         request=readData("ontologies/test/interpretation-request.owl");
+         out= toStringOntology(ontocore.parseRequest(request))[0];
 //       
-//       System.out.println("Retrieve data: \n"+ out);
-//       res=ontocore.retrieveBeliefAssertions("http://www.dmi.unict.it/interpretation-request.owl#user-utterance-1");
+        System.out.println("Retrieve data: \n"+ out);
+        res=ontocore.retrieveBeliefAssertions("http://www.dmi.unict.it/interpretation-request.owl#user-utterance-1");
 //         
 //       if(res!=null)
 //         {

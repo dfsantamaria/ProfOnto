@@ -24,6 +24,7 @@ WHERE
  }
 
 ?device_object prof:hasType ?obtype .
+
 OPTIONAL { ?task prof:hasTaskActualInputParameter ?loctparameter . 
            {
             ?loctparameter prof:refersExactlyTo ?tparameter .

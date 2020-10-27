@@ -12,13 +12,8 @@
 
 
 {
- {
+ 
  ?task prof:hasTaskObject ?locdevice_object .
- }
- UNION
-{
- ?task prof:hasTaskObjectTemplate ?locdevice_object .
-}
  {
   ?locdevice_object prof:refersExactlyTo ?device_object .
  }
@@ -34,10 +29,16 @@
 }
 UNION
 {
-  ?task prof:hasTaskObjectTemplate ?objecttemp .
-  ?device_object prof:adoptsComponentTemplate ?objecttemp . 
+  ?task prof:hasTaskObjectTemplate ?locobjecttemp .
+  {
+    ?locobjecttemp prof:refersAsNewTo ?objecttemp;
+  }
+  UNION
+  {
+    ?locobjecttemp prof:refersExactlyTo ?objecttemp;
+  }  
   ?selected_device prof:settles ?device_object . 
   ?objecttemp prof:hasType ?requesttype .
 }
 
-
+?configuration prof:setsUp ?setted .

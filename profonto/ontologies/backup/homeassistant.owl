@@ -22,10 +22,12 @@
     ///////////////////////////////////////////////////////////////////////////////////////
      -->
 
+
     
 
 
     <!-- http://www.dmi.unict.it/homeassistant.owl#agent_device_type -->
+
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#agent_device_type">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#Type"/>
@@ -34,6 +36,7 @@
 
 
     <!-- http://www.dmi.unict.it/homeassistant.owl#checkAgentInstallationBehaviorTemplate -->
+
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#checkAgentInstallationBehaviorTemplate">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#BehaviorTemplate"/>
@@ -44,6 +47,7 @@
 
     <!-- http://www.dmi.unict.it/homeassistant.owl#checkAgentInstallationGoalDescription -->
 
+
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#checkAgentInstallationGoalDescription">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#GoalDescription"/>
         <oasis:consistsOfTaskDescription rdf:resource="http://www.dmi.unict.it/homeassistant.owl#checkAgentInstallationTaskDescription"/>
@@ -53,6 +57,7 @@
 
     <!-- http://www.dmi.unict.it/homeassistant.owl#checkAgentInstallationOperatorArgument -->
 
+
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#checkAgentInstallationOperatorArgument">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#OperatorArgument"/>
         <oasis:refersExactlyTo rdf:resource="http://www.dmi.unict.it/oasis-abox.owl#installation"/>
@@ -61,6 +66,7 @@
 
 
     <!-- http://www.dmi.unict.it/homeassistant.owl#checkAgentInstallationTaskDescription -->
+
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#checkAgentInstallationTaskDescription">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskDescription"/>
@@ -73,6 +79,7 @@
 
     <!-- http://www.dmi.unict.it/homeassistant.owl#checkAgentInstallationTaskOperator -->
 
+
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#checkAgentInstallationTaskOperator">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
         <oasis:refersExactlyTo rdf:resource="http://www.dmi.unict.it/oasis-abox.owl#check"/>
@@ -81,6 +88,7 @@
 
 
     <!-- http://www.dmi.unict.it/homeassistant.owl#homeassistant -->
+
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#homeassistant">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#Device"/>
@@ -92,6 +100,7 @@
 
     <!-- http://www.dmi.unict.it/homeassistant.owl#homeassistantconfiguration -->
 
+
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#homeassistantconfiguration">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#AgentConfiguration"/>
         <oasis:hasConnection rdf:resource="http://www.dmi.unict.it/homeassistant.owl#homeassistantconnection"/>
@@ -101,15 +110,17 @@
 
     <!-- http://www.dmi.unict.it/homeassistant.owl#homeassistantconnection -->
 
+
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#homeassistantconnection">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#Connection"/>
-        <oasis:hasIPAddress>localhost</oasis:hasIPAddress>
-        <oasis:hasPortNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#int">8000</oasis:hasPortNumber>
+        <oasis:hasIPAddress>192.168.0.1</oasis:hasIPAddress>
+        <oasis:hasPortNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#int">8087</oasis:hasPortNumber>
     </owl:NamedIndividual>
     
 
 
     <!-- http://www.dmi.unict.it/homeassistant.owl#homeassistanttemplate -->
+
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#homeassistanttemplate">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#AgentBehaviorTemplate"/>
@@ -122,6 +133,7 @@
 
     <!-- http://www.dmi.unict.it/homeassistant.owl#installAgentBehaviorTemplate -->
 
+
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#installAgentBehaviorTemplate">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#BehaviorTemplate"/>
         <oasis:consistsOfGoalDescription rdf:resource="http://www.dmi.unict.it/homeassistant.owl#installAgentGoalDescription"/>
@@ -130,6 +142,7 @@
 
 
     <!-- http://www.dmi.unict.it/homeassistant.owl#installAgentGoalDescription -->
+
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#installAgentGoalDescription">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#GoalDescription"/>
@@ -140,6 +153,7 @@
 
     <!-- http://www.dmi.unict.it/homeassistant.owl#installAgentOntologyDescriptionObject -->
 
+
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#installAgentOntologyDescriptionObject">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#OntologyDescriptionObject"/>
         <oasis:descriptionProvidedByURL></oasis:descriptionProvidedByURL>
@@ -148,6 +162,7 @@
 
 
     <!-- http://www.dmi.unict.it/homeassistant.owl#installAgentTaskDescription -->
+
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#installAgentTaskDescription">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskDescription"/>
@@ -160,6 +175,7 @@
 
     <!-- http://www.dmi.unict.it/homeassistant.owl#installAgentTaskInputParameter -->
 
+
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#installAgentTaskInputParameter">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskInputParameterTemplate"/>
         <oasis:refersAsNewTo rdf:resource="http://www.dmi.unict.it/homeassistant.owl#installAgentOntologyDescriptionObject"/>
@@ -169,14 +185,16 @@
 
     <!-- http://www.dmi.unict.it/homeassistant.owl#installAgentTaskObject -->
 
+
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#installAgentTaskObject">
-        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#Device"/>
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#Component"/>
         <oasis:hasType rdf:resource="http://www.dmi.unict.it/homeassistant.owl#agent_device_type"/>
     </owl:NamedIndividual>
     
 
 
     <!-- http://www.dmi.unict.it/homeassistant.owl#installAgentTaskObjectTemplate -->
+
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#installAgentTaskObjectTemplate">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskObjectTemplate"/>
@@ -187,6 +205,7 @@
 
     <!-- http://www.dmi.unict.it/homeassistant.owl#installAgentTaskOperator -->
 
+
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#installAgentTaskOperator">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
         <oasis:refersExactlyTo rdf:resource="http://www.dmi.unict.it/oasis-abox.owl#install"/>
@@ -196,6 +215,7 @@
 
     <!-- http://www.dmi.unict.it/homeassistant.owl#updateAgentBehaviorTemplate -->
 
+
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#updateAgentBehaviorTemplate">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#Behavior"/>
         <oasis:consistsOfGoalDescription rdf:resource="http://www.dmi.unict.it/homeassistant.owl#updateAgentGoalDescription"/>
@@ -204,6 +224,7 @@
 
 
     <!-- http://www.dmi.unict.it/homeassistant.owl#updateAgentDescriptionObject -->
+
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#updateAgentDescriptionObject">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#OntologyDescriptionObject"/>
@@ -215,6 +236,7 @@
 
     <!-- http://www.dmi.unict.it/homeassistant.owl#updateAgentGoalDescription -->
 
+
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#updateAgentGoalDescription">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#GoalDescription"/>
         <oasis:consistsOfTaskDescription rdf:resource="http://www.dmi.unict.it/homeassistant.owl#updateAgentTaskDescription"/>
@@ -223,6 +245,7 @@
 
 
     <!-- http://www.dmi.unict.it/homeassistant.owl#updateAgentTaskDescription -->
+
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#updateAgentTaskDescription">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskDescription"/>
@@ -235,6 +258,7 @@
 
     <!-- http://www.dmi.unict.it/homeassistant.owl#updateAgentTaskInputParameterTemplate -->
 
+
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#updateAgentTaskInputParameterTemplate">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskInputParameterTemplate"/>
         <oasis:refersAsNewTo rdf:resource="http://www.dmi.unict.it/homeassistant.owl#updateAgentDescriptionObject"/>
@@ -243,6 +267,7 @@
 
 
     <!-- http://www.dmi.unict.it/homeassistant.owl#updateAgentTaskObjectTemplate -->
+
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#updateAgentTaskObjectTemplate">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskObject"/>
@@ -253,6 +278,7 @@
 
     <!-- http://www.dmi.unict.it/homeassistant.owl#updateAgentTaskOperator -->
 
+
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#updateAgentTaskOperator">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
         <oasis:refersExactlyTo rdf:resource="http://www.dmi.unict.it/oasis-abox.owl#update"/>
@@ -262,17 +288,20 @@
 
     <!-- http://www.dmi.unict.it/oasis-abox.owl#check -->
 
+
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/oasis-abox.owl#check"/>
     
 
 
     <!-- http://www.dmi.unict.it/oasis-abox.owl#device_type -->
 
+
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/oasis-abox.owl#device_type"/>
     
 
 
     <!-- http://www.dmi.unict.it/oasis-abox.owl#install -->
+
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/oasis-abox.owl#install">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#Action"/>
@@ -282,17 +311,20 @@
 
     <!-- http://www.dmi.unict.it/oasis-abox.owl#installation -->
 
+
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/oasis-abox.owl#installation"/>
     
 
 
     <!-- http://www.dmi.unict.it/oasis-abox.owl#ontology_description_object_type -->
 
+
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/oasis-abox.owl#ontology_description_object_type"/>
     
 
 
     <!-- http://www.dmi.unict.it/oasis-abox.owl#update -->
+
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/oasis-abox.owl#update">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#Action"/>
@@ -301,5 +333,6 @@
 
 
 
-<!-- Generated by the OWL API (version 4.5.9.2019-02-01T07:24:44Z) https://github.com/owlcs/owlapi -->
+<!-- Generated by the OWL API (version 5.1.10) https://github.com/owlcs/owlapi/ -->
+
 

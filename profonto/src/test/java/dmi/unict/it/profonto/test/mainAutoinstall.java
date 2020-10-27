@@ -159,16 +159,16 @@ public class mainAutoinstall
         ontocore.parseRequest( readData("ontologies/test/rasb-lightagent.owl")); 
         System.out.println("Adding light agent");
         ontocore.addDevice("http://www.dmi.unict.it/lightagent.owl");
-//       System.out.println("Update Request- Loading Data");
-//       ontocore.parseRequest(readData("ontologies/test/rasb-lightagent-toUpdateIntest.owl"));
+       System.out.println("Update Request- Loading Data");
+       ontocore.parseRequest(readData("ontologies/test/rasb-lightagent-toUpdateIntest.owl"));
 //        System.out.println("Update Request");
-//       String s=toStringOntology(ontocore.parseRequest(readData("ontologies/test/light-update-request.owl")))[0];
-//       System.out.println("Request of device:\n" + s);
-//       s=null;
-//       ontocore.modifyDevice("http://www.dmi.unict.it/lightagent.owl");
+        String s=toStringOntology(ontocore.parseRequest(readData("ontologies/test/light-update-request.owl")))[0];
+        System.out.println("Request of device:\n" + s);
+       s=null;
+       ontocore.modifyDevice("http://www.dmi.unict.it/lightagent.owl");
 //         
-//        System.out.println("Modify connection: "+ ontocore.modifyConnection("http://www.dmi.unict.it/profonto-home.owl",
-//                                  "192.168.0.1", "8087"));
+        System.out.println("Modify connection: "+ ontocore.modifyConnection("http://www.dmi.unict.it/homeassistant.owl",
+                                  "192.168.0.1", "8087"));
 //         
   //     InputStream request=readData("ontologies/test/rasb/test.owl");
  //      Stream<OWLAxiom> res= ontocore.parseRequest(request).axioms();
