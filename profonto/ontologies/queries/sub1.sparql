@@ -1,4 +1,4 @@
-SELECT ?task ?taskObject  ?referObj ?taskObElement ?taskObElementType ?taskOpElement ?taskOpArgElement ?referInp ?taskInpElement ?taskInpElementType ?referOut ?taskOutElement ?taskOutElementType
+SELECT ?task ?taskObject  ?referObj ?taskObElement ?obPropType ?taskObElementType ?taskOpElement ?taskOpArgElement ?referInp ?taskInpElement ?inpPropType ?taskInpElementType ?referOut ?taskOutElement ?outPropType ?taskOutElementType
 WHERE
 {
    ?goal prof:consistsOfTaskDescription ?task .
@@ -7,7 +7,8 @@ WHERE
    ?taskObject ?referObj ?taskObElement .
    OPTIONAL
    {
-     ?taskObElement prof:hasType ?taskObElementType.
+     ?taskObElement ?obPropType ?taskObElementType .
+     ?obPropType rdfs:subPropertyOf prof:hasType .
    }
    
 
@@ -28,7 +29,8 @@ WHERE
      FILTER (?referInp =  prof:refersExactlyTo || ?referInp =  prof:refersAsNewTo )
      OPTIONAL
      {
-       ?taskInpElement prof:hasType ?taskInpElementType.
+       ?taskInpElement ?inpPropType ?taskInpElementType.
+       ?inpPropType rdfs:subPropertyOf prof:hasType .
      }
    }
 
@@ -39,7 +41,8 @@ WHERE
      FILTER (?referOut =  prof:refersExactlyTo || ?referOut =  prof:refersAsNewTo )
      OPTIONAL
      {
-       ?taskIoutElement prof:hasType ?taskOutElementType.
+       ?taskIoutElement ?outPropType ?taskOutElementType.
+       ?outPropType rdfs:subPropertyOf prof:hasType .
      }
    }
 

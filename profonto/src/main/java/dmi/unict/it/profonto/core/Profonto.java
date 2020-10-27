@@ -1639,25 +1639,27 @@ public class Profonto extends OntologyCore
         Stream<OWLAxiom> axioms = Stream.of();
         ByteArrayOutputStream[] toreturn = new ByteArrayOutputStream[]{null,null};
         OWLOntology ontology;
-        ontology = this.checkSatelliteData(request);
+        ontology = this.checkSatelliteData(request);        
         if(ontology==null) //ontology already present in satellite data, otherwise add
         {
             return toreturn;
         }
-     //   Stream<OWLAxiom> copyOnto=ontology.axioms(); //copy of the request axioms
+       // Stream<OWLAxiom> copyOnto=ontology.axioms(); //copy of the request axioms
         try 
         {
-            syncReasoner(ontology, null);
+            ontology.addAxioms(this.getMainOntology().axioms());
+            syncReasoner(ontology, null);          
         } 
         catch (OWLOntologyStorageException ex)
         {
             return toreturn;
-        }
+        }       
         String IRIrequest = ontology.getOntologyID().getOntologyIRI().get().toString();
         String prefix = getQueryPrefix(IRIrequest);
         query+=prefix;       
         //Analyzing request
-        String subquery = prefix + "\n" + this.getQueries().get("sub1.sparql");        
+        String subquery = prefix + "\n" + this.getQueries().get("sub1.sparql");      
+       // System.out.println(subquery);
         try 
         {
           QueryExecution execQ = this.createQuery(ontology, subquery);
