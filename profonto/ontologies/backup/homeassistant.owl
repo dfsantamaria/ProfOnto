@@ -277,8 +277,8 @@
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#homeassistantconnection">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#Connection"/>
-        <oasis:hasIPAddress>192.168.0.1</oasis:hasIPAddress>
-        <oasis:hasPortNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#int">8087</oasis:hasPortNumber>
+        <oasis:hasIPAddress>localhost</oasis:hasIPAddress>
+        <oasis:hasPortNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#int">8000</oasis:hasPortNumber>
     </owl:NamedIndividual>
     
 

@@ -967,10 +967,10 @@
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#Connection"/>
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#ConnectionThing"/>
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#DescriptionObject"/>
-        <oasis:hasConnectionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#int">8087</oasis:hasConnectionInfo>
-        <oasis:hasConnectionInfo>192.168.0.1</oasis:hasConnectionInfo>
-        <oasis:hasIPAddress>192.168.0.1</oasis:hasIPAddress>
-        <oasis:hasPortNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#int">8087</oasis:hasPortNumber>
+        <oasis:hasConnectionInfo rdf:datatype="http://www.w3.org/2001/XMLSchema#int">8000</oasis:hasConnectionInfo>
+        <oasis:hasConnectionInfo>localhost</oasis:hasConnectionInfo>
+        <oasis:hasIPAddress>localhost</oasis:hasIPAddress>
+        <oasis:hasPortNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#int">8000</oasis:hasPortNumber>
     </owl:Thing>
     
 

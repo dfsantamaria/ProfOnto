@@ -1,0 +1,47 @@
+SELECT ?task ?taskObject  ?referObj ?taskObElement ?taskObElementType ?taskOpElement ?taskOpArgElement ?referInp ?taskInpElement ?taskInpElementType ?referOut ?taskOutElement ?taskOutElementType
+WHERE
+{
+   ?goal prof:consistsOfTaskDescription ?task .
+
+   ?task prof:hasTaskObject ?taskObject .   
+   ?taskObject ?referObj ?taskObElement .
+   OPTIONAL
+   {
+     ?taskObElement prof:hasType ?taskObElementType.
+   }
+   
+
+   ?task prof:hasTaskOperator ?taskOperator .
+   ?taskOperator prof:refersExactlyTo ?taskOpElement .
+   FILTER (?referObj =  prof:refersExactlyTo || ?referObj =  prof:refersAsNewTo )
+
+   OPTIONAL
+   {
+     ?task prof:hasTaskOperatorArgument ?taskOperatorArgument .
+     ?taskOperatorArgument prof:refersExactlyTo ?taskOpArgElement .     
+   }
+   
+   OPTIONAL
+   {
+     ?task prof:hasTaskActualInputParameter ?taskInputParameter .
+     ?taskInputParameter ?referInp ?taskInpElement .
+     FILTER (?referInp =  prof:refersExactlyTo || ?referInp =  prof:refersAsNewTo )
+     OPTIONAL
+     {
+       ?taskInpElement prof:hasType ?taskInpElementType.
+     }
+   }
+
+   OPTIONAL
+   {
+     ?task prof:hasTaskActualOutputParameter ?taskOutputParameter .
+     ?taskOutputParameter ?referOut ?taskOutElement .
+     FILTER (?referOut =  prof:refersExactlyTo || ?referOut =  prof:refersAsNewTo )
+     OPTIONAL
+     {
+       ?taskIoutElement prof:hasType ?taskOutElementType.
+     }
+   }
+
+
+}

@@ -994,11 +994,28 @@ public class Profonto extends OntologyCore
             this.deleteSatelliteData(ontodevice);
             addImportToOntology(this.getDataBehaviorOntology(), ontodevice.getOntologyID().getOntologyIRI().get());            
             String deviceclass=this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#Device";
+            String adoptsTemplate=this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#adoptsTemplate";
+            String hasBehavior = this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#hasBehavior";
             ontodevice.logicalAxioms().filter(x->x.isOfType(AxiomType.CLASS_ASSERTION)).forEach(
               element -> {
                             OWLClassAssertionAxiom ax=((OWLClassAssertionAxiom) element);
                             if(ax.getClassExpression().asOWLClass().toStringID().equals(deviceclass))                              
-                                val[0]=getEntityName(ax.getIndividual().asOWLNamedIndividual().toStringID());                            
+                            {
+                              ontodevice.logicalAxioms().filter(y->y.isOfType(AxiomType.OBJECT_PROPERTY_ASSERTION)).forEach
+                              (
+                                      elementInt -> {
+                                          OWLObjectPropertyAssertionAxiom opaz=((OWLObjectPropertyAssertionAxiom) elementInt);
+                                          if(opaz.individualsInSignature().anyMatch(z->z.asOWLNamedIndividual().equals(ax.getIndividual())) )
+                                          {
+                                           if(opaz.objectPropertiesInSignature().anyMatch(k->k.asOWLObjectProperty().toStringID().equals(adoptsTemplate) 
+                                           || k.asOWLObjectProperty().toStringID().equals(hasBehavior) ) )
+                                           {
+                                             val[0]=getEntityName(ax.getIndividual().asOWLNamedIndividual().toStringID());
+                                           }
+                                          }
+                                      }
+                              );                            
+                            }                            
                          });  
             
             String filesource = this.getOntologiesDevicesPath() + File.separator + val[0] + ".owl";
@@ -1615,304 +1632,46 @@ public class Profonto extends OntologyCore
      */
     public ByteArrayOutputStream[] parseRequest(ByteArrayInputStream request)
       {
+        String query="";  
         OntologyModel res = null;
         ArrayList<String[]> depends=new ArrayList();
         ArrayList<String[]> configs=null;
         Stream<OWLAxiom> axioms = Stream.of();
         ByteArrayOutputStream[] toreturn = new ByteArrayOutputStream[]{null,null};
         OWLOntology ontology;
-        try
-          {
-             ontology = this.checkSatelliteData(request);
-             if(ontology==null)
-                return toreturn;                 
-            //prefix
-            String IRIrequest = ontology.getOntologyID().getOntologyIRI().get().toString();
-            String prefix = getQueryPrefix(IRIrequest);
-
-            //dependencies
-            depends= retrieveDependencies(ontology, prefix);
-            
-            Stream<OWLAxiom> copyOnto=ontology.axioms();
-            
-            //Filtering configuration            
-            String subquery = prefix + this.getQueries().get("body01a.sparql");
-            QueryExecution execQ = this.createQuery(ontology, subquery);
-            ResultSet setIRI = execQ.execSelect();          
-                                 
-            configs = new ArrayList();           
-            while (setIRI.hasNext())
-                 {   
-                   
-                   QuerySolution qs = setIRI.next();
-                   String[] entry=new String[3];
-                   entry[0]= qs.getResource("task").getURI();
-                   entry[1]= qs.getResource("prop").getURI();
-                   entry[2]= qs.getResource("thetype").getURI();     
-                   configs.add(entry);                   
-                 }
-              
-//            for(Pair<String,String> s : configs)
-//                  System.out.println(s.getKey()+" "+s.getValue());
-            //ontology.;
+        ontology = this.checkSatelliteData(request);
+        if(ontology==null) //ontology already present in satellite data, otherwise add
+        {
+            return toreturn;
+        }
+     //   Stream<OWLAxiom> copyOnto=ontology.axioms(); //copy of the request axioms
+        try 
+        {
             syncReasoner(ontology, null);
-            this.getDataRequestOntology().addAxioms(ontology.axioms());
-            ontology.addAxioms(this.getDataBehaviorOntology().axioms());
-
-            //String query = prefix; //here
-            //Subquery over request
-            subquery = prefix + this.getQueries().get("body02a.sparql");
-            execQ = this.createQuery(ontology, subquery);
-            setIRI = execQ.execSelect();
-            //iterate over the number of requests
-            while (setIRI.hasNext())
-              {                
-                String query = prefix;
-                String querytail="";
-                String querybody="";
-                QuerySolution qs = setIRI.next();
-                String[] subqueryParam =
-                  {
-                    qs.getResource("selected_device").getURI(),
-                    qs.getResource("task").getURI(),
-                    qs.getResource("operation").getURI(),
-                    qs.getResource("device_object").getURI(),
-                    null, qs.getResource("obtype").getURI(),
-                    //qs.getResource("hasTask").getURI(),  
-                    null,
-                    null,
-                    
-                    null, null, null //for output
-                  };                
-
-                
-                 String theobject = " <" + subqueryParam[3] + ">"; //edit this line
-                
-                 execQ = this.createQuery(ontology, prefix + this.getQueries().get("ask01a.sparql").replaceAll("//theobj//", theobject));
-                 if(execQ.execAsk())
-                  {
-                    theobject = " ?device_object ";
-                  }
-                 
-              //  System.out.println(subqueryParam[3]+" ------ "+theobject);
-                 
-                String tasExecInd= subqueryParam[1] + "_execution";
-                String taskExec = "<" + subqueryParam[1] + "_execution>";
-                 
-                Resource r = qs.getResource("tparameter"); //to do the same with output parameter
-                if (r != null)
-                  {
-                    subqueryParam[4] = r.getURI();                      
-                    axioms = retrieveAssertionsWithNewIndividual(subqueryParam[1],tasExecInd, 
-                                                                 retrieveAssertions(subqueryParam[4],ontology.axioms()));
-                    querybody += taskExec + " prof:hasTaskActualInputParameter " + " <" + subqueryParam[4] + "> .";
-                  }
-                r=qs.getResource("paramtype");
-                if(r!=null)
-                {
-                  subqueryParam[5]=r.getURI();
-                  querytail+=this.getQueries().get("body02e.sparql").replaceAll("//paramt//", " <"+ subqueryParam[5]+"> \n");
-                }
-               
-                         
-                r=qs.getResource("thecontent"); //case of belief with refersTo                
-                if(r!=null)
-                {
-                  String val=r.getURI();
-                  Stream<OWLAxiom> beliefax=this.retrieveRefersToAssertions(val, copyOnto);
-                  OWLOntology belief=null;
-                  try
-                  {
-                      Timestamp t= new Timestamp(System.currentTimeMillis());
-                      belief= this.getMainManager().createOntology(beliefax); 
-                  }
-                  catch (OWLOntologyAlreadyExistsException ex)
-                  {
-                      belief=this.getMainManager().getOntology(ex.getDocumentIRI());
-                  }
-                  toreturn[1]=new ByteArrayOutputStream();
-                  belief.saveOntology(toreturn[1]);
-                  this.getMainManager().removeOntology(belief);
-                  //toreturn[1]=belief;
-                  //this.getMainManager().removeOntology(belief);
-                }
-               
-                r=qs.getResource("argument"); //case of operator argument              
-                if(r!=null)
-                {
-                  subqueryParam[6]=r.getURI();                  
-                  querytail+="?task prof:hasOperatorArgument ?oparg .\n";
-                  querytail+="?oparg prof:refersExactlyTo <"+subqueryParam[6]+"> .\n";
-                  querybody += taskExec + " prof:hasOperatorArgument " + " <" + subqueryParam[3] + "OperatorArgument> .";
-                  querybody += " <" + subqueryParam[3] + "OperatorArgument> "+ " prof:refersExactlyTo <" + subqueryParam[6] + "> .";
-                
-                } 
-                                                                           
-                //?outparameter ?outparamtype ?outthecontent
-                r=qs.getResource("outparameter");            
-                if(r!=null)
-                {
-                  subqueryParam[7] = r.getURI();
-                  axioms = Stream.concat(retrieveAssertionsWithNewIndividual(subqueryParam[1],tasExecInd, 
-                                         retrieveAssertions(subqueryParam[7],ontology.axioms()))
-                                         , axioms);
-                  querybody += taskExec + " prof:hasTaskActualOutputParameter " + " <" + subqueryParam[7] + "> .";
-                
-                } 
-                
-                r=qs.getResource("outparamtype");
-                if(r!=null)
-                {
-                  subqueryParam[8]=r.getURI();
-                  querytail+=this.getQueries().get("body02f.sparql").replaceAll("//paramtout//", " <"+ subqueryParam[8]+"> \n");
-                }
-               
-                
-                r=qs.getResource("outthecontent"); //case of belief with refersTo                
-                if(r!=null)
-                {
-                  String val=r.getURI();
-                  Stream<OWLAxiom> beliefax=this.retrieveRefersToAssertions(val, copyOnto);
-                  OWLOntology belief=null;
-                  try
-                  {
-                      Timestamp t= new Timestamp(System.currentTimeMillis());
-                      belief= this.getMainManager().createOntology(beliefax);                     
-                  }
-                  catch (OWLOntologyAlreadyExistsException ex)
-                  {
-                      belief=this.getMainManager().getOntology(ex.getDocumentIRI());
-                  } 
-                  
-                try
-                  {
-                    if(toreturn[1]==null)
-                    {
-                      toreturn[1]=new ByteArrayOutputStream();
-                      belief.saveOntology(toreturn[1]);
-                      this.getMainManager().removeOntology(belief);
-                    }
-                    else
-                    {      
-                      ByteArrayOutputStream tmp=new ByteArrayOutputStream();
-                      belief.saveOntology(tmp);
-                      this.getMainManager().removeOntology(belief);
-                      DataOutputStream dout = new DataOutputStream(tmp);
-                      dout.write(toreturn[1].toByteArray());  
-                      toreturn[1]=tmp;                      
-                    }
-                  }                  
-                  catch (IOException ex)
-                      {
-                        return new ByteArrayOutputStream[]{null,null};
-                      }
-                  
-                  //toreturn[1]=belief;
-                  //this.getMainManager().removeOntology(belief);
-                }
-                
-                
-                
-                query += "CONSTRUCT {\n";
-
-                for (String s : subqueryParam)
-                  {
-                    if (s != null)
-                      {
-                        query += "<" + s + "> " + "rdf:type owl:NamedIndividual. \n";
-                      }
-                  }
-                
-                query+=querybody;
-                
-                query += this.getQueries().get("construct01.sparql").replaceAll("//taskexec//", " " + taskExec + " ")
-                        .replaceAll("//taskexecobject//", " <" + subqueryParam[1] + "-taskObject> ")
-                        .replaceAll("//taskexecoperator//", " <" + subqueryParam[1] + "-taskOperator> ")
-                        .replaceAll("//param1//", " <" + subqueryParam[1] + "> ")
-                        .replaceAll("//param2//", " <" + subqueryParam[2] + "> ")
-                        .replaceAll("//theobject//", " " + theobject + " ");
-                query += "}\n";
-                query += "WHERE { \n";
-                query += this.getQueries().get("body02b.sparql");
-                query += this.getQueries().get("body02c.sparql").replaceAll("//operation//", "<" + subqueryParam[2] + ">")
-                                                                .replaceAll("//requesttype//", "<"+subqueryParam[5]+">");
-                       // .replaceAll("//taskrequest//", " <" + subqueryParam[3] + "> ");
-
-                                     
-                query+=querytail;           
-                
-                
-                if (configs.size() > 0)
-                  {
-                    query += this.getQueries().get("body02d.sparql");
-                    for (int i = 0; i < configs.size(); i++)
-                      {
-                        if(subqueryParam[0].equals(configs.get(i)[0]))
-                          {
-                        String thevar = " ?configs" + i + " ";
-                        String thekey = " <" + configs.get(i)[1] + "> ";
-                        String thevalue = " <" + configs.get(i)[2] + "> ";
-                        query += "?setted " + thekey + thevar + ".\n";
-                        query += thevar + "prof:hasType" + thevalue + ".\n";
-                          }
-                      }
-                  }
-                query += "}";
-                 System.out.println(query);            
-                res = performQuery(ontology, query);
-                //res.axioms().forEach(System.out::println);    
-                
-          if (res.axioms().count() == 0)
+        } 
+        catch (OWLOntologyStorageException ex)
+        {
+            return toreturn;
+        }
+        String IRIrequest = ontology.getOntologyID().getOntologyIRI().get().toString();
+        String prefix = getQueryPrefix(IRIrequest);
+        query+=prefix;       
+        //Analyzing request
+        String subquery = prefix + "\n" + this.getQueries().get("sub1.sparql");        
+        try 
+        {
+          QueryExecution execQ = this.createQuery(ontology, subquery);
+          ResultSet sub1Query = execQ.execSelect();          
+          while(sub1Query.hasNext())
           {
-            return new ByteArrayOutputStream[]{null,null}; //all  values null
+           System.out.println(sub1Query.next());
           }
-        axioms = Stream.concat(res.axioms(), axioms);
-        String[] conn=new String[]{""};
-        res.logicalAxioms().filter(x->x.isOfType(AxiomType.OBJECT_PROPERTY_ASSERTION)).forEach
-        (
-          element -> { 
-              OWLObjectPropertyAssertionAxiom ax=(OWLObjectPropertyAssertionAxiom) element;
-             if( ax.getProperty().asOWLObjectProperty().toStringID().equals(this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#hasConnection"))
-                 conn[0] = ax.getObject().toStringID();
-          }
-        );       
-        axioms = Stream.concat(retrieveAssertions(conn[0], ontology.axioms()), axioms);
-          }    
-      } 
-      catch (OWLOntologyCreationException | OWLOntologyStorageException ex)
-          {
-            //Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
-            return new ByteArrayOutputStream[]{null,null}; //all values null
-          }
-        
-        this.getMainManager().removeOntology(ontology);        
-        if(depends.size()>0)
-          {
-            OWLAxiom[] depAxioms= new OWLAxiom [depends.size()];
-            for(int i=0; i<depends.size();i++)
-              {
-                OWLAxiom ax= this.getMainManager().getOWLDataFactory().getOWLObjectPropertyAssertionAxiom(
-                this.getMainManager().getOWLDataFactory().getOWLObjectProperty(IRI.create(this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#dependsOn")), 
-                this.getMainManager().getOWLDataFactory().getOWLNamedIndividual(IRI.create(depends.get(i)[0]+"_execution")),
-                this.getMainManager().getOWLDataFactory().getOWLNamedIndividual(IRI.create(depends.get(i)[1]+"_execution")));
-                depAxioms[i]=ax;
-              }
-              axioms = Stream.concat(Stream.of(depAxioms), axioms);
-          }
-        OWLOntology out = null;
-        try
-          {
-            out = getMainManager().createOntology(axioms);
-            toreturn[0]=new ByteArrayOutputStream();
-            out.saveOntology(toreturn[0]);
-            this.getMainManager().removeOntology(out);
-          } 
-        catch (OWLOntologyCreationException | OWLOntologyStorageException ex)
-          {        
-            toreturn[0]=null;
-            return new ByteArrayOutputStream[]{null,null};//all values null
-          }           
-        //toreturn[0]=out;     
+           
+        } 
+        catch (OWLOntologyCreationException ex)
+        {
+           return toreturn;
+        }
         return toreturn;
       }
     

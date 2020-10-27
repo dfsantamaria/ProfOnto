@@ -1,4 +1,0 @@
-ASK
-{
-  ?t prof:refersAsNewTo  //theobj// .
-}
