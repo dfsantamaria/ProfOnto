@@ -65,6 +65,9 @@
         <DataProperty IRI="http://www.dmi.unict.it/oasis.owl#hasDataValue"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#device_type"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#LightObjectType"/>
     </Declaration>
     <Declaration>
@@ -194,14 +197,19 @@
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#kitchen"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasAgentType"/>
+        <NamedIndividual IRI="#alan-task-1-1-1-object"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#device_type"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasObjectType"/>
+        <NamedIndividual IRI="#alan-task-1-1-1-object"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#LightObjectType"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasSpaceSpan"/>
         <NamedIndividual IRI="#alan-task-1-1-1-object"/>
         <NamedIndividual IRI="#alan-task-1-1-1-kitchen"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasType"/>
-        <NamedIndividual IRI="#alan-task-1-1-1-object"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#LightObjectType"/>
     </ObjectPropertyAssertion>
     <DataPropertyAssertion>
         <DataProperty IRI="http://www.dmi.unict.it/oasis.owl#hasDataValue"/>

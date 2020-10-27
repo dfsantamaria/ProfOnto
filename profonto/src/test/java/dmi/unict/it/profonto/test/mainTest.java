@@ -163,7 +163,7 @@ public class mainTest
           } 
           //ADDING USERS
           userData=readData("ontologies/test/alan.owl");
-          request=readData("ontologies/test/light-update-request.owl");  
+          request=readData("ontologies/test/user-request.owl");  
           String out=toStringOntology(ontocore.parseRequest(request))[0];
           System.out.println(out);
       }

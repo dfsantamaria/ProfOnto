@@ -102,6 +102,9 @@
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#add"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#ontology_description_object_type"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#user_configuration_type"/>
     </Declaration>
     <Declaration>
@@ -184,7 +187,12 @@
         <NamedIndividual IRI="#add-user-conf-taskOperator"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasType"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasInformationObjectType"/>
+        <NamedIndividual IRI="#add-user-req-ontology"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#ontology_description_object_type"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasConfigurationType"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/alan-config.owl#alan-device-light1-config"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#user_configuration_type"/>
     </ObjectPropertyAssertion>

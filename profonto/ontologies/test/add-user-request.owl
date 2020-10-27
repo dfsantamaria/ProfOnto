@@ -162,6 +162,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/add-user-request.owl#add-user-req-ontology">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#OntologyDescriptionObject"/>
+        <oasis:hasInformationObjectType rdf:resource="http://www.dmi.unict.it/oasis-abox.owl#ontology_description_object_type"/>
         <oasis:descriptionProvidedByIRI>http://www.dmi.unict.it/ontoas/alan.owl</oasis:descriptionProvidedByIRI>
     </owl:NamedIndividual>
     
@@ -225,6 +226,12 @@
     <!-- http://www.dmi.unict.it/oasis-abox.owl#add -->
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/oasis-abox.owl#add"/>
+    
+
+
+    <!-- http://www.dmi.unict.it/oasis-abox.owl#ontology_description_object_type -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/oasis-abox.owl#ontology_description_object_type"/>
     
 
 
