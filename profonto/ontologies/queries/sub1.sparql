@@ -1,6 +1,8 @@
-SELECT ?task ?taskObject  ?referObj ?taskObElement ?obPropType ?taskObElementType ?taskOpElement ?taskOpArgElement ?referInp ?taskInpElement ?inpPropType ?taskInpElementType ?referOut ?taskOutElement ?outPropType ?taskOutElementType
+SELECT ?task ?plan ?taskObject  ?referObj ?taskObElement ?obPropType ?taskObElementType ?taskOpElement ?taskOpArgElement ?referInp ?taskInpElement ?inpPropType ?taskInpElementType ?referOut ?taskOutElement ?outPropType ?taskOutElementType
 WHERE
 {
+   ?requester  prof:requests ?plan.
+   ?plan a prof:PlanDescription.
    ?goal prof:consistsOfTaskDescription ?task .
 
    ?task prof:hasTaskObject ?taskObject .   
