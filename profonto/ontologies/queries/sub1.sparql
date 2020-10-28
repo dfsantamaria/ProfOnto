@@ -5,12 +5,9 @@ WHERE
 
    ?task prof:hasTaskObject ?taskObject .   
    ?taskObject ?referObj ?taskObElement .
-   OPTIONAL
-   {
-     ?taskObElement ?obPropType ?taskObElementType .
-     ?obPropType rdfs:subPropertyOf prof:hasType .
-   }
    
+   ?taskObElement ?obPropType ?taskObElementType .
+   ?obPropType rdfs:subPropertyOf prof:hasType .   
 
    ?task prof:hasTaskOperator ?taskOperator .
    ?taskOperator prof:refersExactlyTo ?taskOpElement .

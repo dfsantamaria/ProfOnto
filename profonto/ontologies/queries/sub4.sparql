@@ -1,0 +1,6 @@
+  ?taskoElem ?oElemTypeProp ?oElemType .
+  VALUES ?oElemType { //list// }
+  FILTER EXISTS
+  {
+    ?oElemTypeProp rdfs:subPropertyOf prof:hasType .
+  }

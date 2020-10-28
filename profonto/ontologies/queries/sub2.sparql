@@ -1,4 +1,4 @@
-SELECT  ?tasko
+SELECT ?agent 
 WHERE
 {  
   {
@@ -33,4 +33,4 @@ WHERE
   #Filtering agent by TaskOperator
   ?taskd prof:hasTaskOperator ?taskop.
   ?taskop prof:refersExactlyTo //thetaskoperator//.
-}
+#}

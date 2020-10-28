@@ -1626,7 +1626,20 @@ public class Profonto extends OntologyCore
       }
     
     
-    
+    public List<String> getDistincElemInQuerySet(List<QuerySolution> q, String query)
+    {
+      List<String> s=new ArrayList<String>();  
+      for(int i=0; i<q.size();i++)
+      {
+         int j=0;
+         for(;j<s.size();j++)          
+           if(q.get(i).getResource(query).getURI().equals(s.get(j)))
+              break;
+          if(j==s.size())
+            s.add(q.get(i).getResource(query).getURI());         
+      } 
+     return s;
+    }
    
       
     
@@ -1649,12 +1662,12 @@ public class Profonto extends OntologyCore
         {
             return toreturn;
         }
-       // Stream<OWLAxiom> copyOnto=ontology.axioms(); //copy of the request axioms
+       // Stream<OWLAxiom> copyOnto=ontology.axioms(); //copy of the request axioms       
         try 
         {
             ontology.imports().forEach(o->ontology.addAxioms(o.axioms()));
-            syncReasoner(ontology, null);      
-            this.getDataRequestOntology().addAxioms(ontology.axioms());
+            syncReasoner(ontology, null);                
+            this.addAxiomsToOntology(this.getDataRequestOntology(), ontology.axioms());
         } 
         catch (OWLOntologyStorageException ex)
         {
@@ -1679,21 +1692,45 @@ public class Profonto extends OntologyCore
           //finding compatible agents
           System.out.println("\n\n\n");
           subquery = this.getQueries().get("sub2.sparql");
+         
           //filtering by task operator matched with the request        
           subquery=subquery.replaceAll("//thetaskoperator//", "<"+sub1QL.get(0).getResource("taskOpElement").getURI()+">");
-            System.err.println(subquery);
-          subquery = prefix + "\n" +  subquery;          
+                       
+          //matching task object 
+          subquery+=this.getQueries().get("sub3.sparql");
+          //matching the task objectType
+          List<String> s=this.getDistincElemInQuerySet(sub1QL, "taskObElementType");
+          String obelemType="";
+          for(int i=0;i<s.size();i++) 
+          {            
+            obelemType+="<"+s.get(i)+"> ";
+          }
+          subquery+=this.getQueries().get("sub4.sparql").replaceAll("//list//", obelemType);
+       
+          
+           
+          subquery = prefix + "\n" +  subquery + "}"; 
+          System.err.println(subquery);         
           execQ = this.createQuery(this.getDataBehaviorOntology(), subquery);
           resultSet = execQ.execSelect();
-          List<QuerySolution> sub2QL=ResultSetFormatter.toList(resultSet);         
+          List<QuerySolution> sub2QL=ResultSetFormatter.toList(resultSet);           
           for(QuerySolution q: sub2QL)
           {
            System.out.println(q.toString());
           }
+         // this.getMainManager().removeOntology(ontology);          
+          OWLOntology out = getMainManager().createOntology(axioms);
+          toreturn[0]=new ByteArrayOutputStream();
+          out.saveOntology(toreturn[0]);
+          this.getMainManager().removeOntology(out);
         } 
         catch (OWLOntologyCreationException ex)
         {
-           return toreturn;
+           return null;
+        } 
+        catch (OWLOntologyStorageException ex)
+        {
+           return null;
         }
         return toreturn;
       }

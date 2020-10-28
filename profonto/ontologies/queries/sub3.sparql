@@ -1,0 +1,7 @@
+{
+?tasko prof:refersExactlyTo ?taskoElem .
+}
+UNION
+{
+ ?tasko prof:refersAsNewTo ?taskoElem .	
+}
