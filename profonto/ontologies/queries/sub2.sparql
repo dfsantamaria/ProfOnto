@@ -1,0 +1,36 @@
+SELECT  ?tasko
+WHERE
+{  
+  {
+   #Agent exploiting behavior template
+   ?agent prof:adoptsAgentBehaviorTemplate ?behavt.
+   ?behavt a prof:AgentBehaviorTemplate.
+   ?behavt prof:hasBehavior ?behav. 
+   ?behav prof:consistsOfGoalDescription ?goald.
+   ?goald prof:consistsOfTaskDescription ?taskd.   
+   ?taskd prof:hasTaskObjectTemplate ?tasko.
+  }
+  UNION
+  {
+   {
+    #Agent exploiting behavior template by implementing single behavior
+    ?agent prof:hasBehavior ?behavt.
+    ?behavt prof:implementsBehavior ?behav.  
+   }
+   UNION
+   {
+    #Agent non exploiting behavior template
+    ?agent prof:hasBehavior ?behav.  
+    FILTER NOT EXISTS
+    {
+     ?agent a prof:AgentBehaviorTemplate.
+    }  
+   }
+   ?behav prof:consistsOfGoalDescription ?goald.
+   ?goald prof:consistsOfTaskDescription ?taskd.   
+   ?taskd prof:hasTaskObject ?tasko.
+  }
+  #Filtering agent by TaskOperator
+  ?taskd prof:hasTaskOperator ?taskop.
+  ?taskop prof:refersExactlyTo //thetaskoperator//.
+}

@@ -29,6 +29,7 @@ import javafx.util.Pair;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
+import org.apache.jena.query.ResultSetFormatter;
 import org.apache.jena.rdf.model.Resource;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.model.AddImport;
@@ -994,29 +995,31 @@ public class Profonto extends OntologyCore
             this.deleteSatelliteData(ontodevice);
             addImportToOntology(this.getDataBehaviorOntology(), ontodevice.getOntologyID().getOntologyIRI().get());            
             String deviceclass=this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#Device";
-            String adoptsTemplate=this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#adoptsTemplate";
+            String adoptsTemplate=this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#adoptsAgentBehaviorTemplate";
             String hasBehavior = this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#hasBehavior";
-            ontodevice.logicalAxioms().filter(x->x.isOfType(AxiomType.CLASS_ASSERTION)).forEach(
-              element -> {
-                            OWLClassAssertionAxiom ax=((OWLClassAssertionAxiom) element);
-                            if(ax.getClassExpression().asOWLClass().toStringID().equals(deviceclass))                              
-                            {
-                              ontodevice.logicalAxioms().filter(y->y.isOfType(AxiomType.OBJECT_PROPERTY_ASSERTION)).forEach
-                              (
+           
+            ontodevice.logicalAxioms().filter(y->y.isOfType(AxiomType.OBJECT_PROPERTY_ASSERTION)).forEach
+                                 (
                                       elementInt -> {
-                                          OWLObjectPropertyAssertionAxiom opaz=((OWLObjectPropertyAssertionAxiom) elementInt);
-                                          if(opaz.individualsInSignature().anyMatch(z->z.asOWLNamedIndividual().equals(ax.getIndividual())) )
-                                          {
-                                           if(opaz.objectPropertiesInSignature().anyMatch(k->k.asOWLObjectProperty().toStringID().equals(adoptsTemplate) 
+                                          
+                                         OWLObjectPropertyAssertionAxiom opaz=((OWLObjectPropertyAssertionAxiom) elementInt);
+                                         if(opaz.objectPropertiesInSignature().anyMatch(k->k.asOWLObjectProperty().toStringID().equals(adoptsTemplate) 
                                            || k.asOWLObjectProperty().toStringID().equals(hasBehavior) ) )
                                            {
-                                             val[0]=getEntityName(ax.getIndividual().asOWLNamedIndividual().toStringID());
+                                            String  ind=opaz.getSubject().asOWLNamedIndividual().toStringID();                                             
+                                            ontodevice.logicalAxioms().filter(x->x.isOfType(AxiomType.CLASS_ASSERTION)).forEach(
+                                             element -> {
+                                                   OWLClassAssertionAxiom ax=((OWLClassAssertionAxiom) element);
+                                                    if(ax.getClassExpression().asOWLClass().toStringID().equals(deviceclass))
+                                                      if(ind.equals(ax.getIndividual().asOWLNamedIndividual().toStringID()))
+                                                          val[0]=getEntityName(ind);                                                                                  
+                                                        
+                                             });                                                                                                                                                                           
                                            }
-                                          }
                                       }
-                              );                            
-                            }                            
-                         });  
+                              );                      
+                                                     
+                         
             
             String filesource = this.getOntologiesDevicesPath() + File.separator + val[0] + ".owl";
             File file = new File(filesource);
@@ -1623,6 +1626,8 @@ public class Profonto extends OntologyCore
       }
     
     
+    
+   
       
     
     /**
@@ -1647,8 +1652,9 @@ public class Profonto extends OntologyCore
        // Stream<OWLAxiom> copyOnto=ontology.axioms(); //copy of the request axioms
         try 
         {
-            ontology.addAxioms(this.getMainOntology().axioms());
-            syncReasoner(ontology, null);          
+            ontology.imports().forEach(o->ontology.addAxioms(o.axioms()));
+            syncReasoner(ontology, null);      
+            this.getDataRequestOntology().addAxioms(ontology.axioms());
         } 
         catch (OWLOntologyStorageException ex)
         {
@@ -1663,12 +1669,27 @@ public class Profonto extends OntologyCore
         try 
         {
           QueryExecution execQ = this.createQuery(ontology, subquery);
-          ResultSet sub1Query = execQ.execSelect();          
-          while(sub1Query.hasNext())
+          ResultSet resultSet = execQ.execSelect();
+          List<QuerySolution> sub1QL=ResultSetFormatter.toList(resultSet);         
+          for(QuerySolution q: sub1QL)
           {
-           System.out.println(sub1Query.next());
+           System.out.println(q.toString());
           }
-           
+           this.getDataBehaviorOntology().imports().forEach(o->this.getDataBehaviorOntology().addAxioms(o.axioms()));
+          //finding compatible agents
+          System.out.println("\n\n\n");
+          subquery = this.getQueries().get("sub2.sparql");
+          //filtering by task operator matched with the request        
+          subquery=subquery.replaceAll("//thetaskoperator//", "<"+sub1QL.get(0).getResource("taskOpElement").getURI()+">");
+            System.err.println(subquery);
+          subquery = prefix + "\n" +  subquery;          
+          execQ = this.createQuery(this.getDataBehaviorOntology(), subquery);
+          resultSet = execQ.execSelect();
+          List<QuerySolution> sub2QL=ResultSetFormatter.toList(resultSet);         
+          for(QuerySolution q: sub2QL)
+          {
+           System.out.println(q.toString());
+          }
         } 
         catch (OWLOntologyCreationException ex)
         {

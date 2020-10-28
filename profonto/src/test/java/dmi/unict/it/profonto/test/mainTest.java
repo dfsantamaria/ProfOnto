@@ -146,26 +146,26 @@ public class mainTest
           }   
           
           
-          ByteArrayInputStream request;
-          
+//          ByteArrayInputStream request;          
+//          
+//          //ADDING USERS
+//          String id= "";        
+//          String userId="";          
+//          InputStream userData=readData("ontologies/test/alan.owl"); 
+//          userId=ontocore.addUser(userData);
+//          try 
+//          {
+//              ontocore.removePermanentUser(userId);
+//          } 
+//          catch (Exception ex) 
+//          {
+//              System.out.println("Error deleting user");
+//          } 
           //ADDING USERS
-          String id= "";        
-          String userId="";          
-          InputStream userData=readData("ontologies/test/alan.owl"); 
-          userId=ontocore.addUser(userData);
-          try 
-          {
-              ontocore.removePermanentUser(userId);
-          } 
-          catch (Exception ex) 
-          {
-              System.out.println("Error deleting user");
-          } 
-          //ADDING USERS
-          userData=readData("ontologies/test/alan.owl");
-          request=readData("ontologies/test/user-request.owl");  
-          String out=toStringOntology(ontocore.parseRequest(request))[0];
-          System.out.println(out);
+     //     userData=readData("ontologies/test/alan.owl");
+      //    request=readData("ontologies/test/add-user-request.owl");  
+     //     String out=toStringOntology(ontocore.parseRequest(request))[0];
+     //     System.out.println(out);
       }
   }
 

@@ -68,13 +68,13 @@
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#device_type"/>
     </Declaration>
     <Declaration>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#turn_on"/>
+    </Declaration>
+    <Declaration>
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#LightObjectType"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#kitchen"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_on"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="http://www.dmi.unict.it/ontoas/alan.owl#alan"/>
@@ -159,7 +159,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#refersExactlyTo"/>
         <NamedIndividual IRI="#alan-1-1-1-taskOperator"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis.owl#turn_on"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#turn_on"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#refersExactlyTo"/>
