@@ -1,0 +1,7 @@
+OPTIONAL
+{
+?agent prof:hasConfiguration ?conconf .
+?conconf prof:hasConnection ?aconnect .
+?aconnect prof:hasIPAddress ?ipaddr .
+?aconnect prof:hasPortNumber ?port .
+}

@@ -6,6 +6,7 @@
 package dmi.unict.it.profonto.test;
 
 import dmi.unict.it.profonto.core.Profonto;
+import static dmi.unict.it.profonto.test.mainAutoinstall.readData;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -166,6 +167,12 @@ public class mainTest
           request=readData("ontologies/test/add-user-request.owl");  
           String out=toStringOntology(ontocore.parseRequest(request))[0];
           System.out.println(out);
+          
+        //Manually adding a device  
+        ontocore.parseRequest(readData("ontologies/test/lightagent-from-template.owl"));    
+        ontocore.parseRequest( readData("ontologies/test/rasb-lightagent.owl")); 
+        System.out.println("Adding light agent");
+        ontocore.addDevice("http://www.dmi.unict.it/lightagent.owl");
       }
   }
 

@@ -162,7 +162,7 @@
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#turn_on"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#refersExactlyTo"/>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#refersAsNewTo"/>
         <NamedIndividual IRI="#alan-1-1-1-taskinputparameter"/>
         <NamedIndividual IRI="#turn-parameter"/>
     </ObjectPropertyAssertion>

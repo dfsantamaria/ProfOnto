@@ -1654,7 +1654,7 @@ public class Profonto extends OntologyCore
         OntologyModel res = null;
         ArrayList<String[]> depends=new ArrayList();
         ArrayList<String[]> configs=null;
-        Stream<OWLAxiom> axioms = Stream.of();
+       // Stream<OWLAxiom> axioms = Stream.of();
         ByteArrayOutputStream[] toreturn = new ByteArrayOutputStream[]{null,null};
         OWLOntology ontology;
         ontology = this.checkSatelliteData(request);        
@@ -1695,9 +1695,9 @@ public class Profonto extends OntologyCore
                              .replaceAll("//taskexeobject//", "<"+execNameSpace+execName+"_exeTaskObject"+">")
                              .replaceAll("//taskexeoperator//", "<"+execNameSpace+execName+"_exeTaskOperator"+">")
                              .replaceAll("//param1//", "<"+sub1QL.get(0).getResource("plan").getURI()+">");
-          
+                             
          
-          subquery = "SELECT ?agent \n"+this.getQueries().get("sub2.sparql");
+          subquery = this.getQueries().get("sub2.sparql");
          
           //filtering by task operator matched with the request        
           String theTaskOpElement="<"+sub1QL.get(0).getResource("taskOpElement").getURI()+">";
@@ -1714,21 +1714,37 @@ public class Profonto extends OntologyCore
             obelemType+="<"+s.get(i)+"> ";
           }
           subquery+=this.getQueries().get("sub4.sparql").replaceAll("//list//", obelemType);
-       
-          
-          System.out.println("CONSTRUCT { "+construct +"}\n"); 
-          subquery = prefix + "\n" +  subquery + "}"; 
-          System.out.println(subquery);         
-          execQ = this.createQuery(this.getDataBehaviorOntology(), subquery);
-          resultSet = execQ.execSelect();
-          List<QuerySolution> sub2QL=ResultSetFormatter.toList(resultSet);           
-          for(QuerySolution q: sub2QL)
+         //if the request uses the refersExacltyTo for the object reference
+         //then  the agent must use the element specified in the request 
+          if(sub1QL.get(0).getResource("referObj").getLocalName().equals("refersExactlyTo"))
+              {
+                construct=construct.replaceAll("//theobject//", "<"+sub1QL.get(0).getResource("taskObElement").getURI()+">");
+                                    
+              }
+          else //otherwise the request uses the refersAsNewTo for the object reference
+               //and then an appropriate element must be sought.
           {
-           System.out.println(q.toString());
+          
           }
-         
-         // this.getMainManager().removeOntology(ontology);          
-          OWLOntology out = getMainManager().createOntology(axioms);
+          //connection information
+          subquery+=this.getQueries().get("sub5.sparql");
+          
+          
+          
+         //System.out.println("CONSTRUCT { "+construct +"}\n"); 
+          subquery = prefix + "CONSTRUCT { "+construct +"}\n" +  subquery + "}"; 
+          System.out.println(subquery);         
+         // execQ = this.createQuery(this.getDataBehaviorOntology(), subquery);
+        //  resultSet = execQ.execSelect();
+        //  List<QuerySolution> sub2QL=ResultSetFormatter.toList(resultSet);           
+        //  for(QuerySolution q: sub2QL)
+       //   {
+       //    System.out.println(q.toString());
+       //   }
+          OntologyModel m =  performQuery(this.getDataBehaviorOntology(), subquery);
+               
+          OWLOntology out = getMainManager().createOntology(m.axioms());
+       //   OWLOntology out = getMainManager().createOntology();
           toreturn[0]=new ByteArrayOutputStream();
           out.saveOntology(toreturn[0]);
           this.getMainManager().removeOntology(out);
