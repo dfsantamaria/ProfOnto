@@ -1498,7 +1498,7 @@ public class Profonto extends OntologyCore
     public String getQueryPrefix(String IRIrequest)
       {
          String prefix = this.getQueries().get("prefix01.sparql");
-         prefix += "PREFIX prof: <" + this.getMainOntology().getOntologyID().getOntologyIRI().get().toString() + "#>\n";
+         prefix += "PREFIX oasis: <" + this.getMainOntology().getOntologyID().getOntologyIRI().get().toString() + "#>\n";
          String mainID = this.getMainAbox().getOntologyID().getOntologyIRI().get().toString();
          prefix += "PREFIX abox: <" + mainID + "#>\n";
          if(IRIrequest!=null)

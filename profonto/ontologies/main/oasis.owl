@@ -78,6 +78,12 @@
         <Class IRI="#ActuatorComponentType"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#ActuatorConfiguration"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ActuatorTemplate"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#Agent"/>
     </Declaration>
     <Declaration>
@@ -109,12 +115,6 @@
     </Declaration>
     <Declaration>
         <Class IRI="#Component"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ComponentConfiguration"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ComponentTemplate"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ComponentType"/>
@@ -357,6 +357,9 @@
         <Class IRI="#PermanentStatus"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#PhysicalComponent"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#PhysicalSpace"/>
     </Declaration>
     <Declaration>
@@ -549,10 +552,10 @@
         <ObjectProperty IRI="#activatedByScheduling"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#adoptsAgentBehaviorTemplate"/>
+        <ObjectProperty IRI="#adoptsActuatorTemplate"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#adoptsComponentTemplate"/>
+        <ObjectProperty IRI="#adoptsAgentBehaviorTemplate"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#adoptsTemplate"/>
@@ -1112,11 +1115,19 @@
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Actuator"/>
-        <Class IRI="#Component"/>
+        <Class IRI="#Actor"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#ActuatorComponentType"/>
         <Class IRI="#ComponentType"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ActuatorConfiguration"/>
+        <Class IRI="#Configuration"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ActuatorTemplate"/>
+        <Class IRI="#Template"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Agent"/>
@@ -1160,15 +1171,7 @@
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Component"/>
-        <Class IRI="#Actor"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#ComponentConfiguration"/>
-        <Class IRI="#Configuration"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#ComponentTemplate"/>
-        <Class IRI="#Template"/>
+        <Class IRI="#Actuator"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#ComponentType"/>
@@ -1487,6 +1490,10 @@
         <Class IRI="#StatusType"/>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#PhysicalComponent"/>
+        <Class IRI="#Component"/>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#PhysicalSpace"/>
         <Class IRI="#Space"/>
     </SubClassOf>
@@ -1540,7 +1547,7 @@
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#SensorComponent"/>
-        <Class IRI="#Component"/>
+        <Class IRI="#PhysicalComponent"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#SensorComponentType"/>
@@ -1811,11 +1818,11 @@
         <ObjectProperty IRI="#isInvolvedInSchedulingWith"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#adoptsAgentBehaviorTemplate"/>
+        <ObjectProperty IRI="#adoptsActuatorTemplate"/>
         <ObjectProperty IRI="#adoptsTemplate"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#adoptsComponentTemplate"/>
+        <ObjectProperty IRI="#adoptsAgentBehaviorTemplate"/>
         <ObjectProperty IRI="#adoptsTemplate"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
@@ -2357,12 +2364,12 @@
         <Class IRI="#ExecutionActivity"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#adoptsAgentBehaviorTemplate"/>
-        <Class IRI="#Behavior"/>
+        <ObjectProperty IRI="#adoptsActuatorTemplate"/>
+        <Class IRI="#Actuator"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#adoptsComponentTemplate"/>
-        <Class IRI="#Component"/>
+        <ObjectProperty IRI="#adoptsAgentBehaviorTemplate"/>
+        <Class IRI="#Behavior"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#configurationProvidedBy"/>
@@ -2456,7 +2463,7 @@
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasComponentType"/>
-        <Class IRI="#Component"/>
+        <Class IRI="#Actuator"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasConditional"/>
@@ -2641,8 +2648,8 @@
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#settles"/>
         <ObjectUnionOf>
+            <Class IRI="#Actuator"/>
             <Class IRI="#Agent"/>
-            <Class IRI="#Component"/>
         </ObjectUnionOf>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
@@ -2652,8 +2659,8 @@
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#subjectedToTask"/>
         <ObjectUnionOf>
-            <Class IRI="#Component"/>
-            <Class IRI="#ComponentTemplate"/>
+            <Class IRI="#Actuator"/>
+            <Class IRI="#ActuatorTemplate"/>
         </ObjectUnionOf>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
@@ -2669,12 +2676,12 @@
         <Class IRI="#Scheduling"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#adoptsAgentBehaviorTemplate"/>
-        <Class IRI="#AgentBehaviorTemplate"/>
+        <ObjectProperty IRI="#adoptsActuatorTemplate"/>
+        <Class IRI="#ActuatorTemplate"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#adoptsComponentTemplate"/>
-        <Class IRI="#ComponentTemplate"/>
+        <ObjectProperty IRI="#adoptsAgentBehaviorTemplate"/>
+        <Class IRI="#AgentBehaviorTemplate"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#adoptsTemplate"/>
@@ -3062,8 +3069,8 @@
     <ObjectPropertyRange>
         <ObjectProperty IRI="#settles"/>
         <ObjectUnionOf>
+            <Class IRI="#Actuator"/>
             <Class IRI="#Agent"/>
-            <Class IRI="#Component"/>
         </ObjectUnionOf>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
@@ -3253,12 +3260,22 @@
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Actuator</IRI>
-        <Literal xml:lang="en">This class describes a component used by agents to do something.</Literal>
+        <Literal xml:lang="en">This class descrives general component</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Actuator</IRI>
-        <Literal xml:lang="en">Actuator</Literal>
+        <Literal xml:lang="en">Component</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#ActuatorTemplate</IRI>
+        <Literal xml:lang="en">This class describes a component template</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ActuatorTemplate</IRI>
+        <Literal xml:lang="en">Component template</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -3318,22 +3335,12 @@
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Component</IRI>
-        <Literal xml:lang="en">This class descrives general component</Literal>
+        <Literal xml:lang="en">This class describes a component used by agents to do something.</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Component</IRI>
-        <Literal xml:lang="en">Component</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#ComponentTemplate</IRI>
-        <Literal xml:lang="en">This class describes a component template</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#ComponentTemplate</IRI>
-        <Literal xml:lang="en">Component template</Literal>
+        <Literal xml:lang="en">Actuator</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>

@@ -1,7 +1,7 @@
 {
-?tasko prof:refersExactlyTo ?taskoElem .
+?tasko oasis:refersExactlyTo ?taskoElem .
 }
 UNION
 {
- ?tasko prof:refersAsNewTo ?taskoElem .	
+ ?tasko oasis:refersAsNewTo ?taskoElem .	
 }

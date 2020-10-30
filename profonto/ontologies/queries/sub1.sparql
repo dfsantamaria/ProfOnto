@@ -1,47 +1,47 @@
 SELECT ?task ?plan ?taskObject  ?referObj ?taskObElement ?obPropType ?taskObElementType ?taskOpElement ?taskOpArgElement ?referInp ?taskInpElement ?inpPropType ?taskInpElementType ?referOut ?taskOutElement ?outPropType ?taskOutElementType
 WHERE
 {
-   ?requester  prof:requests ?plan.
-   ?plan a prof:PlanDescription.
-   ?goal prof:consistsOfTaskDescription ?task .
+   ?requester  oasis:requests ?plan.
+   ?plan a oasis:PlanDescription.
+   ?goal oasis:consistsOfTaskDescription ?task .
 
-   ?task prof:hasTaskObject ?taskObject .   
+   ?task oasis:hasTaskObject ?taskObject .   
    ?taskObject ?referObj ?taskObElement .
    
    ?taskObElement ?obPropType ?taskObElementType .
-   ?obPropType rdfs:subPropertyOf prof:hasType .   
+   ?obPropType rdfs:subPropertyOf oasis:hasType .   
 
-   ?task prof:hasTaskOperator ?taskOperator .
-   ?taskOperator prof:refersExactlyTo ?taskOpElement .
-   FILTER (?referObj =  prof:refersExactlyTo || ?referObj =  prof:refersAsNewTo )
+   ?task oasis:hasTaskOperator ?taskOperator .
+   ?taskOperator oasis:refersExactlyTo ?taskOpElement .
+   FILTER (?referObj =  oasis:refersExactlyTo || ?referObj =  oasis:refersAsNewTo )
 
    OPTIONAL
    {
-     ?task prof:hasTaskOperatorArgument ?taskOperatorArgument .
-     ?taskOperatorArgument prof:refersExactlyTo ?taskOpArgElement .     
+     ?task oasis:hasTaskOperatorArgument ?taskOperatorArgument .
+     ?taskOperatorArgument oasis:refersExactlyTo ?taskOpArgElement .     
    }
    
    OPTIONAL
    {
-     ?task prof:hasTaskActualInputParameter ?taskInputParameter .
+     ?task oasis:hasTaskActualInputParameter ?taskInputParameter .
      ?taskInputParameter ?referInp ?taskInpElement .
-     FILTER (?referInp =  prof:refersExactlyTo || ?referInp =  prof:refersAsNewTo )
+     FILTER (?referInp =  oasis:refersExactlyTo || ?referInp =  oasis:refersAsNewTo )
      OPTIONAL
      {
        ?taskInpElement ?inpPropType ?taskInpElementType.
-       ?inpPropType rdfs:subPropertyOf prof:hasType .
+       ?inpPropType rdfs:subPropertyOf oasis:hasType .
      }
    }
 
    OPTIONAL
    {
-     ?task prof:hasTaskActualOutputParameter ?taskOutputParameter .
+     ?task oasis:hasTaskActualOutputParameter ?taskOutputParameter .
      ?taskOutputParameter ?referOut ?taskOutElement .
-     FILTER (?referOut =  prof:refersExactlyTo || ?referOut =  prof:refersAsNewTo )
+     FILTER (?referOut =  oasis:refersExactlyTo || ?referOut =  oasis:refersAsNewTo )
      OPTIONAL
      {
        ?taskIoutElement ?outPropType ?taskOutElementType.
-       ?outPropType rdfs:subPropertyOf prof:hasType .
+       ?outPropType rdfs:subPropertyOf oasis:hasType .
      }
    }
 

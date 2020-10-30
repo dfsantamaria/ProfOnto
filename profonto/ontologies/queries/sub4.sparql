@@ -2,5 +2,5 @@
   VALUES ?oElemType { //list// }
   FILTER EXISTS
   {
-    ?oElemTypeProp rdfs:subPropertyOf prof:hasType .
+    ?oElemTypeProp rdfs:subPropertyOf oasis:hasType .
   }

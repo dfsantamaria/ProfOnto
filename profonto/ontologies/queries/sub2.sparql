@@ -3,34 +3,34 @@ WHERE
 {  
   {
    #Agent exploiting behavior template
-   ?agent prof:adoptsAgentBehaviorTemplate ?behavt.
-   ?behavt a prof:AgentBehaviorTemplate.
-   ?behavt prof:hasBehavior ?behav. 
-   ?behav prof:consistsOfGoalDescription ?goald.
-   ?goald prof:consistsOfTaskDescription ?taskd.   
-   ?taskd prof:hasTaskObjectTemplate ?tasko.
+   ?agent oasis:adoptsAgentBehaviorTemplate ?behavt.
+   ?behavt a oasis:AgentBehaviorTemplate.
+   ?behavt oasis:hasBehavior ?behav. 
+   ?behav oasis:consistsOfGoalDescription ?goald.
+   ?goald oasis:consistsOfTaskDescription ?taskd.   
+   ?taskd oasis:hasTaskObjectTemplate ?tasko.
   }
   UNION
   {
    {
     #Agent exploiting behavior template by implementing single behavior
-    ?agent prof:hasBehavior ?behavt.
-    ?behavt prof:implementsBehavior ?behav.  
+    ?agent oasis:hasBehavior ?behavt.
+    ?behavt oasis:implementsBehavior ?behav.  
    }
    UNION
    {
     #Agent non exploiting behavior template
-    ?agent prof:hasBehavior ?behav.  
+    ?agent oasis:hasBehavior ?behav.  
     FILTER NOT EXISTS
     {
-     ?agent a prof:AgentBehaviorTemplate.
+     ?agent a oasis:AgentBehaviorTemplate.
     }  
    }
-   ?behav prof:consistsOfGoalDescription ?goald.
-   ?goald prof:consistsOfTaskDescription ?taskd.   
-   ?taskd prof:hasTaskObject ?tasko.
+   ?behav oasis:consistsOfGoalDescription ?goald.
+   ?goald oasis:consistsOfTaskDescription ?taskd.   
+   ?taskd oasis:hasTaskObject ?tasko.
   }
   #Filtering agent by TaskOperator
-  ?taskd prof:hasTaskOperator ?taskop.
-  ?taskop prof:refersExactlyTo //thetaskoperator//.
+  ?taskd oasis:hasTaskOperator ?taskop.
+  ?taskop oasis:refersExactlyTo //thetaskoperator//.
 #}
