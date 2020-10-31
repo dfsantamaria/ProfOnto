@@ -8,14 +8,14 @@ WHERE
    ?behavt oasis:hasBehavior ?behav. 
    ?behav oasis:consistsOfGoalDescription ?goald.
    ?goald oasis:consistsOfTaskDescription ?taskd.   
-   ?taskd oasis:hasTaskObjectTemplate ?tasko.
+   ?taskd oasis:hasTaskObjectTemplate ?tasko.   
   }
   UNION
   {
    {
     #Agent exploiting behavior template by implementing single behavior
     ?agent oasis:hasBehavior ?behavt.
-    ?behavt oasis:implementsBehavior ?behav.  
+    ?behavt oasis:implementsBehavior ?behav.     
    }
    UNION
    {
@@ -28,8 +28,8 @@ WHERE
    }
    ?behav oasis:consistsOfGoalDescription ?goald.
    ?goald oasis:consistsOfTaskDescription ?taskd.   
-   ?taskd oasis:hasTaskObject ?tasko.
-  }
+   ?taskd oasis:hasTaskObject ?tasko. 
+  } 
   #Filtering agent by TaskOperator
   ?taskd oasis:hasTaskOperator ?taskop.
   ?taskop oasis:refersExactlyTo //thetaskoperator//.

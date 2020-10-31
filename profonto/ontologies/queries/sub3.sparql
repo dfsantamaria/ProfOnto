@@ -5,3 +5,8 @@ UNION
 {
  ?tasko oasis:refersAsNewTo ?taskoElem .	
 }
+OPTIONAL #actuator
+{
+ ?agent oasis:settles ?actuator.
+ ?actuator oasis:adoptsActuatorTemplate ?taskoElem.
+}

@@ -1036,6 +1036,17 @@ public class Profonto extends OntologyCore
         //    outStream.close();
             //  syncReasonerDataBehavior();
 
+        /*  ontodevice.imports().forEach(o->{
+                try {
+                    addImportToOntology(this.getDataBehaviorOntology(), o.getOntologyID().getOntologyIRI().get());
+                } catch (OWLOntologyStorageException ex) {
+                   
+                } catch (OWLOntologyCreationException ex) {
+                    
+                }
+            });*/
+            
+            
         } 
         catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
         {
@@ -1660,12 +1671,15 @@ public class Profonto extends OntologyCore
         ontology = this.checkSatelliteData(request);        
         if(ontology==null) //ontology already present in satellite data, otherwise add
         {
-            return toreturn;
+            return toreturn;            
         }
+        
        // Stream<OWLAxiom> copyOnto=ontology.axioms(); //copy of the request axioms       
         try 
         {
-            ontology.imports().forEach(o->ontology.addAxioms(o.axioms()));
+            ontology.imports().forEach(o->{
+                ontology.addAxioms(o.axioms());
+            });
             syncReasoner(ontology, null);                
             this.addAxiomsToOntology(this.getDataRequestOntology(), ontology.axioms());
         } 
@@ -1684,7 +1698,7 @@ public class Profonto extends OntologyCore
           QueryExecution execQ = this.createQuery(ontology, subquery);
           ResultSet resultSet = execQ.execSelect();
           List<QuerySolution> sub1QL=ResultSetFormatter.toList(resultSet);          
-          this.getDataBehaviorOntology().imports().forEach(o->this.getDataBehaviorOntology().addAxioms(o.axioms()));
+       //   this.getDataBehaviorOntology().importsClosure().forEach(o->ontology.addAxioms(o.axioms()));
           //finding compatible agents
           String execName = sub1QL.get(0).getResource("plan").getLocalName();
           String execNameSpace = sub1QL.get(0).getResource("plan").getNameSpace();
@@ -1703,7 +1717,16 @@ public class Profonto extends OntologyCore
           String theTaskOpElement="<"+sub1QL.get(0).getResource("taskOpElement").getURI()+">";
           subquery=subquery.replaceAll("//thetaskoperator//", theTaskOpElement);
           construct=construct.replaceAll("//param2//", theTaskOpElement);
-          
+           if(sub1QL.get(0).getResource("referObj").getLocalName().equals("refersExactlyTo"))
+              {
+                construct=construct.replaceAll("//theobject//", "<"+sub1QL.get(0).getResource("taskObElement").getURI()+">");
+                                     
+              }
+          else //otherwise the request uses the refersAsNewTo for the object reference
+               //and then an appropriate element must be sought.
+          {
+            construct=construct.replaceAll("//theobject//","?actuator");
+          }
           //matching task object 
           subquery+=this.getQueries().get("sub3.sparql");
           //matching the task objectType
@@ -1716,16 +1739,7 @@ public class Profonto extends OntologyCore
           subquery+=this.getQueries().get("sub4.sparql").replaceAll("//list//", obelemType);
          //if the request uses the refersExacltyTo for the object reference
          //then  the agent must use the element specified in the request 
-          if(sub1QL.get(0).getResource("referObj").getLocalName().equals("refersExactlyTo"))
-              {
-                construct=construct.replaceAll("//theobject//", "<"+sub1QL.get(0).getResource("taskObElement").getURI()+">");
-                                    
-              }
-          else //otherwise the request uses the refersAsNewTo for the object reference
-               //and then an appropriate element must be sought.
-          {
-          
-          }
+         
           //connection information
           subquery+=this.getQueries().get("sub5.sparql");
           
@@ -1741,13 +1755,25 @@ public class Profonto extends OntologyCore
        //   {
        //    System.out.println(q.toString());
        //   }
-          OntologyModel m =  performQuery(this.getDataBehaviorOntology(), subquery);
+       
+          OWLOntology o= this.getMainManager().createOntology();
+          o.addAxioms(this.getDataBehaviorOntology().axioms());
+           
+          OntologyModel m =  performQuery(o, subquery);
                
           OWLOntology out = getMainManager().createOntology(m.axioms());
        //   OWLOntology out = getMainManager().createOntology();
           toreturn[0]=new ByteArrayOutputStream();
           out.saveOntology(toreturn[0]);
           this.getMainManager().removeOntology(out);
+          
+          
+         // String filesource = this.getOntologiesDevicesPath() + File.separator + "bbbbbbb" + ".owl";
+         // File file = new File(filesource);
+        //  this.getMainManager().saveOntology(o, IRI.create(new File( "bbbbb" + ".owl")));
+            
+          
+          
         } 
         catch (OWLOntologyCreationException ex)
         {

@@ -75,13 +75,13 @@
         <Class IRI="#Actuator"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ActuatorComponentType"/>
-    </Declaration>
-    <Declaration>
         <Class IRI="#ActuatorConfiguration"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ActuatorTemplate"/>
+    </Declaration>
+    <Declaration>
+        <Class IRI="#ActuatorType"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Agent"/>
@@ -112,12 +112,6 @@
     </Declaration>
     <Declaration>
         <Class IRI="#BlockChainTransaction"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#Component"/>
-    </Declaration>
-    <Declaration>
-        <Class IRI="#ComponentType"/>
     </Declaration>
     <Declaration>
         <Class IRI="#CompositeValue"/>
@@ -186,10 +180,10 @@
         <Class IRI="#ConfigurationType"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ConfiguredAgent"/>
+        <Class IRI="#ConfiguredActuator"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#ConfiguredComponent"/>
+        <Class IRI="#ConfiguredAgent"/>
     </Declaration>
     <Declaration>
         <Class IRI="#ConfiguredThing"/>
@@ -309,7 +303,7 @@
         <Class IRI="#InternalBehavior"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#LightComponentType"/>
+        <Class IRI="#LightActuatorType"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Message"/>
@@ -357,7 +351,7 @@
         <Class IRI="#PermanentStatus"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#PhysicalComponent"/>
+        <Class IRI="#PhysicalActuator"/>
     </Declaration>
     <Declaration>
         <Class IRI="#PhysicalSpace"/>
@@ -396,10 +390,10 @@
         <Class IRI="#Sensor"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#SensorComponent"/>
+        <Class IRI="#SensorActuator"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#SensorComponentType"/>
+        <Class IRI="#SensorActuatorType"/>
     </Declaration>
     <Declaration>
         <Class IRI="#Service"/>
@@ -540,7 +534,7 @@
         <Class IRI="#User"/>
     </Declaration>
     <Declaration>
-        <Class IRI="#VirtualComponent"/>
+        <Class IRI="#VirtualActuator"/>
     </Declaration>
     <Declaration>
         <Class IRI="#VirtualSpace"/>
@@ -645,6 +639,9 @@
         <ObjectProperty IRI="#fallsWithin"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#hasActuatorType"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="#hasAgentType"/>
     </Declaration>
     <Declaration>
@@ -652,9 +649,6 @@
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasBehavior"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#hasComponentType"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#hasCompositeValue"/>
@@ -1118,16 +1112,16 @@
         <Class IRI="#Actor"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#ActuatorComponentType"/>
-        <Class IRI="#ComponentType"/>
-    </SubClassOf>
-    <SubClassOf>
         <Class IRI="#ActuatorConfiguration"/>
         <Class IRI="#Configuration"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#ActuatorTemplate"/>
         <Class IRI="#Template"/>
+    </SubClassOf>
+    <SubClassOf>
+        <Class IRI="#ActuatorType"/>
+        <Class IRI="#Type"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Agent"/>
@@ -1168,14 +1162,6 @@
     <SubClassOf>
         <Class IRI="#BlockChainTransaction"/>
         <Class IRI="#DescriptionObject"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#Component"/>
-        <Class IRI="#Actuator"/>
-    </SubClassOf>
-    <SubClassOf>
-        <Class IRI="#ComponentType"/>
-        <Class IRI="#Type"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Conditional"/>
@@ -1262,11 +1248,11 @@
         <Class IRI="#Type"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#ConfiguredAgent"/>
+        <Class IRI="#ConfiguredActuator"/>
         <Class IRI="#ConfiguredThing"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#ConfiguredComponent"/>
+        <Class IRI="#ConfiguredAgent"/>
         <Class IRI="#ConfiguredThing"/>
     </SubClassOf>
     <SubClassOf>
@@ -1422,8 +1408,8 @@
         <Class IRI="#Behavior"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#LightComponentType"/>
-        <Class IRI="#ActuatorComponentType"/>
+        <Class IRI="#LightActuatorType"/>
+        <Class IRI="#ActuatorType"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Message"/>
@@ -1490,8 +1476,8 @@
         <Class IRI="#StatusType"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#PhysicalComponent"/>
-        <Class IRI="#Component"/>
+        <Class IRI="#PhysicalActuator"/>
+        <Class IRI="#Actuator"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#PhysicalSpace"/>
@@ -1546,12 +1532,12 @@
         <Class IRI="#Device"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#SensorComponent"/>
-        <Class IRI="#PhysicalComponent"/>
+        <Class IRI="#SensorActuator"/>
+        <Class IRI="#PhysicalActuator"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#SensorComponentType"/>
-        <Class IRI="#ComponentType"/>
+        <Class IRI="#SensorActuatorType"/>
+        <Class IRI="#ActuatorType"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#Service"/>
@@ -1766,8 +1752,8 @@
         <Class IRI="#Human"/>
     </SubClassOf>
     <SubClassOf>
-        <Class IRI="#VirtualComponent"/>
-        <Class IRI="#Component"/>
+        <Class IRI="#VirtualActuator"/>
+        <Class IRI="#Actuator"/>
     </SubClassOf>
     <SubClassOf>
         <Class IRI="#VirtualSpace"/>
@@ -1934,6 +1920,10 @@
         <ObjectProperty IRI="#isRelatedWith"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
+        <ObjectProperty IRI="#hasActuatorType"/>
+        <ObjectProperty IRI="#hasType"/>
+    </SubObjectPropertyOf>
+    <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasAgentType"/>
         <ObjectProperty IRI="#hasType"/>
     </SubObjectPropertyOf>
@@ -1944,10 +1934,6 @@
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasBehavior"/>
         <ObjectProperty IRI="#isDescribedBy"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasComponentType"/>
-        <ObjectProperty IRI="#hasType"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasConditional"/>
@@ -2451,6 +2437,10 @@
         <Class IRI="#Space"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
+        <ObjectProperty IRI="#hasActuatorType"/>
+        <Class IRI="#Actuator"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasAgentType"/>
         <Class IRI="#Agent"/>
     </ObjectPropertyDomain>
@@ -2460,10 +2450,6 @@
             <Class IRI="#Agent"/>
             <Class IRI="#AgentBehaviorTemplate"/>
         </ObjectUnionOf>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasComponentType"/>
-        <Class IRI="#Actuator"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasConditional"/>
@@ -2768,6 +2754,10 @@
         <Class IRI="#Space"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
+        <ObjectProperty IRI="#hasActuatorType"/>
+        <Class IRI="#ActuatorType"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
         <ObjectProperty IRI="#hasAgentType"/>
         <Class IRI="#AgentType"/>
     </ObjectPropertyRange>
@@ -2778,10 +2768,6 @@
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasBehavior"/>
         <Class IRI="#Behavior"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasComponentType"/>
-        <Class IRI="#ComponentType"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#hasConditional"/>
@@ -3260,22 +3246,32 @@
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#Actuator</IRI>
-        <Literal xml:lang="en">This class descrives general component</Literal>
+        <Literal xml:lang="en">This class descrives general actuators</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#Actuator</IRI>
-        <Literal xml:lang="en">Component</Literal>
+        <Literal xml:lang="en">Actuator</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#ActuatorTemplate</IRI>
-        <Literal xml:lang="en">This class describes a component template</Literal>
+        <Literal xml:lang="en">This class describes an actuator template</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#ActuatorTemplate</IRI>
-        <Literal xml:lang="en">Component template</Literal>
+        <Literal xml:lang="en">Actuator template</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
+        <IRI>#ActuatorType</IRI>
+        <Literal xml:lang="en">This class describes the type of object.</Literal>
+    </AnnotationAssertion>
+    <AnnotationAssertion>
+        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
+        <IRI>#ActuatorType</IRI>
+        <Literal xml:lang="en">Actuator type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -3331,26 +3327,6 @@
         <AnnotationProperty abbreviatedIRI="rdfs:label"/>
         <IRI>#BehaviorThing</IRI>
         <Literal xml:lang="en">Behavior thing</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#Component</IRI>
-        <Literal xml:lang="en">This class describes a component used by agents to do something.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#Component</IRI>
-        <Literal xml:lang="en">Actuator</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
-        <IRI>#ComponentType</IRI>
-        <Literal xml:lang="en">This class describes the type of object.</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#ComponentType</IRI>
-        <Literal xml:lang="en">Component type</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>

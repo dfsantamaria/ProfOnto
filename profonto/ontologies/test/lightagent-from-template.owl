@@ -101,7 +101,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/lightagent-template.owl#LD-turnon-taskOperator">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
-        <oasis:refersExactlyTo rdf:resource="http://www.dmi.unict.it/oasis.owl#turn_on"/>
+        <oasis:refersExactlyTo rdf:resource="http://www.dmi.unict.it/oasis-abox.owl#turn_on"/>
     </owl:NamedIndividual>
     
 
@@ -160,6 +160,14 @@
     
 
 
+    <!-- http://www.dmi.unict.it/oasis-abox.owl#turn_on -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/oasis-abox.owl#turn_on">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#Action"/>
+    </owl:NamedIndividual>
+    
+
+
     <!-- http://www.dmi.unict.it/oasis.owl#LightObjectType -->
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/oasis.owl#LightObjectType">
@@ -180,14 +188,6 @@
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/oasis.owl#turn_off">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.dmi.unict.it/oasis.owl#turn_on -->
-
-    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/oasis.owl#turn_on">
-        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#Action"/>
     </owl:NamedIndividual>
 </rdf:RDF>
 

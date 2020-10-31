@@ -1,6 +1,12 @@
   ?taskoElem ?oElemTypeProp ?oElemType .
   VALUES ?oElemType { //list// }
-  FILTER EXISTS
   {
+   FILTER EXISTS
+   {
     ?oElemTypeProp rdfs:subPropertyOf oasis:hasType .
+   }
+  }
+  UNION
+  {
+    FILTER(?oElemType=oasis:hasType)
   }

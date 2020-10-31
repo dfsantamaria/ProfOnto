@@ -70,11 +70,11 @@ public class mainAutoinstall
           } 
         catch (FileNotFoundException ex)
           {
-            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(mainAutoinstall.class.getName()).log(Level.SEVERE, null, ex);
           }
         catch (IOException ex)
           {
-            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(mainAutoinstall.class.getName()).log(Level.SEVERE, null, ex);
           }
       
         return query;
@@ -98,7 +98,7 @@ public class mainAutoinstall
             inputstream.close();
         }
         catch (IOException ex) {
-            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(mainAutoinstall.class.getName()).log(Level.SEVERE, null, ex);
             
         } 
         return inputstream;
@@ -131,7 +131,7 @@ public class mainAutoinstall
           } 
         catch (OWLOntologyCreationException | OWLOntologyStorageException | IOException ex)
           {
-            Logger.getLogger(mainTest.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(mainAutoinstall.class.getName()).log(Level.SEVERE, null, ex);
           }
                    
          
