@@ -1,4 +1,4 @@
-SELECT ?task ?plan ?taskObject  ?referObj ?taskObElement ?obPropType ?taskObElementType ?taskOpElement ?taskOpArgElement ?referInp ?taskInpElement ?inpPropType ?taskInpElementType ?referOut ?taskOutElement ?outPropType ?taskOutElementType
+SELECT ?task ?plan ?taskObject  ?referObj ?taskObElement ?obPropType ?taskObElementType ?taskOpElement ?taskOpArgElement ?referInp ?taskInpElement ?aInpProp ?aInpValue ?inpPropType ?taskInpElementType ?referOut ?taskOutElement ?outPropType ?taskOutElementType
 WHERE
 {
    ?requester  oasis:requests ?plan.
@@ -25,6 +25,7 @@ WHERE
    {
      ?task oasis:hasTaskActualInputParameter ?taskInputParameter .
      ?taskInputParameter ?referInp ?taskInpElement .
+     ?taskInpElement ?aInpProp ?aInpValue .
      FILTER (?referInp =  oasis:refersExactlyTo || ?referInp =  oasis:refersAsNewTo )
      OPTIONAL
      {

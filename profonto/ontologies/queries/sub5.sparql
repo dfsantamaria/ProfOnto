@@ -1,7 +1,18 @@
-OPTIONAL
 {
-?agent oasis:hasConfiguration ?conconf .
-?conconf oasis:hasConnection ?aconnect .
-?aconnect oasis:hasIPAddress ?ipaddr .
-?aconnect oasis:hasPortNumber ?port .
+?taskd oasis:hasTaskFormalInputParameter ?taskInpParam.
 }
+UNION
+{
+?taskd oasis:hasTaskInputParameterTemplate ?taskInpParam.	
+}
+
+{
+?taskInpParam oasis:refersExactlyTo ?taskInpElem .
+}
+UNION
+{
+?taskInpParam oasis:refersAsNewTo ?taskInpElem .	
+}
+
+?taskInpElem ?aInpProp ?aInpPropValue.
+VALUES ?aInProp {//list1//}
