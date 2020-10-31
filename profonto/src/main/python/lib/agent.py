@@ -197,7 +197,7 @@ class Agent(Thread):
         task = URIRef(iri + "#task")  # the task
         agent = URIRef(self.iriSet[2] + "#" + self.agentInfo[0])
         reqGraph.add(
-            (agent, URIRef(self.iriSet[0] + "#hasType"), URIRef(self.iriSet[1] + "#device_type")))  # task object
+            (agent, URIRef(self.iriSet[0] + "#hasAgentType"), URIRef(self.iriSet[1] + "#agent_device_type")))  # task object
 
         Utils.generateRequest(Utils, reqGraph, iri, self.iriSet[0], task, agent, URIRef(self.iriSet[1] + "#check"),
                               URIRef(self.iriSet[1] + "#installation"), None)
@@ -272,6 +272,12 @@ class Agent(Thread):
                       Literal(self.iriSet[2], datatype=XSD.string)))
 
         tosend = Utils.libbug(Utils, reqGraph, iri)  # transmits config solving the rdflib bug of xml:base
+
+        f = open("test.owl", "w")
+        g = rdflib.Graph()
+        g.parse(data=tosend)
+        f.write(g.serialize(format="pretty-xml").decode())
+        f.close()
         received = Utils.transmit(Utils, tosend.encode(), True, self.hubInfo[0], self.hubInfo[1])
         if received == None:
             return 0

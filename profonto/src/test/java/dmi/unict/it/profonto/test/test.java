@@ -98,6 +98,23 @@ public class test
         ontocore.removePermanentDevice("http://www.dmi.unict.it/lightagent.owl");
     }
     
+   @Order(4) 
+   public void testParseInstallDeviceRequest()
+    {
+        //Manually adding a device  
+        ontocore.parseRequest(readData("ontologies/test/lightagent-from-template.owl"));    
+        ontocore.parseRequest(readData("ontologies/test/rasb-lightagent.owl")); 
+        System.out.println("Adding light agent");
+        ontocore.addDevice("http://www.dmi.unict.it/lightagent.owl");
+        
+       //   ADDING USERS
+          ontocore.parseRequest(readData("ontologies/test/alan.owl"));
+          ByteArrayInputStream request=readData("ontologies/test/test.owl");  
+          String out=toStringOntology(ontocore.parseRequest(request))[0];
+          writeDown("installRequest", out);
+       //REMOVE
+        ontocore.removePermanentDevice("http://www.dmi.unict.it/lightagent.owl");
+    }
     
     @BeforeClass
     public static void setUp()

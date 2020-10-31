@@ -103,7 +103,7 @@ class Utils():
            reqGraph.add((taskParameter, RDF.type, URIRef(iriOasis + "#TaskActualInputParameter")))
            reqGraph.add((URIRef(iriOasis + "#hasTaskActualInputParameter"), RDF.type, Utils.owlobj))
            reqGraph.add((task, URIRef(iriOasis + "#hasTaskActualInputParameter"), taskParameter))  # task parameter
-           reqGraph.add((taskParameter, URIRef(iriOasis + "#refersExactlyTo"), parameter))
+           reqGraph.add((taskParameter, URIRef(iriOasis + "#refersAsNewTo"), parameter))
 
         if argument is not None:
             opArgument = URIRef(iri + "#taskOperatorArgument")  # the taskobject
