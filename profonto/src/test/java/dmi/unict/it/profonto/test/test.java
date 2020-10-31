@@ -6,13 +6,14 @@
 package dmi.unict.it.profonto.test;
 
 import dmi.unict.it.profonto.core.Profonto;
-import static dmi.unict.it.profonto.test.mainAutoinstall.readData;
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
@@ -25,7 +26,8 @@ import org.junit.AfterClass;
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.jupiter.api.Order;
+
 import org.semanticweb.owlapi.model.OWLOntologyCreationException;
 import org.semanticweb.owlapi.model.OWLOntologyStorageException;
 
@@ -35,24 +37,17 @@ import org.semanticweb.owlapi.model.OWLOntologyStorageException;
  */
 public class test
 {
-    Profonto ontocore;
+    static Profonto ontocore;
     
     public test()
     {
         
     }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
+      
     
     
     @Test
+    @Order(1)
     public void testAddRemoveManualUser()
     {
         ByteArrayInputStream request;          
@@ -73,38 +68,40 @@ public class test
     }
     
     @Test
+    @Order(2)
     public void testParseAddUserRequest()
     {
       //   ADDING USERS
           ontocore.parseRequest(readData("ontologies/test/alan.owl"));
           ByteArrayInputStream request=readData("ontologies/test/add-user-request.owl");  
           String out=toStringOntology(ontocore.parseRequest(request))[0];          
-          System.out.println(out);
+          writeDown("addUserRequest", out);
     }
     
+   
+    
     @Test
-    public void testManualAddDevice()
+    @Order(3)
+    public void testParseUserRequest()
     {
         //Manually adding a device  
         ontocore.parseRequest(readData("ontologies/test/lightagent-from-template.owl"));    
         ontocore.parseRequest(readData("ontologies/test/rasb-lightagent.owl")); 
         System.out.println("Adding light agent");
         ontocore.addDevice("http://www.dmi.unict.it/lightagent.owl");
-    }
-    
-    @Test
-    public void testParseUserRequest()
-    {
+        
        //   ADDING USERS
           ontocore.parseRequest(readData("ontologies/test/alan.owl"));
           ByteArrayInputStream request=readData("ontologies/test/user-request.owl");  
           String out=toStringOntology(ontocore.parseRequest(request))[0];
-          System.out.println(out);
+          writeDown("userRequest", out);
+       //REMOVE
+        ontocore.removePermanentDevice("http://www.dmi.unict.it/lightagent.owl");
     }
     
     
-    @Before
-    public void setUp()
+    @BeforeClass
+    public static void setUp()
     {
         File ontoFile=new File("ontologies/main/oasis.owl");
         File aboxFile=new File("ontologies/main/oasis-abox.owl");
@@ -148,10 +145,60 @@ public class test
         
     }
     
-    @After
-    public void tearDown() {
+    @AfterClass
+    public static void delFiles()
+    {
+     
+      File[] exception=new File[]{new File("oasis.owl"), new File("oasis-abox.owl")};
+      emptyFolder(ontocore.getBackupPath().toFile(), new File[0]);
+      emptyFolder(ontocore.getOntologiesDeviceConfigurationPath().toFile(), new File[0]);
+      emptyFolder(ontocore.getOntologiesDevicesPath().toFile(), new File[0]);
+      emptyFolder(ontocore.getMainOntologiesPath().toFile(), exception);
+      emptyFolder(ontocore.getSatellitePath().toFile(), new File[0]);
+      emptyFolder(ontocore.getOntologiesUsersPath().toFile(), new File[0]);
+    }
+    
+    public static void emptyFolder(File dir, File[]exception)
+    {
+      File[]l=dir.listFiles();
+      for(int i=0;i<l.length;i++)
+      {
+          int j=0;
+          for(;j<exception.length;j++)
+          {
+            if(l[i].getName().equals(exception[j].getName()))
+                break;
+          }
+          if(j==exception.length)
+              l[i].delete();
+      }
     }
 
+    public void writeDown(String m, String s)
+    {
+        BufferedWriter writer = null;
+        try {
+            File filesource = new File("ontologies" + File.separator + "outTest" + File.separator+ m + ".owl");
+            filesource.getParentFile().mkdirs();
+            writer = new BufferedWriter(new FileWriter(filesource));
+            writer.write(s);
+            writer.close();
+        } catch (IOException ex)
+        {
+            Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+        } 
+        finally
+        {
+            try 
+            {
+                writer.close();
+            } catch (IOException ex) {
+                Logger.getLogger(test.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+            
+    
     // TODO add test methods here.
     // The methods must be annotated with annotation @Test. For example:
     //

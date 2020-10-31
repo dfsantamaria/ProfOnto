@@ -1768,9 +1768,9 @@ public class Profonto extends OntologyCore
           this.getMainManager().removeOntology(out);
           
           
-         // String filesource = this.getOntologiesDevicesPath() + File.separator + "bbbbbbb" + ".owl";
-         // File file = new File(filesource);
-        //  this.getMainManager().saveOntology(o, IRI.create(new File( "bbbbb" + ".owl")));
+       //   String filesource = this.getOntologiesDevicesPath() + File.separator + "bbbbbbb" + ".owl";
+       //   File file = new File(filesource);
+       //   this.getMainManager().saveOntology(o, IRI.create(new File( "bbbbb" + ".owl")));
             
           
           

@@ -314,7 +314,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#installAgentTaskObject">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#Device"/>
-        <oasis:hasType rdf:resource="http://www.dmi.unict.it/homeassistant.owl#agent_device_type"/>
+        <oasis:hasAgentType rdf:resource="http://www.dmi.unict.it/homeassistant.owl#agent_device_type"/>
     </owl:NamedIndividual>
     
 
