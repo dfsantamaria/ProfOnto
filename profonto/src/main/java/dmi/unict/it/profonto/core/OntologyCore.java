@@ -9,8 +9,10 @@ import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 import java.util.stream.Stream;
 import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QueryExecutionFactory;
@@ -18,7 +20,6 @@ import org.apache.jena.query.QueryFactory;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.rdf.model.Model;
 import org.semanticweb.owlapi.apibinding.OWLManager;
-import org.semanticweb.owlapi.model.MissingImportHandlingStrategy;
 import org.semanticweb.owlapi.model.OWLAxiom;
 import org.semanticweb.owlapi.model.OWLClass;
 import org.semanticweb.owlapi.model.OWLDataFactory;
@@ -50,7 +51,8 @@ public class OntologyCore
     private Model graphmodel;
     private OWLReasoner reasoner;
     private OWLOntologyLoaderConfiguration config;
-    
+    private Logger logSys;
+    private final int limit = 1024*10000; //10 MB
     /**
      * Returns the main datafactory
      * @return the main datafactory
@@ -114,18 +116,37 @@ public class OntologyCore
         reasoner=owlreasoner;
       }
     
+    
+    public Logger getLogger()
+    {
+      return this.logSys;
+    }
+    
+    
     /**
      *   Constructs an empty OntologyCore object with empty ontology
      */
-    public OntologyCore ()
+    public OntologyCore (String logName)
       {
-        manager = OWLManager.createOWLOntologyManager(); //create the manager   OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration();
-        config = new OWLOntologyLoaderConfiguration();        
-        manager.setOntologyLoaderConfiguration(config);
-        
-        datafactory = manager.getOWLDataFactory();
-        mainOntology=null;
-        graphmodel=null;
+        try {//
+            logSys=Logger.getLogger(logName);
+            FileHandler file = new FileHandler(logName+".log", limit,1 , true);  
+          
+            SimpleFormatter simple = new SimpleFormatter();
+            file.setFormatter(simple);
+            logSys.addHandler(file); 
+            logSys.setUseParentHandlers(false);
+        } 
+        catch (IOException | SecurityException ex)
+        {            
+            System.err.println("Logger cannot be created");
+        } 
+         manager = OWLManager.createOWLOntologyManager(); //create the manager   OWLOntologyLoaderConfiguration config = new OWLOntologyLoaderConfiguration();
+         config = new OWLOntologyLoaderConfiguration();
+         manager.setOntologyLoaderConfiguration(config);
+         datafactory = manager.getOWLDataFactory();
+         mainOntology=null;
+         graphmodel=null;         
       }
     
     /**

@@ -18,8 +18,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.UnsupportedEncodingException;
 import java.nio.file.Paths;
+import java.util.logging.FileHandler;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.util.logging.SimpleFormatter;
 import org.apache.commons.io.FileUtils;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -39,10 +41,7 @@ public class test
 {
     static Profonto ontocore;
     
-    public test()
-    {
-        
-    }
+   
       
     
     
@@ -102,7 +101,8 @@ public class test
     
     @BeforeClass
     public static void setUp()
-    {
+    {      
+                
         File ontoFile=new File("ontologies/main/oasis.owl");
         File aboxFile=new File("ontologies/main/oasis-abox.owl");
        // File dataFile=new File("ontologies/main/dataset.owl");

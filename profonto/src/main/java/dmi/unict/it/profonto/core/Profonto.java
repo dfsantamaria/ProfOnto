@@ -8,14 +8,12 @@ package dmi.unict.it.profonto.core;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
-import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.nio.file.Path;
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -30,7 +28,6 @@ import org.apache.jena.query.QueryExecution;
 import org.apache.jena.query.QuerySolution;
 import org.apache.jena.query.ResultSet;
 import org.apache.jena.query.ResultSetFormatter;
-import org.apache.jena.rdf.model.Resource;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
@@ -96,7 +93,7 @@ public class Profonto extends OntologyCore
      */
     public Profonto()
     {
-        super();
+        super("ProfontoLog");
         devices = new HashMap<>();
         devConfig = new HashMap<>();
         users = new HashMap<>();
@@ -316,7 +313,7 @@ public class Profonto extends OntologyCore
              } 
            catch (IOException ex)
              {
-               Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+               getLogger().log(Level.SEVERE, null, ex);
              }
          }    
     }
@@ -649,7 +646,7 @@ public class Profonto extends OntologyCore
         } 
         catch (OWLOntologyStorageException ex)
         {
-            //Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            getLogger().log(Level.SEVERE, null, ex);
             return -1;
         }
         if(changes.equals(ChangeApplied.SUCCESSFULLY))
@@ -674,7 +671,7 @@ public class Profonto extends OntologyCore
         } 
         catch (OWLOntologyStorageException ex)
         {
-            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            getLogger().log(Level.SEVERE, null, ex);
             return -1;
         }
         if(changes.equals(ChangeApplied.SUCCESSFULLY))
@@ -708,7 +705,7 @@ public class Profonto extends OntologyCore
           } 
         catch (OWLOntologyCreationException ex)
           {
-            //Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            getLogger().log(Level.SEVERE, null, ex);
             return false;
           }        
         return res;
@@ -725,14 +722,16 @@ public class Profonto extends OntologyCore
         try
         {
             ontology = this.getMainManager().loadOntologyFromOntologyDocument(ontologystring);
+           
         } 
         catch (OWLOntologyAlreadyExistsException ex)
         {
             ontology=this.getMainManager().getOntology(ex.getOntologyID());
+            getLogger().log(Level.SEVERE, null, ex);
         } 
         catch (OWLOntologyCreationException ex )                
         {
-         //   Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+         getLogger().log(Level.SEVERE, null, ex);
         }        
         int r=-1;        
         r=addAxiomsToOntology(this.getDataBeliefOntology(), ontology.axioms());
@@ -847,7 +846,7 @@ public class Profonto extends OntologyCore
         }
         catch (OWLOntologyCreationException ex)
         {
-            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+           getLogger().log(Level.SEVERE, null, ex);
             return null;
         }
        
@@ -903,7 +902,7 @@ public class Profonto extends OntologyCore
             //   syncReasonerDataBehavior();            
         } catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
         {
-            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            getLogger().log(Level.SEVERE, null, ex);
         }
         return val[0];
     }
@@ -949,16 +948,16 @@ public class Profonto extends OntologyCore
      */
     
     public String addDevice(String iri)
-    {
+    {       
         try
         {
            OWLOntology ontodevice=this.getMainManager().loadOntology(IRI.create(iri)); 
            return addDevice(ontodevice);
         }
         catch (OWLOntologyCreationException ex)
-        {
-            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
-            return null;
+        { 
+           getLogger().log(Level.SEVERE, null, ex);
+           return null;
         }
        
     }
@@ -1050,7 +1049,7 @@ public class Profonto extends OntologyCore
         } 
         catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
         {
-            //Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+           getLogger().log(Level.SEVERE, null, ex);
            return null;
         }
         return val[0];
@@ -1147,7 +1146,7 @@ public class Profonto extends OntologyCore
           } 
         catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
           {
-            //Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            getLogger().log(Level.SEVERE, null, ex);
             return -1;
           } 
         return 1;
@@ -1206,7 +1205,7 @@ public class Profonto extends OntologyCore
                    } 
                    catch (OWLOntologyCreationException ex) 
                      {
-                      //Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+                      getLogger().log(Level.SEVERE, null, ex);
                      }
             }
         }
@@ -1237,7 +1236,7 @@ public class Profonto extends OntologyCore
         }
         catch (OWLOntologyCreationException ex)
         {
-            //Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            getLogger().log(Level.SEVERE, null, ex);
             return null;
         }
        
@@ -1307,7 +1306,7 @@ public class Profonto extends OntologyCore
         } 
       catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
         {
-            //Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            getLogger().log(Level.SEVERE, null, ex);
             return null;
         }
         return vals[1];      
@@ -1422,7 +1421,7 @@ public class Profonto extends OntologyCore
      * @param file the file of the query
      * @return
      */
-    public static String readQuery(String file)
+    public  String readQuery(String file)
       {
         String query="";
         BufferedReader queryReader=null;
@@ -1438,7 +1437,7 @@ public class Profonto extends OntologyCore
           } 
         catch (IOException ex)
           {
-            //Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);   
+             getLogger().log(Level.SEVERE, null, ex);   
              return null;
           }          
         return query;
@@ -1475,7 +1474,7 @@ public class Profonto extends OntologyCore
        } 
         catch (OWLOntologyCreationException | IOException ex)
         {
-            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            getLogger().log(Level.SEVERE, null, ex);
         }
         return res;
       }
@@ -1546,7 +1545,7 @@ public class Profonto extends OntologyCore
           } 
         catch (IOException ex)
           {
-            //Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+            getLogger().log(Level.SEVERE, null, ex);
           }
       }
     
@@ -1572,7 +1571,7 @@ public class Profonto extends OntologyCore
         } 
         catch (IOException | OWLOntologyStorageException ex)
         {
-            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+           getLogger().log(Level.SEVERE, null, ex);
         }      
       }
     
@@ -1849,7 +1848,7 @@ public class Profonto extends OntologyCore
           }
         catch (OWLOntologyCreationException ex)
           {
-            Logger.getLogger(Profonto.class.getName()).log(Level.SEVERE, null, ex);
+           getLogger().log(Level.SEVERE, null, ex);
             return null;
           }
       }
