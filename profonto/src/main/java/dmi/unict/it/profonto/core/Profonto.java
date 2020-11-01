@@ -1682,6 +1682,33 @@ public class Profonto extends OntologyCore
        return "\""+l.getLexicalForm()+"\"^^"+"<"+l.getDatatypeURI()+">";
     }
     
+    
+    
+    public String getTriplesFromQueryMatch(List<QuerySolution> querySol, String sub, String prop, String value)
+    {
+       String ret="";
+       for(int i=0;i<querySol.size();i++)
+           {
+             String thepropinp = " <"+querySol.get(i).getResource(prop).getURI()+ "> ";
+             String entry=sub + thepropinp;
+             if(querySol.get(i).get(value).isResource())
+             {
+                 entry += "<"+querySol.get(i).getResource(value).getURI()+"> .\n";
+                 entry+= sub+ " rdf:type owl:NamedIndividual .\n";
+                 entry+=thepropinp + " rdf:type owl:ObjectProperty .\n ";
+             }
+             else
+             {
+                 entry +=" "+ this.fromLiteralToTurtle(querySol.get(i).getLiteral(value))+" .\n";  
+                 entry +=thepropinp + " rdf:type owl:DatatypeProperty .\n ";
+             }
+             ret+=entry;
+           }
+        return ret;
+    }
+    
+    
+    
     /**
      * Returns the set of axioms concerning the execution of the given request
      * @param request The ontology of the request     
@@ -1750,7 +1777,10 @@ public class Profonto extends OntologyCore
            if(sub1QL.get(0).getResource("referObj").getLocalName().equals("refersExactlyTo"))
               {
                 construct=construct.replaceAll("//theobject//", "<"+sub1QL.get(0).getResource("taskObElement").getURI()+">");
-                       
+                //here  
+                
+                construct+=getTriplesFromQueryMatch(sub1QL, "<"+sub1QL.get(0).getResource("taskObElement").getURI()+">",
+                                                            "obPropType", "taskObElementType");
               }
           else //otherwise the request uses the refersAsNewTo for the object reference
                //and then an appropriate element must be sought.
@@ -1810,24 +1840,9 @@ public class Profonto extends OntologyCore
             
             subquery=subquery+sub5q;
            }
-                     
-           for(int i=0;i<sub1QL.size();i++)
-           {
-             String thepropinp = " <"+sub1QL.get(i).getResource("aInpProp").getURI()+ "> ";
-             String entry=execInpParamElem + thepropinp;
-             if(sub1QL.get(i).get("aInpValue").isResource())
-             {
-                 entry += "<"+sub1QL.get(i).getResource("aInpValue").getURI()+"> .\n";
-                 entry+= execInpParamElem+ " rdf:type owl:NamedIndividual .\n";
-                 entry+=thepropinp + " rdf:type owl:ObjectProperty .\n ";
-             }
-             else
-             {
-                 entry +=" "+ this.fromLiteralToTurtle(sub1QL.get(i).getLiteral("aInpValue"))+" .\n";  
-                 entry +=thepropinp + " rdf:type owl:DatatypeProperty .\n ";
-             }
-             construct3=construct3+entry;
-           }
+             
+           construct3+=getTriplesFromQueryMatch(sub1QL,execInpParamElem,"aInpProp","aInpValue");
+          
            
           //  Builder<OWLAxiom> b=Stream.builder();
           //  for(QuerySolution q : sub1QL)

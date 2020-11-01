@@ -267,7 +267,8 @@ class ProfOnto (Thread):
                     res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox+"succeded_status"), addr, sock, server_socket)
 
             elif actions == URIRef(self.oasisabox + "add") or actions == URIRef(self.oasisabox + "remove"):  # add user task
-                 for thetype in graph.objects(requester, URIRef(self.oasis + "hasType")):
+
+                 for thetype in graph.objects(requester, URIRef(self.oasis + "hasAgentType")):
                      if thetype== URIRef(self.oasisabox + "user_type"): #adding or removing user
                          if actions == URIRef(self.oasisabox + "add"):
                              file =  self.getOntologyFile(graph, execution)
