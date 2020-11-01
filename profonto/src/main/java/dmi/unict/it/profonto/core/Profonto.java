@@ -1841,7 +1841,7 @@ public class Profonto extends OntologyCore
             construct=construct+construct3;
           }
           //connection information
-          subquery+=this.getQueries().get("sub8.sparql");
+          subquery+=this.getQueries().get("sub7.sparql");
           
           
           
