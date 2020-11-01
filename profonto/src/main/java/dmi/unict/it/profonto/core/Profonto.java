@@ -1732,15 +1732,16 @@ public class Profonto extends OntologyCore
           String execNameSpace = sub1QL.get(0).getResource("plan").getNameSpace();
           Stream<OWLAxiom> axiomToAdd=Stream.empty();
           //customizing the construct header
-          String construct=this.getQueries().get("construct01.sparql");          
-          construct=construct.replaceAll("//taskexec//", "<"+execNameSpace+execName+"_execution"+">")
+          String construct=this.getQueries().get("construct01.sparql");         
+          String taskexec= "<"+execNameSpace+execName+"_execution"+">";
+          construct=construct.replaceAll("//taskexec//", taskexec)
                              .replaceAll("//taskexeobject//", "<"+execNameSpace+execName+"_exeTaskObject"+">")
                              .replaceAll("//taskexeoperator//", "<"+execNameSpace+execName+"_exeTaskOperator"+">")
                              .replaceAll("//param1//", "<"+sub1QL.get(0).getResource("plan").getURI()+">");
                              
         
           
-          subquery = this.getQueries().get("sub2.sparql");
+          subquery = this.getQueries().get("sub2-1.sparql");
          
           //filtering by task operator matched with the request        
           String theTaskOpElement="<"+sub1QL.get(0).getResource("taskOpElement").getURI()+">";
@@ -1756,6 +1757,22 @@ public class Profonto extends OntologyCore
           {
             construct=construct.replaceAll("//theobject//","?actuator");
           }
+           
+          //matching the task argument 
+           if(sub1QL.get(0).getResource("taskOpArgElement")!=null)
+           {
+            List<String> arguments= this.getDistincElemInQuerySet(sub1QL, "taskOpArgElement");           
+            for(String s : arguments)
+            {
+             subquery+= this.getQueries().get("sub2-2.sparql").replaceAll("//thetaskoperatorarg//", "<"+s+">"); 
+             String co= this.getQueries().get("construct02.sparql");
+             co=co.replaceAll("//taskexec//", taskexec)
+               .replaceAll("//taskexeoperatorarg//", "<"+execNameSpace+execName+"_exeTaskOperatorArgument"+">")
+               .replaceAll("//param3//", "<"+s+">");
+             construct+=co+"\n";
+            }
+           }
+           
           //matching task object 
           subquery+=this.getQueries().get("sub3.sparql");
           //matching the task objectType
@@ -1769,22 +1786,22 @@ public class Profonto extends OntologyCore
           if(sub1QL.get(0).getResource("referInp")!=null)
           {
            String execInpParamElem="";   
-           String construct2=this.getQueries().get("construct02.sparql");   
+           String construct3=this.getQueries().get("construct03.sparql");   
            String execInpParam="<"+execNameSpace+execName+"_exeTaskActualInputParameter"+">";
-           construct2=construct2.replaceAll("//taskexec//", "<"+execNameSpace+execName+"_execution"+">");
-           construct2=construct2.replaceAll("//taskexeparam//", execInpParam);
+           construct3=construct3.replaceAll("//taskexec//", "<"+execNameSpace+execName+"_execution"+">");
+           construct3=construct3.replaceAll("//taskexeparam//", execInpParam);
            
            if(sub1QL.get(0).getResource("referInp").getLocalName().equals("refersExactlyTo"))
             {
              execInpParamElem="<"+ sub1QL.get(0).getResource("taskInpElement")+">";   
-             construct2=construct2.replaceAll("//taskexeparamElem//", execInpParamElem)
+             construct3=construct3.replaceAll("//taskexeparamElem//", execInpParamElem)
                                   .replaceAll("//taskinpprop//", "oasis:refersExactlyTo");
              
            }
           else 
            {
             execInpParamElem="<"+execNameSpace+execName+"_exeTaskActualInputParameterElem"+">";  
-            construct2=construct2.replaceAll("//taskexeparamElem//", execInpParamElem)
+            construct3=construct3.replaceAll("//taskexeparamElem//", execInpParamElem)
                                    .replaceAll("//taskinpprop//", "oasis:refersAsNewTo"); 
             //construct2=construct2+this.getQueries().get("construct03.sparql").replaceAll("//taskexeparamElem//", execInpParamElem);
             String inpprop=this.getDistincElemInQuerySetAsString(sub1QL, "aInpProp");
@@ -1809,7 +1826,7 @@ public class Profonto extends OntologyCore
                  entry +=" "+ this.fromLiteralToTurtle(sub1QL.get(i).getLiteral("aInpValue"))+" .\n";  
                  entry +=thepropinp + " rdf:type owl:DatatypeProperty .\n ";
              }
-             construct2=construct2+entry;
+             construct3=construct3+entry;
            }
            
           //  Builder<OWLAxiom> b=Stream.builder();
@@ -1821,7 +1838,7 @@ public class Profonto extends OntologyCore
           //  b.add(this.getDataFactory().getOWLDataPropertyAssertionAxiom(property, subject, object));
           //  axiomToAdd=Stream.concat(axiomToAdd, axiomToAdd)axiomToAdd.
            
-            construct=construct+construct2;
+            construct=construct+construct3;
           }
           //connection information
           subquery+=this.getQueries().get("sub8.sparql");
@@ -1829,6 +1846,7 @@ public class Profonto extends OntologyCore
           
           
          //System.out.println("CONSTRUCT { "+construct +"}\n"); 
+          construct+=this.getQueries().get("construct05.sparql");
           subquery = prefix + "CONSTRUCT { "+construct +"}\n" +  subquery + "}"; 
           System.out.println(subquery);         
          // execQ = this.createQuery(this.getDataBehaviorOntology(), subquery);
@@ -1851,9 +1869,9 @@ public class Profonto extends OntologyCore
           this.getMainManager().removeOntology(out);
           
           
-      //    String filesource = this.getOntologiesDevicesPath() + File.separator + "bbbbbbb" + ".owl";
-      //    File file = new File(filesource);
-      //    this.getMainManager().saveOntology(o, IRI.create(new File( "bbbbb" + ".owl")));
+        //  String filesource = this.getOntologiesDevicesPath() + File.separator + "bbbbbbb" + ".owl";
+         // File file = new File(filesource);
+        //  this.getMainManager().saveOntology(o, IRI.create(new File( "bbbbb" + ".owl")));
             
           
           

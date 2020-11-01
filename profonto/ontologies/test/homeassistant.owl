@@ -195,9 +195,9 @@
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#checkAgentInstallationTaskDescription">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskDescription"/>
-        <oasis:hasOperatorArgument rdf:resource="http://www.dmi.unict.it/homeassistant.owl#checkAgentInstallationOperatorArgument"/>
         <oasis:hasTaskObjectTemplate rdf:resource="http://www.dmi.unict.it/homeassistant.owl#installAgentTaskObjectTemplate"/>
         <oasis:hasTaskOperator rdf:resource="http://www.dmi.unict.it/homeassistant.owl#checkAgentInstallationTaskOperator"/>
+        <oasis:hasTaskOperatorArgument rdf:resource="http://www.dmi.unict.it/homeassistant.owl#checkAgentInstallationOperatorArgument"/>
     </owl:NamedIndividual>
     
 

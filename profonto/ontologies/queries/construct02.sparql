@@ -1,2 +1,3 @@
-//taskexec// oasis:hasTaskActualInputParameter //taskexeparam// .
-//taskexeparam//  //taskinpprop// //taskexeparamElem// .
+//taskexec// oasis:hasTaskOperatorArgument //taskexeoperatorarg// .
+//taskexeoperatorarg// rdf:type oasis:TaskOperatorArgument .
+//taskexeoperatorarg// oasis:refersExactlyTo //param3// .

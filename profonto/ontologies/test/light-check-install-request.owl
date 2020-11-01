@@ -84,10 +84,10 @@
         <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#check"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#agent_device_type"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#device_type"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#check"/>
     </Declaration>
     <Declaration>
         <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#home_object_type"/>
@@ -147,11 +147,6 @@
         <NamedIndividual IRI="#light-check-install-req-goal"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
-        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasOperatorArgument"/>
-        <NamedIndividual IRI="#light-check-install-req-task"/>
-        <NamedIndividual IRI="#light-check-install-operatorargument"/>
-    </ObjectPropertyAssertion>
-    <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskObject"/>
         <NamedIndividual IRI="#light-check-install-req-task"/>
         <NamedIndividual IRI="#light-check-install-taskobject"/>
@@ -160,6 +155,11 @@
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskOperator"/>
         <NamedIndividual IRI="#light-check-install-req-task"/>
         <NamedIndividual IRI="#light-check-install-taskoperator"/>
+    </ObjectPropertyAssertion>
+    <ObjectPropertyAssertion>
+        <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasTaskOperatorArgument"/>
+        <NamedIndividual IRI="#light-check-install-req-task"/>
+        <NamedIndividual IRI="#light-check-install-operatorargument"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#refersExactlyTo"/>
@@ -174,7 +174,7 @@
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasAgentType"/>
         <NamedIndividual IRI="http://www.dmi.unict.it/lightagent.owl#light-device"/>
-        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#device_type"/>
+        <NamedIndividual IRI="http://www.dmi.unict.it/oasis-abox.owl#agent_device_type"/>
     </ObjectPropertyAssertion>
     <ObjectPropertyAssertion>
         <ObjectProperty IRI="http://www.dmi.unict.it/oasis.owl#hasObjectType"/>

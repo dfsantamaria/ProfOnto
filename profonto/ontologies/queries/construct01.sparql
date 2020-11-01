@@ -9,7 +9,3 @@
 //taskexec// oasis:hasTaskOperator //taskexeoperator// .
 //taskexeoperator// rdf:type oasis:TaskOperator .
 //taskexeoperator// oasis:refersExactlyTo //param2// .
-?agent oasis:hasConfiguration ?conconf .
-?conconf oasis:hasConnection ?aconnect .
-?conconf rdf:type owl:NamedIndividual .
-?aconnect rdf:type owl:NamedIndividual .

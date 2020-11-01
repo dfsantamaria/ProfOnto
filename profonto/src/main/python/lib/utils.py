@@ -108,8 +108,8 @@ class Utils():
         if argument is not None:
             opArgument = URIRef(iri + "#taskOperatorArgument")  # the taskobject
             reqGraph.add((opArgument, RDF.type, URIRef(iriOasis + "#TaskOperatorArgument")))
-            reqGraph.add((URIRef(iriOasis + "#hasOperatorArgument"), RDF.type, Utils.owlobj))
-            reqGraph.add((task, URIRef(iriOasis + "#hasOperatorArgument"), opArgument))  # argument
+            reqGraph.add((URIRef(iriOasis + "#hasTaskOperatorArgument"), RDF.type, Utils.owlobj))
+            reqGraph.add((task, URIRef(iriOasis + "#hasTaskOperatorArgument"), opArgument))  # argument
             reqGraph.add((opArgument, URIRef(iriOasis + "#refersExactlyTo"), argument))
 
         return

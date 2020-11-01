@@ -33,4 +33,3 @@ WHERE
   #Filtering agent by TaskOperator
   ?taskd oasis:hasTaskOperator ?taskop.
   ?taskop oasis:refersExactlyTo //thetaskoperator//.
-#}

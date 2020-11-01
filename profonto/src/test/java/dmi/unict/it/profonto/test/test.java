@@ -107,25 +107,42 @@ public class test
           writeDown("installDeviceRequest", out);       
     }
     
-     @Test
+    @Test
     @Order(5)
     public void testParseUninstallDeviceRequest()
     {      
-          //Manually adding a device  
+        //Manually adding a device  
         ontocore.parseRequest(readData("ontologies/test/lightagent-from-template.owl"));    
         ontocore.parseRequest(readData("ontologies/test/rasb-lightagent.owl")); 
         System.out.println("Adding light agent");
         ontocore.addDevice("http://www.dmi.unict.it/lightagent.owl");
-          ByteArrayInputStream request=readData("ontologies/test/uninstall-request-test.owl");  
-          String out=toStringOntology(ontocore.parseRequest(request))[0];
-          writeDown("uninstallDeviceRequest", out);       
+        ByteArrayInputStream request=readData("ontologies/test/uninstall-request-test.owl");  
+        String out=toStringOntology(ontocore.parseRequest(request))[0];
+        writeDown("uninstallDeviceRequest", out);    
+        //REMOVE
+        ontocore.removePermanentDevice("http://www.dmi.unict.it/lightagent.owl");
     }
     
+    @Test
+    @Order(6)
+    public void testParseCheckstallDeviceRequest()
+    {      
+        //Manually adding a device  
+        ontocore.parseRequest(readData("ontologies/test/lightagent-from-template.owl"));    
+        ontocore.parseRequest(readData("ontologies/test/rasb-lightagent.owl")); 
+        System.out.println("Adding light agent");
+        ontocore.addDevice("http://www.dmi.unict.it/lightagent.owl");
+        ByteArrayInputStream request=readData("ontologies/test/light-check-install-request.owl");  
+        String out=toStringOntology(ontocore.parseRequest(request))[0];
+        writeDown("checkinstallDeviceRequest", out);    
+        //REMOVE
+        ontocore.removePermanentDevice("http://www.dmi.unict.it/lightagent.owl");
+    }
     
     @BeforeClass
     public static void setUp()
     {      
-                
+        new File("ontologies"+File.separator+"outTest").delete();      
         File ontoFile=new File("ontologies/main/oasis.owl");
         File aboxFile=new File("ontologies/main/oasis-abox.owl");
        // File dataFile=new File("ontologies/main/dataset.owl");

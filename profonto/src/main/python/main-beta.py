@@ -364,7 +364,7 @@ class ProfOnto (Thread):
                         res =  self.transmitExecutionStatus(execution, URIRef(self.oasisabox + "failed_status"), addr, sock,
                                                   server_socket)
             elif actions == URIRef(self.oasisabox + "check"):
-                for arg in graph.objects(execution, URIRef(self.oasis + "hasOperatorArgument")):
+                for arg in graph.objects(execution, URIRef(self.oasis + "hasTaskOperatorArgument")):
                     argument = next(graph.objects(arg, URIRef(self.oasis + "refersExactlyTo")))
                     if argument == URIRef(self.oasisabox + "installation"):
                         print("Checking for the presence of ", requester)
