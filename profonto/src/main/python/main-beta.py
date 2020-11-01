@@ -163,8 +163,10 @@ class ProfOnto (Thread):
 
     def getOntologyFile(self, graph, execution):
         file=None
-        for t in graph.objects(execution, URIRef( self.oasis + "hasTaskActualInputParameter")): # retrieving source
-           for s in graph.objects(t, URIRef( self.oasis + "descriptionProvidedByURL")):
+        for d in graph.objects(execution, URIRef( self.oasis + "hasTaskActualInputParameter")): # retrieving source
+           print(d)
+           for t in graph.objects(d, URIRef( self.oasis + "refersAsNewTo")):
+             for s in graph.objects(t, URIRef( self.oasis + "descriptionProvidedByURL")):
                if (s is not None):
                  file = Utils.readOntoFile(Utils, s)
                  return file
@@ -234,6 +236,7 @@ class ProfOnto (Thread):
         for actions in graph.objects(operator, URIRef( self.oasis + "refersExactlyTo")):
             res=0
             if actions == URIRef(self.oasisabox + "install"):
+                print(actions)
                 file =  self.getOntologyFile(graph, execution)
                 value =  self.profonto.addDevice(file)  # read the device data
                 if value == None or value=="":

@@ -102,9 +102,23 @@ public class test
     @Order(4)
     public void testParseInstallDeviceRequest()
     {      
-          ByteArrayInputStream request=readData("ontologies/test/test.owl");  
+          ByteArrayInputStream request=readData("ontologies/test/install-request-test.owl");  
           String out=toStringOntology(ontocore.parseRequest(request))[0];
           writeDown("installDeviceRequest", out);       
+    }
+    
+     @Test
+    @Order(5)
+    public void testParseUninstallDeviceRequest()
+    {      
+          //Manually adding a device  
+        ontocore.parseRequest(readData("ontologies/test/lightagent-from-template.owl"));    
+        ontocore.parseRequest(readData("ontologies/test/rasb-lightagent.owl")); 
+        System.out.println("Adding light agent");
+        ontocore.addDevice("http://www.dmi.unict.it/lightagent.owl");
+          ByteArrayInputStream request=readData("ontologies/test/uninstall-request-test.owl");  
+          String out=toStringOntology(ontocore.parseRequest(request))[0];
+          writeDown("uninstallDeviceRequest", out);       
     }
     
     

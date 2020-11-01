@@ -92,7 +92,7 @@ class Utils():
         reqGraph.add((taskObject, URIRef(iriOasis + "#refersExactlyTo"), object))  # task object
 
         taskOperator = URIRef(iri + "#taskOperator")  # the taskobject
-        reqGraph.add((taskObject, RDF.type, URIRef(iriOasis + "#TaskOperator")))
+        reqGraph.add((taskOperator, RDF.type, URIRef(iriOasis + "#TaskOperator")))
         reqGraph.add((URIRef(iriOasis + "#hasTaskOperator"), RDF.type, Utils.owlobj))
         reqGraph.add((task, URIRef(iriOasis + "#hasTaskOperator"),
              taskOperator))  # task operator

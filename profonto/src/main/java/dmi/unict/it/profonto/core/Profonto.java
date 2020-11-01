@@ -1796,15 +1796,18 @@ public class Profonto extends OntologyCore
                      
            for(int i=0;i<sub1QL.size();i++)
            {
-             String entry = execInpParamElem+ " <"+sub1QL.get(i).getResource("aInpProp").getURI()+ "> ";
+             String thepropinp = " <"+sub1QL.get(i).getResource("aInpProp").getURI()+ "> ";
+             String entry=execInpParamElem + thepropinp;
              if(sub1QL.get(i).get("aInpValue").isResource())
              {
                  entry += "<"+sub1QL.get(i).getResource("aInpValue").getURI()+"> .\n";
                  entry+= execInpParamElem+ " rdf:type owl:NamedIndividual .\n";
+                 entry+=thepropinp + " rdf:type owl:ObjectProperty .\n ";
              }
              else
              {
-                 entry +=" "+ this.fromLiteralToTurtle(sub1QL.get(i).getLiteral("aInpValue"))+" .\n";                  
+                 entry +=" "+ this.fromLiteralToTurtle(sub1QL.get(i).getLiteral("aInpValue"))+" .\n";  
+                 entry +=thepropinp + " rdf:type owl:DatatypeProperty .\n ";
              }
              construct2=construct2+entry;
            }
