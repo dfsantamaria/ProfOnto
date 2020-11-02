@@ -124,10 +124,8 @@ class ProfOnto (Thread):
         Utils.generateRequest(Utils, g, iri, self.oasis, task, object, operator, None, parameter)
         iriassist=self.iriassistant+'#'+self.assistant
 
-
         g.add((URIRef(iriassist), RDF.type, URIRef( self.oasis + "Device")))  # has request
         g.add((URIRef(iriassist), URIRef( self.oasis + "requests"), URIRef(iri + "#request")))
-
 
         g.add((URIRef( self.oasis + "hasInformationObjectType"), RDF.type, Utils.owlobj))
         g.add((object, URIRef( self.oasis + "hasInformationObjectType"),
@@ -140,8 +138,8 @@ class ProfOnto (Thread):
         g.add((URIRef( self.oasis + "descriptionProvidedByIRI"), RDF.type, Utils.owldat))
         g.add((parameter, URIRef( self.oasis + "descriptionProvidedByIRI"), Literal(iri, datatype=XSD.string)))
 
-        g.add((URIRef( self.oasis + "refersTo"), RDF.type, Utils.owlobj))
-        g.add((parameter, URIRef( self.oasis + "refersTo"), URIRef(execution)))
+       # g.add((URIRef( self.oasis + "refersExactlyTo"), RDF.type, Utils.owlobj))
+       # g.add((parameter, URIRef( self.oasis + "refersExactlyTo"), URIRef(execution)))
 
         g.add((URIRef( self.oasis + "hasStatus"), RDF.type, Utils.owlobj))
         g.add((URIRef(execution),URIRef( self.oasis + "hasStatus"), URIRef(status)))
@@ -164,7 +162,6 @@ class ProfOnto (Thread):
     def getOntologyFile(self, graph, execution):
         file=None
         for d in graph.objects(execution, URIRef( self.oasis + "hasTaskActualInputParameter")): # retrieving source
-           print(d)
            for t in graph.objects(d, URIRef( self.oasis + "refersAsNewTo")):
              for s in graph.objects(t, URIRef( self.oasis + "descriptionProvidedByURL")):
                if (s is not None):
@@ -177,22 +174,22 @@ class ProfOnto (Thread):
 
 
 
-    def createRequest(self, graph, request, execution):
-        uri='http://www.dmi.unict.it/profonto-home.owl#'
-        name=Utils.retrieveEntityName(Utils, execution)
-        request.add((execution, RDF.type, URIRef( self.oasis + "TaskExecution")))
-        request.add((URIRef(uri+name+"PlanRequest"), RDF.type, URIRef( self.oasis+ "PlanDescription") ))
-        request.add((URIRef(uri + name + "GoalRequest"), RDF.type, URIRef( self.oasis + "GoalDescription")))
-        request.add((URIRef(uri + name + "PlanRequest"), URIRef( self.oasis + "consistsOfGoalDescription"), URIRef(uri + name + "GoalRequest")))
-        request.add((URIRef(uri + name + "TaskRequest"), RDF.type, URIRef( self.oasis + "TaskDescription")))
-        request.add((URIRef(uri + name + "GoalRequest"), URIRef( self.oasis + "consistsOfTaskDescription"), URIRef(uri + name + "TaskRequest")))
-        request.add((URIRef(uri + name + "TaskRequest"), URIRef( self.oasis + "hasTaskObject"), execution))
-        request.add((URIRef(uri + name + "TaskRequest"), URIRef( self.oasis + "hasTaskOperator"), URIRef( self.oasisabox + "performs")))
-        taskObject = next(graph.objects(execution, URIRef( self.oasis + "hasTaskObject")))
-        taskOperator = next(graph.objects(execution, URIRef( self.oasis + "hasTaskOperator")))
-        #performer = next(graph.subjects(URIRef(oasis + "performs"), execution))
-        request.add((execution, URIRef( self.oasis+"hasTaskObject"), taskObject))
-        request.add((execution, URIRef( self.oasis + "hasTaskOperator"), taskOperator))
+   # def createRequest(self, graph, request, execution):
+   #     uri='http://www.dmi.unict.it/profonto-home.owl#'
+   #     name=Utils.retrieveEntityName(Utils, execution)
+   #     request.add((execution, RDF.type, URIRef( self.oasis + "TaskExecution")))
+   #     request.add((URIRef(uri+name+"PlanRequest"), RDF.type, URIRef( self.oasis+ "PlanDescription") ))
+   #     request.add((URIRef(uri + name + "GoalRequest"), RDF.type, URIRef( self.oasis + "GoalDescription")))
+   #     request.add((URIRef(uri + name + "PlanRequest"), URIRef( self.oasis + "consistsOfGoalDescription"), URIRef(uri + name + "GoalRequest")))
+   #     request.add((URIRef(uri + name + "TaskRequest"), RDF.type, URIRef( self.oasis + "TaskDescription")))
+   #     request.add((URIRef(uri + name + "GoalRequest"), URIRef( self.oasis + "consistsOfTaskDescription"), URIRef(uri + name + "TaskRequest")))
+   #     request.add((URIRef(uri + name + "TaskRequest"), URIRef( self.oasis + "hasTaskObject"), execution))
+   #     request.add((URIRef(uri + name + "TaskRequest"), URIRef( self.oasis + "hasTaskOperator"), URIRef( self.oasisabox + "performs")))
+   #     taskObject = next(graph.objects(execution, URIRef( self.oasis + "hasTaskObject")))
+   #     taskOperator = next(graph.objects(execution, URIRef( self.oasis + "hasTaskOperator")))
+    #    #performer = next(graph.subjects(URIRef(oasis + "performs"), execution))
+    #    request.add((execution, URIRef( self.oasis+"hasTaskObject"), taskObject))
+    #    request.add((execution, URIRef( self.oasis + "hasTaskOperator"), taskOperator))
 
 
     def device_engage(self, graph, execution):
@@ -206,6 +203,13 @@ class ProfOnto (Thread):
         taskOperator = next(graph.objects(taskOp, URIRef(self.oasis + "refersExactlyTo")))
 
         performer = next(graph.subjects(URIRef( self.oasis + "performs"), execution))
+
+        toreturn.add((execution, RDF.type, URIRef(self.oasis + "TaskExecution"))) # use task entrustment instead
+        toreturn.add((execution, URIRef(self.oasis + "hasTaskObject"), taskOb))  # use task entrustment instead
+        toreturn.add((execution, URIRef(self.oasis + "hasTaskOperator"), taskOp))  # use task entrustment instead
+        toreturn.add((taskOb, URIRef(self.oasis + "refersExactlyTo"), taskObject))  # use task entrustment instead
+        toreturn.add((taskOp, URIRef(self.oasis + "refersExactlyTo"), taskOperator))  # use task entrustment instead
+
         devip=next(graph.objects(subject=None, predicate=URIRef( self.oasis + "hasIPAddress")))
         devport=next(graph.objects(subject=None, predicate=URIRef( self.oasis + "hasPortNumber")))
         value=100
@@ -218,8 +222,8 @@ class ProfOnto (Thread):
                 value=v
                 break
         print("To engage:", performer, taskObject, value, taskOperator, devip, devport)
-
-        self.createRequest(graph, toreturn, execution)
+        toreturn.add((performer, URIRef(self.oasis + "performs"), execution))  # use task entrustment instead
+       # self.createRequest(graph, toreturn, execution)
         toreturn=toreturn.serialize(format='xml')
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect((devip, int(devport)))

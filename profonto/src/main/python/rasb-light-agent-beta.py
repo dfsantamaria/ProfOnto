@@ -14,13 +14,20 @@ from lib.console import*
 
 class LightAgentServerManager(AgentServerManager):
     def performOperation(self, g, execution):
-       # for s,p,o in g.triples( (None,None,None) ):
+        #for s,p,o in g.triples( (None,None,None) ):
         #  print(s,p,o)
         taskObject = next(g.objects(execution, URIRef(self.agent.iriSet[0] + "#hasTaskObject")))
+        taskObject = next(g.objects(taskObject, URIRef(self.agent.iriSet[0] + "#refersExactlyTo")))
         taskOperator = next(g.objects(execution, URIRef(self.agent.iriSet[0] + "#hasTaskOperator")))
+        taskOperator = next(g.objects(taskOperator, URIRef(self.agent.iriSet[0] + "#refersExactlyTo")))
+       # for s in g.objects(None, URIRef(self.agent.iriSet[0] + "#refersExactlyTo")):
+        #    print(s)
+
+
         value = 100
         for s in g.objects(None, URIRef(self.agent.iriSet[0] + "#hasTaskActualInputParameter")):
-            for t in g.objects(s, URIRef(self.agent.iriSet[0] + "#hasDataValue")):
+          for c in g.objects(s, URIRef(self.agent.iriSet[0] + "#refersAsNewTo")):
+            for t in g.objects(c, URIRef(self.agent.iriSet[0] + "#hasDataValue")):
                 value = t
                 break
         print("\n Action ", taskOperator, "on ", taskObject, "with value ", value)
