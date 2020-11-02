@@ -199,19 +199,20 @@ class ProfOnto (Thread):
         #for s,p,o in graph.triples( (None,None,None) ):
             #print(s,p,o)
         toreturn = Graph()
+
         taskOb = next(graph.objects(execution, URIRef( self.oasis + "hasTaskObject")))
         taskOp = next(graph.objects(execution, URIRef( self.oasis + "hasTaskOperator")))
         taskObject = next(graph.objects(taskOb, URIRef(self.oasis + "refersExactlyTo")))
-        taskOperator = next(graph.objects(taskOp, URIRef(self.oasis + "refersExaclyTo")))
+        taskOperator = next(graph.objects(taskOp, URIRef(self.oasis + "refersExactlyTo")))
 
         performer = next(graph.subjects(URIRef( self.oasis + "performs"), execution))
         devip=next(graph.objects(subject=None, predicate=URIRef( self.oasis + "hasIPAddress")))
         devport=next(graph.objects(subject=None, predicate=URIRef( self.oasis + "hasPortNumber")))
         value=100
         for s, t in graph.subject_objects(URIRef(self.oasis + "hasTaskActualInputParameter")):
-            o=next(graph.objects(t, URIRef(self.oasis + "refersExaclyTo")))
+            o=next(graph.objects(t, URIRef(self.oasis + "refersAsNewTo"))) #check also for refersExactlyTo
             toreturn.add((s, URIRef(self.oasis + "hasTaskActualInputParameter"), t))
-            toreturn.add((t, URIRef(self.oasis + "refersExacltyTo"), o))
+            toreturn.add((t, URIRef(self.oasis + "refersAsNewTo"), o)) #check also for refersExactlyTo
             for v in graph.objects(o, URIRef(self.oasis + "hasDataValue")):
                 toreturn.add((o,URIRef(self.oasis + "hasDataValue"),v))
                 value=v
@@ -391,13 +392,10 @@ class ProfOnto (Thread):
 
     def decide(self, rdf_source, sock, addr, server_socket):
         value = self.profonto.parseRequest(rdf_source)[0]
-        # print("Client send request:", value)
         if value == None:
             print ("Received data from " + str(addr) + " " + str(sock))
             return
-
         g = Utils.getGraph(Utils, value)
-
 
         executions = []
         for execution in g.subjects(RDF.type, URIRef( self.oasis + "TaskExecution")):

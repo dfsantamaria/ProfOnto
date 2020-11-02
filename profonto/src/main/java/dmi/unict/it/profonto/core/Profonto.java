@@ -1741,7 +1741,7 @@ public class Profonto extends OntologyCore
         {
             ontology.imports().forEach(o->{
                 ontology.addAxioms(o.axioms());
-            });
+            });                
             syncReasoner(ontology, null);                
             this.addAxiomsToOntology(this.getDataRequestOntology(), ontology.axioms());            
         } 
@@ -1891,7 +1891,9 @@ public class Profonto extends OntologyCore
           OWLOntology out = getMainManager().createOntology(m.axioms());
        //   OWLOntology out = getMainManager().createOntology();
           toreturn[0]=new ByteArrayOutputStream();
-          out.saveOntology(toreturn[0]);
+          out.saveOntology(toreturn[0]);       
+          
+          
           this.getMainManager().removeOntology(out);
           
           

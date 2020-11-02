@@ -83,18 +83,41 @@ public class test
     @Order(3)
     public void testParseUserRequest()
     {
+        
+         //ADDING USERS                
+          String userId="";          
+          InputStream userData=readData("ontologies/test/alan.owl"); 
+          userId=ontocore.addUser(userData);
+          
+          //add config
+                            
+          String confId="";          
+          userData=readData("ontologies/test/alan-config.owl"); 
+          confId=ontocore.addDeviceConfiguration(userData);
+        
         //Manually adding a device  
         ontocore.parseRequest(readData("ontologies/test/lightagent-from-template.owl"));    
         ontocore.parseRequest(readData("ontologies/test/rasb-lightagent.owl")); 
         System.out.println("Adding light agent");
-        ontocore.addDevice("http://www.dmi.unict.it/lightagent.owl");
-        
+        ontocore.addDevice("http://www.dmi.unict.it/lightagent.owl");  
        
-         
-          ByteArrayInputStream request=readData("ontologies/test/user-request.owl");  
-          String out=toStringOntology(ontocore.parseRequest(request))[0];          
-          writeDown("userRequest", out);
+         //The request
+        ByteArrayInputStream request=readData("ontologies/test/user-request.owl");  
+        String out=toStringOntology(ontocore.parseRequest(request))[0];
+        writeDown("userRequest", out);
+        
        //REMOVE
+       
+       
+        try 
+          { 
+              ontocore.removePermanentConfigurationFromDevice(confId);
+              ontocore.removePermanentUser(userId);
+          } 
+          catch (Exception ex) 
+          {
+              System.out.println("Error deleting user");
+          } 
         ontocore.removePermanentDevice("http://www.dmi.unict.it/lightagent.owl");
     }
     
