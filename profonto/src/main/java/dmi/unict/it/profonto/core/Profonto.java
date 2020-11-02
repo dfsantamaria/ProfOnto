@@ -62,6 +62,7 @@ import org.semanticweb.owlapi.util.InferredEquivalentDataPropertiesAxiomGenerato
 import org.semanticweb.owlapi.util.InferredEquivalentObjectPropertyAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredIndividualAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredInverseObjectPropertiesAxiomGenerator;
+import org.semanticweb.owlapi.util.InferredObjectPropertyCharacteristicAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredOntologyGenerator;
 import org.semanticweb.owlapi.util.InferredSubClassAxiomGenerator;
 import org.semanticweb.owlapi.util.InferredSubDataPropertyAxiomGenerator;
@@ -141,14 +142,14 @@ public class Profonto extends OntologyCore
         generators.add(new InferredEquivalentDataPropertiesAxiomGenerator());
         generators.add(new InferredEquivalentObjectPropertyAxiomGenerator());
         generators.add(new InferredInverseObjectPropertiesAxiomGenerator());
-       // generators.add(new InferredObjectPropertyCharacteristicAxiomGenerator());
+        generators.add(new InferredObjectPropertyCharacteristicAxiomGenerator());
         // NOTE: InferredPropertyAssertionGenerator significantly slows down
         // inference computation
-        generators.add(new org.semanticweb.owlapi.util.InferredPropertyAssertionGenerator());
+       // generators.add(new org.semanticweb.owlapi.util.InferredPropertyAssertionGenerator());
         generators.add(new InferredSubClassAxiomGenerator());
         generators.add(new InferredSubDataPropertyAxiomGenerator());
         generators.add(new InferredSubObjectPropertyAxiomGenerator());
-
+        
         List<InferredIndividualAxiomGenerator<? extends OWLIndividualAxiom>> individualAxioms = new ArrayList<>();
         generators.addAll(individualAxioms);
      //   generators.add(new InferredDisjointClassesAxiomGenerator()); //THIS ENTRY IS PROBLEMATIC
@@ -1295,7 +1296,7 @@ public class Profonto extends OntologyCore
             File file = new File(filesource);
             FileOutputStream outStream = new FileOutputStream(file);
 
-            this.getMainManager().addIRIMapper(new SimpleIRIMapper(ontodevConf.getOntologyID().getOntologyIRI().get(),
+            this.getMainManager().getIRIMappers().add(new SimpleIRIMapper(ontodevConf.getOntologyID().getOntologyIRI().get(),
                     IRI.create(file.getCanonicalFile())));
 
             this.getMainManager().saveOntology(ontodevConf, new OWLXMLDocumentFormat(), outStream);
@@ -1309,7 +1310,7 @@ public class Profonto extends OntologyCore
         } 
       catch (IOException | OWLOntologyStorageException | OWLOntologyCreationException ex)
         {
-            getLogger().log(Level.SEVERE, null, ex);
+           // getLogger().log(Level.SEVERE, null, ex);
             return null;
         }
         return vals[1];      
@@ -1565,16 +1566,17 @@ public class Profonto extends OntologyCore
             name=name.substring(name.lastIndexOf("/")+1, (ind >= 0)? ind: name.length());            
             String filesource = this.getSatellitePath() + File.separator + name;
             File file = new File(filesource);            
-            this.getMainManager().addIRIMapper(new SimpleIRIMapper(ontology.getOntologyID().getOntologyIRI().get(),
+            this.getMainManager().getIRIMappers().add(new SimpleIRIMapper(ontology.getOntologyID().getOntologyIRI().get(),
                                                                    IRI.create(file.getCanonicalFile())));
             FileOutputStream outStream = new FileOutputStream(file);
             this.getMainManager().saveOntology(ontology, new OWLXMLDocumentFormat(), outStream);
             this.getSatellite().put(ontology.getOntologyID().getOntologyIRI().get().toString(), name);
-            outStream.close();       
+            outStream.close();           
         } 
         catch (IOException | OWLOntologyStorageException ex)
         {
            getLogger().log(Level.SEVERE, null, ex);
+           
         }      
       }
     
@@ -1589,6 +1591,8 @@ public class Profonto extends OntologyCore
         try
         {        
             ontology=this.getMainManager().loadOntologyFromOntologyDocument(input);
+            if(ontology.axioms().count()==0)
+                return null;
         }     
         catch(OWLOntologyAlreadyExistsException ex)
          {   
@@ -1620,7 +1624,8 @@ public class Profonto extends OntologyCore
         {
          return null;   
         } 
-           boolean[] brequest= {false};
+        
+            boolean[] brequest= {false};
             ontology.axioms().filter(x->x.isOfType(AxiomType.OBJECT_PROPERTY_ASSERTION)).forEach
             (
             element -> { 
@@ -1689,8 +1694,10 @@ public class Profonto extends OntologyCore
        String ret="";
        for(int i=0;i<querySol.size();i++)
            {
+               
              String thepropinp = " <"+querySol.get(i).getResource(prop).getURI()+ "> ";
              String entry=sub + thepropinp;
+           // System.out.println(thepropinp +" -------- "+ querySol.get(i).get(value).toString());
              if(querySol.get(i).get(value).isResource())
              {
                  entry += "<"+querySol.get(i).getResource(value).getURI()+"> .\n";
@@ -1736,7 +1743,7 @@ public class Profonto extends OntologyCore
                 ontology.addAxioms(o.axioms());
             });
             syncReasoner(ontology, null);                
-            this.addAxiomsToOntology(this.getDataRequestOntology(), ontology.axioms());
+            this.addAxiomsToOntology(this.getDataRequestOntology(), ontology.axioms());            
         } 
         catch (OWLOntologyStorageException ex)
         {
@@ -1752,7 +1759,9 @@ public class Profonto extends OntologyCore
         {
           QueryExecution execQ = this.createQuery(ontology, subquery);
           ResultSet resultSet = execQ.execSelect();
-          List<QuerySolution> sub1QL=ResultSetFormatter.toList(resultSet);          
+          List<QuerySolution> sub1QL=ResultSetFormatter.toList(resultSet);
+         //   for(QuerySolution q: sub1QL)
+          //      System.out.println(q);
        //   this.getDataBehaviorOntology().importsClosure().forEach(o->ontology.addAxioms(o.axioms()));
           //finding compatible agents
           String execName = sub1QL.get(0).getResource("plan").getLocalName();
@@ -1778,9 +1787,11 @@ public class Profonto extends OntologyCore
               {
                 construct=construct.replaceAll("//theobject//", "<"+sub1QL.get(0).getResource("taskObElement").getURI()+">");
                 //here  
-                
+              //  System.out.println("testing");
                 construct+=getTriplesFromQueryMatch(sub1QL, "<"+sub1QL.get(0).getResource("taskObElement").getURI()+">",
                                                             "obPropType", "taskObElementType");
+                //construct+="<"+sub1QL.get(0).getResource("taskObElement").getURI()+"> oasis:hasType ";
+               // System.out.println("end testing");
               }
           else //otherwise the request uses the refersAsNewTo for the object reference
                //and then an appropriate element must be sought.
@@ -1884,9 +1895,9 @@ public class Profonto extends OntologyCore
           this.getMainManager().removeOntology(out);
           
           
-        //  String filesource = this.getOntologiesDevicesPath() + File.separator + "bbbbbbb" + ".owl";
-         // File file = new File(filesource);
-        //  this.getMainManager().saveOntology(o, IRI.create(new File( "bbbbb" + ".owl")));
+          String filesource = this.getOntologiesDevicesPath() + File.separator + "bbbbbbb" + ".owl";
+         File file = new File(filesource);
+          this.getMainManager().saveOntology(o, IRI.create(new File( "bbbbb" + ".owl")));
             
           
           

@@ -110,7 +110,7 @@
      <dependency>
     <groupId>net.sourceforge.owlapi</groupId>
     <artifactId>org.semanticweb.hermit</artifactId>
-    <version>1.4.3.517</version>    
+    <version>1.4.5.519</version>    
          <type>jar</type>
       </dependency> 
       <!-- https://mvnrepository.com/artifact/net.sf.py4j/py4j -->

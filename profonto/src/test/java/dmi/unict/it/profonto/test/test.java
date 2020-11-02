@@ -92,7 +92,7 @@ public class test
        
          
           ByteArrayInputStream request=readData("ontologies/test/user-request.owl");  
-          String out=toStringOntology(ontocore.parseRequest(request))[0];
+          String out=toStringOntology(ontocore.parseRequest(request))[0];          
           writeDown("userRequest", out);
        //REMOVE
         ontocore.removePermanentDevice("http://www.dmi.unict.it/lightagent.owl");
@@ -137,6 +137,62 @@ public class test
         writeDown("checkinstallDeviceRequest", out);    
         //REMOVE
         ontocore.removePermanentDevice("http://www.dmi.unict.it/lightagent.owl");
+    }
+    
+    
+    @Test
+    @Order(7)
+    public void testParseAddUserConfigRequest()
+    {
+         ByteArrayInputStream request;   
+          
+          //ADDING USERS
+          String id= "";        
+          String userId="";          
+          InputStream userData=readData("ontologies/test/alan.owl"); 
+          userId=ontocore.addUser(userData);
+          request=readData("ontologies/test/add-user-configuration-request.owl");  
+          String out=toStringOntology(ontocore.parseRequest(request))[0];
+          writeDown("userConfigRequest", out);
+          
+          try 
+          {
+              ontocore.removePermanentUser(userId);
+          } 
+          catch (Exception ex) 
+          {
+              System.out.println("Error deleting user");
+          }      
+    }
+    
+    
+    @Test
+    @Order(8)
+    public void testParseRemoveUserRequest()
+    {
+          ByteArrayInputStream request;   
+          
+          //ADDING USERS
+          String id= "";        
+          String userId="";          
+          InputStream userData=readData("ontologies/test/alan.owl"); 
+          userId=ontocore.addUser(userData);
+          request=readData("ontologies/test/remove-user-request.owl");  
+          String out=toStringOntology(ontocore.parseRequest(request))[0];
+          writeDown("removeUserRequest", out);          
+          try 
+          {
+              ontocore.removePermanentUser(userId);
+          } 
+          catch (Exception ex) 
+          {
+              System.out.println("Error deleting user");
+          } 
+        
+       
+         
+        
+       
     }
     
     @BeforeClass

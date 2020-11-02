@@ -130,7 +130,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/lightagent-template.owl#light-device-light-template">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#ActuatorTemplate"/>
-        <oasis:hasType rdf:resource="http://www.dmi.unict.it/oasis.owl#LightObjectType"/>
+        <oasis:hasActuatorType rdf:resource="http://www.dmi.unict.it/oasis.owl#LightObjectType"/>
     </owl:NamedIndividual>
     
 

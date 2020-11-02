@@ -249,6 +249,7 @@
         <oasis:hasBehavior rdf:resource="http://www.dmi.unict.it/homeassistant.owl#checkAgentInstallationBehaviorTemplate"/>
         <oasis:hasBehavior rdf:resource="http://www.dmi.unict.it/homeassistant.owl#installAgentBehaviorTemplate"/>
         <oasis:hasBehavior rdf:resource="http://www.dmi.unict.it/homeassistant.owl#removeUserConfigBehaviorTemplate"/>
+        <oasis:hasBehavior rdf:resource="http://www.dmi.unict.it/homeassistant.owl#removeUserTemplate"/>
         <oasis:hasBehavior rdf:resource="http://www.dmi.unict.it/homeassistant.owl#uninstallAgentBehaviorTemplate"/>
         <oasis:hasBehavior rdf:resource="http://www.dmi.unict.it/homeassistant.owl#updateAgentBehaviorTemplate"/>
     </owl:NamedIndividual>
@@ -372,6 +373,61 @@
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#removeUserConfigTaskOperator">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
         <oasis:refersExactlyTo rdf:resource="http://www.dmi.unict.it/oasis-abox.owl#remove"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/homeassistant.owl#removeUserGoalDescription -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#removeUserGoalDescription">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#GoalDescription"/>
+        <oasis:consistsOfTaskDescription rdf:resource="http://www.dmi.unict.it/homeassistant.owl#removeUserTaskDescription"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/homeassistant.owl#removeUserTaskDescription -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#removeUserTaskDescription">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskDescription"/>
+        <oasis:hasTaskObjectTemplate rdf:resource="http://www.dmi.unict.it/homeassistant.owl#removeUserTaskObjectTemplate"/>
+        <oasis:hasTaskOperator rdf:resource="http://www.dmi.unict.it/homeassistant.owl#removeUserTaskOperator"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/homeassistant.owl#removeUserTaskObjectElem -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#removeUserTaskObjectElem">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#User"/>
+        <oasis:hasAgentType rdf:resource="http://www.dmi.unict.it/oasis-abox.owl#user_type"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/homeassistant.owl#removeUserTaskObjectTemplate -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#removeUserTaskObjectTemplate">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskObjectTemplate"/>
+        <oasis:refersAsNewTo rdf:resource="http://www.dmi.unict.it/homeassistant.owl#removeUserTaskObjectElem"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/homeassistant.owl#removeUserTaskOperator -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#removeUserTaskOperator">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
+        <oasis:refersExactlyTo rdf:resource="http://www.dmi.unict.it/oasis-abox.owl#remove"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/homeassistant.owl#removeUserTemplate -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#removeUserTemplate">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#AgentBehaviorTemplate"/>
+        <oasis:consistsOfGoalDescription rdf:resource="http://www.dmi.unict.it/homeassistant.owl#removeUserGoalDescription"/>
     </owl:NamedIndividual>
     
 

@@ -6,7 +6,8 @@
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
-     xmlns:oasis="http://www.dmi.unict.it/oasis.owl#">
+     xmlns:oasis="http://www.dmi.unict.it/oasis.owl#"
+     xmlns:terms="http://purl.org/dc/terms/">
     <owl:Ontology rdf:about="http://www.dmi.unict.it/user-request.owl">
         <owl:imports rdf:resource="http://www.dmi.unict.it/oasis.owl"/>
     </owl:Ontology>
@@ -66,18 +67,6 @@
     
 
 
-    <!-- http://www.dmi.unict.it/oasis.owl#refersAsNewTo -->
-
-    <owl:ObjectProperty rdf:about="http://www.dmi.unict.it/oasis.owl#refersAsNewTo"/>
-    
-
-
-    <!-- http://www.dmi.unict.it/oasis.owl#refersExactlyTo -->
-
-    <owl:ObjectProperty rdf:about="http://www.dmi.unict.it/oasis.owl#refersExactlyTo"/>
-    
-
-
     <!-- http://www.dmi.unict.it/oasis.owl#requests -->
 
     <owl:ObjectProperty rdf:about="http://www.dmi.unict.it/oasis.owl#requests"/>
@@ -118,12 +107,6 @@
     
 
 
-    <!-- http://www.dmi.unict.it/oasis.owl#Device -->
-
-    <owl:Class rdf:about="http://www.dmi.unict.it/oasis.owl#Device"/>
-    
-
-
     <!-- http://www.dmi.unict.it/oasis.owl#GoalDescription -->
 
     <owl:Class rdf:about="http://www.dmi.unict.it/oasis.owl#GoalDescription"/>
@@ -154,21 +137,9 @@
     
 
 
-    <!-- http://www.dmi.unict.it/oasis.owl#TaskObject -->
-
-    <owl:Class rdf:about="http://www.dmi.unict.it/oasis.owl#TaskObject"/>
-    
-
-
     <!-- http://www.dmi.unict.it/oasis.owl#TaskObjectTemplate -->
 
     <owl:Class rdf:about="http://www.dmi.unict.it/oasis.owl#TaskObjectTemplate"/>
-    
-
-
-    <!-- http://www.dmi.unict.it/oasis.owl#TaskOperator -->
-
-    <owl:Class rdf:about="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
     
 
 
@@ -189,6 +160,18 @@
     
 
 
+    <!-- http://www.dmi.unict.it/oasis-abox.owl#device_type -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/oasis-abox.owl#device_type"/>
+    
+
+
+    <!-- http://www.dmi.unict.it/oasis-abox.owl#turn_on -->
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/oasis-abox.owl#turn_on"/>
+    
+
+
     <!-- http://www.dmi.unict.it/oasis.owl#LightObjectType -->
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/oasis.owl#LightObjectType"/>
@@ -198,12 +181,6 @@
     <!-- http://www.dmi.unict.it/oasis.owl#kitchen -->
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/oasis.owl#kitchen"/>
-    
-
-
-    <!-- http://www.dmi.unict.it/oasis.owl#turn_on -->
-
-    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/oasis.owl#turn_on"/>
     
 
 
@@ -229,7 +206,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/user-request.owl#alan-1-1-1-taskOperator">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
-        <oasis:refersExactlyTo rdf:resource="http://www.dmi.unict.it/oasis.owl#turn_on"/>
+        <oasis:refersExactlyTo rdf:resource="http://www.dmi.unict.it/oasis-abox.owl#turn_on"/>
     </owl:NamedIndividual>
     
 
@@ -238,7 +215,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/user-request.owl#alan-1-1-1-taskinputparameter">
         <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskActualInputParameter"/>
-        <oasis:refersExactlyTo rdf:resource="http://www.dmi.unict.it/user-request.owl#turn-parameter"/>
+        <oasis:refersAsNewTo rdf:resource="http://www.dmi.unict.it/user-request.owl#turn-parameter"/>
     </owl:NamedIndividual>
     
 
