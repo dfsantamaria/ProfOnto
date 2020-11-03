@@ -1,4 +1,0 @@
-#Filtering agent by TaskArgumentOperator
-  ?taskd oasis:hasTaskOperatorArgument ?taskoparg.
-  ?taskoparg oasis:refersExactlyTo //thetaskoperatorarg//.
-#}

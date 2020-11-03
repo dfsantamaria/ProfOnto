@@ -1,3 +1,17 @@
-//taskexec// oasis:hasTaskOperatorArgument //taskexeoperatorarg// .
-//taskexeoperatorarg// rdf:type oasis:TaskOperatorArgument .
-//taskexeoperatorarg// oasis:refersExactlyTo //param3// .
+Select ?confProp ?featProp ?featValue
+WHERE
+{   
+   ?task oasis:hasTaskObject ?taskObject .   
+   ?taskObject ?referObj ?taskObElement .
+   ?taskObElement a oasis:ReferenceTemplate .
+   FILTER (?referObj =  oasis:refersExactlyTo || ?referObj =  oasis:refersAsNewTo)
+   ?taskObElement ?confProp ?confValue.
+   ?confValue a oasis:ReferenceTemplate .
+   FILTER(?confProp !=oasis:hasType && ?confProp!=rdf:type)
+   FILTER NOT EXISTS
+   {
+       ?confProp rdfs:subPropertyOf oasis:hasType.    
+   }  
+   ?confValue ?featProp ?featValue.
+   FILTER(?featProp!=rdf:type)
+}

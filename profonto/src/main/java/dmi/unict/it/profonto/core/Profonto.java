@@ -1753,7 +1753,7 @@ public class Profonto extends OntologyCore
         String prefix = getQueryPrefix(IRIrequest);
         query+=prefix;       
         //Analyzing request
-        String subquery = prefix + "\n" + this.getQueries().get("sub1-1.sparql");      
+        String subquery = prefix + "\n" + this.getQueries().get("Q1.sparql");      
        // System.out.println(subquery);
         try 
         {
@@ -1768,7 +1768,7 @@ public class Profonto extends OntologyCore
           String execNameSpace = sub11QL.get(0).getResource("plan").getNameSpace();
           Stream<OWLAxiom> axiomToAdd=Stream.empty();
           //customizing the construct header
-          String construct=this.getQueries().get("Q1.sparql");         
+          String construct=this.getQueries().get("C1.sparql");         
           String taskexec= "<"+execNameSpace+execName+"_execution"+">";
           construct=construct.replaceAll("//taskexec//", taskexec)
                              .replaceAll("//taskexeobject//", "<"+execNameSpace+execName+"_exeTaskObject"+">")
@@ -1777,7 +1777,7 @@ public class Profonto extends OntologyCore
                              
         
           
-          subquery = this.getQueries().get("sub2-1.sparql");
+          subquery = this.getQueries().get("Q3.sparql");
          
           //filtering by task operator matched with the request        
           String theTaskOpElement="<"+sub11QL.get(0).getResource("taskOpElement").getURI()+">";
@@ -1808,8 +1808,8 @@ public class Profonto extends OntologyCore
             List<String> arguments= this.getDistincElemInQuerySet(sub11QL, "taskOpArgElement");           
             for(String s : arguments)
             {
-             subquery+= this.getQueries().get("sub2-2.sparql").replaceAll("//thetaskoperatorarg//", "<"+s+">"); 
-             String co= this.getQueries().get("Q2.sparql");
+             subquery+= this.getQueries().get("Q4.sparql").replaceAll("//thetaskoperatorarg//", "<"+s+">"); 
+             String co= this.getQueries().get("C2.sparql");
              co=co.replaceAll("//taskexec//", taskexec)
                .replaceAll("//taskexeoperatorarg//", "<"+execNameSpace+execName+"_exeTaskOperatorArgument"+">")
                .replaceAll("//param3//", "<"+s+">");
@@ -1818,11 +1818,11 @@ public class Profonto extends OntologyCore
            }
            
           //matching task object 
-          subquery+=this.getQueries().get("sub3.sparql");
+          subquery+=this.getQueries().get("Q5.sparql");
           //matching the task objectType
           String obelemType=this.getDistincElemInQuerySetAsString(sub11QL, "taskObElementType");
           
-          subquery+=this.getQueries().get("sub4.sparql").replaceAll("//list//", obelemType);
+          subquery+=this.getQueries().get("Q6.sparql").replaceAll("//list//", obelemType);
          //if the request uses the refersExacltyTo for the object reference
          //then  the agent must use the element specified in the request 
          
@@ -1830,7 +1830,7 @@ public class Profonto extends OntologyCore
           if(sub11QL.get(0).getResource("referInp")!=null)
           {
            String execInpParamElem="";   
-           String construct3=this.getQueries().get("Q3.sparql");   
+           String construct3=this.getQueries().get("C3.sparql");   
            String execInpParam="<"+execNameSpace+execName+"_exeTaskActualInputParameter"+">";
            construct3=construct3.replaceAll("//taskexec//", "<"+execNameSpace+execName+"_execution"+">");
            construct3=construct3.replaceAll("//taskexeparam//", execInpParam);
@@ -1847,10 +1847,10 @@ public class Profonto extends OntologyCore
             execInpParamElem="<"+execNameSpace+execName+"_exeTaskActualInputParameterElem"+">";  
             construct3=construct3.replaceAll("//taskexeparamElem//", execInpParamElem)
                                    .replaceAll("//taskinpprop//", "oasis:refersAsNewTo"); 
-            //construct2=construct2+this.getQueries().get("Q3.sparql").replaceAll("//taskexeparamElem//", execInpParamElem);
+            //construct2=construct2+this.getQueries().get("C3.sparql").replaceAll("//taskexeparamElem//", execInpParamElem);
             String inpprop=this.getDistincElemInQuerySetAsString(sub11QL, "aInpProp");
            // String inppropElem=this.getDistincElemInQuerySetAsString(sub1QL, "aInpValue");
-            String sub5q=this.getQueries().get("sub5.sparql").replaceAll("//list1//", inpprop);    
+            String sub5q=this.getQueries().get("Q7.sparql").replaceAll("//list1//", inpprop);    
             
             subquery=subquery+sub5q;
            }
@@ -1860,13 +1860,13 @@ public class Profonto extends OntologyCore
           }
           
           //matching agent/actuator configuration
-          execQ = this.createQuery(ontology, prefix + this.getQueries().get("sub1-2.sparql"));
+          execQ = this.createQuery(ontology, prefix + this.getQueries().get("Q2.sparql"));
           resultSet = execQ.execSelect();
-          this.getQueries().get("sub6.sparql");
+          this.getQueries().get("Q8.sparql");
           sub11QL=ResultSetFormatter.toList(resultSet); 
           if(sub11QL.size()>0)
           {         
-          String subConf=this.getQueries().get("sub6.sparql").replaceAll("//theobject//",theobject);
+          String subConf=this.getQueries().get("Q8.sparql").replaceAll("//theobject//",theobject);
           subquery+=subConf;          
           for(int i=0; i<sub11QL.size();i++)
           {
@@ -1879,12 +1879,12 @@ public class Profonto extends OntologyCore
           
           
           //connection information
-          subquery+=this.getQueries().get("sub7.sparql");
+          subquery+=this.getQueries().get("Q9.sparql");
           
           
           
          //System.out.println("CONSTRUCT { "+construct +"}\n"); 
-          construct+=this.getQueries().get("Q4.sparql");
+          construct+=this.getQueries().get("C4.sparql");
           subquery = prefix + "CONSTRUCT { "+construct +"}\n" +  subquery + "}"; 
           System.out.println(subquery);         
          // execQ = this.createQuery(this.getDataBehaviorOntology(), subquery);
