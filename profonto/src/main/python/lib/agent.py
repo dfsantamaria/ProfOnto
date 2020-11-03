@@ -37,55 +37,15 @@ class AgentServerManager(Thread):
         g.parse(data=request)
         execution = next(g.subjects(RDF.type, URIRef(self.agent.iriSet[0] + "#TaskExecution")))
         self.performOperation(g, execution)
+        #
         status = "succeded_status"
         timestamp = Utils.getTimeStamp(None)
-        reqGraph = rdflib.Graph()
-
         iri = str(execution).rsplit('.', 1)[0] + "-updatestatus" + timestamp + ".owl"
-        reqGraph.add((URIRef(iri), RDF.type, OWL.Ontology))
-        reqGraph.add((URIRef(iri), OWL.imports, URIRef(self.agent.iriSet[0])))
-        reqGraph.add((URIRef(iri), OWL.imports, URIRef(self.agent.iriSet[1])))
-
-        task = URIRef(iri + "#task")  # the task
-        object = URIRef(iri + "#belief-data")  # the task
-        Utils.generateRequest(None, reqGraph, iri, self.agent.iriSet[0], task, object,
-                              URIRef(self.agent.iriSet[1] + "#add"), None, None)
-
         agent = URIRef(self.agent.iriSet[2] + "#" + self.agent.agentInfo[0])
-        reqGraph.add((agent, RDF.type, URIRef(self.agent.iriSet[0] + "#Device")))  # has request
+        Utils.generateExecutionStatus(Utils,g,execution, status, iri, self.agent.iriSet[0]+"#", self.agent.iriSet[1]+"#", agent)
+        tosend=g.serialize(format='pretty-xml').decode()
 
-        request = URIRef(iri + "#request")  # the request
-        reqGraph.add((URIRef(self.agent.iriSet[0] + "#requests"), RDF.type, Utils.owlobj))
-        reqGraph.add((agent, URIRef(self.agent.iriSet[0] + "#requests"), request))  # has request
-
-        reqGraph.add((URIRef(self.agent.iriSet[0] + "#hasInformationObjectType"), RDF.type, Utils.owlobj))
-        reqGraph.add((object, URIRef(self.agent.iriSet[0] + "#hasInformationObjectType"),
-                      URIRef(self.agent.iriSet[1] + "#belief_description_object_type")))
-
-        parameter = URIRef(iri + "#parameter")  # the parameter
-        reqGraph.add((parameter, RDF.type, URIRef(self.agent.iriSet[0] + "#TaskActualInputParameter")))
-        reqGraph.add((parameter, RDF.type, URIRef(self.agent.iriSet[0] + "#OntologyDescriptionObject")))
-
-        reqGraph.add((URIRef(self.agent.iriSet[0] + "#refersTo"), RDF.type, Utils.owlobj))
-        reqGraph.add((parameter, URIRef(self.agent.iriSet[0] + "#refersTo"), execution))  # task object
-        reqGraph.add((execution, URIRef(self.agent.iriSet[0] + "#hasStatus"),
-                      URIRef(self.agent.iriSet[0] + "#" + status)))  # task object
-
-        reqGraph.add((URIRef(self.agent.iriSet[0] + "#hasInformationObjectType"), RDF.type, Utils.owlobj))
-        reqGraph.add((parameter, URIRef(self.agent.iriSet[0] + "#hasInformationObjectType"),
-                      URIRef(self.agent.iriSet[1] + "#ontology_description_object_type")))
-
-        reqGraph.add((URIRef(self.agent.iriSet[0] + "#descriptionProvidedByIRI"), RDF.type, Utils.owldat))
-        reqGraph.add((parameter, URIRef(self.agent.iriSet[0] + "#descriptionProvidedByIRI"),
-                      Literal(iri, datatype=XSD.string)))
-
-        reqGraph.add((URIRef(self.agent.iriSet[0] + "#hasTaskActualInputParameter"), RDF.type, Utils.owlobj))
-        reqGraph.add((task, URIRef(self.agent.iriSet[0] + "#hasTaskActualInputParameter"), parameter))  # task parameter
-
-        tosend = Utils.libbug(Utils, reqGraph, iri)
-        # f=open("test.owl", "w")
-        # f.write(tosend)
-
+        print(tosend)
         self.sock.send(tosend.encode())
         return 1
 

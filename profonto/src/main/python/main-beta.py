@@ -116,35 +116,9 @@ class ProfOnto (Thread):
 
     def transmitExecutionStatus(self, execution, status, addr, sock,  server_socket):
         g=Graph()
-        iri=Utils.retrieveURI(Utils, execution).replace(".owl","-response.owl")
-        task = URIRef(iri + "#task")
-        object = URIRef(iri + "#belief-data")  # the obj
-        parameter = URIRef(iri + "#parameter")  # the parameter
-        operator=URIRef(self.oasis + "add")  # task operator
-        Utils.generateRequest(Utils, g, iri, self.oasis, task, object, operator, None, parameter)
-        iriassist=self.iriassistant+'#'+self.assistant
-
-        g.add((URIRef(iriassist), RDF.type, URIRef( self.oasis + "Device")))  # has request
-        g.add((URIRef(iriassist), URIRef( self.oasis + "requests"), URIRef(iri + "#request")))
-
-        g.add((URIRef( self.oasis + "hasInformationObjectType"), RDF.type, Utils.owlobj))
-        g.add((object, URIRef( self.oasis + "hasInformationObjectType"),
-                      URIRef( self.oasisabox + "belief_description_object_type")))
-
-        g.add((parameter, RDF.type, URIRef( self.oasis + "OntologyDescriptionObject")))
-
-        g.add((parameter, URIRef( self.oasis + "hasInformationObjectType"),URIRef( self.oasisabox + "ontology_description_object_type")))
-
-        g.add((URIRef( self.oasis + "descriptionProvidedByIRI"), RDF.type, Utils.owldat))
-        g.add((parameter, URIRef( self.oasis + "descriptionProvidedByIRI"), Literal(iri, datatype=XSD.string)))
-
-       # g.add((URIRef( self.oasis + "refersExactlyTo"), RDF.type, Utils.owlobj))
-       # g.add((parameter, URIRef( self.oasis + "refersExactlyTo"), URIRef(execution)))
-
-        g.add((URIRef( self.oasis + "hasStatus"), RDF.type, Utils.owlobj))
-        g.add((URIRef(execution),URIRef( self.oasis + "hasStatus"), URIRef(status)))
-
-
+        iri = Utils.retrieveURI(Utils, execution).replace(".owl", "-response.owl")
+        iriassist = self.iriassistant  + '#' +self.assistant
+        Utils.generateExecutionStatus(Utils,g,execution,status, iri, self.oasis, self.oasisabox, iriassist)
         res=Utils.serverTransmit(Utils, g.serialize(format='pretty-xml'), sock, addr,  server_socket)
         server_socket.close()
         return res
@@ -241,7 +215,6 @@ class ProfOnto (Thread):
         for actions in graph.objects(operator, URIRef( self.oasis + "refersExactlyTo")):
             res=0
             if actions == URIRef(self.oasisabox + "install"):
-                print(actions)
                 file =  self.getOntologyFile(graph, execution)
                 value =  self.profonto.addDevice(file)  # read the device data
                 if value == None or value=="":

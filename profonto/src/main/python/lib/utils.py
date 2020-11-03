@@ -68,6 +68,41 @@ class Utils():
        if int(port) < 0 or int(port) > 65535:
          return 0
 
+
+    def generateExecutionStatus(self, g, execution, status, iri, oasisIRI, oasisaboxIRI, iriassist):
+
+        task = URIRef(iri + "#task")
+        object = URIRef(iri + "#belief-data")  # the obj
+        parameter = URIRef(iri + "#parameter")  # the parameter
+        operator = URIRef(oasisIRI + "add")  # task operator
+        Utils.generateRequest(Utils, g, iri, oasisIRI, task, object, operator, None, parameter)
+
+        g.add((URIRef(iriassist), RDF.type, URIRef(oasisIRI + "Device")))  # has request
+        g.add((URIRef(iriassist), URIRef(oasisIRI + "requests"), URIRef(iri + "#request")))
+
+        g.add((URIRef(oasisIRI + "hasInformationObjectType"), RDF.type, Utils.owlobj))
+        g.add((object, URIRef(oasisIRI + "hasInformationObjectType"),
+               URIRef(oasisaboxIRI + "belief_description_object_type")))
+
+        g.add((parameter, RDF.type, URIRef(oasisIRI + "OntologyDescriptionObject")))
+
+        g.add((parameter, URIRef(oasisIRI + "hasInformationObjectType"),
+               URIRef(oasisaboxIRI + "ontology_description_object_type")))
+
+        g.add((URIRef(oasisIRI + "descriptionProvidedByIRI"), RDF.type, Utils.owldat))
+        g.add((parameter, URIRef(oasisIRI + "descriptionProvidedByIRI"), Literal(iri, datatype=XSD.string)))
+
+        # g.add((URIRef( self.oasis + "refersExactlyTo"), RDF.type, Utils.owlobj))
+        # g.add((parameter, URIRef( self.oasis + "refersExactlyTo"), URIRef(execution)))
+
+        g.add((URIRef(oasisIRI + "hasStatus"), RDF.type, Utils.owlobj))
+        g.add((URIRef(execution), URIRef(oasisIRI + "hasStatus"), URIRef(status)))
+        return
+
+
+
+
+
     def generateRequest(self, reqGraph, iri, iriOasis, task, object, operator, argument, parameter):
 
         request = URIRef(iri+"#request")             #the request

@@ -167,8 +167,7 @@ public class test
     @Order(7)
     public void testParseAddUserConfigRequest()
     {
-         ByteArrayInputStream request;   
-          
+         ByteArrayInputStream request;          
           //ADDING USERS
           String id= "";        
           String userId="";          
@@ -210,12 +209,7 @@ public class test
           catch (Exception ex) 
           {
               System.out.println("Error deleting user");
-          } 
-        
-       
-         
-        
-       
+          }       
     }
     
     @BeforeClass
@@ -263,6 +257,18 @@ public class test
           }     
         
     }
+    
+    
+    @Test
+    @Order(9)
+    public void testParseAddDataBeliefRequest()
+    {
+          ByteArrayInputStream request;         
+          request=readData("ontologies/test/add-belief-request.owl");  
+          String out=toStringOntology(ontocore.parseRequest(request))[0];
+          writeDown("userAddBeliefRequest", out);             
+    }
+    
     
     @AfterClass
     public static void delFiles()
