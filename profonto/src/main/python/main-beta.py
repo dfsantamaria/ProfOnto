@@ -107,11 +107,7 @@ class ProfOnto (Thread):
         return
 
 
-    def setExecutionStatus(self, graph):
-        for execution, status in graph.subject_objects(predicate=URIRef( self.oasis + "hasStatus")):
-          ret= self.profonto.setExecutionStatus(execution, status)
-          if ret<1:
-              print("Execution status of " + execution + "cannot be updated")
+
 
 
     def transmitExecutionStatus(self, execution, status, addr, sock,  server_socket):
@@ -256,7 +252,6 @@ class ProfOnto (Thread):
                                  res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox + "failed_status"), addr, sock,
                                                          server_socket)
                              else:
-                                self.profonto.setExecutionStatus(execution, URIRef(self.oasisabox+"succeded_status"), )
                                 res= self.transmitExecutionStatus(execution,URIRef(self.oasisabox+"succeded_status"), addr, sock,  server_socket)
                                 print("User", value, "added.")
                          elif actions == URIRef(self.oasisabox + "remove"):
@@ -266,7 +261,6 @@ class ProfOnto (Thread):
                                   res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox + "failed_status"), addr, sock,
                                                           server_socket)
                               else:
-                                 self.profonto.setExecutionStatus(execution, URIRef(self.oasisabox+"succeded_status"))
                                  res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox+"succeded_status"), addr, sock,  server_socket)
                                  print("User", Utils.retrieveEntityName(Utils, requester), "correctly removed")
                      elif thetype == URIRef(self.oasisabox + "user_configuration_type"):  # adding or removing user
@@ -278,7 +272,6 @@ class ProfOnto (Thread):
                                  res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox + "failed_status"), addr, sock,
                                                          server_socket)
                              else:
-                                 self.profonto.setExecutionStatus(execution, URIRef(self.oasisabox+"succeded_status"))
                                  res= self.transmitExecutionStatus(execution, "succeded_status", addr, sock,  server_socket)
                                  print("Configuration added:", value,".")
                          elif actions == URIRef(self.oasisabox + "remove"):
@@ -288,7 +281,6 @@ class ProfOnto (Thread):
                                  res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox + "failed_status"), addr, sock,
                                                          server_socket)
                              else:
-                                 self.profonto.setExecutionStatus(execution, URIRef(self.oasisabox+"succeded_status"))
                                  res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox+"succeded_status"), addr, sock,  server_socket)
                                  print("Configuration", Utils.retrieveEntityName(Utils, requester), "correctly removed.")
                      elif  thetype == URIRef(self.oasisabox + "belief_description_object_type"):
@@ -300,7 +292,6 @@ class ProfOnto (Thread):
                                  res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox + "failed_status"), addr, sock,
                                                          server_socket)
                              else:
-                                 self.profonto.setExecutionStatus(execution, URIRef(self.oasisabox+"succeded_status"))
                                  res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox+"succeded_status"), addr, sock,  server_socket)
                                  print("Belief  correctly added")
                           elif actions == URIRef(self.oasisabox + "remove"):
@@ -310,7 +301,6 @@ class ProfOnto (Thread):
                                  res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox + "failed_status"), addr, sock,
                                                          server_socket)
                              else:
-                                 self.profonto.setExecutionStatus(execution, URIRef(self.oasisabox+"succeded_status"))
                                  res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox+"succeded_status"), addr, sock,  server_socket)
                                  print("Belief correctly removed")
                      else:
@@ -336,7 +326,6 @@ class ProfOnto (Thread):
                             res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox + "failed_status"), addr, sock,
                                                     server_socket)
                         else:
-                            self.profonto.setExecutionStatus(execution, URIRef(self.oasisabox+"succeded_status"))
                             res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox+"succeded_status"), addr, sock,  server_socket)
                             print("Belief retrieved:\n"+ value)
                     else:
