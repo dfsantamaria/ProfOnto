@@ -11,9 +11,7 @@ WHERE
    FILTER NOT EXISTS
    {
        ?confProp rdfs:subPropertyOf oasis:hasType.    
-   }
-  
+   }  
    ?confValue ?featProp ?featValue.
    FILTER(?featProp!=rdf:type)
-
 }

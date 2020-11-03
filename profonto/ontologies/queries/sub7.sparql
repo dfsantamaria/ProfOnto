@@ -1,8 +1,7 @@
+OPTIONAL
 {
-?agent oasis:hasConfiguration ?custConf.
+?agent oasis:hasConfiguration ?conconf .
+?conconf oasis:hasConnection ?aconnect .
+?aconnect oasis:hasIPAddress ?ipaddr .
+?aconnect oasis:hasPortNumber ?port .
 }
-UNION
-{
-  //theobject// oasis:hasConfiguration ?custConf.
-}
-?custConf oasis:setsUp ?subConf.
