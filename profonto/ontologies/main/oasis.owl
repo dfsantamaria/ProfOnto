@@ -372,6 +372,9 @@
         <Class IRI="#Projection"/>
     </Declaration>
     <Declaration>
+        <Class IRI="#ReferenceTemplate"/>
+    </Declaration>
+    <Declaration>
         <Class IRI="#RequestDescriptionObject"/>
     </Declaration>
     <Declaration>
@@ -1032,36 +1035,6 @@
         <DataProperty IRI="#hasScheduleRepetition"/>
     </Declaration>
     <Declaration>
-        <NamedIndividual IRI="#equal"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#exists"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#failed_status_type"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#greatherEqual"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#greatherThan"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#lessEqual"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#lessThan"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#spaceSpan"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#succeded_status_type"/>
-    </Declaration>
-    <Declaration>
-        <NamedIndividual IRI="#timeSpan"/>
-    </Declaration>
-    <Declaration>
         <AnnotationProperty IRI="http://purl.org/dc/terms/created"/>
     </Declaration>
     <Declaration>
@@ -1508,6 +1481,10 @@
         <Class IRI="#BehaviorThing"/>
     </SubClassOf>
     <SubClassOf>
+        <Class IRI="#ReferenceTemplate"/>
+        <Class IRI="#Template"/>
+    </SubClassOf>
+    <SubClassOf>
         <Class IRI="#RequestDescriptionObject"/>
         <Class IRI="#DescriptionObject"/>
     </SubClassOf>
@@ -1759,46 +1736,6 @@
         <Class IRI="#VirtualSpace"/>
         <Class IRI="#Space"/>
     </SubClassOf>
-    <ClassAssertion>
-        <Class IRI="#DataOperator"/>
-        <NamedIndividual IRI="#equal"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#ExistentialOperator"/>
-        <NamedIndividual IRI="#exists"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#FailedStatusType"/>
-        <NamedIndividual IRI="#failed_status_type"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#DataOperator"/>
-        <NamedIndividual IRI="#greatherEqual"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#DataOperator"/>
-        <NamedIndividual IRI="#greatherThan"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#DataOperator"/>
-        <NamedIndividual IRI="#lessEqual"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#DataOperator"/>
-        <NamedIndividual IRI="#lessThan"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#SpaceOperator"/>
-        <NamedIndividual IRI="#spaceSpan"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#SuccededStatusType"/>
-        <NamedIndividual IRI="#succeded_status_type"/>
-    </ClassAssertion>
-    <ClassAssertion>
-        <Class IRI="#TimeOperator"/>
-        <NamedIndividual IRI="#timeSpan"/>
-    </ClassAssertion>
     <SubObjectPropertyOf>
         <ObjectProperty IRI="#activatedByScheduling"/>
         <ObjectProperty IRI="#isInvolvedInSchedulingWith"/>
@@ -4314,44 +4251,14 @@
         <Literal xml:lang="en">This property links entrustment activities to agents responsible to perform the related activity</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#equal</IRI>
-        <Literal>==</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#establishedWith</IRI>
         <Literal xml:lang="en">This property links two connection entry points</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#exists</IRI>
-        <Literal xml:lang="en">exists</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#fallsWithin</IRI>
         <Literal xml:lang="en">This property links spaces to the contained spaces</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#greatherEqual</IRI>
-        <Literal>&gt;=</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#greatherEqual</IRI>
-        <Literal xml:lang="en">greather equal</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#greatherThan</IRI>
-        <Literal>&gt;</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#greatherThan</IRI>
-        <Literal xml:lang="en">greather</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
@@ -4519,26 +4426,6 @@
         <Literal xml:lang="en">This property links things involved in entrustments</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#lessEqual</IRI>
-        <Literal>&lt;=</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#lessEqual</IRI>
-        <Literal>less equal</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#lessThan</IRI>
-        <Literal>&lt;</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#lessThan</IRI>
-        <Literal xml:lang="en">less</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#partecipatesInSmartContract</IRI>
         <Literal xml:lang="en">This property links agents to  smart contracts</Literal>
@@ -4557,16 +4444,6 @@
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>
         <IRI>#settles</IRI>
         <Literal xml:lang="en">This property links things to things phisically mounted on them</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#spaceSpan</IRI>
-        <Literal xml:lang="en">space span</Literal>
-    </AnnotationAssertion>
-    <AnnotationAssertion>
-        <AnnotationProperty abbreviatedIRI="rdfs:label"/>
-        <IRI>#timeSpan</IRI>
-        <Literal xml:lang="en">time span</Literal>
     </AnnotationAssertion>
     <AnnotationAssertion>
         <AnnotationProperty abbreviatedIRI="rdfs:comment"/>

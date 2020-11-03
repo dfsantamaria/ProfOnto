@@ -135,11 +135,19 @@
         <NamedIndividual IRI="#alan-task-1-1-1"/>
     </ClassAssertion>
     <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ReferenceTemplate"/>
+        <NamedIndividual IRI="#alan-task-1-1-1-kitchen"/>
+    </ClassAssertion>
+    <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#Space"/>
         <NamedIndividual IRI="#alan-task-1-1-1-kitchen"/>
     </ClassAssertion>
     <ClassAssertion>
         <Class IRI="http://www.dmi.unict.it/oasis.owl#Device"/>
+        <NamedIndividual IRI="#alan-task-1-1-1-object"/>
+    </ClassAssertion>
+    <ClassAssertion>
+        <Class IRI="http://www.dmi.unict.it/oasis.owl#ReferenceTemplate"/>
         <NamedIndividual IRI="#alan-task-1-1-1-object"/>
     </ClassAssertion>
     <ClassAssertion>
