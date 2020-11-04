@@ -1,13 +1,13 @@
 <?xml version="1.0"?>
-<rdf:RDF xmlns="urn:unnamed:ontology#ont181890302536819#"
-     xml:base="urn:unnamed:ontology#ont181890302536819"
+<rdf:RDF xmlns="urn:unnamed:ontology#ont261664953964006#"
+     xml:base="urn:unnamed:ontology#ont261664953964006"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:oasis="http://www.dmi.unict.it/oasis.owl#">
-    <owl:Ontology rdf:about="urn:unnamed:ontology#ont181890302536819"/>
+    <owl:Ontology rdf:about="urn:unnamed:ontology#ont261664953964006"/>
     
 
 
@@ -225,68 +225,12 @@
     
 
 
-    <!-- http://www.dmi.unict.it/add-belief-request-refersto-rcrv.owl#add-belief-req-plan_exeTaskActualInputParameter -->
-
-
-    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/add-belief-request-refersto-rcrv.owl#add-belief-req-plan_exeTaskActualInputParameter">
-        <oasis:refersAsNewTo rdf:resource="http://www.dmi.unict.it/add-belief-request-refersto-rcrv.owl#add-belief-req-plan_exeTaskActualInputParameterElem"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.dmi.unict.it/add-belief-request-refersto-rcrv.owl#add-belief-req-plan_exeTaskActualInputParameterElem -->
-
-
-    <owl:Thing rdf:about="http://www.dmi.unict.it/add-belief-request-refersto-rcrv.owl#add-belief-req-plan_exeTaskActualInputParameterElem">
-        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
-        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#DescriptionObject"/>
-        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#InformationObject"/>
-        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#OntologyDescriptionObject"/>
-        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#ReferenceTemplate"/>
-        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#Template"/>
-        <oasis:hasInformationObjectType rdf:resource="http://www.dmi.unict.it/oasis-abox.owl#ontology_description_object_type"/>
-        <oasis:descriptionProvidedByEntityIRI>http://www.dmi.unict.it/add-belief-request-refersto-rcrv.owl#execution-status-test</oasis:descriptionProvidedByEntityIRI>
-    </owl:Thing>
-    
-
-
-    <!-- http://www.dmi.unict.it/add-belief-request-refersto-rcrv.owl#add-belief-req-plan_exeTaskObject -->
-
-
-    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/add-belief-request-refersto-rcrv.owl#add-belief-req-plan_exeTaskObject">
-        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskObject"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.dmi.unict.it/add-belief-request-refersto-rcrv.owl#add-belief-req-plan_exeTaskOperator -->
-
-
-    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/add-belief-request-refersto-rcrv.owl#add-belief-req-plan_exeTaskOperator">
-        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
-        <oasis:refersExactlyTo rdf:resource="http://www.dmi.unict.it/oasis-abox.owl#add"/>
-    </owl:NamedIndividual>
-    
-
-
-    <!-- http://www.dmi.unict.it/add-belief-request-refersto-rcrv.owl#add-belief-req-plan_execution -->
-
-
-    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/add-belief-request-refersto-rcrv.owl#add-belief-req-plan_execution">
-        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskExecution"/>
-        <oasis:hasTaskActualInputParameter rdf:resource="http://www.dmi.unict.it/add-belief-request-refersto-rcrv.owl#add-belief-req-plan_exeTaskActualInputParameter"/>
-        <oasis:hasTaskObject rdf:resource="http://www.dmi.unict.it/add-belief-request-refersto-rcrv.owl#add-belief-req-plan_exeTaskObject"/>
-        <oasis:hasTaskOperator rdf:resource="http://www.dmi.unict.it/add-belief-request-refersto-rcrv.owl#add-belief-req-plan_exeTaskOperator"/>
-    </owl:NamedIndividual>
-    
-
-
     <!-- http://www.dmi.unict.it/homeassistant.owl#homeassistant -->
 
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#homeassistant">
         <oasis:hasConfiguration rdf:resource="http://www.dmi.unict.it/homeassistant.owl#homeassistantconfiguration"/>
-        <oasis:performs rdf:resource="http://www.dmi.unict.it/add-belief-request-refersto-rcrv.owl#add-belief-req-plan_execution"/>
+        <oasis:performs rdf:resource="http://www.dmi.unict.it/user-request-updatestatus1604496340-284875.owl#request_execution"/>
     </owl:NamedIndividual>
     
 
@@ -324,6 +268,62 @@
     
 
 
+    <!-- http://www.dmi.unict.it/user-request-updatestatus1604496340-284875.owl#request_exeTaskActualInputParameter -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/user-request-updatestatus1604496340-284875.owl#request_exeTaskActualInputParameter">
+        <oasis:refersAsNewTo rdf:resource="http://www.dmi.unict.it/user-request-updatestatus1604496340-284875.owl#request_exeTaskActualInputParameterElem"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/user-request-updatestatus1604496340-284875.owl#request_exeTaskActualInputParameterElem -->
+
+
+    <owl:Thing rdf:about="http://www.dmi.unict.it/user-request-updatestatus1604496340-284875.owl#request_exeTaskActualInputParameterElem">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#NamedIndividual"/>
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#DescriptionObject"/>
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#InformationObject"/>
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#OntologyDescriptionObject"/>
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#ReferenceTemplate"/>
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#Template"/>
+        <oasis:hasInformationObjectType rdf:resource="http://www.dmi.unict.it/oasis-abox.owl#ontology_description_object_type"/>
+        <oasis:descriptionProvidedByEntityIRI>http://www.dmi.unict.it/user-request.owl#alan-plan-1_execution</oasis:descriptionProvidedByEntityIRI>
+    </owl:Thing>
+    
+
+
+    <!-- http://www.dmi.unict.it/user-request-updatestatus1604496340-284875.owl#request_exeTaskObject -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/user-request-updatestatus1604496340-284875.owl#request_exeTaskObject">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskObject"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/user-request-updatestatus1604496340-284875.owl#request_exeTaskOperator -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/user-request-updatestatus1604496340-284875.owl#request_exeTaskOperator">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskOperator"/>
+        <oasis:refersExactlyTo rdf:resource="http://www.dmi.unict.it/oasis-abox.owl#add"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/user-request-updatestatus1604496340-284875.owl#request_execution -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/user-request-updatestatus1604496340-284875.owl#request_execution">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskExecution"/>
+        <oasis:hasTaskActualInputParameter rdf:resource="http://www.dmi.unict.it/user-request-updatestatus1604496340-284875.owl#request_exeTaskActualInputParameter"/>
+        <oasis:hasTaskObject rdf:resource="http://www.dmi.unict.it/user-request-updatestatus1604496340-284875.owl#request_exeTaskObject"/>
+        <oasis:hasTaskOperator rdf:resource="http://www.dmi.unict.it/user-request-updatestatus1604496340-284875.owl#request_exeTaskOperator"/>
+    </owl:NamedIndividual>
+    
+
+
     <!-- 
     ///////////////////////////////////////////////////////////////////////////////////////
     //
@@ -333,8 +333,8 @@
      -->
 
 
-    <rdf:Description rdf:about="http://www.dmi.unict.it/add-belief-request-refersto-rcrv.owl#add-belief-req-plan">
-        <oasis:hasTaskExecution rdf:resource="http://www.dmi.unict.it/add-belief-request-refersto-rcrv.owl#add-belief-req-plan_execution"/>
+    <rdf:Description rdf:about="http://www.dmi.unict.it/user-request-updatestatus1604496340-284875.owl#request">
+        <oasis:hasTaskExecution rdf:resource="http://www.dmi.unict.it/user-request-updatestatus1604496340-284875.owl#request_execution"/>
     </rdf:Description>
 </rdf:RDF>
 

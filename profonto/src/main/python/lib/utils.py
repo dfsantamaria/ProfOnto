@@ -68,84 +68,99 @@ class Utils():
        if int(port) < 0 or int(port) > 65535:
          return 0
 
+    def checkStatus(self, g , oasisIri, status):
+        for b in g.objects(None,URIRef(oasisIri + "hasStatusType")):
+            if str(b) == status:
+              return 1
+        return 0
+
 
     def generateExecutionStatus(self, g, execution, status, iri, oasisIRI, oasisaboxIRI, iriassist):
 
         task = URIRef(iri + "#task")
         object = URIRef(iri + "#belief-data")  # the obj
         parameter = URIRef(iri + "#parameter")  # the parameter
-        operator = URIRef(oasisIRI + "add")  # task operator
-        Utils.generateRequest(Utils, g, iri, oasisIRI, task, object, operator, None, parameter)
 
+        operator = URIRef(oasisaboxIRI + "add")  # task operator
+        Utils.generateRequest(Utils, g, iri, oasisIRI, task, object, oasisIRI+"refersAsNewTo", operator, None, parameter)
+
+        g.add((URIRef(execution), RDF.type, URIRef(oasisIRI+"TaskExecution")))
         g.add((URIRef(iriassist), RDF.type, URIRef(oasisIRI + "Device")))  # has request
         g.add((URIRef(iriassist), URIRef(oasisIRI + "requests"), URIRef(iri + "#request")))
-
+        g.add((URIRef(oasisIRI + "requests"), RDF.type, Utils.owlobj))
         g.add((URIRef(oasisIRI + "hasInformationObjectType"), RDF.type, Utils.owlobj))
+
         g.add((object, URIRef(oasisIRI + "hasInformationObjectType"),
                URIRef(oasisaboxIRI + "belief_description_object_type")))
+        g.add((object, URIRef(oasisIRI + "descriptionProvidedByURL"), Literal(iri, datatype=XSD.string)))
 
         g.add((parameter, RDF.type, URIRef(oasisIRI + "OntologyDescriptionObject")))
-
         g.add((parameter, URIRef(oasisIRI + "hasInformationObjectType"),
                URIRef(oasisaboxIRI + "ontology_description_object_type")))
 
         g.add((URIRef(oasisIRI + "descriptionProvidedByIRI"), RDF.type, Utils.owldat))
-        g.add((parameter, URIRef(oasisIRI + "descriptionProvidedByIRI"), Literal(iri, datatype=XSD.string)))
+        g.add((parameter, URIRef(oasisIRI + "descriptionProvidedByEntityIRI"), Literal(execution, datatype=XSD.string)))
 
         # g.add((URIRef( self.oasis + "refersExactlyTo"), RDF.type, Utils.owlobj))
         # g.add((parameter, URIRef( self.oasis + "refersExactlyTo"), URIRef(execution)))
 
         g.add((URIRef(oasisIRI + "hasStatus"), RDF.type, Utils.owlobj))
-        g.add((URIRef(execution), URIRef(oasisIRI + "hasStatus"), URIRef(status)))
+        thestatusob = URIRef(iri + "#exec-status-obj")
+        g.add((URIRef(execution), URIRef(oasisIRI + "hasStatus"), URIRef(thestatusob)))
+        g.add((URIRef(thestatusob), URIRef(oasisIRI + "hasStatusType"), URIRef(status)))
         return
 
 
 
 
 
-    def generateRequest(self, reqGraph, iri, iriOasis, task, object, operator, argument, parameter):
+    def generateRequest(self, reqGraph, iri, iriOasis,  task, object, objectReferProp, operator, argument, parameter):
+
+        reqGraph.add((URIRef(iri), RDF.type, OWL.Ontology))
+        reqGraph.add((URIRef(iri), OWL.imports, URIRef("http://www.dmi.unict.it/oasis-abox.owl")))
+        reqGraph.add((URIRef(iri), OWL.imports, URIRef("http://www.dmi.unict.it/oasis-abox.owl")))
 
         request = URIRef(iri+"#request")             #the request
-        reqGraph.add(( request, RDF.type, URIRef(iriOasis+"#PlanDescription")))  # request type
+        reqGraph.add(( request, RDF.type, URIRef(iriOasis+"PlanDescription")))  # request type
 
         goal = URIRef(iri + "#goal")  # the goal
-        reqGraph.add((goal, RDF.type, URIRef(iriOasis + "#GoalDescription")))  # goal type
+        reqGraph.add((goal, RDF.type, URIRef(iriOasis + "GoalDescription")))  # goal type
 
-        reqGraph.add((task, RDF.type, URIRef(iriOasis + "#TaskDescription")))  # task type
+        reqGraph.add((task, RDF.type, URIRef(iriOasis + "TaskDescription")))  # task type
 
-        reqGraph.add((URIRef(iriOasis + "#consistsOfGoalDescription"), RDF.type, Utils.owlobj))
-        reqGraph.add((request, URIRef(iriOasis + "#consistsOfGoalDescription"), goal))  # has goal
+        reqGraph.add((URIRef(iriOasis + "consistsOfGoalDescription"), RDF.type, Utils.owlobj))
+        reqGraph.add((request, URIRef(iriOasis + "consistsOfGoalDescription"), goal))  # has goal
 
-        reqGraph.add((URIRef(iriOasis + "#consistsOfTaskDescription"), RDF.type, Utils.owlobj))
-        reqGraph.add((goal, URIRef(iriOasis + "#consistsOfTaskDescription"), task))  # has goal
+        reqGraph.add((URIRef(iriOasis + "consistsOfTaskDescription"), RDF.type, Utils.owlobj))
+        reqGraph.add((goal, URIRef(iriOasis + "consistsOfTaskDescription"), task))  # has goal
 
         taskObject = URIRef(iri + "#taskObject")  # the taskobject
-        reqGraph.add((taskObject, RDF.type, URIRef(iriOasis + "#TaskObject")))
-        reqGraph.add((URIRef(iriOasis + "#hasTaskObject"), RDF.type, Utils.owlobj))
+        reqGraph.add((taskObject, RDF.type, URIRef(iriOasis + "TaskObject")))
+        reqGraph.add((URIRef(iriOasis + "hasTaskObject"), RDF.type, Utils.owlobj))
 
-        reqGraph.add((task, URIRef(iriOasis + "#hasTaskObject"), taskObject))  # task object
-        reqGraph.add((taskObject, URIRef(iriOasis + "#refersExactlyTo"), object))  # task object
+        reqGraph.add((task, URIRef(iriOasis + "hasTaskObject"), taskObject))  # task object
+        reqGraph.add((taskObject, URIRef(objectReferProp), object))  # task object
 
         taskOperator = URIRef(iri + "#taskOperator")  # the taskobject
-        reqGraph.add((taskOperator, RDF.type, URIRef(iriOasis + "#TaskOperator")))
-        reqGraph.add((URIRef(iriOasis + "#hasTaskOperator"), RDF.type, Utils.owlobj))
-        reqGraph.add((task, URIRef(iriOasis + "#hasTaskOperator"),
+        reqGraph.add((taskOperator, RDF.type, URIRef(iriOasis + "TaskOperator")))
+        reqGraph.add((URIRef(iriOasis + "hasTaskOperator"), RDF.type, Utils.owlobj))
+        reqGraph.add((task, URIRef(iriOasis + "hasTaskOperator"),
              taskOperator))  # task operator
-        reqGraph.add((taskOperator, URIRef(iriOasis + "#refersExactlyTo"), operator))  # task object
+        reqGraph.add((taskOperator, URIRef(iriOasis + "refersExactlyTo"), operator))  # task object
 
         if parameter is not None:
            taskParameter = URIRef(iri + "#taskInputParameter")  # the taskobject
-           reqGraph.add((taskParameter, RDF.type, URIRef(iriOasis + "#TaskActualInputParameter")))
-           reqGraph.add((URIRef(iriOasis + "#hasTaskActualInputParameter"), RDF.type, Utils.owlobj))
-           reqGraph.add((task, URIRef(iriOasis + "#hasTaskActualInputParameter"), taskParameter))  # task parameter
-           reqGraph.add((taskParameter, URIRef(iriOasis + "#refersAsNewTo"), parameter))
+           reqGraph.add((taskParameter, RDF.type, URIRef(iriOasis + "TaskActualInputParameter")))
+           reqGraph.add((URIRef(iriOasis + "hasTaskActualInputParameter"), RDF.type, Utils.owlobj))
+           reqGraph.add((task, URIRef(iriOasis + "hasTaskActualInputParameter"), taskParameter))  # task parameter
+           reqGraph.add((taskParameter, URIRef(iriOasis + "refersAsNewTo"), parameter))
 
         if argument is not None:
             opArgument = URIRef(iri + "#taskOperatorArgument")  # the taskobject
-            reqGraph.add((opArgument, RDF.type, URIRef(iriOasis + "#TaskOperatorArgument")))
-            reqGraph.add((URIRef(iriOasis + "#hasTaskOperatorArgument"), RDF.type, Utils.owlobj))
-            reqGraph.add((task, URIRef(iriOasis + "#hasTaskOperatorArgument"), opArgument))  # argument
-            reqGraph.add((opArgument, URIRef(iriOasis + "#refersExactlyTo"), argument))
+            reqGraph.add((opArgument, RDF.type, URIRef(iriOasis + "TaskOperatorArgument")))
+            reqGraph.add((URIRef(iriOasis + "hasTaskOperatorArgument"), RDF.type, Utils.owlobj))
+            reqGraph.add((task, URIRef(iriOasis + "hasTaskOperatorArgument"), opArgument))  # argument
+            reqGraph.add((opArgument, URIRef(iriOasis + "refersExactlyTo"), argument))
 
         return
 
