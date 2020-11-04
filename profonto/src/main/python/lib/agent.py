@@ -42,6 +42,7 @@ class AgentServerManager(Thread):
         timestamp = Utils.getTimeStamp(None)
         iri = str(execution).rsplit('.', 1)[0] + "-updatestatus" + timestamp + ".owl"
         agent = URIRef(self.agent.iriSet[2] + "#" + self.agent.agentInfo[0])
+        Utils.addImportAxioms(Utils, g, iri, [self.agent.iriSet[0], self.agent.iriSet[1]])
         Utils.generateExecutionStatus(Utils,g, execution, status, iri, self.agent.iriSet[0]+"#", self.agent.iriSet[1]+"#", agent)
         tosend=g.serialize(format='pretty-xml').decode()
         self.sock.send(tosend.encode())
@@ -148,6 +149,7 @@ class Agent(Thread):
         timestamp = Utils.getTimeStamp(Utils)
         reqGraph = rdflib.Graph()
         iri = str(self.iriSet[2]).rsplit('.', 1)[0] + "-request" + timestamp + ".owl"
+        Utils.addImportAxioms(Utils, reqGraph, iri, [self.iriSet[0], self.iriSet[1]])
         reqGraph.add((URIRef(iri), RDF.type, OWL.Ontology))
         reqGraph.add((URIRef(iri), OWL.imports, URIRef(self.iriSet[0])))
         reqGraph.add((URIRef(iri), OWL.imports, URIRef(self.iriSet[1])))
@@ -197,6 +199,7 @@ class Agent(Thread):
         reqGraph = rdflib.Graph()
 
         iri = str(self.iriSet[2]).rsplit('.', 1)[0] + "-request" + timestamp + ".owl"
+        Utils.addImportAxioms(Utils, reqGraph, iri, [self.iriSet[0], self.iriSet[1]])
         reqGraph.add((URIRef(iri), RDF.type, OWL.Ontology))
         reqGraph.add((URIRef(iri), OWL.imports, URIRef(self.iriSet[0])))
         reqGraph.add((URIRef(iri), OWL.imports, URIRef(self.iriSet[1])))
@@ -248,10 +251,9 @@ class Agent(Thread):
         if (self.hubInfo[0] == '' or self.hubInfo[1] == ''):
             return 0
         timestamp = Utils.getTimeStamp(Utils)
-
         reqGraph = rdflib.Graph()
-
         iri = str(self.iriSet[2]).rsplit('.', 1)[0] + "-request" + timestamp + ".owl"
+        Utils.addImportAxioms(Utils, reqGraph, iri, [self.iriSet[0], self.iriSet[1]])
         reqGraph.add((URIRef(iri), RDF.type, OWL.Ontology))
         reqGraph.add((URIRef(iri), OWL.imports, URIRef(self.iriSet[0])))
         reqGraph.add((URIRef(iri), OWL.imports, URIRef(self.iriSet[1])))
@@ -281,10 +283,9 @@ class Agent(Thread):
 
         if Utils.checkStatus(Utils, g, self.iriSet[0] + "#", self.iriSet[1] + "#succeded_status_type") == 1:
            print("Device uninstallation confirmed by the hub")
-           return 1
         else:
            print("Device uninstallation not confirmed by the hub")
-        return 0
+           return 0
         # f=open("test.owl", "w")
         # f.write(tosend)
         return 1
@@ -314,8 +315,8 @@ class Agent(Thread):
         if state == None:
             return 0
         reqGraph = rdflib.Graph()
-
         iri = str(self.iriSet[2]).rsplit('.', 1)[0] + "-request" + timestamp + ".owl"
+        Utils.addImportAxioms(Utils, reqGraph, iri, [self.iriSet[0], self.iriSet[1]])
         reqGraph.add((URIRef(iri), RDF.type, OWL.Ontology))
         reqGraph.add((URIRef(iri), OWL.imports, URIRef(self.iriSet[0])))
         reqGraph.add((URIRef(iri), OWL.imports, URIRef(self.iriSet[1])))

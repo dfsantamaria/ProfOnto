@@ -98,7 +98,7 @@ class Utils():
         g.add((parameter, URIRef(oasisIRI + "hasInformationObjectType"),
                URIRef(oasisaboxIRI + "ontology_description_object_type")))
 
-        g.add((URIRef(oasisIRI + "descriptionProvidedByIRI"), RDF.type, Utils.owldat))
+        g.add((URIRef(oasisIRI + "descriptionProvidedByEntityIRI"), RDF.type, Utils.owldat))
         g.add((parameter, URIRef(oasisIRI + "descriptionProvidedByEntityIRI"), Literal(execution, datatype=XSD.string)))
 
         # g.add((URIRef( self.oasis + "refersExactlyTo"), RDF.type, Utils.owlobj))
@@ -111,14 +111,15 @@ class Utils():
         return
 
 
+    def addImportAxioms(self, g, iri, axioms):
+       for s in axioms:
+           g.add((URIRef(iri), OWL.imports, URIRef(s)))
 
 
 
     def generateRequest(self, reqGraph, iri, iriOasis,  task, object, objectReferProp, operator, argument, parameter):
 
         reqGraph.add((URIRef(iri), RDF.type, OWL.Ontology))
-        reqGraph.add((URIRef(iri), OWL.imports, URIRef("http://www.dmi.unict.it/oasis-abox.owl")))
-        reqGraph.add((URIRef(iri), OWL.imports, URIRef("http://www.dmi.unict.it/oasis-abox.owl")))
 
         request = URIRef(iri+"#request")             #the request
         reqGraph.add(( request, RDF.type, URIRef(iriOasis+"PlanDescription")))  # request type

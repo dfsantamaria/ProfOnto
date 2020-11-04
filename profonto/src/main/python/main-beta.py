@@ -130,25 +130,25 @@ class ProfOnto (Thread):
                   index += 1
 
     def getOntologyFile(self, graph, execution):
-        file=None
-        for d in graph.objects(execution, URIRef( self.oasis + "hasTaskActualInputParameter")): # retrieving source
-           for t in graph.objects(d, URIRef( self.oasis + "refersAsNewTo")):
-             for s in graph.objects(t, URIRef( self.oasis + "descriptionProvidedByURL")):
-               if (s is not None):
-                 file = Utils.readOntoFile(Utils, s)
-        if file is not None:
-           g = Graph()
-           for s in graph.objects(t, URIRef( self.oasis + "descriptionProvidedByIRI")):
-             self.retrieveTripleFromGraph(s,graph, g)
-        return None
+        file = None
+        print(graph)
+        for d in graph.objects(execution, URIRef(self.oasis + "hasTaskActualInputParameter")):  # retrieving source
+           for t in  graph.objects(d, URIRef(self.oasis + "refersAsNewTo")):
+              for s in graph.objects(t, URIRef(self.oasis + "descriptionProvidedByURL")):
+                if (s is not None):
+                    file = Utils.readOntoFile(Utils, s)
 
-    def retrieveTripleFromGraph(s, graph, g):
-        iri=URIRef(s)
-        for x,y in graph.predicate_objects(iri):
-            g.add((iri,x,y))
-        for x,y in graph.subject_predicates(iri):
-            g.add((x,y,iri))
+              for s in graph.objects(t, URIRef(self.oasis + "descriptionProvidedByIRI")):
+                if (s is not None):
+                    file = s
 
+              g = Graph()
+              if file is not None:
+                  for t in graph.objects(execution, URIRef(self.oasis + "descriptionProvidedByEntityIRI")):
+                      retrieveTripleFromGraph(t, file, g)
+              if (len(g) > 0):
+                  return g
+        return file
 
 
 
@@ -202,6 +202,7 @@ class ProfOnto (Thread):
             res=0
             if actions == URIRef(self.oasisabox + "install"):
                 file =  self.getOntologyFile(graph, execution)
+                print(file)
                 value =  self.profonto.addDevice(file)  # read the device data
                 if value == None or value=="":
                     print ("A device cannot be added")
@@ -359,7 +360,6 @@ class ProfOnto (Thread):
         if len(executions) > 1:
             self.computesDependencies(g, executions)
             executions = sorted(executions, key=lambda x: x[1])
-
         for execution, val in executions:
             for executer in g.subjects(URIRef( self.oasis + "performs"), execution):
                 if (Utils.retrieveEntityName(Utils, executer) == self.assistant):
@@ -381,7 +381,6 @@ class ProfOnto (Thread):
         for s, t in belief.subject_objects(predicate=URIRef(self.oasis + "hasStatus")):
             g.add((s, URIRef(self.oasis + "hasStatus"), t))
             for f,c in belief.predicate_objects(subject=t):
-                print("++++",t,f,c)
                 g.add((t,f,c))
         return g
 
