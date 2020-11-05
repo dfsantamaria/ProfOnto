@@ -114,9 +114,10 @@ class ProfOnto (Thread):
         g=Graph()
         iri = Utils.retrieveURI(Utils, execution).replace(".owl", "-response.owl")
         iriassist = self.iriassistant  + '#' +self.assistant
-        Utils.generateExecutionStatus(Utils,g,execution, status, iri, self.oasis, self.oasisabox, iriassist)
+        f=Utils.generateExecutionStatus(Utils,g,execution, status, iri, self.oasis, self.oasisabox, iriassist)
         res=Utils.serverTransmit(Utils, g.serialize(format='pretty-xml'), sock, addr,  server_socket)
         server_socket.close()
+        self.profonto.addDataBelief(f.serialize(format='xml').decode())
         return res
 
 
@@ -383,6 +384,7 @@ class ProfOnto (Thread):
             for f,c in belief.predicate_objects(subject=t):
                 g.add((t,f,c))
         return g
+
 
     def init_gateway(self):
         #p = Path(__file__).parents[1]

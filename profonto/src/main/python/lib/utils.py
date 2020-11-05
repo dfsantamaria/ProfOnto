@@ -104,11 +104,17 @@ class Utils():
         # g.add((URIRef( self.oasis + "refersExactlyTo"), RDF.type, Utils.owlobj))
         # g.add((parameter, URIRef( self.oasis + "refersExactlyTo"), URIRef(execution)))
 
+        f=Graph()
         g.add((URIRef(oasisIRI + "hasStatus"), RDF.type, Utils.owlobj))
+        f.add((URIRef(oasisIRI + "hasStatus"), RDF.type, Utils.owlobj))
+        g.add((URIRef(oasisIRI + "hasStatusType"), RDF.type, Utils.owlobj))
+        f.add((URIRef(oasisIRI + "hasStatusType"), RDF.type, Utils.owlobj))
         thestatusob = URIRef(iri + "#exec-status-obj")
         g.add((URIRef(execution), URIRef(oasisIRI + "hasStatus"), URIRef(thestatusob)))
+        f.add((URIRef(execution), URIRef(oasisIRI + "hasStatus"), URIRef(thestatusob)))
         g.add((URIRef(thestatusob), URIRef(oasisIRI + "hasStatusType"), URIRef(status)))
-        return
+        f.add((URIRef(thestatusob), URIRef(oasisIRI + "hasStatusType"), URIRef(status)))
+        return f
 
 
     def addImportAxioms(self, g, iri, axioms):
