@@ -1,4 +1,4 @@
-SELECT DISTINCT ?task ?plan ?goal ?task ?taskObject  ?referObj ?taskObElement ?obPropType ?taskObElementType ?taskOpElement ?taskOpArgElement ?referInp ?taskInpElement ?aInpProp ?aInpValue ?inpPropType ?taskInpElementType ?referOut ?taskOutElement ?aOutProp ?aOutValue ?outPropType ?taskOutElementType
+SELECT DISTINCT ?plan ?goal ?task ?taskObject  ?referObj ?taskObElement ?obPropType ?taskObElementType ?taskOpElement ?taskOpArgElement ?referInp ?taskInpElement ?aInpProp ?aInpValue ?inpPropType ?taskInpElementType ?referOut ?taskOutElement ?aOutProp ?aOutValue ?outPropType ?taskOutElementType
 WHERE
 {
    ?requester  oasis:requests ?plan.

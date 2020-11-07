@@ -446,7 +446,7 @@ class Console(Thread):
         return
 
     def start_command(self, address, port):
-        return ProfOnto('http://www.dmi.unict.it/oasis.owl#', 'http://www.dmi.unict.it/oasis-abox.owl#', 'http://www.dmi.unict.it/profonto-home.owl', address, port)
+        return ProfOnto('http://www.dmi.unict.it/oasis.owl#', 'http://www.dmi.unict.it/oasis-abox.owl#', 'http://www.dmi.unict.it/homeassistant.owl', address, port)
 
     def stop_command(self, agent):
         agent.stop()

@@ -1785,10 +1785,12 @@ public class Profonto extends OntologyCore
        
         
        ret+=goal+" oasis:entrustedWith "+goalExecution+" .\n";
+       ret+=goal+" oasis:entrustedFrom ?goald .\n";
        ret+=goal+" oasis:entrustedBy "+"<"+query.get(0).getResource("goal").getURI() +"> .\n";
        ret+=goal+" oasis:entrusts "+" ?agent .\n";
        
        ret+=task+" oasis:entrustedWith "+taskexec+" .\n";
+       ret+=task+" oasis:entrustedFrom ?taskd .\n";
        ret+=task+" oasis:entrustedBy "+"<"+query.get(0).getResource("task").getURI() +"> .\n";
        ret+=task+" oasis:entrusts "+" ?agent .\n";      
        
