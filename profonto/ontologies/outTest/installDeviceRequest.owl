@@ -1,32 +1,13 @@
 <?xml version="1.0"?>
-<rdf:RDF xmlns="urn:unnamed:ontology#ont267636667291314#"
-     xml:base="urn:unnamed:ontology#ont267636667291314"
+<rdf:RDF xmlns="urn:unnamed:ontology#ont81210899158314#"
+     xml:base="urn:unnamed:ontology#ont81210899158314"
      xmlns:owl="http://www.w3.org/2002/07/owl#"
      xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
      xmlns:xml="http://www.w3.org/XML/1998/namespace"
      xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
      xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
      xmlns:oasis="http://www.dmi.unict.it/oasis.owl#">
-    <owl:Ontology rdf:about="urn:unnamed:ontology#ont267636667291314"/>
-    
-
-
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Annotation properties
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-
-    
-
-
-    <!-- http://www.dmi.unict.it/oasis.owl#hasTaskExecution -->
-
-
-    <owl:AnnotationProperty rdf:about="http://www.dmi.unict.it/oasis.owl#hasTaskExecution"/>
+    <owl:Ontology rdf:about="urn:unnamed:ontology#ont81210899158314"/>
     
 
 
@@ -39,6 +20,55 @@
      -->
 
 
+    
+
+
+    <!-- http://www.dmi.unict.it/oasis.owl#consistsOfGoalEntrustment -->
+
+
+    <owl:ObjectProperty rdf:about="http://www.dmi.unict.it/oasis.owl#consistsOfGoalEntrustment"/>
+    
+
+
+    <!-- http://www.dmi.unict.it/oasis.owl#consistsOfGoalExecution -->
+
+
+    <owl:ObjectProperty rdf:about="http://www.dmi.unict.it/oasis.owl#consistsOfGoalExecution"/>
+    
+
+
+    <!-- http://www.dmi.unict.it/oasis.owl#consistsOfTaskEntrustment -->
+
+
+    <owl:ObjectProperty rdf:about="http://www.dmi.unict.it/oasis.owl#consistsOfTaskEntrustment"/>
+    
+
+
+    <!-- http://www.dmi.unict.it/oasis.owl#consistsOfTaskExecution -->
+
+
+    <owl:ObjectProperty rdf:about="http://www.dmi.unict.it/oasis.owl#consistsOfTaskExecution"/>
+    
+
+
+    <!-- http://www.dmi.unict.it/oasis.owl#entrustedBy -->
+
+
+    <owl:ObjectProperty rdf:about="http://www.dmi.unict.it/oasis.owl#entrustedBy"/>
+    
+
+
+    <!-- http://www.dmi.unict.it/oasis.owl#entrustedWith -->
+
+
+    <owl:ObjectProperty rdf:about="http://www.dmi.unict.it/oasis.owl#entrustedWith"/>
+    
+
+
+    <!-- http://www.dmi.unict.it/oasis.owl#entrusts -->
+
+
+    <owl:ObjectProperty rdf:about="http://www.dmi.unict.it/oasis.owl#entrusts"/>
     
 
 
@@ -98,10 +128,10 @@
     
 
 
-    <!-- http://www.dmi.unict.it/oasis.owl#performs -->
+    <!-- http://www.dmi.unict.it/oasis.owl#performsEntrustment -->
 
 
-    <owl:ObjectProperty rdf:about="http://www.dmi.unict.it/oasis.owl#performs"/>
+    <owl:ObjectProperty rdf:about="http://www.dmi.unict.it/oasis.owl#performsEntrustment"/>
     
 
 
@@ -178,6 +208,20 @@
     
 
 
+    <!-- http://www.dmi.unict.it/oasis.owl#GoalEntrustment -->
+
+
+    <owl:Class rdf:about="http://www.dmi.unict.it/oasis.owl#GoalEntrustment"/>
+    
+
+
+    <!-- http://www.dmi.unict.it/oasis.owl#GoalExecution -->
+
+
+    <owl:Class rdf:about="http://www.dmi.unict.it/oasis.owl#GoalExecution"/>
+    
+
+
     <!-- http://www.dmi.unict.it/oasis.owl#InformationObject -->
 
 
@@ -192,10 +236,31 @@
     
 
 
+    <!-- http://www.dmi.unict.it/oasis.owl#PlanEntrustment -->
+
+
+    <owl:Class rdf:about="http://www.dmi.unict.it/oasis.owl#PlanEntrustment"/>
+    
+
+
+    <!-- http://www.dmi.unict.it/oasis.owl#PlanExecution -->
+
+
+    <owl:Class rdf:about="http://www.dmi.unict.it/oasis.owl#PlanExecution"/>
+    
+
+
     <!-- http://www.dmi.unict.it/oasis.owl#ReferenceTemplate -->
 
 
     <owl:Class rdf:about="http://www.dmi.unict.it/oasis.owl#ReferenceTemplate"/>
+    
+
+
+    <!-- http://www.dmi.unict.it/oasis.owl#TaskEntrustment -->
+
+
+    <owl:Class rdf:about="http://www.dmi.unict.it/oasis.owl#TaskEntrustment"/>
     
 
 
@@ -244,7 +309,7 @@
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/homeassistant.owl#homeassistant">
         <oasis:hasConfiguration rdf:resource="http://www.dmi.unict.it/homeassistant.owl#homeassistantconfiguration"/>
-        <oasis:performs rdf:resource="http://www.dmi.unict.it/lightagent-request1604215532-643988.owl#request_execution"/>
+        <oasis:performsEntrustment rdf:resource="http://www.dmi.unict.it/lightagent-request1604215532-643988.owl#request_planEntrustment"/>
     </owl:NamedIndividual>
     
 
@@ -265,6 +330,13 @@
         <oasis:hasIPAddress>localhost</oasis:hasIPAddress>
         <oasis:hasPortNumber rdf:datatype="http://www.w3.org/2001/XMLSchema#int">8000</oasis:hasPortNumber>
     </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/lightagent-request1604215532-643988.owl#goal -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/lightagent-request1604215532-643988.owl#goal"/>
     
 
 
@@ -325,6 +397,68 @@
     
 
 
+    <!-- http://www.dmi.unict.it/lightagent-request1604215532-643988.owl#request_goalEntrustment -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/lightagent-request1604215532-643988.owl#request_goalEntrustment">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#GoalEntrustment"/>
+        <oasis:consistsOfTaskEntrustment rdf:resource="http://www.dmi.unict.it/lightagent-request1604215532-643988.owl#request_taskEntrustment"/>
+        <oasis:entrustedBy rdf:resource="http://www.dmi.unict.it/lightagent-request1604215532-643988.owl#goal"/>
+        <oasis:entrustedWith rdf:resource="http://www.dmi.unict.it/lightagent-request1604215532-643988.owl#request_goalExecution"/>
+        <oasis:entrusts rdf:resource="http://www.dmi.unict.it/homeassistant.owl#homeassistant"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/lightagent-request1604215532-643988.owl#request_goalExecution -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/lightagent-request1604215532-643988.owl#request_goalExecution">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#GoalExecution"/>
+        <oasis:consistsOfTaskExecution rdf:resource="http://www.dmi.unict.it/lightagent-request1604215532-643988.owl#request_execution"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/lightagent-request1604215532-643988.owl#request_planEntrustment -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/lightagent-request1604215532-643988.owl#request_planEntrustment">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#PlanEntrustment"/>
+        <oasis:consistsOfGoalEntrustment rdf:resource="http://www.dmi.unict.it/lightagent-request1604215532-643988.owl#request_goalEntrustment"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/lightagent-request1604215532-643988.owl#request_planExecution -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/lightagent-request1604215532-643988.owl#request_planExecution">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#PlanExecution"/>
+        <oasis:consistsOfGoalExecution rdf:resource="http://www.dmi.unict.it/lightagent-request1604215532-643988.owl#request_goalExecution"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/lightagent-request1604215532-643988.owl#request_taskEntrustment -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/lightagent-request1604215532-643988.owl#request_taskEntrustment">
+        <rdf:type rdf:resource="http://www.dmi.unict.it/oasis.owl#TaskEntrustment"/>
+        <oasis:entrustedBy rdf:resource="http://www.dmi.unict.it/lightagent-request1604215532-643988.owl#task"/>
+        <oasis:entrustedWith rdf:resource="http://www.dmi.unict.it/lightagent-request1604215532-643988.owl#request_execution"/>
+        <oasis:entrusts rdf:resource="http://www.dmi.unict.it/homeassistant.owl#homeassistant"/>
+    </owl:NamedIndividual>
+    
+
+
+    <!-- http://www.dmi.unict.it/lightagent-request1604215532-643988.owl#task -->
+
+
+    <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/lightagent-request1604215532-643988.owl#task"/>
+    
+
+
     <!-- http://www.dmi.unict.it/lightagent.owl#lightagent -->
 
 
@@ -353,21 +487,6 @@
 
 
     <owl:NamedIndividual rdf:about="http://www.dmi.unict.it/oasis-abox.owl#ontology_description_object_type"/>
-    
-
-
-    <!-- 
-    ///////////////////////////////////////////////////////////////////////////////////////
-    //
-    // Annotations
-    //
-    ///////////////////////////////////////////////////////////////////////////////////////
-     -->
-
-
-    <rdf:Description rdf:about="http://www.dmi.unict.it/lightagent-request1604215532-643988.owl#request">
-        <oasis:hasTaskExecution rdf:resource="http://www.dmi.unict.it/lightagent-request1604215532-643988.owl#request_execution"/>
-    </rdf:Description>
 </rdf:RDF>
 
 

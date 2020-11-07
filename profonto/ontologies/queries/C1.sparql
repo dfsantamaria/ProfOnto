@@ -1,6 +1,4 @@
 ?agent rdf:type owl:NamedIndividual .
-?agent oasis:performs //taskexec// .
-//param1// oasis:hasTaskExecution //taskexec// .
 //taskexec// rdf:type oasis:TaskExecution .
 //taskexec// oasis:hasTaskObject //taskexeobject// .
 //taskexeobject// rdf:type oasis:TaskObject .

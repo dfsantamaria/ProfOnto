@@ -88,7 +88,7 @@ public class Profonto extends OntologyCore
     private Pair<String, OWLOntology> databehavior; //ontology for device behaviors
     private Pair<String, OWLOntology> databelief; //ontology for databelief
     private Pair<String, OWLOntology> datarequest; //ontology for requests
-    
+    private String assistantIRI;
     private final Configuration configuration; //reasoner configuration
     private final List<InferredAxiomGenerator<? extends OWLAxiom>> generators;//reasoner configuration for inferences
 
@@ -108,7 +108,8 @@ public class Profonto extends OntologyCore
         databehavior = null;
         databelief = null;
         datarequest = null;
-       
+        assistantIRI = null;
+        
         mainAbox=null;        
         generators = new ArrayList<>();
         setDefaultReasonerGenerators(generators);
@@ -564,6 +565,9 @@ public class Profonto extends OntologyCore
     }
     
     
+    
+    
+    
     /**
      * Return the belief infor
      *
@@ -772,6 +776,29 @@ public class Profonto extends OntologyCore
        addAxiomsToOntology(this.getDataRequestOntology(), axioms);
     } 
 
+    public int addDataToDataRequest(InputStream ontologystring) 
+    {
+        OWLOntology ontology=null;
+        try
+        {
+            ontology = this.getMainManager().loadOntologyFromOntologyDocument(ontologystring);
+           
+        } 
+        catch (OWLOntologyAlreadyExistsException ex)
+        {
+            ontology=this.getMainManager().getOntology(ex.getOntologyID());
+            getLogger().log(Level.SEVERE, null, ex);
+        } 
+        catch (OWLOntologyCreationException ex )                
+        {
+         getLogger().log(Level.SEVERE, null, ex);
+        }        
+        int r=-1;        
+        r=addAxiomsToOntology(this.getDataRequestOntology(), ontology.axioms());
+        this.getMainManager().removeOntology(ontology);                
+        return r;
+    }
+    
     //sync the reasoner on the given ontology and save inferences on the given file
     private void syncReasoner(OWLOntology ontology, String file) throws OWLOntologyStorageException
     {     
@@ -979,6 +1006,15 @@ public class Profonto extends OntologyCore
       return addDevice(ontology);
     }
     
+    public String getAssistantIRI()
+    {
+      return assistantIRI;
+    }
+    public void setAssistantIRI(String s)
+    {
+      this.assistantIRI=s;
+    }
+    
     /**
      * Add a new device given its ontology 
      * @param ontodevice the ontology of the device 
@@ -1000,7 +1036,7 @@ public class Profonto extends OntologyCore
             String deviceclass=this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#Device";
             String adoptsTemplate=this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#adoptsAgentBehaviorTemplate";
             String hasBehavior = this.getMainOntology().getOntologyID().getOntologyIRI().get().toString()+"#hasBehavior";
-           
+            String individual="";
             ontodevice.logicalAxioms().filter(y->y.isOfType(AxiomType.OBJECT_PROPERTY_ASSERTION)).forEach
                                  (
                                       elementInt -> {
@@ -1015,7 +1051,11 @@ public class Profonto extends OntologyCore
                                                    OWLClassAssertionAxiom ax=((OWLClassAssertionAxiom) element);
                                                     if(ax.getClassExpression().asOWLClass().toStringID().equals(deviceclass))
                                                       if(ind.equals(ax.getIndividual().asOWLNamedIndividual().toStringID()))
-                                                          val[0]=getEntityName(ind);                                                                                  
+                                                      {
+                                                          val[0]=getEntityName(ind);
+                                                          if(this.getDevices().isEmpty())//assistant
+                                                                this.setAssistantIRI(ind);
+                                                      }                                                                                  
                                                         
                                              });                                                                                                                                                                           
                                            }
@@ -1034,6 +1074,7 @@ public class Profonto extends OntologyCore
 
           //  FileOutputStream outStream = new FileOutputStream(file);
           syncReasoner(ontodevice, filesource);
+          
          //   this.getMainManager().saveOntology(ontodevice, new OWLXMLDocumentFormat(), outStream);
             this.getDevices().put(val[0], ontodevice.getOntologyID().getOntologyIRI().get().toString());
         //    outStream.close();
@@ -1716,6 +1757,45 @@ public class Profonto extends OntologyCore
     
     
     
+    
+    public String createEntrustmentGraph(List<QuerySolution> query, String base, String taskexec)
+    {
+        System.out.println("-----------------");
+        
+       String ret="";
+       String plan="<"+base+"_planEntrustment"+">";
+       String goal="<"+base+"_goalEntrustment"+">";
+       String task="<"+base+"_taskEntrustment"+">";
+       
+       String planExecution="<"+base+"_planExecution"+">";
+       String goalExecution="<"+base+"_goalExecution"+">";
+              
+       ret+=plan+" a oasis:PlanEntrustment.\n";
+       ret+=goal+" a oasis:GoalEntrustment.\n";
+       ret+=task+" a oasis:TaskEntrustment.\n";
+       
+       ret+=planExecution+" a oasis:PlanExecution.\n";
+       ret+=goalExecution+" a oasis:GoalExecution.\n";
+       ret+=planExecution+ " oasis:consistsOfGoalExecution "+goalExecution+" .\n";
+       ret+=goalExecution+ " oasis:consistsOfTaskExecution "+taskexec+" .\n";
+       
+       ret+="<"+this.getAssistantIRI()+">"+" oasis:performsEntrustment "+plan+". \n";
+       ret+=plan+" oasis:consistsOfGoalEntrustment "+goal+". \n";
+       ret+=goal+" oasis:consistsOfTaskEntrustment "+task+". \n";
+       
+        
+       ret+=goal+" oasis:entrustedWith "+goalExecution+" .\n";
+       ret+=goal+" oasis:entrustedBy "+"<"+query.get(0).getResource("goal").getURI() +"> .\n";
+       ret+=goal+" oasis:entrusts "+" ?agent .\n";
+       
+       ret+=task+" oasis:entrustedWith "+taskexec+" .\n";
+       ret+=task+" oasis:entrustedBy "+"<"+query.get(0).getResource("task").getURI() +"> .\n";
+       ret+=task+" oasis:entrusts "+" ?agent .\n";      
+       
+       return ret;
+    }
+    
+    
     /**
      * Returns the set of axioms concerning the execution of the given request
      * @param request The ontology of the request     
@@ -1772,8 +1852,8 @@ public class Profonto extends OntologyCore
           String taskexec= "<"+execNameSpace+execName+"_execution"+">";
           construct=construct.replaceAll("//taskexec//", taskexec)
                              .replaceAll("//taskexeobject//", "<"+execNameSpace+execName+"_exeTaskObject"+">")
-                             .replaceAll("//taskexeoperator//", "<"+execNameSpace+execName+"_exeTaskOperator"+">")
-                             .replaceAll("//param1//", "<"+sub11QL.get(0).getResource("plan").getURI()+">");
+                             .replaceAll("//taskexeoperator//", "<"+execNameSpace+execName+"_exeTaskOperator"+">");
+                             //.replaceAll("//param1//", "<"+sub11QL.get(0).getResource("plan").getURI()+">");
                              
         
           
@@ -1858,7 +1938,7 @@ public class Profonto extends OntologyCore
            construct3+=getTriplesFromQueryMatch(sub11QL,execInpParamElem,"aInpProp","aInpValue");                     
            construct=construct+construct3;
           }
-          
+          construct=createEntrustmentGraph(sub11QL,execNameSpace+execName,taskexec)+construct;
           //matching agent/actuator configuration
           execQ = this.createQuery(ontology, prefix + this.getQueries().get("Q2.sparql"));
           resultSet = execQ.execSelect();
@@ -1875,18 +1955,13 @@ public class Profonto extends OntologyCore
           }
            
           }
-          
-          
-          
+                  
           //connection information
-          subquery+=this.getQueries().get("Q9.sparql");
-          
-          
-          
-         //System.out.println("CONSTRUCT { "+construct +"}\n"); 
+          subquery+=this.getQueries().get("Q9.sparql");                
+         
           construct+=this.getQueries().get("C4.sparql");
           subquery = prefix + "CONSTRUCT { "+construct +"}\n" +  subquery + "}"; 
-          System.out.println(subquery);         
+         // System.out.println(subquery);         
          // execQ = this.createQuery(this.getDataBehaviorOntology(), subquery);
         //  resultSet = execQ.execSelect();
         //  List<QuerySolution> sub2QL=ResultSetFormatter.toList(resultSet);           
@@ -1904,14 +1979,14 @@ public class Profonto extends OntologyCore
        //   OWLOntology out = getMainManager().createOntology();
           toreturn[0]=new ByteArrayOutputStream();
           out.saveOntology(toreturn[0]);       
-          
+          addAxiomsToOntology(this.getDataBeliefOntology(), out.axioms());
           
           this.getMainManager().removeOntology(out);
           
           
-          String filesource = this.getOntologiesDevicesPath() + File.separator + "bbbbbbb" + ".owl";
-          File file = new File(filesource);
-          this.getMainManager().saveOntology(o, IRI.create(new File( "bbbbb" + ".owl")));
+        //  String filesource = this.getOntologiesDevicesPath() + File.separator + "bbbbbbb" + ".owl";
+        //  File file = new File(filesource);
+       //   this.getMainManager().saveOntology(o, IRI.create(new File( "bbbbb" + ".owl")));
             
           
           

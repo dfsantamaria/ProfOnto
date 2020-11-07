@@ -258,6 +258,11 @@ public class ProfontoEntryPoint
       {
         return ontocore.addDataToDataBelief(getInputStream(input));
       }
+    
+     public static int addDataRequest(String input)
+      {
+        return ontocore.addDataToDataRequest(getInputStream(input));
+      }
 
     /**
      * Remove a belief information from its ontology represented as string

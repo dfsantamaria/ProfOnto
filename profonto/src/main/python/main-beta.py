@@ -106,18 +106,28 @@ class ProfOnto (Thread):
              #client(self, clients, address, serversocket)
         return
 
+    def addExecutionStatusToDataBelief(self, executer, execution, status):
+        g=Graph()
+        sta=URIRef(execution+"-status")
 
-
+        g.add((execution, URIRef(self.oasis + "hasStatus"), sta))
+        g.add((URIRef(self.oasis + "hasStatus"), RDF.type, Utils.owlobj))
+        g.add((sta, URIRef(self.oasis + "hasStatusType"), URIRef(status)))
+        g.add((URIRef(self.oasis + "hasStatusType"), RDF.type, Utils.owlobj))
+        g.add((URIRef(executer), URIRef(self.oasis + "performs"), URIRef(execution)))
+        g.add((URIRef(self.oasis + "performs"), RDF.type, Utils.owlobj))
+        self.profonto.addDataBelief(g.serialize(format='xml').decode())
+        return
 
 
     def transmitExecutionStatus(self, execution, status, addr, sock,  server_socket):
         g=Graph()
         iri = Utils.retrieveURI(Utils, execution).replace(".owl", "-response.owl")
         iriassist = self.iriassistant  + '#' +self.assistant
-        f=Utils.generateExecutionStatus(Utils,g,execution, status, iri, self.oasis, self.oasisabox, iriassist)
+        Utils.generateExecutionStatus(Utils, g, URIRef(iriassist), execution, status, iri, self.oasis, self.oasisabox, iriassist)
         res=Utils.serverTransmit(Utils, g.serialize(format='pretty-xml'), sock, addr,  server_socket)
         server_socket.close()
-        self.profonto.addDataBelief(f.serialize(format='xml').decode())
+        self.addExecutionStatusToDataBelief(iriassist, execution, status)
         return res
 
 
@@ -132,7 +142,6 @@ class ProfOnto (Thread):
 
     def getOntologyFile(self, graph, execution):
         file = None
-        print(graph)
         for d in graph.objects(execution, URIRef(self.oasis + "hasTaskActualInputParameter")):  # retrieving source
            for t in  graph.objects(d, URIRef(self.oasis + "refersAsNewTo")):
               for s in graph.objects(t, URIRef(self.oasis + "descriptionProvidedByURL")):
@@ -157,35 +166,41 @@ class ProfOnto (Thread):
         #for s,p,o in graph.triples( (None,None,None) ):
             #print(s,p,o)
         toreturn = Graph()
+        timestamp = Utils.getTimeStamp(Utils)
+        iri = str(self.iriassistant).rsplit('.', 1)[0] + "-request" + timestamp + ".owl"
+        iriassist = self.iriassistant + '#' + self.assistant
+        taskObj=next(graph.objects(subject=None, predicate=URIRef( self.oasis + "performsEntrustment")))
 
-        taskOb = next(graph.objects(execution, URIRef( self.oasis + "hasTaskObject")))
-        taskOp = next(graph.objects(execution, URIRef( self.oasis + "hasTaskOperator")))
-        taskObject = next(graph.objects(taskOb, URIRef(self.oasis + "refersExactlyTo")))
-        taskOperator = next(graph.objects(taskOp, URIRef(self.oasis + "refersExactlyTo")))
+        Utils.generateRequest(Utils, toreturn, iri, self.oasis, iriassist,
+                              "#planDe","#goalDe","#taskDe", "#taskOb", URIRef(taskObj), URIRef(self.oasis+"refersExactlyTo"),
+                                     URIRef(self.oasisabox+"perform"), None,None)
 
-        performer = next(graph.subjects(URIRef( self.oasis + "performs"), execution))
+        #add the execution info
+        self.profonto.addDataRequest(toreturn.serialize(format='xml').decode())
 
-        toreturn.add((execution, RDF.type, URIRef(self.oasis + "TaskExecution"))) # use task entrustment instead
-        toreturn.add((execution, URIRef(self.oasis + "hasTaskObject"), taskOb))  # use task entrustment instead
-        toreturn.add((execution, URIRef(self.oasis + "hasTaskOperator"), taskOp))  # use task entrustment instead
-        toreturn.add((taskOb, URIRef(self.oasis + "refersExactlyTo"), taskObject))  # use task entrustment instead
-        toreturn.add((taskOp, URIRef(self.oasis + "refersExactlyTo"), taskOperator))  # use task entrustment instead
 
         devip=next(graph.objects(subject=None, predicate=URIRef( self.oasis + "hasIPAddress")))
         devport=next(graph.objects(subject=None, predicate=URIRef( self.oasis + "hasPortNumber")))
         value=100
+        entrust = next(graph.subjects(URIRef(self.oasis + "entrustedWith"), execution))
+        performer = next(graph.objects(entrust, URIRef(self.oasis + "entrusts")))
+        taskOb = next(graph.objects(execution, URIRef(self.oasis + "hasTaskObject")))
+        taskOp = next(graph.objects(execution, URIRef(self.oasis + "hasTaskOperator")))
+        taskObject = next(graph.objects(taskOb, URIRef(self.oasis + "refersExactlyTo")))
+        taskOperator = next(graph.objects(taskOp, URIRef(self.oasis + "refersExactlyTo")))
         for s, t in graph.subject_objects(URIRef(self.oasis + "hasTaskActualInputParameter")):
             o=next(graph.objects(t, URIRef(self.oasis + "refersAsNewTo"))) #check also for refersExactlyTo
-            toreturn.add((s, URIRef(self.oasis + "hasTaskActualInputParameter"), t))
-            toreturn.add((t, URIRef(self.oasis + "refersAsNewTo"), o)) #check also for refersExactlyTo
             for v in graph.objects(o, URIRef(self.oasis + "hasDataValue")):
-                toreturn.add((o,URIRef(self.oasis + "hasDataValue"),v))
                 value=v
                 break
+
+        g = Graph()
+        g.add((URIRef(iriassist), URIRef(self.oasis + "performs"), URIRef(execution)))
+        g.add((URIRef(self.oasis + "performs"), RDF.type, Utils.owlobj))
+        self.profonto.addDataBelief(g.serialize(format='xml').decode())
+
         print("To engage:", performer, taskObject, value, taskOperator, devip, devport)
-        toreturn.add((performer, URIRef(self.oasis + "performs"), execution))  # use task entrustment instead
-       # self.createRequest(graph, toreturn, execution)
-        toreturn=toreturn.serialize(format='xml')
+        toreturn=(toreturn +graph).serialize(format='xml')
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect((devip, int(devport)))
         client_socket.send(toreturn)
@@ -362,19 +377,27 @@ class ProfOnto (Thread):
             self.computesDependencies(g, executions)
             executions = sorted(executions, key=lambda x: x[1])
         for execution, val in executions:
-            for executer in g.subjects(URIRef( self.oasis + "performs"), execution):
-                if (Utils.retrieveEntityName(Utils, executer) == self.assistant):
-                    self.profhome_decide(g, execution, addr, sock, server_socket)
-                else:
-                    message =  self.device_engage(g, execution)
-                    Utils.serverTransmit(Utils, message, sock, addr, server_socket)
-                    belief =  self.profonto.parseRequest(message.decode())[0]
-                    if belief == None:
-                       print("A belief from " + execution + " cannot be added")
+            for taskEntrust in g.subjects(URIRef( self.oasis + "entrustedWith"), execution):
+                for executer in g.objects(taskEntrust, URIRef(self.oasis + "entrusts")):
+                    if (Utils.retrieveEntityName(Utils, executer) == self.assistant):
+                        self.profhome_decide(g, execution, addr, sock, server_socket)
+
                     else:
-                       thebg = Utils.getGraph(Utils, message)
-                       message = self.extractStatusInfo(thebg)
-                       self.profonto.addDataBelief(message.serialize(format='xml').decode())
+                       message =  self.device_engage(g, execution)
+                       Utils.serverTransmit(Utils, message, sock, addr, server_socket)
+                       belief =  self.profonto.parseRequest(message.decode())[0]
+                       entrust_status=URIRef(self.oasisabox + "failed_status_type")
+                       if belief == None:
+                          print("A belief from " + execution + " cannot be added")
+                       else:
+                          entrust_status = URIRef(self.oasisabox + "succeded_status_type")
+                       self.addExecutionStatusToDataBelief(executer, execution, entrust_status)
+                       # stessa cosa per la richiesta di ingaggio
+                       #thebg = Utils.getGraph(Utils, message)
+                       #message = self.extractStatusInfo(thebg)
+                       #self.profonto.addDataBelief(message.serialize(format='xml').decode())
+                       #al posto delle tre sopra fare un update belief.
+                       print("Engagement status: ", entrust_status)
 
 
     def extractStatusInfo(self, belief):
