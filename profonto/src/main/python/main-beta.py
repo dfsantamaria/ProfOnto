@@ -388,7 +388,7 @@ class ProfOnto (Thread):
                        self.profonto.addDataBelief(s.serialize(format='xml').decode())
                        self.addExecutionStatusToDataBelief(executer, execution, entrust_status)
                        #engagement request status and perform
-                       ex=Utils.addExecutionGraph(Utils, reqG, self.oasis, iri, executer)
+                       ex=Utils.addExecutionGraph(Utils, reqG, self.oasis, iri, executer, timestamp)
                        self.profonto.addDataRequest(reqG.serialize(format='xml').decode())
                        s = Graph()
                        Utils.addPerformInfo(Utils, s, self.oasis, executer, ex)

@@ -779,6 +779,7 @@ public class Profonto extends OntologyCore
     public int addDataToDataRequest(InputStream ontologystring) 
     {
         OWLOntology ontology=null;
+        int r=-1;
         try
         {
             ontology = this.getMainManager().loadOntologyFromOntologyDocument(ontologystring);
@@ -788,12 +789,14 @@ public class Profonto extends OntologyCore
         {
             ontology=this.getMainManager().getOntology(ex.getOntologyID());
             getLogger().log(Level.SEVERE, null, ex);
+            return 0;
         } 
         catch (OWLOntologyCreationException ex )                
         {
          getLogger().log(Level.SEVERE, null, ex);
+         return -1;
         }        
-        int r=-1;        
+                
         r=addAxiomsToOntology(this.getDataRequestOntology(), ontology.axioms());
         this.getMainManager().removeOntology(ontology);                
         return r;
@@ -1758,7 +1761,8 @@ public class Profonto extends OntologyCore
     
     
     
-    public String createEntrustmentGraph(List<QuerySolution> query, String base, String taskexec)
+    public String createEntrustmentGraph(List<QuerySolution> query, String base, 
+             String planExecution, String goalExecution, String taskexec, String goald, String taskd)
     {
         System.out.println("-----------------");
         
@@ -1766,9 +1770,7 @@ public class Profonto extends OntologyCore
        String plan="<"+base+"_planEntrustment"+">";
        String goal="<"+base+"_goalEntrustment"+">";
        String task="<"+base+"_taskEntrustment"+">";
-       
-       String planExecution="<"+base+"_planExecution"+">";
-       String goalExecution="<"+base+"_goalExecution"+">";
+        
               
        ret+=plan+" a oasis:PlanEntrustment.\n";
        ret+=goal+" a oasis:GoalEntrustment.\n";
@@ -1776,16 +1778,19 @@ public class Profonto extends OntologyCore
        
        ret+=planExecution+" a oasis:PlanExecution.\n";
        ret+=goalExecution+" a oasis:GoalExecution.\n";
+       ret+=taskexec+" a oasis:TaskExecution.\n";
        ret+=planExecution+ " oasis:consistsOfGoalExecution "+goalExecution+" .\n";
        ret+=goalExecution+ " oasis:consistsOfTaskExecution "+taskexec+" .\n";
+                    
        
        ret+="<"+this.getAssistantIRI()+">"+" oasis:performsEntrustment "+plan+". \n";
        ret+=plan+" oasis:consistsOfGoalEntrustment "+goal+". \n";
-       ret+=goal+" oasis:consistsOfTaskEntrustment "+task+". \n";
-       
+       ret+=goal+" oasis:consistsOfTaskEntrustment "+task+". \n";       
         
+       ret+=goald +"  oasis:hasGoalExecution " +goalExecution+" .\n";
+       ret+=taskd +"  oasis:hasTaskExecution " +goalExecution+" .\n";
        ret+=goal+" oasis:entrustedWith "+goalExecution+" .\n";
-       ret+=goal+" oasis:entrustedFrom ?goald .\n";
+       ret+=goal+" oasis:entrustedFrom ?goald .\n";       
        ret+=goal+" oasis:entrustedBy "+"<"+query.get(0).getResource("goal").getURI() +"> .\n";
        ret+=goal+" oasis:entrusts "+" ?agent .\n";
        
@@ -1848,10 +1853,14 @@ public class Profonto extends OntologyCore
           //finding compatible agents
           String execName = sub11QL.get(0).getResource("plan").getLocalName();
           String execNameSpace = sub11QL.get(0).getResource("plan").getNameSpace();
+          String goald = "<"+ sub11QL.get(0).getResource("goal").getURI().toString()+">";
+          String taskd = "<"+ sub11QL.get(0).getResource("task").getURI().toString()+">";
           Stream<OWLAxiom> axiomToAdd=Stream.empty();
           //customizing the construct header
           String construct=this.getQueries().get("C1.sparql");         
-          String taskexec= "<"+execNameSpace+execName+"_execution"+">";
+          String taskexec= "<"+execNameSpace+execName+"_taskExecution"+">";
+          String planexec= "<"+execNameSpace+execName+"_planExecution"+">";
+          String goalexec= "<"+execNameSpace+execName+"_goalExecution"+">";
           construct=construct.replaceAll("//taskexec//", taskexec)
                              .replaceAll("//taskexeobject//", "<"+execNameSpace+execName+"_exeTaskObject"+">")
                              .replaceAll("//taskexeoperator//", "<"+execNameSpace+execName+"_exeTaskOperator"+">");
@@ -1914,7 +1923,7 @@ public class Profonto extends OntologyCore
            String execInpParamElem="";   
            String construct3=this.getQueries().get("C3.sparql");   
            String execInpParam="<"+execNameSpace+execName+"_exeTaskActualInputParameter"+">";
-           construct3=construct3.replaceAll("//taskexec//", "<"+execNameSpace+execName+"_execution"+">");
+           construct3=construct3.replaceAll("//taskexec//", taskexec);
            construct3=construct3.replaceAll("//taskexeparam//", execInpParam);
            
            if(sub11QL.get(0).getResource("referInp").getLocalName().equals("refersExactlyTo"))
@@ -1940,7 +1949,7 @@ public class Profonto extends OntologyCore
            construct3+=getTriplesFromQueryMatch(sub11QL,execInpParamElem,"aInpProp","aInpValue");                     
            construct=construct+construct3;
           }
-          construct=createEntrustmentGraph(sub11QL,execNameSpace+execName,taskexec)+construct;
+          construct=createEntrustmentGraph(sub11QL,execNameSpace+execName, planexec, goalexec, taskexec, goald, taskd)+construct;
           //matching agent/actuator configuration
           execQ = this.createQuery(ontology, prefix + this.getQueries().get("Q2.sparql"));
           resultSet = execQ.execSelect();

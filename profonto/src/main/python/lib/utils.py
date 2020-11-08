@@ -79,10 +79,10 @@ class Utils():
         s.add((URIRef(oasisIRI + "performs"), RDF.type, Utils.owlobj))
         return
 
-    def addExecutionGraph(self, g, oasisIRI, iri, executer):
-        plane= URIRef(iri+"#planExecution")
-        goale=URIRef(iri+"#goalExecution")
-        execution=URIRef(iri+"#taskExecution")
+    def addExecutionGraph(self, g, oasisIRI, iri, executer, timestamp):
+        plane= URIRef(iri+"#planExecution-"+timestamp)
+        goale=URIRef(iri+"#goalExecution-"+timestamp)
+        execution=URIRef(iri+"#taskExecution-"+timestamp)
         g.add((plane, RDF.type, URIRef(oasisIRI+"PlanExecution")))
         g.add((goale, RDF.type, URIRef(oasisIRI + "GoalExecution")))
         g.add((execution, RDF.type, URIRef(oasisIRI + "TaskExecution")))
