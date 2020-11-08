@@ -726,9 +726,6 @@
         <ObjectProperty IRI="#hasDescriptor"/>
     </Declaration>
     <Declaration>
-        <ObjectProperty IRI="#hasEntrustment"/>
-    </Declaration>
-    <Declaration>
         <ObjectProperty IRI="#hasExecutionObject"/>
     </Declaration>
     <Declaration>
@@ -951,6 +948,9 @@
         <ObjectProperty IRI="#refersTo"/>
     </Declaration>
     <Declaration>
+        <ObjectProperty IRI="#requestedTo"/>
+    </Declaration>
+    <Declaration>
         <ObjectProperty IRI="#requests"/>
     </Declaration>
     <Declaration>
@@ -961,9 +961,6 @@
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#signsSmartContract"/>
-    </Declaration>
-    <Declaration>
-        <ObjectProperty IRI="#subjectedToTask"/>
     </Declaration>
     <Declaration>
         <ObjectProperty IRI="#triggeredBy"/>
@@ -1973,10 +1970,6 @@
         <ObjectProperty IRI="#hasType"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#hasEntrustment"/>
-        <ObjectProperty IRI="#isInvolvedInEntrustmentWith"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
         <ObjectProperty IRI="#hasFeasibility"/>
         <ObjectProperty IRI="#hasFeature"/>
     </SubObjectPropertyOf>
@@ -2249,10 +2242,6 @@
         <ObjectProperty IRI="#partecipatesInSmartContract"/>
     </SubObjectPropertyOf>
     <SubObjectPropertyOf>
-        <ObjectProperty IRI="#subjectedToTask"/>
-        <ObjectProperty IRI="#isDescribedBy"/>
-    </SubObjectPropertyOf>
-    <SubObjectPropertyOf>
         <ObjectProperty IRI="#triggeredBy"/>
         <ObjectProperty IRI="#isRelatedWith"/>
     </SubObjectPropertyOf>
@@ -2433,10 +2422,6 @@
         <Class IRI="#Connection"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
-        <ObjectProperty IRI="#hasEntrustment"/>
-        <Class IRI="#Agent"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
         <ObjectProperty IRI="#hasExecutionObject"/>
         <Class IRI="#RequestDescriptionObject"/>
     </ObjectPropertyDomain>
@@ -2565,6 +2550,10 @@
         <Class IRI="#Agent"/>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
+        <ObjectProperty IRI="#requestedTo"/>
+        <Class IRI="#RequestDescriptionObject"/>
+    </ObjectPropertyDomain>
+    <ObjectPropertyDomain>
         <ObjectProperty IRI="#setsUp"/>
         <Class IRI="#Configuration"/>
     </ObjectPropertyDomain>
@@ -2578,13 +2567,6 @@
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#signsSmartContract"/>
         <Class IRI="#Agent"/>
-    </ObjectPropertyDomain>
-    <ObjectPropertyDomain>
-        <ObjectProperty IRI="#subjectedToTask"/>
-        <ObjectUnionOf>
-            <Class IRI="#Actuator"/>
-            <Class IRI="#ActuatorTemplate"/>
-        </ObjectUnionOf>
     </ObjectPropertyDomain>
     <ObjectPropertyDomain>
         <ObjectProperty IRI="#triggeredBy"/>
@@ -2790,10 +2772,6 @@
         <Class IRI="#Descriptor"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
-        <ObjectProperty IRI="#hasEntrustment"/>
-        <Class IRI="#EntrustmentActivity"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
         <ObjectProperty IRI="#hasExecutionObject"/>
         <Class IRI="#ExecutionActivity"/>
     </ObjectPropertyRange>
@@ -2990,6 +2968,10 @@
         <Class IRI="#ReferenceTemplate"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
+        <ObjectProperty IRI="#requestedTo"/>
+        <Class IRI="#Actor"/>
+    </ObjectPropertyRange>
+    <ObjectPropertyRange>
         <ObjectProperty IRI="#setsUp"/>
         <Class IRI="#ConfiguredThing"/>
     </ObjectPropertyRange>
@@ -3003,10 +2985,6 @@
     <ObjectPropertyRange>
         <ObjectProperty IRI="#signsSmartContract"/>
         <Class IRI="#SmartContract"/>
-    </ObjectPropertyRange>
-    <ObjectPropertyRange>
-        <ObjectProperty IRI="#subjectedToTask"/>
-        <Class IRI="#TaskDescription"/>
     </ObjectPropertyRange>
     <ObjectPropertyRange>
         <ObjectProperty IRI="#triggers"/>

@@ -119,12 +119,12 @@ class ProfOnto (Thread):
         return
 
 
-    def transmitExecutionStatus(self, execution, status, addr, sock,  server_socket):
+    def transmitExecutionStatus(self, execution, executer, status, addr, sock,  server_socket):
         g=Graph()
         timestamp = Utils.getTimeStamp(Utils)
         iri = Utils.retrieveURI(Utils, execution).replace(".owl", "-response"+timestamp+".owl")
         iriassist = self.iriassistant  + '#' +self.assistant
-        Utils.generateExecutionStatus(Utils, g, URIRef(iriassist), execution, status, iri, self.oasis, self.oasisabox, iriassist, timestamp)
+        Utils.generateExecutionStatus(Utils, g, URIRef(iriassist), execution, executer, status, iri, self.oasis, self.oasisabox, iriassist, timestamp)
         res=Utils.serverTransmit(Utils, g.serialize(format='pretty-xml'), sock, addr,  server_socket)
         server_socket.close()
         self.addExecutionStatusToDataBelief(iriassist, execution, status)
@@ -162,20 +162,21 @@ class ProfOnto (Thread):
 
 
 
-    def device_engage(self, graph, iri, execution, timestamp):
+    def device_engage(self, graph, iri, execution, performer, timestamp):
         #for s,p,o in graph.triples( (None,None,None) ):
             #print(s,p,o)
+        #performer = next(graph.objects(entrust, URIRef(self.oasis + "entrusts")))
         toreturn = Graph()
         iriassist = self.iriassistant + '#' + self.assistant
         taskObj=next(graph.objects(subject=None, predicate=URIRef( self.oasis + "performsEntrustment")))
-        Utils.generateRequest(Utils, toreturn, iri, self.oasis, iriassist,
+        Utils.generateRequest(Utils, toreturn, iri, self.oasis, iriassist, URIRef(performer),
                               "#planDe-"+timestamp,"#goalDe-"+timestamp,"#taskDe-"+timestamp, "#taskOb-"+timestamp, URIRef(taskObj), URIRef(self.oasis+"refersExactlyTo"),
                                      URIRef(self.oasisabox+"perform"), None,None, timestamp)
+
         devip=next(graph.objects(subject=None, predicate=URIRef( self.oasis + "hasIPAddress")))
         devport=next(graph.objects(subject=None, predicate=URIRef( self.oasis + "hasPortNumber")))
         value=100
         entrust = next(graph.subjects(URIRef(self.oasis + "entrustedWith"), execution))
-        performer = next(graph.objects(entrust, URIRef(self.oasis + "entrusts")))
         taskOb = next(graph.objects(execution, URIRef(self.oasis + "hasTaskObject")))
         taskOp = next(graph.objects(execution, URIRef(self.oasis + "hasTaskOperator")))
         taskObject = next(graph.objects(taskOb, URIRef(self.oasis + "refersExactlyTo")))
@@ -200,7 +201,7 @@ class ProfOnto (Thread):
 
 
     # Actions that the assistant performs
-    def profhome_decide(self, graph, execution, addr, sock, server_socket):
+    def profhome_decide(self, graph, execution, executer, addr, sock, server_socket):
         req = next(graph.objects(execution, URIRef( self.oasis + "hasTaskObject")))
         requester = next(graph.objects(req, URIRef( self.oasis + "refersExactlyTo")))
         operator=next(graph.objects(execution, URIRef( self.oasis + "hasTaskOperator")))
@@ -211,30 +212,30 @@ class ProfOnto (Thread):
                 value =  self.profonto.addDevice(file)  # read the device data
                 if value == None or value=="":
                     print ("A device cannot be added")
-                    res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox + "failed_status_type"), addr, sock, server_socket)
+                    res= self.transmitExecutionStatus(execution, executer, URIRef(self.oasisabox + "failed_status_type"), addr, sock, server_socket)
                 else:
                     print("Device", value, "added.")
-                    res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox+"succeded_status_type"), addr, sock, server_socket)
+                    res= self.transmitExecutionStatus(execution, executer, URIRef(self.oasisabox+"succeded_status_type"), addr, sock, server_socket)
 
             elif actions == URIRef(self.oasisabox + "update"):
                 file =  self.getOntologyFile(graph, execution)
                 value =  self.profonto.modifyDevice(file)  # read the device data
                 if value == None:
                     print ("A device cannot be updated")
-                    res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox + "failed_status_type"), addr, sock, server_socket)
+                    res= self.transmitExecutionStatus(execution, executer, URIRef(self.oasisabox + "failed_status_type"), addr, sock, server_socket)
                 else:
                     print("Device", value, "updated.")
-                    res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox+"succeded_status_type"), addr, sock, server_socket)
+                    res= self.transmitExecutionStatus(execution, executer, URIRef(self.oasisabox+"succeded_status_type"), addr, sock, server_socket)
 
             elif actions == URIRef(self.oasisabox + "uninstall"):  # uninstallation task
                 #requester = next(graph.objects(execution, URIRef(oasis + "hasTaskObject")))
                 value =  self.profonto.removeDevice(Utils.retrieveEntityName(Utils, requester))  # read the device data
                 if int(value) < 1:
                     print("Device", Utils.retrieveEntityName(Utils, requester)+ " cannot be removed")
-                    res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox + "failed_status_type"), addr, sock, server_socket)
+                    res= self.transmitExecutionStatus(execution, executer,URIRef(self.oasisabox + "failed_status_type"), addr, sock, server_socket)
                 else:
                     print("Device", Utils.retrieveEntityName(Utils, requester), "correctly removed")
-                    res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox+"succeded_status_type"), addr, sock, server_socket)
+                    res= self.transmitExecutionStatus(execution, executer, URIRef(self.oasisabox+"succeded_status_type"), addr, sock, server_socket)
 
             elif actions == URIRef(self.oasisabox + "add") or actions == URIRef(self.oasisabox + "remove"):  # add user task
 
@@ -245,19 +246,19 @@ class ProfOnto (Thread):
                              value=  self.profonto.addUser(file)
                              if value==None:
                                  print ("A user cannot be added")
-                                 res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox + "failed_status_type"), addr, sock,
+                                 res= self.transmitExecutionStatus(execution, executer, URIRef(self.oasisabox + "failed_status_type"), addr, sock,
                                                          server_socket)
                              else:
-                                res= self.transmitExecutionStatus(execution,URIRef(self.oasisabox+"succeded_status_type"), addr, sock,  server_socket)
+                                res= self.transmitExecutionStatus(execution, executer, URIRef(self.oasisabox+"succeded_status_type"), addr, sock,  server_socket)
                                 print("User", value, "added.")
                          elif actions == URIRef(self.oasisabox + "remove"):
                               value= self.profonto.removeUser(Utils.retrieveEntityName(Utils, requester))
                               if int(value) < 1:
                                   print("User " + Utils.retrieveEntityName(Utils, requester)+ " cannot be removed")
-                                  res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox + "failed_status_type"), addr, sock,
+                                  res= self.transmitExecutionStatus(execution, executer,URIRef(self.oasisabox + "failed_status_type"), addr, sock,
                                                           server_socket)
                               else:
-                                 res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox+"succeded_status_type"), addr, sock,  server_socket)
+                                 res= self.transmitExecutionStatus(execution, executer, URIRef(self.oasisabox+"succeded_status_type"), addr, sock,  server_socket)
                                  print("User", Utils.retrieveEntityName(Utils, requester), "correctly removed")
                      elif thetype == URIRef(self.oasisabox + "user_configuration_type"):  # adding or removing user
                          if actions == URIRef(self.oasisabox + "add"):
@@ -265,19 +266,19 @@ class ProfOnto (Thread):
                              value=  self.profonto.addConfiguration(file)
                              if value== None:
                                  print("A configuration cannot be added")
-                                 res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox + "failed_status_type"), addr, sock,
+                                 res= self.transmitExecutionStatus(execution, executer, URIRef(self.oasisabox + "failed_status_type"), addr, sock,
                                                          server_socket)
                              else:
-                                 res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox + "succeded_status_type"), addr, sock,  server_socket)
+                                 res= self.transmitExecutionStatus(execution, executer, URIRef(self.oasisabox + "succeded_status_type"), addr, sock,  server_socket)
                                  print("Configuration added:", value,".")
                          elif actions == URIRef(self.oasisabox + "remove"):
                              value =  self.profonto.removeConfiguration(Utils.retrieveEntityName(Utils, requester))
                              if int(value) < 1:
                                  print("A configuration cannot be removed")
-                                 res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox + "failed_status_type"), addr, sock,
+                                 res= self.transmitExecutionStatus(execution, executer, URIRef(self.oasisabox + "failed_status_type"), addr, sock,
                                                          server_socket)
                              else:
-                                 res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox+"succeded_status_type"), addr, sock,  server_socket)
+                                 res= self.transmitExecutionStatus(execution, executer, URIRef(self.oasisabox+"succeded_status_type"), addr, sock,  server_socket)
                                  print("Configuration", Utils.retrieveEntityName(Utils, requester), "correctly removed.")
                      elif  thetype == URIRef(self.oasisabox + "belief_description_object_type"):
                           file =  self.getOntologyFile(graph, execution)
@@ -285,31 +286,31 @@ class ProfOnto (Thread):
                              value =  self.profonto.addDataBelief(file)
                              if int(value) < 1:
                                  print("Data belief cannot be added")
-                                 res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox + "failed_status_type"), addr, sock,
+                                 res= self.transmitExecutionStatus(execution, executer, URIRef(self.oasisabox + "failed_status_type"), addr, sock,
                                                          server_socket)
                              else:
-                                 res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox+"succeded_status_type"), addr, sock,  server_socket)
+                                 res= self.transmitExecutionStatus(execution, executer, URIRef(self.oasisabox+"succeded_status_type"), addr, sock,  server_socket)
                                  print("Belief  correctly added")
                           elif actions == URIRef(self.oasisabox + "remove"):
                              value =  self.profonto.removeDataBelief(file)
                              if int(value) < 1:
                                  print("Belief cannot be removed")
-                                 res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox + "failed_status_type"), addr, sock,
+                                 res= self.transmitExecutionStatus(execution, executer, URIRef(self.oasisabox + "failed_status_type"), addr, sock,
                                                          server_socket)
                              else:
-                                 res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox+"succeded_status_type"), addr, sock,  server_socket)
+                                 res= self.transmitExecutionStatus(execution, executer, URIRef(self.oasisabox+"succeded_status_type"), addr, sock,  server_socket)
                                  print("Belief correctly removed")
                      else:
-                         res =  self.transmitExecutionStatus(execution, URIRef(self.oasisabox + "failed_status_type"), addr, sock,
+                         res =  self.transmitExecutionStatus(execution, executer, URIRef(self.oasisabox + "failed_status_type"), addr, sock,
                                                        server_socket)
 
             elif actions == URIRef(self.oasisabox + "parse"):
                 for thetype in graph.objects(requester, URIRef(self.oasis + "hasType")):
                     if thetype == URIRef(self.oasisabox + "generalUtterance"):
                         print("General utterances parser is being developed... stay tuned!")
-                        res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox+"failed_status_type"), addr, sock, server_socket)
+                        res= self.transmitExecutionStatus(execution, executer, URIRef(self.oasisabox+"failed_status_type"), addr, sock, server_socket)
                     else:
-                        res =  self.transmitExecutionStatus(execution, URIRef(self.oasisabox + "failed_status_type"), addr, sock,
+                        res =  self.transmitExecutionStatus(execution, executer, URIRef(self.oasisabox + "failed_status_type"), addr, sock,
                                                       server_socket)
 
             elif actions == URIRef(self.oasisabox + "retrieve"):
@@ -319,13 +320,13 @@ class ProfOnto (Thread):
                         value =  self.profonto.retrieveDataBelief(file)
                         if value == None:
                             print ("Belief cannot be retrieved")
-                            res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox + "failed_status_type"), addr, sock,
+                            res= self.transmitExecutionStatus(execution, executer, URIRef(self.oasisabox + "failed_status_type"), addr, sock,
                                                     server_socket)
                         else:
-                            res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox+"succeded_status_type"), addr, sock,  server_socket)
+                            res= self.transmitExecutionStatus(execution, executer, URIRef(self.oasisabox+"succeded_status_type"), addr, sock,  server_socket)
                             print("Belief retrieved:\n"+ value)
                     else:
-                        res =  self.transmitExecutionStatus(execution, URIRef(self.oasisabox + "failed_status_type"), addr, sock,
+                        res =  self.transmitExecutionStatus(execution, executer, URIRef(self.oasisabox + "failed_status_type"), addr, sock,
                                                   server_socket)
             elif actions == URIRef(self.oasisabox + "check"):
                 for arg in graph.objects(execution, URIRef(self.oasis + "hasTaskOperatorArgument")):
@@ -334,19 +335,19 @@ class ProfOnto (Thread):
                         print("Checking for the presence of ", requester)
                         isPresent= self.profonto.checkDevice(requester)
                         if isPresent == 1:
-                            res =  self.transmitExecutionStatus(execution, URIRef(self.oasisabox + "succeded_status_type"), addr, sock,
+                            res =  self.transmitExecutionStatus(execution, executer, URIRef(self.oasisabox + "succeded_status_type"), addr, sock,
                                                           server_socket)
                             print("Device ", requester, " is installed")
                         else:
-                            res =  self.transmitExecutionStatus(execution, URIRef(self.oasisabox + "failed_status_type"), addr, sock,
+                            res =  self.transmitExecutionStatus(execution, executer, URIRef(self.oasisabox + "failed_status_type"), addr, sock,
                                                       server_socket)
                             print("Device ", requester, " is not installed")
                     else:
-                        res =  self.transmitExecutionStatus(execution, URIRef(self.oasisabox + "failed_status_type"), addr, sock,
+                        res =  self.transmitExecutionStatus(execution, executer, URIRef(self.oasisabox + "failed_status_type"), addr, sock,
                                                       server_socket)
             else:
                 print("Action", actions, "not supported yet")
-                res= self.transmitExecutionStatus(execution, URIRef(self.oasisabox+"failed_status_type"), addr, sock, server_socket)
+                res= self.transmitExecutionStatus(execution, executer, URIRef(self.oasisabox+"failed_status_type"), addr, sock, server_socket)
 
             if res < 1:
                 print("Execution status cannot be transmitted")
@@ -369,12 +370,12 @@ class ProfOnto (Thread):
             for taskEntrust in g.subjects(URIRef( self.oasis + "entrustedWith"), execution):
                 for executer in g.objects(taskEntrust, URIRef(self.oasis + "entrusts")):
                     if (Utils.retrieveEntityName(Utils, executer) == self.assistant):
-                        self.profhome_decide(g, execution, addr, sock, server_socket)
+                        self.profhome_decide(g, execution, executer, addr, sock, server_socket)
 
                     else:
                        timestamp = Utils.getTimeStamp(Utils)
                        iri = str(self.iriassistant).rsplit('.', 1)[0] + "-request" + timestamp + ".owl"
-                       message, reqG =  self.device_engage(g, iri, execution, timestamp)
+                       message, reqG =  self.device_engage(g, iri, execution, executer, timestamp)
                        Utils.serverTransmit(Utils, message, sock, addr, server_socket)
                        belief =  self.profonto.parseRequest(message.decode())[0]  #direct request
                        entrust_status=URIRef(self.oasisabox + "failed_status_type")

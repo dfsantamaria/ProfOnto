@@ -51,7 +51,7 @@ class AgentServerManager(Thread):
         agent = URIRef(self.agent.iriSet[2] + "#" + self.agent.agentInfo[0])
         s = Graph()
         Utils.addImportAxioms(Utils, s, iri, [self.agent.iriSet[0], self.agent.iriSet[1]])
-        Utils.generateExecutionStatus(Utils, s, agent, execution, status, iri, self.agent.iriSet[0]+"#", self.agent.iriSet[1]+"#", agent, timestamp)
+        Utils.generateExecutionStatus(Utils, s, agent, execution, None, status, iri, self.agent.iriSet[0]+"#", self.agent.iriSet[1]+"#", agent, timestamp)
 
         tosend=s.serialize(format='pretty-xml').decode()
         self.sock.send(tosend.encode())
@@ -167,7 +167,7 @@ class Agent(Thread):
         reqGraph.add(
             (agent, URIRef(self.iriSet[0] + "#hasAgentType"), URIRef(self.iriSet[1] + "#agent_device_type")))  # task object
         reqGraph.add((agent, RDF.type, URIRef(self.iriSet[0] + "#Device")))  # has request
-        Utils.generateRequest(Utils, reqGraph, iri, self.iriSet[0]+"#", agent, "#planDe-"+timestamp, "#goalDe-"+timestamp, "#taskDe-"+timestamp, "#taskObj-"+timestamp, agent,  self.iriSet[0] +"#refersExactlyTo", URIRef(self.iriSet[1] + "#check"),
+        Utils.generateRequest(Utils, reqGraph, iri, self.iriSet[0]+"#", agent, None, "#planDe-"+timestamp, "#goalDe-"+timestamp, "#taskDe-"+timestamp, "#taskObj-"+timestamp, agent,  self.iriSet[0] +"#refersExactlyTo", URIRef(self.iriSet[1] + "#check"),
                               URIRef(self.iriSet[1] + "#installation"), None, timestamp)
         tosend = Utils.libbug(Utils, reqGraph, iri)  # transmits config solving the rdflib bug of xml:base
 
@@ -212,7 +212,7 @@ class Agent(Thread):
         reqGraph.add(
             (agent, URIRef(self.iriSet[0] + "#hasAgentType"), URIRef(self.iriSet[1] + "#agent_device_type")))  # task object
         parameter = URIRef(iri + "#parameter")  # the parameter
-        Utils.generateRequest(Utils, reqGraph, iri, self.iriSet[0]+"#", agent, "#aPlanDe-"+timestamp,"#aGoalDe-"+timestamp, "#aTaskDe-"+timestamp, "#aTaskObj-"+timestamp, agent, self.iriSet[0] +"#refersExactlyTo", URIRef(self.iriSet[1] + "#install"),
+        Utils.generateRequest(Utils, reqGraph, iri, self.iriSet[0]+"#", agent, None, "#aPlanDe-"+timestamp,"#aGoalDe-"+timestamp, "#aTaskDe-"+timestamp, "#aTaskObj-"+timestamp, agent, self.iriSet[0] +"#refersExactlyTo", URIRef(self.iriSet[1] + "#install"),
                               None, parameter, timestamp)
 
 
@@ -259,7 +259,7 @@ class Agent(Thread):
         reqGraph.add(
             (agent, URIRef(self.iriSet[0] + "#hasAgentType"), URIRef(self.iriSet[1] + "#agent_device_type")))  # task object
         reqGraph.add((agent, RDF.type, URIRef(self.iriSet[0] + "#Device")))  # has request
-        Utils.generateRequest(Utils, reqGraph, iri, self.iriSet[0]+"#", agent, "#planDe-"+timestamp,"#goalDe-"+timestamp, "#taskDe-"+timestamp, "#taskObj-"+timestamp, agent, self.iriSet[0] +"#refersExactlyTo", URIRef(self.iriSet[1] + "#uninstall"),
+        Utils.generateRequest(Utils, reqGraph, iri, self.iriSet[0]+"#", agent, None, "#planDe-"+timestamp,"#goalDe-"+timestamp, "#taskDe-"+timestamp, "#taskObj-"+timestamp, agent, self.iriSet[0] +"#refersExactlyTo", URIRef(self.iriSet[1] + "#uninstall"),
                                None, None, timestamp)
 
         tosend = Utils.libbug(Utils, reqGraph, iri)  # transmits config solving the rdflib bug of xml:base
@@ -318,7 +318,7 @@ class Agent(Thread):
             (agent, URIRef(self.iriSet[0] + "#hasType"), URIRef(self.iriSet[1] + "#device_type")))  # task object
         reqGraph.add((agent, RDF.type, URIRef(self.iriSet[0] + "#Device")))  # has request
         parameter = URIRef(iri + "#parameter")  # the parameter
-        Utils.generateRequest(Utils, reqGraph, iri, self.iriSet[0]+"#", agent, "#planDe-"+timestamp,"#goalDe-"+timestamp, "#taskDe-"+timestamp, "#taskObj-"+timestamp, agent, self.iriSet[0] +"#refersExactlyTo", URIRef(self.iriSet[1] + "#update"),
+        Utils.generateRequest(Utils, reqGraph, iri, self.iriSet[0]+"#", agent, None, "#planDe-"+timestamp,"#goalDe-"+timestamp, "#taskDe-"+timestamp, "#taskObj-"+timestamp, agent, self.iriSet[0] +"#refersExactlyTo", URIRef(self.iriSet[1] + "#update"),
                                None, parameter, timestamp)
 
 

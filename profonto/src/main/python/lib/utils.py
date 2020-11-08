@@ -98,13 +98,13 @@ class Utils():
         return execution
 
 
-    def generateExecutionStatus(self, g, requester, execution, status, iri, oasisIRI, oasisaboxIRI, iriassist, timestamp):
+    def generateExecutionStatus(self, g, requester, execution, destination, status, iri, oasisIRI, oasisaboxIRI, iriassist, timestamp):
 
         object = URIRef(iri + "#belief-data-"+timestamp)  # the obj
         parameter = URIRef(iri + "#parameter-"+timestamp)  # the parameter
         operator = URIRef(oasisaboxIRI + "add")  # task operator
 
-        Utils.generateRequest(Utils, g, iri, oasisIRI, URIRef(requester), "#planDe-"+timestamp, "#goalDe-"+timestamp, "#taskDe-"+timestamp, "#taskObDe-"+timestamp, object, oasisIRI+"refersAsNewTo", operator, None, parameter, timestamp)
+        Utils.generateRequest(Utils, g, iri, oasisIRI, URIRef(requester), destination, "#planDe-"+timestamp, "#goalDe-"+timestamp, "#taskDe-"+timestamp, "#taskObDe-"+timestamp, object, oasisIRI+"refersAsNewTo", operator, None, parameter, timestamp)
 
         g.add((URIRef(object), RDF.type, URIRef(oasisIRI + "BeliefDescriptionObject")))
         g.add((URIRef(parameter), RDF.type, URIRef(oasisIRI + "TaskActualInputParameter")))
@@ -139,10 +139,14 @@ class Utils():
 
 
 
-    def generateRequest(self, reqGraph, iri, iriOasis, requester, plan, goal,  taskde, taskobj, object, objectReferProp, operator, argument, parameter, timestamp):
-        
+    def generateRequest(self, reqGraph, iri, iriOasis, requester, destination, plan, goal,  taskde, taskobj, object, objectReferProp, operator, argument, parameter, timestamp):
+
         reqGraph.add((URIRef(iri), RDF.type, OWL.Ontology))
         request = URIRef(iri + plan)  # the request
+        if destination is not None:
+            reqGraph.add((URIRef(iriOasis + "requestedTo"), RDF.type, Utils.owlobj))
+            reqGraph.add((request, URIRef(iriOasis + "requestedTo"), URIRef(destination)))
+
         reqGraph.add((URIRef(iriOasis + "requests"), RDF.type, Utils.owlobj))
         reqGraph.add((URIRef(requester), URIRef(iriOasis + "requests"), request))  # has request
         reqGraph.add((request, RDF.type, URIRef(iriOasis+"PlanDescription")))  # request type
