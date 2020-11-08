@@ -109,7 +109,6 @@ class ProfOnto (Thread):
     def addExecutionStatusToDataBelief(self, executer, execution, status):
         g=Graph()
         sta=URIRef(execution+"-status")
-
         g.add((execution, URIRef(self.oasis + "hasStatus"), sta))
         g.add((URIRef(self.oasis + "hasStatus"), RDF.type, Utils.owlobj))
         g.add((sta, URIRef(self.oasis + "hasStatusType"), URIRef(status)))
@@ -122,9 +121,10 @@ class ProfOnto (Thread):
 
     def transmitExecutionStatus(self, execution, status, addr, sock,  server_socket):
         g=Graph()
-        iri = Utils.retrieveURI(Utils, execution).replace(".owl", "-response.owl")
+        timestamp = Utils.getTimeStamp(Utils)
+        iri = Utils.retrieveURI(Utils, execution).replace(".owl", "-response"+timestamp+".owl")
         iriassist = self.iriassistant  + '#' +self.assistant
-        Utils.generateExecutionStatus(Utils, g, URIRef(iriassist), execution, status, iri, self.oasis, self.oasisabox, iriassist)
+        Utils.generateExecutionStatus(Utils, g, URIRef(iriassist), execution, status, iri, self.oasis, self.oasisabox, iriassist, timestamp)
         res=Utils.serverTransmit(Utils, g.serialize(format='pretty-xml'), sock, addr,  server_socket)
         server_socket.close()
         self.addExecutionStatusToDataBelief(iriassist, execution, status)
@@ -162,23 +162,15 @@ class ProfOnto (Thread):
 
 
 
-    def device_engage(self, graph, execution):
+    def device_engage(self, graph, iri, execution, timestamp):
         #for s,p,o in graph.triples( (None,None,None) ):
             #print(s,p,o)
         toreturn = Graph()
-        timestamp = Utils.getTimeStamp(Utils)
-        iri = str(self.iriassistant).rsplit('.', 1)[0] + "-request" + timestamp + ".owl"
         iriassist = self.iriassistant + '#' + self.assistant
         taskObj=next(graph.objects(subject=None, predicate=URIRef( self.oasis + "performsEntrustment")))
-
         Utils.generateRequest(Utils, toreturn, iri, self.oasis, iriassist,
-                              "#planDe","#goalDe","#taskDe", "#taskOb", URIRef(taskObj), URIRef(self.oasis+"refersExactlyTo"),
-                                     URIRef(self.oasisabox+"perform"), None,None)
-
-        #add the execution info
-        self.profonto.addDataRequest(toreturn.serialize(format='xml').decode())
-
-
+                              "#planDe-"+timestamp,"#goalDe-"+timestamp,"#taskDe-"+timestamp, "#taskOb-"+timestamp, URIRef(taskObj), URIRef(self.oasis+"refersExactlyTo"),
+                                     URIRef(self.oasisabox+"perform"), None,None, timestamp)
         devip=next(graph.objects(subject=None, predicate=URIRef( self.oasis + "hasIPAddress")))
         devport=next(graph.objects(subject=None, predicate=URIRef( self.oasis + "hasPortNumber")))
         value=100
@@ -194,19 +186,17 @@ class ProfOnto (Thread):
                 value=v
                 break
 
-        g = Graph()
-        g.add((URIRef(iriassist), URIRef(self.oasis + "performs"), URIRef(execution)))
-        g.add((URIRef(self.oasis + "performs"), RDF.type, Utils.owlobj))
-        self.profonto.addDataBelief(g.serialize(format='xml').decode())
+
+
 
         print("To engage:", performer, taskObject, value, taskOperator, devip, devport)
-        toreturn=(toreturn +graph).serialize(format='xml')
+        toret=(toreturn +graph).serialize(format='xml')
         client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         client_socket.connect((devip, int(devport)))
-        client_socket.send(toreturn)
+        client_socket.send(toret)
         message = Utils.recvall(Utils, client_socket)
         client_socket.close()
-        return message
+        return message, toreturn
 
 
     # Actions that the assistant performs
@@ -218,7 +208,6 @@ class ProfOnto (Thread):
             res=0
             if actions == URIRef(self.oasisabox + "install"):
                 file =  self.getOntologyFile(graph, execution)
-                print(file)
                 value =  self.profonto.addDevice(file)  # read the device data
                 if value == None or value=="":
                     print ("A device cannot be added")
@@ -383,21 +372,35 @@ class ProfOnto (Thread):
                         self.profhome_decide(g, execution, addr, sock, server_socket)
 
                     else:
-                       message =  self.device_engage(g, execution)
+                       timestamp = Utils.getTimeStamp(Utils)
+                       iri = str(self.iriassistant).rsplit('.', 1)[0] + "-request" + timestamp + ".owl"
+                       message, reqG =  self.device_engage(g, iri, execution, timestamp)
                        Utils.serverTransmit(Utils, message, sock, addr, server_socket)
-                       belief =  self.profonto.parseRequest(message.decode())[0]
+                       belief =  self.profonto.parseRequest(message.decode())[0]  #direct request
                        entrust_status=URIRef(self.oasisabox + "failed_status_type")
                        if belief == None:
                           print("A belief from " + execution + " cannot be added")
                        else:
                           entrust_status = URIRef(self.oasisabox + "succeded_status_type")
+                       s = Graph()
+                       #original request status and perform
+                       Utils.addPerformInfo(Utils, s, self.oasis, executer, execution)
+                       self.profonto.addDataBelief(s.serialize(format='xml').decode())
                        self.addExecutionStatusToDataBelief(executer, execution, entrust_status)
-                       # stessa cosa per la richiesta di ingaggio
-                       #thebg = Utils.getGraph(Utils, message)
-                       #message = self.extractStatusInfo(thebg)
-                       #self.profonto.addDataBelief(message.serialize(format='xml').decode())
-                       #al posto delle tre sopra fare un update belief.
+                       #engagement request status and perform
+                       ex=Utils.addExecutionGraph(Utils, reqG, self.oasis, iri, executer)
+                       self.profonto.addDataRequest(reqG.serialize(format='xml').decode())
+                       s = Graph()
+                       Utils.addPerformInfo(Utils, s, self.oasis, executer, ex)
+                       self.addExecutionStatusToDataBelief(executer, ex, entrust_status)
+                       #belief update solo request status and perform
+                       s = Utils.getGraph(Utils, message)
+                       ex = next(s.subjects(RDF.type, URIRef(self.oasis + "TaskExecution")))
+                       Utils.addPerformInfo(Utils, s, self.oasis, URIRef(self.iriassistant + '#' + self.assistant), ex)
+                       self.addExecutionStatusToDataBelief(URIRef(self.iriassistant + '#' + self.assistant), ex, entrust_status)
                        print("Engagement status: ", entrust_status)
+
+
 
 
     def extractStatusInfo(self, belief):
