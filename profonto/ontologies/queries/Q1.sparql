@@ -1,8 +1,12 @@
-SELECT DISTINCT ?plan ?goal ?task ?taskObject  ?referObj ?taskObElement ?obPropType ?taskObElementType ?taskOpElement ?taskOpArgElement ?referInp ?taskInpElement ?aInpProp ?aInpValue ?inpPropType ?taskInpElementType ?referOut ?taskOutElement ?aOutProp ?aOutValue ?outPropType ?taskOutElementType
+SELECT DISTINCT ?plan ?destination ?goal ?task ?taskObject  ?referObj ?taskObElement ?obPropType ?taskObElementType ?taskOpElement ?taskOpArgElement ?referInp ?taskInpElement ?aInpProp ?aInpValue ?inpPropType ?taskInpElementType ?referOut ?taskOutElement ?aOutProp ?aOutValue ?outPropType ?taskOutElementType
 WHERE
-{
-   ?requester  oasis:requests ?plan.
+{   
+   ?requester  oasis:requests ?plan.   
    ?plan a oasis:PlanDescription.
+   OPTIONAL{
+      ?plan oasis:requestedTo ?destination.
+   }
+   ?plan oasis:consistsOfGoalDescription ?goal.
    ?goal oasis:consistsOfTaskDescription ?task .
 
    ?task oasis:hasTaskObject ?taskObject .   

@@ -1,4 +1,4 @@
-?agent oasis:hasConfiguration ?conconf .
+//agent// oasis:hasConfiguration ?conconf .
 ?conconf oasis:hasConnection ?aconnect .
 ?conconf rdf:type owl:NamedIndividual .
 ?aconnect rdf:type owl:NamedIndividual .

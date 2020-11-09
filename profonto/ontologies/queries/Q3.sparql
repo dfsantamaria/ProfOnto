@@ -3,7 +3,7 @@ WHERE
 {  
   {
    #Agent exploiting behavior template
-   ?agent oasis:adoptsAgentBehaviorTemplate ?behavt.
+   //agent// oasis:adoptsAgentBehaviorTemplate ?behavt.
    ?behavt a oasis:AgentBehaviorTemplate.
    ?behavt oasis:hasBehavior ?behav. 
    ?behav oasis:consistsOfGoalDescription ?goald.
@@ -14,16 +14,16 @@ WHERE
   {
    {
     #Agent exploiting behavior template by implementing single behavior
-    ?agent oasis:hasBehavior ?behavt.
+    //agent// oasis:hasBehavior ?behavt.
     ?behavt oasis:implementsBehavior ?behav.     
    }
    UNION
    {
     #Agent non exploiting behavior template
-    ?agent oasis:hasBehavior ?behav.  
+    //agent// oasis:hasBehavior ?behav.  
     FILTER NOT EXISTS
     {
-     ?agent a oasis:AgentBehaviorTemplate.
+     //agent// a oasis:AgentBehaviorTemplate.
     }  
    }
    ?behav oasis:consistsOfGoalDescription ?goald.

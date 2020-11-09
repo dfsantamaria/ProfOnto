@@ -268,6 +268,15 @@ public class test
           writeDown("userAddBeliefRequest", out);             
     }
     
+   
+    @Test
+    @Order(10)
+    public void testDirectParseInstallDeviceRequest()
+    {      
+          ByteArrayInputStream request=readData("ontologies/test/direct-install-request-test.owl");  
+          String out=toStringOntology(ontocore.parseRequest(request))[0];
+          writeDown("directInstallDeviceRequest", out);       
+    }
     
     @AfterClass
     public static void delFiles()

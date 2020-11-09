@@ -1,5 +1,5 @@
 {
-?agent oasis:hasConfiguration ?custConf.
+//agent// oasis:hasConfiguration ?custConf.
 }
 UNION
 {

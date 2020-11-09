@@ -7,6 +7,6 @@ UNION
 }
 OPTIONAL #actuator
 {
- ?agent oasis:settles ?actuator.
+ //agent// oasis:settles ?actuator.
  ?actuator oasis:adoptsActuatorTemplate ?taskoElem.
 }

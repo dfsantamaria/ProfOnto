@@ -31,6 +31,7 @@ import org.apache.jena.query.ResultSet;
 import org.apache.jena.query.ResultSetFormatter;
 import org.apache.jena.rdf.model.Literal;
 import org.apache.jena.rdf.model.RDFNode;
+import org.junit.jupiter.api.parallel.Execution;
 import org.semanticweb.owlapi.formats.OWLXMLDocumentFormat;
 import org.semanticweb.owlapi.model.AddImport;
 import org.semanticweb.owlapi.model.IRI;
@@ -1761,47 +1762,58 @@ public class Profonto extends OntologyCore
     
     
     
-    public String createEntrustmentGraph(List<QuerySolution> query, String base, 
-             String planExecution, String goalExecution, String taskexec, String goald, String taskd)
-    {
-        System.out.println("-----------------");
-        
+    public String createExecEntrustGraph(List<QuerySolution> query, String base, 
+             String planExecution, String goalExecution, String taskexec, String goald, String taskd, String destination)
+    {               
        String ret="";
-       String plan="<"+base+"_planEntrustment"+">";
-       String goal="<"+base+"_goalEntrustment"+">";
-       String task="<"+base+"_taskEntrustment"+">";
-        
-              
-       ret+=plan+" a oasis:PlanEntrustment.\n";
-       ret+=goal+" a oasis:GoalEntrustment.\n";
-       ret+=task+" a oasis:TaskEntrustment.\n";
        
        ret+=planExecution+" a oasis:PlanExecution.\n";
        ret+=goalExecution+" a oasis:GoalExecution.\n";
        ret+=taskexec+" a oasis:TaskExecution.\n";
        ret+=planExecution+ " oasis:consistsOfGoalExecution "+goalExecution+" .\n";
        ret+=goalExecution+ " oasis:consistsOfTaskExecution "+taskexec+" .\n";
-                    
-       
-       ret+="<"+this.getAssistantIRI()+">"+" oasis:performsEntrustment "+plan+". \n";
-       ret+=plan+" oasis:consistsOfGoalEntrustment "+goal+". \n";
-       ret+=goal+" oasis:consistsOfTaskEntrustment "+task+". \n";       
-        
        ret+=goald +"  oasis:hasGoalExecution " +goalExecution+" .\n";
        ret+=taskd +"  oasis:hasTaskExecution " +goalExecution+" .\n";
-       ret+=goal+" oasis:entrustedWith "+goalExecution+" .\n";
-       ret+=goal+" oasis:entrustedFrom ?goald .\n";       
-       ret+=goal+" oasis:entrustedBy "+"<"+query.get(0).getResource("goal").getURI() +"> .\n";
-       ret+=goal+" oasis:entrusts "+" ?agent .\n";
+       if(destination==null)
+       {
+         String plan="<"+base+"_planEntrustment"+">";
+         String goal="<"+base+"_goalEntrustment"+">";
+         String task="<"+base+"_taskEntrustment"+">";        
+              
+         ret+=plan+" a oasis:PlanEntrustment.\n";
+         ret+=goal+" a oasis:GoalEntrustment.\n";
+         ret+=task+" a oasis:TaskEntrustment.\n";  
+        
+         ret+="<"+this.getAssistantIRI()+">"+" oasis:performsEntrustment "+plan+". \n";
+         ret+=plan+" oasis:consistsOfGoalEntrustment "+goal+". \n";
+         ret+=goal+" oasis:consistsOfTaskEntrustment "+task+". \n";       
+        
+         ret+=goal+" oasis:entrustedWith "+goalExecution+" .\n";
+         ret+=goal+" oasis:entrustedFrom ?goald .\n";       
+         ret+=goal+" oasis:entrustedBy "+"<"+query.get(0).getResource("goal").getURI() +"> .\n";
+         ret+=goal+" oasis:entrusts "+" ?agent .\n";
        
-       ret+=task+" oasis:entrustedWith "+taskexec+" .\n";
-       ret+=task+" oasis:entrustedFrom ?taskd .\n";
-       ret+=task+" oasis:entrustedBy "+"<"+query.get(0).getResource("task").getURI() +"> .\n";
-       ret+=task+" oasis:entrusts "+" ?agent .\n";      
-       
+         ret+=task+" oasis:entrustedWith "+taskexec+" .\n";
+         ret+=task+" oasis:entrustedFrom ?taskd .\n";
+         ret+=task+" oasis:entrustedBy "+"<"+query.get(0).getResource("task").getURI() +"> .\n";
+         ret+=task+" oasis:entrusts "+" ?agent .\n";    
+       }
+       else
+       {
+         ret+=destination+ " oasis:performs "+ taskexec+" .\n";
+       }    
        return ret;
     }
     
+    
+    public String replaceDestination(String q, String d)
+    {
+      if(d==null)
+      {
+        return q.replaceAll("//agent//", "?agent");
+      }
+      return q.replaceAll("//agent//", d);
+    }
     
     /**
      * Returns the set of axioms concerning the execution of the given request
@@ -1851,13 +1863,21 @@ public class Profonto extends OntologyCore
           //      System.out.println(q);
        //   this.getDataBehaviorOntology().importsClosure().forEach(o->ontology.addAxioms(o.axioms()));
           //finding compatible agents
+          String destination = null;
+          if(sub11QL.get(0).getResource("destination")!=null)
+            {
+               destination= sub11QL.get(0).getResource("destination").getURI().toString();              
+               if(!destination.equals(this.getAssistantIRI()))
+                   return toreturn;
+               destination ="<"+this.getAssistantIRI()+">";                      
+            }
           String execName = sub11QL.get(0).getResource("plan").getLocalName();
           String execNameSpace = sub11QL.get(0).getResource("plan").getNameSpace();
           String goald = "<"+ sub11QL.get(0).getResource("goal").getURI().toString()+">";
           String taskd = "<"+ sub11QL.get(0).getResource("task").getURI().toString()+">";
           Stream<OWLAxiom> axiomToAdd=Stream.empty();
           //customizing the construct header
-          String construct=this.getQueries().get("C1.sparql");         
+          String construct=this.replaceDestination(this.getQueries().get("C1.sparql"), destination);         
           String taskexec= "<"+execNameSpace+execName+"_taskExecution"+">";
           String planexec= "<"+execNameSpace+execName+"_planExecution"+">";
           String goalexec= "<"+execNameSpace+execName+"_goalExecution"+">";
@@ -1868,7 +1888,7 @@ public class Profonto extends OntologyCore
                              
         
           
-          subquery = this.getQueries().get("Q3.sparql");
+          subquery = replaceDestination(this.getQueries().get("Q3.sparql"), destination);
          
           //filtering by task operator matched with the request        
           String theTaskOpElement="<"+sub11QL.get(0).getResource("taskOpElement").getURI()+">";
@@ -1909,7 +1929,7 @@ public class Profonto extends OntologyCore
            }
            
           //matching task object 
-          subquery+=this.getQueries().get("Q5.sparql");
+          subquery+=this.replaceDestination(this.getQueries().get("Q5.sparql"), destination);
           //matching the task objectType
           String obelemType=this.getDistincElemInQuerySetAsString(sub11QL, "taskObElementType");
           
@@ -1949,15 +1969,14 @@ public class Profonto extends OntologyCore
            construct3+=getTriplesFromQueryMatch(sub11QL,execInpParamElem,"aInpProp","aInpValue");                     
            construct=construct+construct3;
           }
-          construct=createEntrustmentGraph(sub11QL,execNameSpace+execName, planexec, goalexec, taskexec, goald, taskd)+construct;
+          construct=createExecEntrustGraph(sub11QL,execNameSpace+execName, planexec, goalexec, taskexec, goald, taskd, destination)+construct;
           //matching agent/actuator configuration
           execQ = this.createQuery(ontology, prefix + this.getQueries().get("Q2.sparql"));
-          resultSet = execQ.execSelect();
-          this.getQueries().get("Q8.sparql");
+          resultSet = execQ.execSelect();          
           sub11QL=ResultSetFormatter.toList(resultSet); 
           if(sub11QL.size()>0)
           {         
-          String subConf=this.getQueries().get("Q8.sparql").replaceAll("//theobject//",theobject);
+          String subConf=this.replaceDestination(this.getQueries().get("Q8.sparql"), destination).replaceAll("//theobject//",theobject);
           subquery+=subConf;          
           for(int i=0; i<sub11QL.size();i++)
           {
@@ -1968,11 +1987,11 @@ public class Profonto extends OntologyCore
           }
                   
           //connection information
-          subquery+=this.getQueries().get("Q9.sparql");                
+          subquery+=this.replaceDestination(this.getQueries().get("Q9.sparql"), destination);                
          
-          construct+=this.getQueries().get("C4.sparql");
+          construct+=this.replaceDestination(this.getQueries().get("C4.sparql"), destination);
           subquery = prefix + "CONSTRUCT { "+construct +"}\n" +  subquery + "}"; 
-         // System.out.println(subquery);         
+          //System.out.println(subquery);         
          // execQ = this.createQuery(this.getDataBehaviorOntology(), subquery);
         //  resultSet = execQ.execSelect();
         //  List<QuerySolution> sub2QL=ResultSetFormatter.toList(resultSet);           
