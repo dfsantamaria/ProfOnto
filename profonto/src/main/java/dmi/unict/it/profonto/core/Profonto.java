@@ -1976,7 +1976,7 @@ public class Profonto extends OntologyCore
           sub11QL=ResultSetFormatter.toList(resultSet); 
           if(sub11QL.size()>0)
           {         
-          String subConf=this.replaceDestination(this.getQueries().get("Q8.sparql"), destination).replaceAll("//theobject//",theobject);
+          String subConf=this.replaceDestination(this.getQueries().get("Q9.sparql"), destination).replaceAll("//theobject//",theobject);
           subquery+=subConf;          
           for(int i=0; i<sub11QL.size();i++)
           {
@@ -1987,9 +1987,9 @@ public class Profonto extends OntologyCore
           }
                   
           //connection information
-          subquery+=this.replaceDestination(this.getQueries().get("Q9.sparql"), destination);                
+          subquery+=this.replaceDestination(this.getQueries().get("Q10.sparql"), destination);                
          
-          construct+=this.replaceDestination(this.getQueries().get("C4.sparql"), destination);
+          construct+=this.replaceDestination(this.getQueries().get("C5.sparql"), destination);
           subquery = prefix + "CONSTRUCT { "+construct +"}\n" +  subquery + "}"; 
           //System.out.println(subquery);         
          // execQ = this.createQuery(this.getDataBehaviorOntology(), subquery);

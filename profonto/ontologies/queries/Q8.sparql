@@ -1,8 +1,18 @@
 {
-//agent// oasis:hasConfiguration ?custConf.
+?taskd oasis:hasTaskFormalOuputParameter ?taskOutParam.
 }
 UNION
 {
-  //theobject// oasis:hasConfiguration ?custConf.
+?taskd oasis:hasTaskOutputParameterTemplate ?taskOutParam.	
 }
-?custConf oasis:setsUp ?subConf.
+
+{
+?taskOutParam oasis:refersExactlyTo ?taskOutElem .
+}
+UNION
+{
+?taskOutParam oasis:refersAsNewTo ?taskOutElem .	
+}
+
+?taskOutElem ?aOutProp ?aOutPropValue.
+VALUES ?aOutProp {//list1//}
