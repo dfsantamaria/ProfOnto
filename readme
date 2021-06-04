@@ -189,7 +189,12 @@ USING OASIS - Ontology Smart Contract Utility.
        - The string representing the content of the query.
        - The Token ID of the previous version of the ontology as BigInteger. If there is no previous version, use the BigInteger 0.
       You will receive the hash of the transaction. Wait for it to be completed.
-   4) Use the function getTokenInfo to retrieve the IPFS url of the ontology and of the query. Use as parameter the BigInteger representing the token ID.
+   4) Use the function getTokenInfo to retrieve the IPFS url of the ontology and of the query. Use as parameter the BigInteger representing the token ID. You will receive as output an 
+     array of strings containing:
+     -String[0]: The IPFS CID of the ontology.
+     -String[1]: The IPFS CID of the query.
+     -String[2]: The token ID of the previous version.
+       
    5) Use the function burn to destroy the token, using as parameter the token ID to be destroyed.
    6) Use the function transferToken to transfer a token to another wallet. Use the following parameters:
         -The wallet address of the current owner.
